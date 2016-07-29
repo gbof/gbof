@@ -37,5 +37,10 @@ public class LinkNavigation {
 	public ModelAndView changePassword() {
 		return new ModelAndView("change-password");
 	}
+	
+	@RequestMapping(value="/inside", method=RequestMethod.GET)
+	public ModelAndView insidePage() {
+		return new ModelAndView("inside");
+	}
 
 }
