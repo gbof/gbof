@@ -42,5 +42,9 @@ public class LinkNavigation {
 	public ModelAndView insidePage() {
 		return new ModelAndView("inside");
 	}
+	@RequestMapping(value="/test", method=RequestMethod.GET)
+	public ModelAndView testPage() {
+		return new ModelAndView("test");
+	}
 
 }
