@@ -15,7 +15,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer user_id;
 	
 	private String login;
 	
@@ -23,17 +23,17 @@ public class User {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinTable(name="user_roles",
-		joinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")},
+		joinColumns = {@JoinColumn(name="user_id", referencedColumnName="user_id")},
 		inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")}
 	)
 	private Role role;
 
 	public Integer getId() {
-		return id;
+		return user_id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getLogin() {

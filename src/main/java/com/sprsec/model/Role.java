@@ -24,7 +24,7 @@ public class Role {
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="user_roles", 
 		joinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")},
-		inverseJoinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")}
+		inverseJoinColumns = {@JoinColumn(name="user_id", referencedColumnName="user_id")}
 	)
 	private Set<User> userRoles;
 
