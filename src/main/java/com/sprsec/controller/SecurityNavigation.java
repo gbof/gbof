@@ -10,12 +10,12 @@ public class SecurityNavigation {
 	
 	@RequestMapping(value="/user-login", method=RequestMethod.GET)
 	public ModelAndView loginForm() {
-		return new ModelAndView("login-form");
+		return new ModelAndView("home");
 	}
 	
 	@RequestMapping(value="/error-login", method=RequestMethod.GET)
 	public ModelAndView invalidLogin() {
-		ModelAndView modelAndView = new ModelAndView("login-form");
+		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("error", true);
 		return modelAndView;
 	}

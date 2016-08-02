@@ -8,7 +8,11 @@
 		<style>
        		<%@include file="/web-resources/css/login.css" %>
 		</style>
-	
+			<style>
+.error {
+	color: red;
+}
+</style>
 </head>
 <body>
 
@@ -16,23 +20,27 @@
 		Great Balls Of Fire
 	</h1>
 	
-	
 	<!-- LOGIN FORM -->
 	<div class="text-center" style="padding:50px 0">
 		<div class="logo">login</div>
 		<!-- Main Form -->
+<p>
+<c:if test="${error == true}">
+	<b class="error">Invalid login or password.</b>
+</c:if>
+</p>
 		<div class="login-form-1">
-			<form id="login-form" class="text-left">
+			<form id="login-form" class="text-left" method="post" action="<c:url value='j_spring_security_check'/>" >
 				<div class="login-form-main-message"></div>
 				<div class="main-login-form">
 					<div class="login-group">
 						<div class="form-group">
 							<label for="lg_username" class="sr-only">Username</label>
-							<input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username">
+							<input type="text" name="j_username" id="j_username"size="30" maxlength="40"  />
 						</div>
 						<div class="form-group">
 							<label for="lg_password" class="sr-only">Password</label>
-							<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
+							<input type="password" name="j_password" id="j_password"size="30" maxlength="40"  />
 						</div>
 					</div>
 					<button type="submit" class="login-button"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
