@@ -23,7 +23,7 @@ public class SecurityNavigation {
 	
 	@RequestMapping(value="/success-login", method=RequestMethod.GET)
 	public ModelAndView successLogin() {
-		return new ModelAndView("success-login");
+		return new ModelAndView("inside");
 	}
 
 }

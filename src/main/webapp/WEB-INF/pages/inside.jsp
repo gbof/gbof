@@ -26,25 +26,10 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">			
-			<form class="navbar-form navbar-left" method="GET" role="search">
-				<div class="form-group">
-					<input type="text" name="q" class="form-control" placeholder="Search">
-				</div>
-				<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="http://www.pingpong-labs.com" target="_blank">Visit Site</a></li>
-				<li class="dropdown ">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						Account
-						<span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li class="dropdown-header">SETTINGS</li>
-							<li class=""><a href="#">Other Link</a></li>
-							<li class=""><a href="#">Other Link</a></li>
-							<li class=""><a href="#">Other Link</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Logout</a></li>
+				<li><a>Your balls: 20</a></li>
+				<li><a href="<c:url value="/j_spring_security_logout" />" >Logout</a></li>
+						 <br/>
 						</ul>
 					</li>
 				</ul>
@@ -67,30 +52,54 @@
                     Pracownicy
                 </div>
                 <div class="panel-body">
-                    <div class="container">          
-					  <table class="table table-hover">
+                    <div class="container col-md-12">          
+					  <table class="table table-hover col-md-12">
 					    <thead>
 					      <tr>
-					        <th>Firstname</th>
-					        <th>Lastname</th>
-					        <th>Email</th>
+					      	<th>Add balls</th>
+					      	<th>Name</th>
+					        <th>Surname</th>
+					        <th>Login</th>
+					        <th>Team</th>
+					        <th>Balls</th>
 					      </tr>
 					    </thead>
 					    <tbody>
 					      <tr>
+					      	<td>
+						    	<div class="checkbox">
+									<label><input type="checkbox" value=""></label>
+								</div>
+							</td>
 					        <td>John</td>
 					        <td>Doe</td>
-					        <td>john@example.com</td>
+					        <td>jdoe</td>
+					        <td>PROSTO</td>
+					        <td>1</td>
 					      </tr>
 					      <tr>
+					      	<td>
+						     	<div class="checkbox">
+									<label><input type="checkbox" value=""></label>
+								</div>
+							</td>
 					        <td>Mary</td>
 					        <td>Moe</td>
-					        <td>mary@example.com</td>
+					        <td>mmoe</td>
+					        <td>KRZYWO</td>
+					        <td>8</td>
 					      </tr>
 					      <tr>
+					      	<td>
+						     	<div class="checkbox">
+									<label><input type="checkbox" value=""></label>
+								</div>
+					      	</td>
 					        <td>July</td>
 					        <td>Dooley</td>
-					        <td>july@example.com</td>
+					        <td>jdoo</td>
+					        <td>CYCLON</td>
+					        <td>12</td>
 					      </tr>
 					    </tbody>
 					  </table>
@@ -99,10 +108,7 @@
             </div>
 		</div>
 		<footer class="pull-left footer">
-			<p class="col-md-12">
-				<hr class="divider">
-				Copyright GBOF <a href="http://www.pingpong-labs.com"></a>
-			</p>
+
 		</footer>
 	</div>
 

@@ -8,11 +8,11 @@
 		<style>
        		<%@include file="/web-resources/css/login.css" %>
 		</style>
-			<style>
-.error {
-	color: red;
-}
-</style>
+		<style>
+			.error {
+				color: red;
+			}
+		</style>
 </head>
 <body>
 
@@ -24,32 +24,29 @@
 	<div class="text-center" style="padding:50px 0">
 		<div class="logo">login</div>
 		<!-- Main Form -->
-<p>
-<c:if test="${error == true}">
-	<b class="error">Invalid login or password.</b>
-</c:if>
-</p>
+		<p>
+		<c:if test="${error == true}">
+			<b class="error">Invalid login or password.</b>
+		</c:if>
+		</p>
 		<div class="login-form-1">
 			<form id="login-form" class="text-left" method="post" action="<c:url value='j_spring_security_check'/>" >
 				<div class="login-form-main-message"></div>
 				<div class="main-login-form">
 					<div class="login-group">
 						<div class="form-group">
-							<label for="lg_username" class="sr-only">Username</label>
-							<input type="text" name="j_username" id="j_username"size="30" maxlength="40"  />
+							<label for="j_username" class="sr-only">Username</label>
+							<input type="text" name="j_username" id="j_username" size="25" maxlength="40"  />
 						</div>
 						<div class="form-group">
-							<label for="lg_password" class="sr-only">Password</label>
-							<input type="password" name="j_password" id="j_password"size="30" maxlength="40"  />
+							<label for="j_password" class="sr-only">Password</label>
+							<input type="password" name="j_password" id="j_password" size="25" maxlength="40"  />
 						</div>
 					</div>
 					<button type="submit" class="login-button"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
 				</div>
 				<div class="etc-login-form">
 					<p>forgot your password? <a href="#">click here</a></p>
-				</div>
-				<div class="etc-login-form">
-					<p>to go further <a href="${pageContext.request.contextPath}/inside.html">click here</a></p>
 				</div>
 			</form>
 		</div>
