@@ -29,12 +29,13 @@ public class User {
 	@JoinColumn(name="balls_id", referencedColumnName="balls_id")
 	private Ball ball;
 	
-	/*@OneToMany(mappedBy="user")
+	@OneToMany
+	@JoinColumn(name="user_id", referencedColumnName="user_id")
 	private Set<Comment> comment;
 
 	@ManyToOne
 	@JoinColumn(name="dept_id", referencedColumnName="dept_id")
-	private Department dept;*/
+	private Department dept;
 	
 	@ManyToOne
 	@JoinColumn(name="team_id", referencedColumnName="team_id")
@@ -88,7 +89,7 @@ public class User {
 		this.ball = ball;
 	}
 	
-	/*public Set<Comment> getComment(){
+	public Set<Comment> getComment(){
 		return comment;
 	}
 	
@@ -102,7 +103,7 @@ public class User {
 	
 	public void setDept(Department dept){
 		this.dept = dept;
-	}*/
+	}
 	
 	public Team getTeam(){
 		return team;
