@@ -29,7 +29,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public Customer getCustomer(String name) {
 		List<Customer> customerList = new ArrayList<Customer>();
 		logger.info("name: " + name);
-		Query query = openSession().createQuery("from User u where u.name = :name");
+		Query query = openSession().createQuery("from customer c where u.customer = :name");
 		query.setParameter("name", name);
 		customerList = query.list();
 		if (customerList.size() > 0)
@@ -37,6 +37,19 @@ public class CustomerDAOImpl implements CustomerDAO {
 		else
 			return null;	
 	}
-
+	
+	public List<Customer> getAllCustomer() {
+		List<Customer> customerList = new ArrayList<Customer>();
+		
+		String sql = "from Customer";
+		Query query = openSession().createQuery(sql);
+		
+		customerList = query.list();
+		if (customerList.size() > 0)
+			return customerList;
+		else
+			return null;	
+	}
+	
 }
 

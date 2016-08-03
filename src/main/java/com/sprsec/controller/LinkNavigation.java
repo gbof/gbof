@@ -1,12 +1,21 @@
 package com.sprsec.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sprsec.model.Customer;
+import com.sprsec.service.CustomerService;
+
+
 @Controller
 public class LinkNavigation {
+	@Autowired
+	private CustomerService cs;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView homePage() {
@@ -40,11 +49,16 @@ public class LinkNavigation {
 	
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
 	public ModelAndView insidePage() {
-		return new ModelAndView("inside");
+		return new ModelAndView("inside2");
 	}
+	
 	@RequestMapping(value="/test", method=RequestMethod.GET)
 	public ModelAndView testPage() {
-		return new ModelAndView("test");
+		List<Customer> list = cs.getAllCustomer();
+		ModelAndView lista = new ModelAndView();
+		lista.addObject("list", list);
+		lista.setViewName("test");
+		return lista;
 	}
 
 }

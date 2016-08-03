@@ -2,17 +2,15 @@ package com.sprsec.model;
 
 
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
 
 @Entity
-@Table(name="customers")
+@Table(name="CUSTOMERS")
 
 public class Customer {
 	@Id
@@ -23,7 +21,7 @@ public class Customer {
 	
 	private Integer age;
 	
-	private String adress;
+	private String address;
 	
 	private Double salary ;
 	
@@ -51,12 +49,12 @@ public class Customer {
 		this.age = age;
 	}
 	
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public Double getSalary(){
 		return salary;

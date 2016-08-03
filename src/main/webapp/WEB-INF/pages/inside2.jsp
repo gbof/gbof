@@ -30,7 +30,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">			
 			<ul class="nav navbar-nav navbar-right">
-				<li><a>Your balls: 20</a></li>
+				<li><a>Your balls: 50</a></li>
 				<li><a href="<c:url value="/j_spring_security_logout" />" >Logout</a></li>
 						 <br/>
 						</ul>
@@ -45,8 +45,7 @@
 				<li class="active"><a href="#">Home</a></li>
 				<li><a href="#">Link</a></li>
 				<li><a href="#">Link</a></li>
-				<li><a href="#">Link</a></li>
-				<li><a href="#">Link</a></li>
+				
 			</ul>
 		</div>
 		<div class="col-md-10 content">
@@ -69,6 +68,21 @@
 					    </thead>
 					    <tbody>
 					    
+					    
+					    <c:forEach var="user" items="${list}">
+					    <tr>
+					    <td>
+						    	<div class="checkbox">
+									<label><input type="checkbox" value=""></label>
+								</div>
+							</td>
+					          
+					          <td><c:out value="${user.id}" /></td>
+					          <td><c:out value="${user.name}" /></td>
+					          <td><c:out value="${user.age}" /></td>
+					          <td><c:out value="${user.address}" /></td>
+					          </tr>
+            			</c:forEach>
 					      <tr>
 					      	<td>
 						    	<div class="checkbox">
