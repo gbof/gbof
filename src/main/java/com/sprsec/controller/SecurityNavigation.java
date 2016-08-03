@@ -1,29 +1,45 @@
 package com.sprsec.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sprsec.model.Role;
+import com.sprsec.service.UserService;
+
 @Controller
 public class SecurityNavigation {
-	
-	@RequestMapping(value="/user-login", method=RequestMethod.GET)
+	@Autowired
+	private UserService service;
+
+	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
 		return new ModelAndView("home");
 	}
-	
-	@RequestMapping(value="/error-login", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/error-login", method = RequestMethod.GET)
 	public ModelAndView invalidLogin() {
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("error", true);
 		return modelAndView;
 	}
-	
-	
-	@RequestMapping(value="/success-login", method=RequestMethod.GET)
-	public ModelAndView successLogin() {
-		return new ModelAndView("inside");
-	}
 
+	@RequestMapping(value = "/success-login", method = RequestMethod.GET)
+	public ModelAndView successLogin() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		System.out.println("====" + userName);
+		Role role = service.getUser(userName).getRole();
+		System.out.println("====" + role.getRole());
+		if (role.getRole().equals("admin"))
+			return new ModelAndView("admin-first");
+		else if (role.getRole().equals("moderator"))
+			return new ModelAndView("moderation");
+		else
+			return new ModelAndView("inside");
+	}
 }
