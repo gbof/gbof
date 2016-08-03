@@ -31,7 +31,7 @@ public class User {
 	
 	private String surname;
 	
-	private Integer team_id;
+
 	
 	
 	

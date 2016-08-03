@@ -83,7 +83,8 @@
 					          <td><c:out value="${user.name}" /></td>
 					          <td><c:out value="${user.surname}" /></td>
 					          <td><c:out value="${user.login}" /></td>
-					          <td><c:out value="${user.getRole().getRole()}" /></td>
+					          <td><c:out value="${user.getTeam().getName()}" /></td>
+					          <td><c:out value="${user.getBall().getReceivedBalls()}" /></td>
 					          
 					      </tr>
             			</c:forEach>
