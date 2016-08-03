@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
 
+import com.sprsec.model.Customer;
 import com.sprsec.model.User;
 
 @Repository
@@ -38,4 +39,16 @@ public class UserDAOImpl implements UserDAO {
 			return null;	
 	}
 
+	public List<User> getAllUsers() {
+		List<User> usersList = new ArrayList<User>();
+		
+		String sql = "from User";
+		Query query = openSession().createQuery(sql);
+		
+		usersList = query.list();
+		if (usersList.size() > 0)
+			return usersList;
+		else
+			return null;	
+	}
 }

@@ -25,6 +25,16 @@ public class User {
 	
 	private String password;
 	
+	private String mail;
+	
+	private String name;
+	
+	private String surname;
+	
+	private Integer team_id;
+	
+	
+	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="balls_id", referencedColumnName="balls_id")
 	private Ball ball;
@@ -79,6 +89,27 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 
 
 	public Ball getBall(){

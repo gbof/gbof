@@ -1,6 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-  
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page session="false" %>
 <html>
 <head>
@@ -68,57 +73,24 @@
 					    </thead>
 					    <tbody>
 					    
-					    
-					    <c:forEach var="user" items="${list}">
+					      <c:forEach var="user" items="${listt}">
 					    <tr>
 					    <td>
 						    	<div class="checkbox">
 									<label><input type="checkbox" value=""></label>
 								</div>
 							</td>
-					          
-					          <td><c:out value="${user.id}" /></td>
 					          <td><c:out value="${user.name}" /></td>
-					          <td><c:out value="${user.age}" /></td>
-					          <td><c:out value="${user.address}" /></td>
-					          </tr>
+					          <td><c:out value="${user.surname}" /></td>
+					          <td><c:out value="${user.login}" /></td>
+					          
+					      </tr>
             			</c:forEach>
-					      <tr>
-					      	<td>
-						    	<div class="checkbox">
-									<label><input type="checkbox" value=""></label>
-								</div>
-							</td>
-					        <td>John</td>
-					        <td>Doe</td>
-					        <td>jdoe</td>
-					        <td>PROSTO</td>
-					        <td>1</td>
-					      </tr>
-					      <tr>
-					      	<td>
-						     	<div class="checkbox">
-									<label><input type="checkbox" value=""></label>
-								</div>
-							</td>
-					        <td>Mary</td>
-					        <td>Moe</td>
-					        <td>mmoe</td>
-					        <td>KRZYWO</td>
-					        <td>8</td>
-					      </tr>
-					      <tr>
-					      	<td>
-						     	<div class="checkbox">
-									<label><input type="checkbox" value=""></label>
-								</div>
-					      	</td>
-					        <td>July</td>
-					        <td>Dooley</td>
-					        <td>jdoo</td>
-					        <td>CYCLON</td>
-					        <td>12</td>
-					      </tr>
+					    
+					     
+					     
+					    
+            			
 					    </tbody>
 					  </table>
 					</div>

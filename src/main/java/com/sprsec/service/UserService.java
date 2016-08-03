@@ -1,9 +1,13 @@
 package com.sprsec.service;
 
+import java.util.List;
+
+
 import com.sprsec.model.User;
 
 public interface UserService {
 	
 	public User getUser(String login);
+	public List<User> getAllUsers();
 
 }

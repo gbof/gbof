@@ -10,12 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sprsec.model.Customer;
 import com.sprsec.service.CustomerService;
-
+import com.sprsec.model.User;
+import com.sprsec.service.UserService;
 
 @Controller
 public class LinkNavigation {
 	@Autowired
 	private CustomerService cs;
+	@Autowired
+	private UserService us;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView homePage() {
@@ -46,11 +49,11 @@ public class LinkNavigation {
 	public ModelAndView changePassword() {
 		return new ModelAndView("change-password");
 	}
-	
+	/*
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
 	public ModelAndView insidePage() {
 		return new ModelAndView("inside2");
-	}
+	}*/
 	
 	@RequestMapping(value="/test", method=RequestMethod.GET)
 	public ModelAndView testPage() {
@@ -58,6 +61,14 @@ public class LinkNavigation {
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("list", list);
 		lista.setViewName("test");
+		return lista;
+	}
+	@RequestMapping(value="/inside", method=RequestMethod.GET)
+	public ModelAndView insidePage() {
+		List<User> listt = us.getAllUsers();
+		ModelAndView lista = new ModelAndView();
+		lista.addObject("listt", listt);
+		lista.setViewName("inside");
 		return lista;
 	}
 

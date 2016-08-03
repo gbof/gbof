@@ -14,7 +14,7 @@
 <h1>First Admin page</h1>
 <p>
 <a href="<c:url value="/j_spring_security_logout" />" >Logout</a> <br/>
-<a href="${pageContext.request.contextPath}/index.html">Home page</a><br/>
+<a href="${pageContext.request.contextPath}/inside">Employee list</a><br/>
 </p>
 </body>
 </html>
