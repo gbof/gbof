@@ -1,11 +1,15 @@
 package com.sprsec.model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,6 +26,21 @@ public class User {
 	private String password;
 	
 	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="balls_id", referencedColumnName="balls_id")
+	private Ball ball;
+	
+	/*@OneToMany(mappedBy="user")
+	private Set<Comment> comment;
+
+	@ManyToOne
+	@JoinColumn(name="dept_id", referencedColumnName="dept_id")
+	private Department dept;*/
+	
+	@ManyToOne
+	@JoinColumn(name="team_id", referencedColumnName="team_id")
+	private Team team;	
+	
+	@OneToOne
 	@JoinTable(name="user_roles",
 		joinColumns = {@JoinColumn(name="user_id", referencedColumnName="user_id")},
 		inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")}
@@ -60,4 +79,36 @@ public class User {
 		this.role = role;
 	}	
 
+
+	public Ball getBall(){
+		return ball;
+	}
+	
+	public void setBall(Ball ball){
+		this.ball = ball;
+	}
+	
+	/*public Set<Comment> getComment(){
+		return comment;
+	}
+	
+	public void setComment(Set<Comment> comment){
+		this.comment = comment;
+	}
+	
+	public Department getDept(){
+		return dept;
+	}
+	
+	public void setDept(Department dept){
+		this.dept = dept;
+	}*/
+	
+	public Team getTeam(){
+		return team;
+	}
+	
+	public void setTeam(Team team){
+		this.team = team;
+	}
 }
