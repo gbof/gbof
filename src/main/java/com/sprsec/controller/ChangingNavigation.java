@@ -31,6 +31,7 @@ public class ChangingNavigation {
 			ModelAndView modelAndView = new ModelAndView("change-password");
 			modelAndView.addObject("error", true);
 			return modelAndView;
+			//
 		}
 	}
 
