@@ -46,6 +46,12 @@ public class LinkNavigation {
 	public ModelAndView changePassword() {
 		return new ModelAndView("change-password");
 	}
+	
+	@RequestMapping(value="comments", method=RequestMethod.GET)
+	public ModelAndView commentsPage() {
+		return new ModelAndView("comments");
+	}
+	
 	/*
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
 	public ModelAndView insidePage() {

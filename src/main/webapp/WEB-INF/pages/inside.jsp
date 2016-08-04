@@ -13,6 +13,10 @@
 	<title>Home</title>
 		<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
+		<style>
+       		<%@include file="/web-resources/css/inside.css" %>
+		</style>
+		
 </head>
 
 <body>
@@ -21,8 +25,10 @@
 	<tiles:insertDefinition name="extendTemplate">
 	</tiles:insertDefinition>   
     
-
-	<div class="container-fluid main-container">
+    
+	<!--  Sidebar menu -->
+	<!--  
+	
 		<div class="col-md-2 sidebar">
 			<ul class="nav nav-pills nav-stacked">
 				<li class="active"><a href="#">Home</a></li>
@@ -31,10 +37,12 @@
 				
 			</ul>
 		</div>
-		<div class="col-md-10 content">
+		-->
+		<div class="container-fluid main-container">
+		<div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Pracownicy
+                    Employees
                 </div>
                 <div class="panel-body">
                     <div class="container col-md-12">          
@@ -77,10 +85,17 @@
                 </div>
             </div>
 		</div>
-		<footer class="pull-left footer"/>
+
+
+		<footer class="pull-left footer">
 
 		</footer>
 	</div>
+	
+	<div class=text-right>
+	     <a href="${pageContext.request.contextPath}/comments"><button class="btn-info btn btn-lg">Next</button></a>
+	</div>
+		
 
 	
 	
