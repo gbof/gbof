@@ -35,9 +35,7 @@ public class SecurityNavigation {
 	public ModelAndView successLogin() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
-		System.out.println("====" + userName);
 		Role role = us.getUser(userName).getRole();
-		System.out.println("====" + role.getRole());
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("admin-first");
 		else if (role.getRole().equals("moderator"))
