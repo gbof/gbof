@@ -29,6 +29,11 @@
 	<b class="correct">Password changed.</b>
 </c:if>
 </p>
+<p>
+<c:if test="${error2 == true}">
+	<b class="error">New passwords are not the same</b>
+</c:if>
+</p>
 
 <form method="POST" action="${pageContext.request.contextPath}/password-verify">
 <table>
@@ -38,8 +43,12 @@
 <td><input type="password" name="oldpassword" size="30" maxlength="32" /></td>
 </tr>
 <tr>
-<td>New Password:</td>
+<td>New password:</td>
 <td><input type="password" name="newpassword" size="30" maxlength="32" /></td>
+</tr>
+<tr>
+<td>Repeat new password:</td>
+<td><input type="password" name="newpassword2" size="30" maxlength="32" /></td>
 </tr>
 <tr>
 <td></td>

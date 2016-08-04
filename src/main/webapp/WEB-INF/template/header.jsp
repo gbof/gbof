@@ -23,7 +23,7 @@
 				<li class="dropdown ">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Change password</a></li>
+						<li><a href="${pageContext.request.contextPath}/change">Change password</a></li>
 						<li class="divider"></li>
 						<li>
 							<a href="<c:url value="/j_spring_security_logout" />">Logout</a>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -51,4 +52,15 @@ public class UserDAOImpl implements UserDAO {
 		else
 			return null;	
 	}
+	
+	
+	public void setPassword(Integer id, String password){
+		System.out.println("+++++++++++++++++ "+password);
+		String query = "UPDATE users SET password = '"+ password +"' WHERE user_id = '"+ id + "'";
+		//"UPDATE users SET password = :password WHERE user_id = :id"
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+	
+	
 }

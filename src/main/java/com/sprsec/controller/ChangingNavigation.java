@@ -1,5 +1,6 @@
 package com.sprsec.controller;
 
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sprsec.dao.UserDAO;
 import com.sprsec.service.UserService;
 
 @Controller
@@ -18,11 +20,19 @@ public class ChangingNavigation {
 	
 	@RequestMapping(value = "/password-verify", method = RequestMethod.POST)
 	public ModelAndView passwordVerify(@RequestParam("oldpassword") String oldpassword,
-			@RequestParam("newpassword") String newpassword) {
+			@RequestParam("newpassword") String newpassword, 
+			@RequestParam("newpassword2") String newpassword2) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		String passwordVerify = service.getUser(userName).getPassword();
-		if(oldpassword.equals(passwordVerify)){
+		Integer id = service.getUser(userName).getId();
+		if(oldpassword.equals(passwordVerify)){                    
+			if(!newpassword.equals(newpassword2)){                    
+				ModelAndView modelAndView = new ModelAndView("change-password");
+				modelAndView.addObject("error2", true);
+				return modelAndView;
+			}
+			service.setPassword(id, newpassword);
 			ModelAndView modelAndView = new ModelAndView("change-password");
 			modelAndView.addObject("correct", true);
 			return modelAndView;

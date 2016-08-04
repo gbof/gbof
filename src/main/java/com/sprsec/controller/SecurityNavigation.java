@@ -43,6 +43,7 @@ public class SecurityNavigation {
 		else
 			return new ModelAndView("user");
 	}
+	
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
 	public ModelAndView insidePage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
