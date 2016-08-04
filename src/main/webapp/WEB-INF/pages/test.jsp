@@ -20,15 +20,15 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Surname</th>
-                <th>Team</th>
+                <th>login</th>
             </tr>
            
             <c:forEach var="user" items="${list}">
             <tr>
             <td><c:out value="${user.id}" /></td>
             <td><c:out value="${user.name}" /></td>
-            <td><c:out value="${user.age}" /></td>
-            <td><c:out value="${user.address}" /></td>
+            <td><c:out value="${user.surname}" /></td>
+            <td><c:out value="${user.login}" /></td>
             </tr>
             </c:forEach>
             

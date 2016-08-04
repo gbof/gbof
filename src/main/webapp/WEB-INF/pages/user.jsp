@@ -8,11 +8,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Moderation page</title>
+<title>User page</title>
 </head>
 <body>
-<h1>Moderation page</h1>
-<p>This is Moderation page. It's available for moderators.<br/>
+<h1>User page</h1>
+<p>This is User page. It's available for Users.<br/>
 <a href="<c:url value="/j_spring_security_logout" />" >Logout</a> <br/>
 <a href="${pageContext.request.contextPath}/inside">Employee list</a><br/></p>
 </body>

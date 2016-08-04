@@ -1,5 +1,7 @@
 package com.sprsec.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sprsec.model.Role;
+import com.sprsec.model.User;
 import com.sprsec.service.UserService;
 
 @Controller
 public class SecurityNavigation {
 	@Autowired
-	private UserService service;
+	private UserService us;
 
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
@@ -33,13 +36,31 @@ public class SecurityNavigation {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		System.out.println("====" + userName);
-		Role role = service.getUser(userName).getRole();
+		Role role = us.getUser(userName).getRole();
 		System.out.println("====" + role.getRole());
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("admin-first");
 		else if (role.getRole().equals("moderator"))
 			return new ModelAndView("moderation");
 		else
-			return new ModelAndView("inside");
+			return new ModelAndView("user");
+	}
+	@RequestMapping(value="/inside", method=RequestMethod.GET)
+	public ModelAndView insidePage() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String name = us.getUser(userName).getName();
+		String login = us.getUser(userName).getLogin();
+		User zalogowany=us.getUser(userName);
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		List<User> listt = us.getAllUsers();
+		System.out.println("Zalogowano: "+name);
+		
+		ModelAndView lista = new ModelAndView();
+		lista.addObject("listt", listt);
+		lista.addObject("kule", kulki);
+		lista.addObject("login", login);
+		lista.setViewName("inside");
+		return lista;
 	}
 }

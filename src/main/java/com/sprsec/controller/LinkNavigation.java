@@ -8,15 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sprsec.model.Customer;
-import com.sprsec.service.CustomerService;
 import com.sprsec.model.User;
 import com.sprsec.service.UserService;
 
 @Controller
 public class LinkNavigation {
-	@Autowired
-	private CustomerService cs;
+	
 	@Autowired
 	private UserService us;
 	
@@ -57,19 +54,13 @@ public class LinkNavigation {
 	
 	@RequestMapping(value="/test", method=RequestMethod.GET)
 	public ModelAndView testPage() {
-		List<Customer> list = cs.getAllCustomer();
+
 		ModelAndView lista = new ModelAndView();
+		List<User> list = us.getAllUsers();
 		lista.addObject("list", list);
 		lista.setViewName("test");
 		return lista;
 	}
-	@RequestMapping(value="/inside", method=RequestMethod.GET)
-	public ModelAndView insidePage() {
-		List<User> listt = us.getAllUsers();
-		ModelAndView lista = new ModelAndView();
-		lista.addObject("listt", listt);
-		lista.setViewName("inside");
-		return lista;
-	}
+	
 
 }
