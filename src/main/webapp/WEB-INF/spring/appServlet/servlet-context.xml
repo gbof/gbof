@@ -22,9 +22,26 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!--  Tiles -->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass" value = "org.springframework.web.servlet.view.tiles2.TilesView"/>
+   </beans:bean>
+	<beans:bean id="tilesConfigurer" class = "org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+	<beans:property name="definitions">
+		<beans:list>  
+              <beans:value>/WEB-INF/layouts/tiles.xml</beans:value>  
+          </beans:list> 
+         </beans:property>
+   </beans:bean>  
+
+
+	
+
 	<context:component-scan base-package="com.sprsec.controller" /> 
 	
 
+    
+    
 	<mvc:resources mapping="/webjars/**" location="/webjars/"/>
 	
 </beans:beans>
