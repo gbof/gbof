@@ -42,6 +42,7 @@ public class SecurityNavigation {
 			return new ModelAndView("moderation");
 		else
 			return new ModelAndView("user");
+		//return new ModelAndView("redirect:/inside");}
 	}
 	
 	@RequestMapping(value="/inside", method=RequestMethod.GET)

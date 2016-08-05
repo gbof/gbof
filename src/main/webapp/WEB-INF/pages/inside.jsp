@@ -20,7 +20,6 @@
 </head>
 
 <body>
-
 	 
 	<tiles:insertDefinition name="extendTemplate">
 	</tiles:insertDefinition>   

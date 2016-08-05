@@ -34,26 +34,26 @@
 	<div class="container">
 		<div class="col-md-4-offset-4">
 		    <div class="form-area">  
-		        <form role="form">
+		        <form role="form" method="POST" action="${pageContext.request.contextPath}/commentAdded">
 		        <br style="clear:both">
 		                    <h3 style="margin-bottom: 25px; text-align: center;">Send balls</h3>
 							<div class="form-group">
 								<label>Name of a person</label>
 							</div>
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" min="0" max="20" class="form-control" id="mobile" name="mobile" placeholder="Number of balls" required>
+								<input type="number" min="0" max="20" class="form-control" id="mobile" name="ballsNumber" placeholder="Number of balls" required>
 							</div>
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" id="message" placeholder="What did you like?" maxlength="140" rows="7"></textarea>
+		                    	<textarea class="form-control" type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7"></textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 		                    
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" id="message" placeholder="What should I work on?" maxlength="140" rows="7"></textarea>
+		                    	<textarea class="form-control" type="textarea" name="message2" id="message" placeholder="What should I work on?" maxlength="140" rows="7"></textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 		            
-		        <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+		        <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
 		        </form>
 		    </div>
 		</div>

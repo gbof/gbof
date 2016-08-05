@@ -55,9 +55,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	
 	public void setPassword(Integer id, String password){
-		System.out.println("+++++++++++++++++ "+password);
 		String query = "UPDATE users SET password = '"+ password +"' WHERE user_id = '"+ id + "'";
-		//"UPDATE users SET password = :password WHERE user_id = :id"
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}
