@@ -10,7 +10,7 @@
 		<put-attribute name="title" value="Page" />
 	</definition>
 	
-	 <definition name="extendTemplate" extends="defaultTemplate">
+	 <definition name="headerTemplate" extends="defaultTemplate">
      	 <put-attribute name="header" value="/WEB-INF/template/header.jsp" />
  	</definition>
  

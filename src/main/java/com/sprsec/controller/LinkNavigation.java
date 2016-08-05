@@ -51,11 +51,6 @@ public class LinkNavigation {
 		return new ModelAndView("admin-second");
 	}
 	
-	@RequestMapping(value="/change", method=RequestMethod.GET)
-	public ModelAndView changePassword() {
-		return new ModelAndView("change-password");
-	}
-	
 	@RequestMapping(value="comments", method=RequestMethod.GET)
 	public ModelAndView commentsPage() {
 		return new ModelAndView("comments");

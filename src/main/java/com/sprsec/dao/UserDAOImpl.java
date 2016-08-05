@@ -13,12 +13,12 @@ import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
 
-
 import com.sprsec.model.User;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
-	
+
+	 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -59,6 +59,9 @@ public class UserDAOImpl implements UserDAO {
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}
+
+
+
 	
 	
 }

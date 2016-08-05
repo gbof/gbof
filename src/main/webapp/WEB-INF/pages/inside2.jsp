@@ -18,7 +18,7 @@
 <body>
 
     
-	<tiles:insertDefinition name="extendTemplate">
+	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition> 
 	
 	<div class="container-fluid main-container">

@@ -63,4 +63,66 @@ public class SecurityNavigation {
 		lista.setViewName("inside");
 		return lista;
 	}
+	
+	@RequestMapping(value="/adminview", method=RequestMethod.GET)
+	public ModelAndView adminviewPage() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String name = us.getUser(userName).getName();
+		String login = us.getUser(userName).getLogin();
+		User zalogowany=us.getUser(userName);
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		List<User> listt = us.getAllUsers();
+		System.out.println("Zalogowano: "+name);
+		String role = us.getUser(userName).getRole().getRole();
+		ModelAndView lista = new ModelAndView();
+		lista.addObject("listt", listt);
+		lista.addObject("rola", role);
+		lista.addObject("kule", kulki);
+		lista.addObject("login", login);
+		lista.setViewName("adminview");
+		return lista;
+	}
+	
+	@RequestMapping(value="/change", method=RequestMethod.GET)
+	public ModelAndView changePage() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String name = us.getUser(userName).getName();
+		String login = us.getUser(userName).getLogin();
+		User zalogowany=us.getUser(userName);
+		String role = us.getUser(userName).getRole().getRole();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		List<User> listt = us.getAllUsers();
+		System.out.println("Zalogowano: "+name);
+		
+		ModelAndView lista = new ModelAndView();
+		lista.addObject("listt", listt);
+		lista.addObject("kule", kulki);
+		lista.addObject("rola", role);
+		lista.addObject("login", login);
+		lista.setViewName("changePassword");
+		return lista;
+	}
+	
+	@RequestMapping(value="/settings", method=RequestMethod.GET)
+	public ModelAndView settingsPage() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String name = us.getUser(userName).getName();
+		String login = us.getUser(userName).getLogin();
+		User zalogowany=us.getUser(userName);
+		String role = us.getUser(userName).getRole().getRole();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		List<User> listt = us.getAllUsers();
+		System.out.println("Zalogowano: "+name);
+		
+		ModelAndView lista = new ModelAndView();
+		lista.addObject("listt", listt);
+		lista.addObject("kule", kulki);
+		lista.addObject("rola", role);
+		lista.addObject("login", login);
+		lista.setViewName("settings");
+		return lista;
+	}
 }
