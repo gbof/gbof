@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	
+	<form method="POST" action="${pageContext.request.contextPath}/comments">
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition>  
 	
@@ -69,7 +69,7 @@
 											    <tr>
 											    <td>
 												    	<div class="checkbox">
-															<label><input type="checkbox" value=""></label>
+															<label><input type="checkbox" name = "userIds" value = "${user.getId()}"></label>
 														</div>
 													</td>
 											          <td><c:out value="${user.name}" /></td>
@@ -92,8 +92,9 @@
 							</div>	
 							
 							<div class=text-right>
-							     <a href="${pageContext.request.contextPath}/comments"><button class="btn-info btn btn-lg">Next</button></a>
+							     <button type="submit"class="btn-info btn btn-lg">Next</button></a>
 							</div>
+							</form>
 
 						</div>
 						<div class="tab-pane" id="tab_default_2">

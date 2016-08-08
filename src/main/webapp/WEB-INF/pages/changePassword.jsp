@@ -72,7 +72,7 @@
 			</table>
 		</form>
 		<p>
-		<a href="${pageContext.request.contextPath}/index.html">Home page</a><br/>
+		<a href="${pageContext.request.contextPath}/success-login.html">Home page</a><br/>
 		</p>
 	</div>
 	

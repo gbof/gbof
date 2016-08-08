@@ -37,12 +37,11 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		Role role = us.getUser(userName).getRole();
 		if (role.getRole().equals("admin"))
-			return new ModelAndView("admin-first");
+			return new ModelAndView("redirect:/adminview");
 		else if (role.getRole().equals("moderator"))
-			return new ModelAndView("moderation");
+			return new ModelAndView("redirect:/inside");
 		else
-			return new ModelAndView("user");
-		//return new ModelAndView("redirect:/inside");}
+			return new ModelAndView("redirect:/inside");
 	}
 	
 	@RequestMapping(value="/inside", method=RequestMethod.GET)

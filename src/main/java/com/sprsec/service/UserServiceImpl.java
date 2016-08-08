@@ -27,5 +27,7 @@ public class UserServiceImpl implements UserService {
 	public void setPassword(Integer id, String password){
 		userDAO.setPassword(id, password);
 	}
-	
+	public User getUserId(Integer id){
+		return userDAO.getUserId(id);
+	}
 }

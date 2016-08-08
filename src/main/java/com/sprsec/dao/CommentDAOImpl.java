@@ -15,8 +15,8 @@ public class CommentDAOImpl implements CommentDAO{
 		return sessionFactory.getCurrentSession();
 	}
     
-	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id){
-		String query = "INSERT INTO comments (user_id, first_com, second_com, confirmed, creator_id, balls_per_com) VALUES ('"+ 1 +"', '"+ message1 +"', '"+ message2 +"', '"+ 0 +"', '"+ user_id +"', '"+ ballsNumber +"')";
+	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id, Integer commentToUserId){
+		String query = "INSERT INTO comments (user_id, first_com, second_com, confirmed, creator_id, balls_per_com) VALUES ('"+ commentToUserId +"', '"+ message1 +"', '"+ message2 +"', '"+ 0 +"', '"+ user_id +"', '"+ ballsNumber +"')";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}

@@ -7,5 +7,6 @@ public interface UserDAO {
 	public User getUser(String login);
 	public List<User> getAllUsers();
 	public void setPassword(Integer id, String password);
+	public User getUserId(Integer id);
 
 }

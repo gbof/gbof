@@ -13,7 +13,7 @@ public class CommentServiceImpl implements CommentService{
 	@Autowired
 	private CommentDAO commentDAO;
 	
-	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id){
-		commentDAO.addComment(message1, message2, ballsNumber, user_id);
+	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id, Integer commentToUserId){
+		commentDAO.addComment(message1, message2, ballsNumber, user_id, commentToUserId);
 	}
 }
