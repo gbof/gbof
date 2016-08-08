@@ -3,7 +3,7 @@ package com.sprsec.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="teams")
+@Table(name="comments")
 public class Comment {
 	
 	@Id
@@ -15,7 +15,7 @@ public class Comment {
 	private User user;
 	@Column(name="first_com")
 	private String first_com;
-	@Column(name="fsecond_com")
+	@Column(name="second_com")
 	private String second_com;
 	@Column(name="confirmed")
 	private boolean confirmed;

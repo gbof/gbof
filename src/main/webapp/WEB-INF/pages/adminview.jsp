@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	
+	<form method="POST" action="${pageContext.request.contextPath}/comments">
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition>  
 	
@@ -69,7 +69,7 @@
 											    <tr>
 											    <td>
 												    	<div class="checkbox">
-															<label><input type="checkbox" value=""></label>
+															<label><input type="checkbox" name = "userIds" value = "${user.getId()}"></label>
 														</div>
 													</td>
 											          <td><c:out value="${user.name}" /></td>
@@ -92,8 +92,9 @@
 							</div>	
 							
 							<div class=text-right>
-							     <a href="${pageContext.request.contextPath}/comments"><button class="btn-info btn btn-lg">Next</button></a>
+							     <button type="submit"class="btn-info btn btn-lg">Next</button></a>
 							</div>
+							</form>
 
 						</div>
 						<div class="tab-pane" id="tab_default_2">
@@ -117,13 +118,13 @@
 											    </thead>
 											    <tbody>
 											    
-											      <c:forEach var="user" items="${listt}">
+											      <c:forEach var="comment" items="${commentList}">
 											    <tr>
-										          <td><c:out value="${user.name}" /></td>
-										          <td><c:out value="${user.surname}" /></td>
-										          <td><c:out value="balls per person" /></td>
-										          <td><c:out value="first comment" /></td>
-											      <td><c:out value="second comment" /></td>   
+										          <td><c:out value="${comment.getUser().getName() }" /></td>
+										          <td><c:out value="${comment.getUser().getSurname() }" /></td>
+										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
+										          <td><c:out value="${comment.getFirstCom()}" /></td>
+											      <td><c:out value="${comment.getSecondCom()}" /></td>   
 											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
 											      </tr>
 						            			</c:forEach>
@@ -159,13 +160,13 @@
 											    </thead>
 											    <tbody>
 											    
-											      <c:forEach var="user" items="${listt}">
+											      <c:forEach var="commentsC" items="${commentConfirmedList}">
 											    <tr>
-										          <td><c:out value="${user.name}" /></td>
-										          <td><c:out value="${user.surname}" /></td>
-										          <td><c:out value="balls per person" /></td>
-										          <td><c:out value="first comment" /></td>
-											      <td><c:out value="second comment" /></td>   
+										          <td><c:out value="${commentsC.getUser().getName() }" /></td>
+										          <td><c:out value="${commentsC.getUser().getSurname() }" /></td>
+										          <td><c:out value="${commentsC.getBallsPerCom()}" /></td>
+										          <td><c:out value="${commentsC.getFirstCom()}" /></td>
+											      <td><c:out value="${commentsC.getSecondCom()}" /></td>   
 											      </tr>
 						            			</c:forEach>
 											    

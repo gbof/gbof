@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sprsec.model.Comment;
 import com.sprsec.model.Role;
 import com.sprsec.model.User;
+import com.sprsec.service.CommentService;
 import com.sprsec.service.UserService;
 
 @Controller
@@ -19,6 +21,8 @@ public class SecurityNavigation {
 	@Autowired
 	private UserService us;
 
+	@Autowired
+	private CommentService coms;
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
 		return new ModelAndView("home");
@@ -37,12 +41,11 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		Role role = us.getUser(userName).getRole();
 		if (role.getRole().equals("admin"))
-			return new ModelAndView("admin-first");
+			return new ModelAndView("redirect:/adminview");
 		else if (role.getRole().equals("moderator"))
-			return new ModelAndView("moderation");
+			return new ModelAndView("redirect:/inside");
 		else
-			return new ModelAndView("user");
-		//return new ModelAndView("redirect:/inside");}
+			return new ModelAndView("redirect:/inside");
 	}
 	
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
@@ -73,12 +76,25 @@ public class SecurityNavigation {
 		User zalogowany=us.getUser(userName);
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
+		
+		List<Comment> commentList = coms.getAllComments();
+		
+		System.out.println("Kom1:" + commentList.get(0).getUser().getName());
+		
+		
+		
+		List<Comment> commentConfirmedList = coms.getConfirmedComments();
+		
 		System.out.println("Zalogowano: "+name);
 		String role = us.getUser(userName).getRole().getRole();
 		ModelAndView lista = new ModelAndView();
+		System.out.println("Zatwierdzne: " + commentConfirmedList);
+		System.out.println("Nie Zatwierdzne: " + commentList);
 		lista.addObject("listt", listt);
 		lista.addObject("rola", role);
 		lista.addObject("kule", kulki);
+		lista.addObject("commentList",commentList);
+		lista.addObject("commentConfirmedList",commentConfirmedList);
 		lista.addObject("login", login);
 		lista.setViewName("adminview");
 		return lista;
