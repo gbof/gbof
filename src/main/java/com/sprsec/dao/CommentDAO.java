@@ -9,5 +9,7 @@ public interface CommentDAO {
 
 	public List<Comment> getAllComments();
 	public List<Comment> getConfirmedComments();
+	public List<Double> getBallValue(Double money);
+	public List<Long> getBallValue2();
 
 }

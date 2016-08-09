@@ -27,4 +27,11 @@ public class CommentServiceImpl implements CommentService{
 		return commentDAO.getConfirmedComments();
 
 	}
+	
+	public List<Double> getBallValue(Double money){
+		return commentDAO.getBallValue(money);
+	}
+	public List<Long> getBallValue2(){
+		return commentDAO.getBallValue2();
+	}
 }

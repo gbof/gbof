@@ -1,6 +1,7 @@
 package com.sprsec.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,10 @@ public class SettingServiceImpl implements SettingService{
 	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, Date deadline,Boolean freeze, Integer SettingId)
 	{
 		settingsDAO.addSetting(extraBalls, balls_per_pers, money, deadline, freeze, SettingId);
+	}
+	
+	public List<Double> getMoney(Integer settingsId)
+	{
+		return settingsDAO.getMoney(settingsId);
 	}
 }

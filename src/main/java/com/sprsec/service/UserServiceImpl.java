@@ -30,16 +30,16 @@ public class UserServiceImpl implements UserService {
 	public User getUserId(Integer id){
 		return userDAO.getUserId(id);
 	}
-<<<<<<< Upstream, based on origin/master
+
 	public void setBallsAfterComment(Integer id, Integer balls){
-		userDAO.setBallsAfterComment(id, balls);
-=======
+		userDAO.setBallsAfterComment(id, balls);}
+
 	
 	@Override
 	public void addUser(String name, String surname, String login, String password, Integer roleID, Integer teamID,
 			Integer ballsID, String mail, Integer deptID) {
 		userDAO.addUser(name, surname, login, password, roleID, teamID, ballsID, mail, deptID);
 		
->>>>>>> e7b4862 Add employee 
+
 	}
 }

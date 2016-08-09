@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sprsec.model.Comment;
 import com.sprsec.model.Role;
+import com.sprsec.model.Settings;
 import com.sprsec.model.User;
 import com.sprsec.service.CommentService;
+import com.sprsec.service.SettingService;
 import com.sprsec.service.UserService;
 
 @Controller
@@ -23,6 +25,10 @@ public class SecurityNavigation {
 
 	@Autowired
 	private CommentService coms;
+	
+	@Autowired 
+	private SettingService sett;
+	
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
 		return new ModelAndView("home");
@@ -58,12 +64,20 @@ public class SecurityNavigation {
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
 		
-		System.out.println("Zalogowano: "+name);
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Double> ballValue = coms.getBallValue(moneyValue);
+		List<Long> ballValue2List = coms.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue/ballValue2);
 		
+		
+		System.out.println("Zalogowano: "+name);
 		ModelAndView lista = new ModelAndView();
-		lista.addObject("listt", listt);
+		lista.addObject("money", wynik);
 		lista.addObject("kule", kulki);
 		lista.addObject("login", login);
+		lista.addObject("listt", listt);
 		lista.setViewName("inside");
 		return lista;
 	}
@@ -77,6 +91,13 @@ public class SecurityNavigation {
 		User zalogowany=us.getUser(userName);
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
+		
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Double> ballValue = coms.getBallValue(moneyValue);
+		List<Long> ballValue2List = coms.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue/ballValue2);
 		
 		List<Comment> commentList = coms.getAllComments();
 		
@@ -92,6 +113,7 @@ public class SecurityNavigation {
 		System.out.println("Zatwierdzne: " + commentConfirmedList);
 		System.out.println("Nie Zatwierdzne: " + commentList);
 		lista.addObject("listt", listt);
+		lista.addObject("money", wynik);
 		lista.addObject("rola", role);
 		lista.addObject("kule", kulki);
 		lista.addObject("commentList",commentList);

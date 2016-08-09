@@ -25,6 +25,7 @@
 				</c:if>
 				<li><a>Username: ${login}</a></li>
 				<li><a>Your balls: ${kule}</a></li>
+				<li><a>One ball value: ${money} zl</a></li>
 				<li class="dropdown ">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
