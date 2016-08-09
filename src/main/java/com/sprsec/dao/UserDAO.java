@@ -8,5 +8,6 @@ public interface UserDAO {
 	public List<User> getAllUsers();
 	public void setPassword(Integer id, String password);
 	public User getUserId(Integer id);
+	public void setBallsAfterComment(Integer id, Integer balls);
 
 }

@@ -71,6 +71,13 @@ public class UserDAOImpl implements UserDAO {
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}
+	
+	public void setBallsAfterComment(Integer id, Integer balls){
+		Integer ballsToGive = getUserId(id).getBall().getBallsToGive()-balls;
+		String query = "UPDATE balls b, users u set b.balls_to_give = '" + ballsToGive + "' where u.user_id = '" + id + "' and b.balls_id = u.balls_id";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
 
 
 

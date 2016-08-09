@@ -30,4 +30,7 @@ public class UserServiceImpl implements UserService {
 	public User getUserId(Integer id){
 		return userDAO.getUserId(id);
 	}
+	public void setBallsAfterComment(Integer id, Integer balls){
+		userDAO.setBallsAfterComment(id, balls);
+	}
 }

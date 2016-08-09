@@ -26,17 +26,17 @@ public class ChangingNavigation {
 		Integer id = service.getUser(userName).getId();
 		if(oldpassword.equals(passwordVerify)){                    
 			if(!newpassword.equals(newpassword2)){                    
-				ModelAndView modelAndView = new ModelAndView("change-password");
+				ModelAndView modelAndView = new ModelAndView("changePassword");
 				modelAndView.addObject("error2", true);
 				return modelAndView;
 			}
 			service.setPassword(id, newpassword);
-			ModelAndView modelAndView = new ModelAndView("change-password");
+			ModelAndView modelAndView = new ModelAndView("changePassword");
 			modelAndView.addObject("correct", true);
 			return modelAndView;
 		}
 		else{
-			ModelAndView modelAndView = new ModelAndView("change-password");
+			ModelAndView modelAndView = new ModelAndView("changePassword");
 			modelAndView.addObject("error", true);
 			return modelAndView;
 			//

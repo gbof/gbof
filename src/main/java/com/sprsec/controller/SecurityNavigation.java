@@ -57,6 +57,7 @@ public class SecurityNavigation {
 		User zalogowany=us.getUser(userName);
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
+		
 		System.out.println("Zalogowano: "+name);
 		
 		ModelAndView lista = new ModelAndView();
