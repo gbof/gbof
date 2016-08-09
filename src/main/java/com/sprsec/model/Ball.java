@@ -1,6 +1,9 @@
 package com.sprsec.model;
 
 import javax.persistence.*;
+import org.hibernate.type.BooleanType;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="balls")
@@ -15,7 +18,7 @@ public class Ball {
 	@Column(name="balls_to_give")
 	private Integer balls_to_give;
 	@Column(name="locked")
-	private boolean locked;
+	private Integer locked;
 	@Column(name="cash")
 	private double cash;
 	
@@ -51,11 +54,11 @@ public class Ball {
 	}
 	
 	
-	public boolean getLocked(){
+	public Integer getLocked(){
 		return locked;
 	}
 	
-	public void setLocked(boolean locked){
+	public void setLocked(Integer locked){
 		this.locked = locked;
 	}
 	

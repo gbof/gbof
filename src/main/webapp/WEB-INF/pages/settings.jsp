@@ -85,56 +85,96 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add user</h4>
+        <h4 class="modal-title">Add employee</h4>
       </div>
+  	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/userAdded"> 
       <div class="modal-body">
-  		<form:form class="form-inline modal-form " role="form" method="post" >
            	<div class="form-group col-md-12">
+           		<div class="col-md-6 col-sm-6">
 	      		<label for="name">Name</label>
-	      		<input class="form-control" id="name" type="text" placeholder="name">
+	      		</div>
+	      		<div class="col-md-6 col-sm-6">
+	      		<input name="name" class="form-control" id="name" type="text" placeholder="name"/>
+	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
-	      		<label for="lastname">Last name</label>
-	      		<input class="form-control" id="lastname" type="text" placeholder="last name">
+	    	<div class="col-md-6 col-sm-6">
+	      		<label for="surname">Last name</label>
+	      		</div>
+	      		<div class="col-md-6 col-sm-6">
+	      		<input name="surname" class="form-control" id="surname" type="text" placeholder="last name"/>
+	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
+	    	<div class="col-md-6 col-sm-6">
 	      		<label for="login">Login</label>
-	      		<input class="form-control" id="login" type="text" placeholder="login">
+	      		</div>
+	      		<div class="col-md-6 col-sm-6">
+	      		<input name="login" class="form-control" id="login" type="text" placeholder="login"/>
+	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
+	    	<div class="col-md-6 col-sm-6">
 	      		<label for="password">Password</label>
-	      		<input class="form-control" id="password" type="text" placeholder="password">
+	      		</div>
+	      		<div class="col-md-6 col-sm-6">
+	      		<input name="password" class="form-control" id="password" type="text" placeholder="password"/>
+	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
+	    	<div class="col-md-6 col-sm-6">
 	      		<label for="role">Role ID</label>
-	      		<input class="form-control" id="role" type="text" placeholder="role id">
+	      		</div>
+	      		<div class="col-md-6 col-sm-6">
+	      		<input name="roleID" class="form-control" id="role" type="text" placeholder="role id"/>
+	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
-	      		<label for="team">Team name</label>
-	      		<input class="form-control" id="team" type="text" placeholder="team name">
+	    	<div class="col-md-6 col-sm-6">
+	      		<label for="team">Team ID</label>
+	      		</div>
+	      		<div class="col-md-6 col-sm-6">
+	      		<input name="teamID" class="form-control" id="team" type="text" placeholder="team name"/>
+	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
-	      		<label for="balls">Balls to give</label>
-	      		<input class="form-control" id="balls" type="text" placeholder="balls to give">
-	    	</div>
-	    	<div class="form-group col-md-12">
+	    	<div class="col-md-6 col-sm-6">
 	      		<label for="mail">Mail</label>
-	      		<input class="form-control" id="mail" type="text" placeholder="mail">
+	      		</div>
+	      		<div class="col-md-6 col-sm-6">
+	      		<input name="mail" class="form-control" id="mail" type="text" placeholder="mail"/>
+	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
+	    	<div class="col-md-6 col-sm-6">
 	      		<label for="dept">Dept ID</label>
-	      		<nput class="form-control" id="dept" type="text" placeholder="dept">
+	      		</div>
+	      		<div class="col-md-6 col-sm-6">
+	      		<input name="deptID" class="form-control" id="dept" type="text" placeholder="dept"/>
+	      		</div>
 	    	</div>
-    	</form:form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
         <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
       </div>
+    </form>
     </div>
 
   </div>
 </div>
+
+<!--  
+<div class="container">
+	<form role="form" method="POST" action="${pageContext.request.contextPath}/ballAdded">
+	<input name="received_balls" placeholder="received balls"/>
+	<input name="balls_to_give" placeholder="balls to give" />
+	<input name="locked" placeholder="locked" />
+	<input name="cash" placeholder="cash" />
+	<input type="submit" value="Save" />
+	</form>
+</div>
+-->
 
 
 

@@ -114,6 +114,8 @@
 											        <th>First Comment</th>
 											        <th>Second Comment</th>
 											        <th>Edit</th>
+											        <th>Confirm</th>
+											        <th>Delete</th>
 											      </tr>
 											    </thead>
 											    <tbody>
@@ -126,6 +128,8 @@
 										          <td><c:out value="${comment.getFirstCom()}" /></td>
 											      <td><c:out value="${comment.getSecondCom()}" /></td>   
 											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>
 						            			</c:forEach>
 											    

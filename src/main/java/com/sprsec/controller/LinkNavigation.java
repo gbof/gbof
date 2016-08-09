@@ -3,6 +3,7 @@ package com.sprsec.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sprsec.dao.CommentDAO;
-import com.sprsec.model.Comment;
+import com.sprsec.model.Ball;
 import com.sprsec.model.User;
+import com.sprsec.service.BallService;
 import com.sprsec.service.CommentService;
 import com.sprsec.service.UserService;
 
@@ -25,11 +26,21 @@ import com.sprsec.service.UserService;
 @SessionAttributes("userList")
 public class LinkNavigation {
 
+	
 	@Autowired
 	private UserService us;
 
 	@Autowired
 	private CommentService cs;
+	
+	@Autowired
+	private BallService bs;
+	
+	
+	private Integer received_balls;
+	private Integer balls_to_give;
+	private boolean locked;
+	private double cash;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView homePage() {
@@ -118,6 +129,34 @@ public class LinkNavigation {
 		lista.addObject("list", list);
 		lista.setViewName("test");
 		return lista;
+	}
+	
+
+	@RequestMapping(value="/userAdded", method=RequestMethod.POST)
+	public ModelAndView userAdded(
+			@RequestParam("name") String name,
+			@RequestParam("surname") String surname,
+			@RequestParam("login") String login,
+			@RequestParam("password") String password,
+			@RequestParam("roleID") Integer roleID,
+			@RequestParam("teamID") Integer teamID,
+			//@RequestParam("ballsID") Integer ballsID,
+			@RequestParam("mail") String mail,
+			@RequestParam("deptID") Integer deptID) {
+
+		received_balls = 0;
+		balls_to_give = 10;
+		locked = false;
+		cash = 1.0;
+		bs.addBall(received_balls, balls_to_give, locked, cash);
+		
+		List<Ball> lastId = bs.getBallId();
+		System.out.println(lastId);
+		Integer ballsID = lastId.get(lastId.size()-1).getBallsId();
+		System.out.println(ballsID);
+		us.addUser(name, surname, login, password, roleID, teamID, ballsID, mail, deptID);
+		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		return modelAndView;
 	}
 
 }
