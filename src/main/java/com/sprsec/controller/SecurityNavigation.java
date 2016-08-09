@@ -26,18 +26,15 @@ public class SecurityNavigation {
 	@Autowired
 	private UserService us;
 
-	@Autowired
-	private SettingService SettingS;
 	
 	@Autowired
 	private CommentService coms;
 	
-<<<<<<< Upstream, based on origin/master
+
 	@Autowired 
 	private SettingService sett;
 	
-=======
->>>>>>> 598661f Settings
+
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
 		return new ModelAndView("home");
@@ -173,20 +170,21 @@ public class SecurityNavigation {
 		lista.setViewName("settings");
 		return lista;
 	}
-	@RequestMapping(value="settingsAdd", method=RequestMethod.POST)
+	@RequestMapping(value="/settingsAdd", method=RequestMethod.POST)
 	public ModelAndView settingsAdd(
 			@RequestParam("ballsPerPers") Integer ballsPerPers,
 			@RequestParam("money") Double money,
 			@RequestParam("deadline") String deadline,
 			@RequestParam("extraBalls") Integer extraBalls)
 			 {
-		ModelAndView modelAndView = new ModelAndView("redirect:/inside");
+		ModelAndView modelAndView = new ModelAndView("settings");
 		
 		
 		System.out.println("data: "+deadline);
 	    Boolean freeze=false;
-		SettingS.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,2);
+		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,2);
 		System.out.println("Zapisuje ustawinia");
+		modelAndView.addObject("correct", true);
 		return modelAndView;
 	}
 	

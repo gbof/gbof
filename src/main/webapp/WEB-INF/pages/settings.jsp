@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
  <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" session="false" %> 
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -16,6 +16,9 @@
 	
 	<style>
       		<%@include file="/web-resources/css/settings.css" %>
+      		.correct {
+		color: green;
+	}
 	</style>
 
 </head>
@@ -26,9 +29,14 @@
 	
 
 	<div class="container-fluid main-container">
+	<p>
+		<c:if test="${correct == true}">
+			<b class="correct">Settings changed.</b>
+		</c:if>
+		</p>
 		<div class="col-md-6">
          		 <div class="panel panel-default">
-         		 <form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
+         		
               		<div class="panel-heading">
               			Settings
               		</div>
@@ -45,6 +53,7 @@
 				        <div class="panel-group col-md-6">
 				        	<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#myModal">Add new user</button>
 				        </div>
+				        <form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
 				        <div class="panel-group col-md-12">
 				        	
 					            <div class="form-group">
@@ -77,16 +86,18 @@
 							    </div>
 						   
 				        </div>
-              		</div>
-					<div class=text-right>
-					     <input type="submit" class="btn btn-primary btn-change pull-right" value="Save"/>
+				        <div class=text-right>
+					<input type="submit" class="btn btn-primary btn-change pull-right" value="Save"/>
+					
 					</div>
+              		</div>
+					
 					</form>
               	</div>
            </div>
        </div>
+   <a href="${pageContext.request.contextPath}/inside"><input  class="btn btn-primary btn-change pull-right" value="Back"/></a>
 
-	
 	
 	<!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -103,27 +114,27 @@
            	<div class="form-group col-md-12">
            		<div class="col-md-6 col-sm-6">
 	      		<label for="name">Name</label>
-<<<<<<< Upstream, based on origin/master
+
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="name" class="form-control" id="name" type="text" placeholder="name"/>
 	      		</div>
-=======
+
 	      		<input class="form-control" id="name" type="text" placeholder="name"/>
->>>>>>> 598661f Settings
+
 	    	</div>
 	    	<div class="form-group col-md-12">
-<<<<<<< Upstream, based on origin/master
+
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="surname">Last name</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="surname" class="form-control" id="surname" type="text" placeholder="last name"/>
 	      		</div>
-=======
+
 	      		<label for="lastname">Last name</label>
 	      		<input class="form-control" id="lastname" type="text" placeholder="last name"/>
->>>>>>> 598661f Settings
+
 	    	</div>
 	    	<div class="form-group col-md-12">
 	    	<div class="col-md-6 col-sm-6">
@@ -136,70 +147,69 @@
 	    	<div class="form-group col-md-12">
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="password">Password</label>
-<<<<<<< Upstream, based on origin/master
+
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="password" class="form-control" id="password" type="text" placeholder="password"/>
 	      		</div>
-=======
+
 	      		<input class="form-control" id="password" type="text" placeholder="password"/>
->>>>>>> 598661f Settings
+
 	    	</div>
 	    	<div class="form-group col-md-12">
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="role">Role ID</label>
-<<<<<<< Upstream, based on origin/master
+
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="roleID" class="form-control" id="role" type="text" placeholder="role id"/>
 	      		</div>
-=======
+
 	      		<input class="form-control" id="role" type="text" placeholder="role id"/>
->>>>>>> 598661f Settings
+	      		Settings
 	    	</div>
 	    	<div class="form-group col-md-12">
-<<<<<<< Upstream, based on origin/master
+
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="team">Team ID</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="teamID" class="form-control" id="team" type="text" placeholder="team name"/>
-	      		</div>
-=======
+
 	      		<label for="team">Team name</label>
 	      		<input class="form-control" id="team" type="text" placeholder="team name"/>
->>>>>>> 598661f Settings
+
 	    	</div>
 	    	<div class="form-group col-md-12">
-<<<<<<< Upstream, based on origin/master
+
 	    	<div class="col-md-6 col-sm-6">
-=======
+
 	      		<label for="balls">Balls to give</label>
 	      		<input class="form-control" id="balls" type="text" placeholder="balls to give"/>
 	    	</div>
 	    	<div class="form-group col-md-12">
->>>>>>> 598661f Settings
+
 	      		<label for="mail">Mail</label>
-<<<<<<< Upstream, based on origin/master
+
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="mail" class="form-control" id="mail" type="text" placeholder="mail"/>
 	      		</div>
-=======
+
 	      		<input class="form-control" id="mail" type="text" placeholder="mail"/>
->>>>>>> 598661f Settings
+
 	    	</div>
 	    	<div class="form-group col-md-12">
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="dept">Dept ID</label>
-<<<<<<< Upstream, based on origin/master
+
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="deptID" class="form-control" id="dept" type="text" placeholder="dept"/>
 	      		</div>
-=======
+
 	      		<input class="form-control" id="dept" type="text" placeholder="dept"/>
->>>>>>> 598661f Settings
+
 	    	</div>
       </div>
       <div class="modal-footer">
