@@ -1,38 +1,27 @@
-	
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page session="false" %>
+
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JSP List Users Records</title>
-</head>
 <body>
-    
-     
-    <div align="center">
-        <table border="1" cellpadding="5">
-            <caption><h2>List of users</h2></caption>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>login</th>
-            </tr>
-           
-            <c:forEach var="user" items="${list}">
-            <tr>
-            <td><c:out value="${user.id}" /></td>
-            <td><c:out value="${user.name}" /></td>
-            <td><c:out value="${user.surname}" /></td>
-            <td><c:out value="${user.login}" /></td>
-            </tr>
-            </c:forEach>
-            
-        </table>
-    </div>
+
+
+<form method="POST" action="settingsAdd" >
+
+   <input type="text" name="ballsPerPers" />Balls per person<br>
+   <input type="text" name="money" />Money<br>
+   <input type="text" name="deadline" />Deadline<br>
+  
+   <button type="submit" name="submit" >Next</button>
+
+</form>
+
 </body>
 </html>

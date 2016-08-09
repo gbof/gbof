@@ -21,10 +21,19 @@ public class SettingsDAOImpl implements SettingsDAO{
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, Date deadline,Boolean freeze, Integer SettingId){
+	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer settings_id){
 		//String queryDel = "DELETE * FROM settings";
 		//SQLQuery sqlQuery = openSession().createSQLQuery(queryDel);
-		String queryInsert = "INSERT INTO settings (extra_balls, balls_per_person, money, deadline, freeze, SettingId) VALUES ('"+ extraBalls +"', '"+ balls_per_pers +"', '"+ money +"', '"+ deadline +"', '"+ freeze +"', '"+ SettingId +"')";
+		Integer freezeId;
+		if(freeze==true)
+		{
+			freezeId=1;
+		}
+		else
+		{
+			freezeId=0;
+		}
+		String queryInsert = "INSERT INTO settings (extra_balls, balls_per_person, money, deadline, freeze,balls_left, settings_id) VALUES ('"+ extraBalls +"', '"+ balls_per_pers +"', '"+ money +"', '"+ deadline +"','"+ 0 +"', '"+ freezeId +"', '"+ settings_id +"')";
 		SQLQuery sqlQuery = openSession().createSQLQuery(queryInsert);
 		sqlQuery.executeUpdate();
 	}

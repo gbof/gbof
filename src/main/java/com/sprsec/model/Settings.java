@@ -17,11 +17,11 @@ public class Settings {
 	@Column(name="balls_per_person")
 	private Integer balls_per_person;
 	@Column(name="money")
-	private double money;
+	private Double money;
 	@Column(name="deadline")
 	private Date deadline;
 	@Column(name="freeze")
-	private boolean freeze;
+	private Integer freeze;
 	@Column(name="balls_left")
 	private Integer balls_left;
 	
@@ -56,7 +56,7 @@ public class Settings {
 		return money;
 	}
 	
-	public void setMoney(double money){
+	public void setMoney(Double money){
 		this.money = money;
 	}
 	
@@ -70,11 +70,11 @@ public class Settings {
 	}
 	
 	
-	public boolean getFreeze(){
+	public Integer getFreeze(){
 		return freeze;
 	}
 	
-	public void setFreeze(boolean freeze){
+	public void setFreeze(Integer freeze){
 		this.freeze = freeze;
 	}
 	

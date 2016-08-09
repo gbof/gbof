@@ -1,5 +1,7 @@
 package com.sprsec.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sprsec.model.Comment;
@@ -24,11 +27,17 @@ public class SecurityNavigation {
 	private UserService us;
 
 	@Autowired
+	private SettingService SettingS;
+	
+	@Autowired
 	private CommentService coms;
 	
+<<<<<<< Upstream, based on origin/master
 	@Autowired 
 	private SettingService sett;
 	
+=======
+>>>>>>> 598661f Settings
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
 		return new ModelAndView("home");
@@ -60,7 +69,7 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		String name = us.getUser(userName).getName();
 		String login = us.getUser(userName).getLogin();
-		User zalogowany=us.getUser(userName);
+		
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
 		
@@ -150,12 +159,12 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		String name = us.getUser(userName).getName();
 		String login = us.getUser(userName).getLogin();
-		User zalogowany=us.getUser(userName);
+		
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
-		System.out.println("Zalogowano: "+name);
 		
+		System.out.println("Wchodze do ustawien");
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("listt", listt);
 		lista.addObject("kule", kulki);
@@ -164,4 +173,22 @@ public class SecurityNavigation {
 		lista.setViewName("settings");
 		return lista;
 	}
+	@RequestMapping(value="settingsAdd", method=RequestMethod.POST)
+	public ModelAndView settingsAdd(
+			@RequestParam("ballsPerPers") Integer ballsPerPers,
+			@RequestParam("money") Double money,
+			@RequestParam("deadline") String deadline,
+			@RequestParam("extraBalls") Integer extraBalls)
+			 {
+		ModelAndView modelAndView = new ModelAndView("redirect:/inside");
+		
+		
+		System.out.println("data: "+deadline);
+	    Boolean freeze=false;
+		SettingS.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,2);
+		System.out.println("Zapisuje ustawinia");
+		return modelAndView;
+	}
+	
+	
 }

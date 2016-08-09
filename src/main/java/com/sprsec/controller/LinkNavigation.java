@@ -72,15 +72,21 @@ public class LinkNavigation {
 	@RequestMapping(value = "/comments", method = RequestMethod.POST)
 	public String commentsPageString(@RequestParam(value = "userIds", required = false) Integer[] userIds,
 			Model model) {
-
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
 		List<Integer> idList = new ArrayList<Integer>();
 		List<User> userList = new ArrayList<User>();
 		for (int i = 0; i < userIds.length; i++) {
 			userList.add(us.getUserId(userIds[i]));
 			idList.add(userIds[i]);
 		}
+		String login = us.getUser(userName).getLogin();
+		
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		model.addAttribute("idList", idList);
 		model.addAttribute("userList", userList);
+		model.addAttribute("kule", kulki);
+		model.addAttribute("login", login);
 		return "comments";
 	}
 
@@ -123,15 +129,7 @@ public class LinkNavigation {
 	 * ModelAndView insidePage() { return new ModelAndView("inside2"); }
 	 */
 
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public ModelAndView testPage() {
-
-		ModelAndView lista = new ModelAndView();
-		List<User> list = us.getAllUsers();
-		lista.addObject("list", list);
-		lista.setViewName("test");
-		return lista;
-	}
+	
 	
 
 	@RequestMapping(value="/userAdded", method=RequestMethod.POST)

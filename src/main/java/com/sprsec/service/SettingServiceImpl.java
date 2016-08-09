@@ -16,7 +16,7 @@ public class SettingServiceImpl implements SettingService{
 	@Autowired
 	private SettingsDAO settingsDAO;
 	
-	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, Date deadline,Boolean freeze, Integer SettingId)
+	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer SettingId)
 	{
 		settingsDAO.addSetting(extraBalls, balls_per_pers, money, deadline, freeze, SettingId);
 	}
