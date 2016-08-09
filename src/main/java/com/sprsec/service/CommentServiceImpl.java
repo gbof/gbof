@@ -18,11 +18,13 @@ public class CommentServiceImpl implements CommentService{
 	
 	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id, Integer commentToUserId){
 		commentDAO.addComment(message1, message2, ballsNumber, user_id, commentToUserId);
+
 	}
 	public List<Comment> getAllComments() {
 		return commentDAO.getAllComments();
 	}
 	public List<Comment> getConfirmedComments() {
 		return commentDAO.getConfirmedComments();
+
 	}
 }
