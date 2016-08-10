@@ -1,10 +1,12 @@
 package com.sprsec.controller;
 
 
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import java.util.ArrayList;
+
 
 import java.util.List;
 
@@ -129,7 +131,7 @@ public class SecurityNavigation {
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-		List<Double> ballValue = coms.getBallValue(moneyValue);
+		
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
@@ -164,16 +166,24 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		String name = us.getUser(userName).getName();
 		String login = us.getUser(userName).getLogin();
-		User zalogowany=us.getUser(userName);
+		
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
 		System.out.println("Zalogowano: "+name);
 		
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+	
+		List<Long> ballValue2List = coms.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue/ballValue2);
+		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("listt", listt);
 		lista.addObject("kule", kulki);
 		lista.addObject("rola", role);
+		lista.addObject("money", wynik);
 		lista.addObject("login", login);
 		lista.setViewName("changePassword");
 		return lista;
@@ -185,17 +195,29 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		String name = us.getUser(userName).getName();
 		String login = us.getUser(userName).getLogin();
-		
+		System.out.println("Wchodze do ustawien");
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
+
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
+
+		List<Settings> settingsList=sett.getSettings();
+
 		
-		System.out.println("Wchodze do ustawien");
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+	
+		List<Long> ballValue2List = coms.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue/ballValue2);
+		
 		ModelAndView lista = new ModelAndView();
+		lista.addObject("settingsList",settingsList);
 		lista.addObject("listt", listt);
+		lista.addObject("money", wynik);
 		lista.addObject("kule", kulki);
 		lista.addObject("rola", role);
 		lista.addObject("login", login);
@@ -213,13 +235,21 @@ public class SecurityNavigation {
 			@RequestParam("extraBalls") Integer extraBalls)
 			 {
 		ModelAndView modelAndView = new ModelAndView("settings");
+		Boolean freeze=false;
 		
-		
-		System.out.println("data: "+deadline);
-	    Boolean freeze=false;
-		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,2);
-		System.out.println("Zapisuje ustawinia");
+		if (money==null || ballsPerPers==null || deadline=="" || extraBalls==null)
+		{
+			System.out.println("Brak danych");
+			modelAndView.addObject("error", true);
+		}
+		else
+		{
 		modelAndView.addObject("correct", true);
+		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,1);
+		System.out.println("Zapisuje ustawinia");
+		}
+	    
+
 		return modelAndView;
 	}
 	

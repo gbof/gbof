@@ -97,11 +97,21 @@ public class LinkNavigation {
 			userList.add(us.getUserId(userIds[i]));
 			idList.add(userIds[i]);
 		}
+		if(userList.size()>0)
+		{
+			model.addAttribute("userList", userList);
+			model.addAttribute("correct", true);
+		}
+		else
+		{
+			model.addAttribute("correct", false);
+		}
+		
 		String login = us.getUser(userName).getLogin();
 		
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		model.addAttribute("idList", idList);
-		model.addAttribute("userList", userList);
+		
 		model.addAttribute("kule", kulki);
 		model.addAttribute("login", login);
 		return "comments";
@@ -166,7 +176,7 @@ public class LinkNavigation {
 		cash = 0;
 		
 		
-		List<Settings> settingsList = ss.getAllSettings();
+		List<Settings> settingsList = ss.getSettings();
 		Integer lastSettingsId = settingsList.get(settingsList.size()-1).getSettingsID();
 		Integer balls_to_give = settingsList.get(lastSettingsId-1).getBallsPerPerson();
 		

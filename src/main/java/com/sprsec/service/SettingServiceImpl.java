@@ -1,6 +1,5 @@
 package com.sprsec.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,12 @@ public class SettingServiceImpl implements SettingService{
 	{
 		return settingsDAO.getMoney(settingsId);
 	}
+
 	
 
-	@Override
-	public List<Settings> getAllSettings() {
-		return settingsDAO.getAllSettings();
+	public List<Settings> getSettings()
+	{
+		return settingsDAO.getSettings();
+ 
 	}
 }

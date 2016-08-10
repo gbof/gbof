@@ -18,9 +18,10 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">			
 			<ul class="nav navbar-nav navbar-right">
-			<c:set var="rola" scope="session" value="${rola }"/>
+			<c:set var="rola" scope="session" value="${rola}"/>
 			<c:set var="admin" scope="session" value="admin"/>
 			<c:if test="${rola == admin}" >
+			
 				<li><a href="${pageContext.request.contextPath}/settings">Settings</a></li>
 				</c:if>
 				<li><a>Username: ${login}</a></li>

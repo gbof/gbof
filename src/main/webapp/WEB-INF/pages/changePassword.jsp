@@ -41,7 +41,7 @@
 		</c:if>
 		</p>
 		<p>
-		<c:if test="${error2 == true}">
+		<c:if test="${error == true}">
 			<b class="error">New passwords are not the same</b>
 		</c:if>
 		</p>

@@ -15,10 +15,14 @@
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 	
 	<style>
-      		<%@include file="/web-resources/css/settings.css" %>
-      		.correct {
+      	<%@include file="/web-resources/css/settings.css" %>
+      	.correct {
 		color: green;
+		}
+		.error {
+		color: red;
 	}
+	
 	</style>
 
 </head>
@@ -32,6 +36,11 @@
 	<p>
 		<c:if test="${correct == true}">
 			<b class="correct">Settings changed.</b>
+		</c:if>
+		</p>
+		<p>
+		<c:if test="${error == true}">
+			<b class="error">Settings not saved, missing data</b>
 		</c:if>
 		</p>
 		<div class="col-md-6">
@@ -58,7 +67,7 @@
 				        	
 					            <div class="form-group">
 							      <label >Balls Per Person </label>
-							      <input class="form-control" type="text" name="ballsPerPers"/>
+							      <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers"/>
 							    </div>
 						  
 				        </div>
@@ -66,7 +75,7 @@
 				       
 					            <div class="form-group">
 							      <label >Money </label>
-							      <input class="form-control" type =text name="money" placeholder="PLN"/>
+							      <input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN"/>
 							    </div>
 						
 				        </div>
@@ -74,7 +83,7 @@
 				        
 					            <div class="form-group">
 							      <label >Deadline</label>
-							      <input class="form-control" type=text name="deadline"/>
+							      <input class="form-control" value="${settingsList.get(0).getDeadline()}" type=text name="deadline"/>
 							    </div>
 						
 				        </div>
@@ -82,7 +91,7 @@
 				    
 					            <div class="form-group">
 							      <label  for="deadline">Extra balls </label>
-							      <input class="form-control" type=text name="extraBalls"/>
+							      <input class="form-control" value="${settingsList.get(0).getExtraBalls()}" type=text name="extraBalls"/>
 							    </div>
 						   
 				        </div>
@@ -96,7 +105,7 @@
               	</div>
            </div>
        </div>
-   <a href="${pageContext.request.contextPath}/inside"><input  class="btn btn-primary btn-change pull-right" value="Back"/></a>
+   <a href="${pageContext.request.contextPath}/adminview"><input  class="btn btn-primary btn-change pull-right" value="Back"/></a>
 
 	
 	<!-- Modal -->

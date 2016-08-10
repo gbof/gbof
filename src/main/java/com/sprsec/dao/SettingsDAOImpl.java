@@ -1,7 +1,6 @@
 package com.sprsec.dao;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -10,6 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sprsec.model.Settings;
+import com.sprsec.model.User;
 
 import com.sprsec.model.Settings;
 
@@ -24,8 +26,10 @@ public class SettingsDAOImpl implements SettingsDAO{
 	}
 	
 	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer settings_id){
-		//String queryDel = "DELETE * FROM settings";
-		//SQLQuery sqlQuery = openSession().createSQLQuery(queryDel);
+		String queryDel = "DELETE FROM settings";
+		SQLQuery sqlQuery = openSession().createSQLQuery(queryDel);
+		sqlQuery.executeUpdate();
+		
 		Integer freezeId;
 		if(freeze==true)
 		{
@@ -36,12 +40,13 @@ public class SettingsDAOImpl implements SettingsDAO{
 			freezeId=0;
 		}
 		String queryInsert = "INSERT INTO settings (extra_balls, balls_per_person, money, deadline, freeze,balls_left, settings_id) VALUES ('"+ extraBalls +"', '"+ balls_per_pers +"', '"+ money +"', '"+ deadline +"','"+ 0 +"', '"+ freezeId +"', '"+ settings_id +"')";
-		SQLQuery sqlQuery = openSession().createSQLQuery(queryInsert);
+		sqlQuery = openSession().createSQLQuery(queryInsert);
 		sqlQuery.executeUpdate();
 	}
 	
 	public List<Double> getMoney(Integer settingsId){
 		List<Double> getMoney = new ArrayList<Double>();
+		
 		String sql = "select money from Settings WHERE settings_id = '"+ settingsId + "'";
 		Query query = openSession().createQuery(sql);
 		getMoney = query.list();
@@ -51,9 +56,13 @@ public class SettingsDAOImpl implements SettingsDAO{
 			return null;	
 	
 	}
+
 	
 	@Override
-	public List<Settings> getAllSettings() {
+	
+
+	public List<Settings> getSettings() {
+
 		List<Settings> settingsList = new ArrayList<Settings>();
 		
 		String sql = "from Settings";

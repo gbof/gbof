@@ -15,6 +15,7 @@
 
 		<style>
        		<%@include file="/web-resources/css/inside.css" %>
+       		
 		</style>
 		
 </head>
@@ -95,7 +96,10 @@
 	</div>
 	
 	<div class=text-right>
-	     <button type="submit" class="btn-info btn btn-lg">Next</button>
+	     
+	    <button type="submit"  class="btn-info btn btn-lg">Next</button>
+		
+		
 	</div>
 	</form>	
 
