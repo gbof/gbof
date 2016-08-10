@@ -14,11 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sprsec.model.Comment;
+import com.sprsec.model.Department;
 import com.sprsec.model.Role;
 import com.sprsec.model.Settings;
+import com.sprsec.model.Team;
 import com.sprsec.model.User;
 import com.sprsec.service.CommentService;
+import com.sprsec.service.DepartmentService;
+import com.sprsec.service.RoleService;
 import com.sprsec.service.SettingService;
+import com.sprsec.service.TeamService;
 import com.sprsec.service.UserService;
 
 @Controller
@@ -33,6 +38,15 @@ public class SecurityNavigation {
 
 	@Autowired 
 	private SettingService sett;
+	
+	@Autowired
+	private RoleService rs;
+	
+	@Autowired
+	private TeamService ts;
+	
+	@Autowired
+	private DepartmentService ds;
 	
 
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
@@ -160,6 +174,9 @@ public class SecurityNavigation {
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
+		List<Role> rolelistt = rs.getAllRoles();
+		List<Team> teamlistt = ts.getAllTeams();
+		List<Department> deptlistt = ds.getAllDepts();
 		
 		System.out.println("Wchodze do ustawien");
 		ModelAndView lista = new ModelAndView();
@@ -167,6 +184,9 @@ public class SecurityNavigation {
 		lista.addObject("kule", kulki);
 		lista.addObject("rola", role);
 		lista.addObject("login", login);
+		lista.addObject("rolelistt", rolelistt);
+		lista.addObject("teamlistt", teamlistt);
+		lista.addObject("deptlistt", deptlistt);
 		lista.setViewName("settings");
 		return lista;
 	}

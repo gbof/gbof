@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sprsec.dao.SettingsDAO;
+import com.sprsec.model.Settings;
 
 @Service
 @Transactional
@@ -24,5 +25,11 @@ public class SettingServiceImpl implements SettingService{
 	public List<Double> getMoney(Integer settingsId)
 	{
 		return settingsDAO.getMoney(settingsId);
+	}
+	
+
+	@Override
+	public List<Settings> getAllSettings() {
+		return settingsDAO.getAllSettings();
 	}
 }

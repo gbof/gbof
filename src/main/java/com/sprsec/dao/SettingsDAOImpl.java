@@ -11,6 +11,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.sprsec.model.Settings;
+
 @Repository
 public class SettingsDAOImpl implements SettingsDAO{
 	
@@ -48,6 +50,20 @@ public class SettingsDAOImpl implements SettingsDAO{
 		else
 			return null;	
 	
+	}
+	
+	@Override
+	public List<Settings> getAllSettings() {
+		List<Settings> settingsList = new ArrayList<Settings>();
+		
+		String sql = "from Settings";
+		Query query = openSession().createQuery(sql);
+		
+		settingsList = query.list();
+		if (settingsList.size() > 0)
+			return settingsList;
+		else
+			return null;	
 	}
 
 }

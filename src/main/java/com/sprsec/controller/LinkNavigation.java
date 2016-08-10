@@ -18,10 +18,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import com.sprsec.model.Ball;
-
+import com.sprsec.model.Department;
+import com.sprsec.model.Role;
+import com.sprsec.model.Settings;
+import com.sprsec.model.Team;
 import com.sprsec.model.User;
 import com.sprsec.service.BallService;
 import com.sprsec.service.CommentService;
+import com.sprsec.service.DepartmentService;
+import com.sprsec.service.RoleService;
+import com.sprsec.service.SettingService;
+import com.sprsec.service.TeamService;
 import com.sprsec.service.UserService;
 
 @Controller
@@ -38,9 +45,19 @@ public class LinkNavigation {
 	@Autowired
 	private BallService bs;
 	
+	@Autowired
+	private SettingService ss;
+	
+	@Autowired
+	private RoleService rs;
+	
+	@Autowired
+	private TeamService ts;
+	
+	@Autowired
+	private DepartmentService ds;
 	
 	private Integer received_balls;
-	private Integer balls_to_give;
 	private boolean locked;
 	private double cash;
 
@@ -138,23 +155,36 @@ public class LinkNavigation {
 			@RequestParam("surname") String surname,
 			@RequestParam("login") String login,
 			@RequestParam("password") String password,
-			@RequestParam("roleID") Integer roleID,
-			@RequestParam("teamID") Integer teamID,
-			//@RequestParam("ballsID") Integer ballsID,
+			@RequestParam("roleName") String roleName,
+			@RequestParam("teamName") String teamName,
 			@RequestParam("mail") String mail,
-			@RequestParam("deptID") Integer deptID) {
+			@RequestParam("deptName") String deptName) {
 
+		// default initial values
 		received_balls = 0;
-		balls_to_give = 10;
-		locked = false;
-		cash = 1.0;
+		locked = false;		
+		cash = 0;
+		
+		
+		List<Settings> settingsList = ss.getAllSettings();
+		Integer lastSettingsId = settingsList.get(settingsList.size()-1).getSettingsID();
+		Integer balls_to_give = settingsList.get(lastSettingsId-1).getBallsPerPerson();
+		
+		List <Role> roleList = rs.getRoleId(roleName);
+		Integer roleId = roleList.get(0).getId();
+		
+		Team teamList = ts.getTeamID(teamName);
+		Integer teamID = teamList.getId();
+		
+		Department deptList = ds.getDeptID(deptName);
+		Integer deptID = deptList.getDeptId();
+
 		bs.addBall(received_balls, balls_to_give, locked, cash);
 		
-		List<Ball> lastId = bs.getBallId();
-		System.out.println(lastId);
-		Integer ballsID = lastId.get(lastId.size()-1).getBallsId();
-		System.out.println(ballsID);
-		us.addUser(name, surname, login, password, roleID, teamID, ballsID, mail, deptID);
+		List<Ball> lastBallId = bs.getBallId();
+		Integer ballsID = lastBallId.get(lastBallId.size()-1).getBallsId();
+		
+		us.addUser(name, surname, login, password, roleId, teamID, ballsID, mail, deptID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
 		return modelAndView;
 	}

@@ -114,27 +114,18 @@
            	<div class="form-group col-md-12">
            		<div class="col-md-6 col-sm-6">
 	      		<label for="name">Name</label>
-
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="name" class="form-control" id="name" type="text" placeholder="name"/>
 	      		</div>
-
-	      		<input class="form-control" id="name" type="text" placeholder="name"/>
-
 	    	</div>
 	    	<div class="form-group col-md-12">
-
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="surname">Last name</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="surname" class="form-control" id="surname" type="text" placeholder="last name"/>
 	      		</div>
-
-	      		<label for="lastname">Last name</label>
-	      		<input class="form-control" id="lastname" type="text" placeholder="last name"/>
-
 	    	</div>
 	    	<div class="form-group col-md-12">
 	    	<div class="col-md-6 col-sm-6">
@@ -147,92 +138,68 @@
 	    	<div class="form-group col-md-12">
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="password">Password</label>
-
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="password" class="form-control" id="password" type="text" placeholder="password"/>
 	      		</div>
-
-	      		<input class="form-control" id="password" type="text" placeholder="password"/>
-
+	    	</div>
+		      <div class="form-group col-md-12">
+		        <label class="col-md-6 control-label">Role</label>
+		        <div class="col-md-6 selectContainer">
+		            <select class="form-control" name="roleName">
+		                <option value="-1">--- Select ---</option>
+			            <c:forEach var="role" items="${rolelistt}">
+			                <option name = "roleName" value="${role.getRole()}"  >
+			                	<c:out value="${role.getRole()}" />
+			                </option>
+			            </c:forEach>
+		            </select>
+		        </div>
+	    	</div>
+		     <div class="form-group col-md-12">
+		        <label class="col-md-6 control-label">Team</label>
+		        <div class="col-md-6 selectContainer">
+		            <select class="form-control" name="teamName">
+		                <option value="-1">--- Select ---</option>
+			            <c:forEach var="team" items="${teamlistt}">
+			                <option name = "teamName" value="${team.getName()}"  >
+			                	<c:out value="${team.getName()}" />
+			                </option>
+			            </c:forEach>
+		            </select>
+		        </div>
 	    	</div>
 	    	<div class="form-group col-md-12">
 	    	<div class="col-md-6 col-sm-6">
-	      		<label for="role">Role ID</label>
-
-	      		</div>
-	      		<div class="col-md-6 col-sm-6">
-	      		<input name="roleID" class="form-control" id="role" type="text" placeholder="role id"/>
-	      		</div>
-
-	      		<input class="form-control" id="role" type="text" placeholder="role id"/>
-	      		Settings
-	    	</div>
-	    	<div class="form-group col-md-12">
-
-	    	<div class="col-md-6 col-sm-6">
-	      		<label for="team">Team ID</label>
-	      		</div>
-	      		<div class="col-md-6 col-sm-6">
-	      		<input name="teamID" class="form-control" id="team" type="text" placeholder="team name"/>
-
-	      		<label for="team">Team name</label>
-	      		<input class="form-control" id="team" type="text" placeholder="team name"/>
-
-	    	</div>
-	    	<div class="form-group col-md-12">
-
-	    	<div class="col-md-6 col-sm-6">
-
-	      		<label for="balls">Balls to give</label>
-	      		<input class="form-control" id="balls" type="text" placeholder="balls to give"/>
-	    	</div>
-	    	<div class="form-group col-md-12">
-
 	      		<label for="mail">Mail</label>
-
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="mail" class="form-control" id="mail" type="text" placeholder="mail"/>
 	      		</div>
-
-	      		<input class="form-control" id="mail" type="text" placeholder="mail"/>
-
 	    	</div>
-	    	<div class="form-group col-md-12">
-	    	<div class="col-md-6 col-sm-6">
-	      		<label for="dept">Dept ID</label>
-
-	      		</div>
-	      		<div class="col-md-6 col-sm-6">
-	      		<input name="deptID" class="form-control" id="dept" type="text" placeholder="dept"/>
-	      		</div>
-
-	      		<input class="form-control" id="dept" type="text" placeholder="dept"/>
-
+	    	 <div class="form-group col-md-12">
+		        <label class="col-md-6 control-label">Department</label>
+		        <div class="col-md-6 selectContainer">
+		            <select class="form-control" name="deptName">
+		                <option value="-1">--- Select ---</option>
+			            <c:forEach var="dept" items="${deptlistt}">
+			                <option name = "deptName" value="${dept.getDeptName()}"  >
+			                	<c:out value="${dept.getDeptName()}" />
+			                </option>
+			            </c:forEach>
+		            </select>
+		        </div>
 	    	</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-        <input type="submit" class="btn btn-primary btn-change pull-right" value="Save"/>
+        <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
       </div>
     </form>
     </div>
 
   </div>
 </div>
-
-<!--  
-<div class="container">
-	<form role="form" method="POST" action="${pageContext.request.contextPath}/ballAdded">
-	<input name="received_balls" placeholder="received balls"/>
-	<input name="balls_to_give" placeholder="balls to give" />
-	<input name="locked" placeholder="locked" />
-	<input name="cash" placeholder="cash" />
-	<input type="submit" value="Save" />
-	</form>
-</div>
--->
 
 
 
