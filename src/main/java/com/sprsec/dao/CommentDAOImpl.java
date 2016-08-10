@@ -75,5 +75,17 @@ public class CommentDAOImpl implements CommentDAO{
 			return null;	
 	}
 	
+	public List<Integer> getAllBallsGivenTo(Integer id, Integer id2){
+		List<Integer> ballsList = new ArrayList<Integer>();
+		String sql = "select sum(c.balls_per_com) from Comment c where c.creator_id = '"+ id +"' and c.user = '"+ id2 +"'";
+		Query query = openSession().createQuery(sql);
+		ballsList = query.list();
+		if (ballsList.size() > 0)
+			return ballsList;
+		else
+			return null;
+		
+	}
+	
 
 }

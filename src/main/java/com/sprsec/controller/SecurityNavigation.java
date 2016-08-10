@@ -1,7 +1,11 @@
 package com.sprsec.controller;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sprsec.model.Comment;
 import com.sprsec.model.Department;
 import com.sprsec.model.Role;
+
 import com.sprsec.model.Settings;
 import com.sprsec.model.Team;
+
+
 import com.sprsec.model.User;
 import com.sprsec.service.CommentService;
 import com.sprsec.service.DepartmentService;
@@ -80,20 +87,28 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		String name = us.getUser(userName).getName();
 		String login = us.getUser(userName).getLogin();
-		
+
+		Integer id = us.getUser(userName).getId();
+		User zalogowany=us.getUser(userName);
+
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-		List<Double> ballValue = coms.getBallValue(moneyValue);
+
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue/ballValue2);
-		
+		Double wynik = (double) Math.round(moneyValue/ballValue2);
+		List<Integer> allBallsGivenTo = new ArrayList<Integer>();
+		for(int i=0;i<listt.size();i++){
+			allBallsGivenTo.addAll(coms.getAllBallsGivenTo(id, listt.get(i).getId()));
+			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
+		}
 		
 		System.out.println("Zalogowano: "+name);
 		ModelAndView lista = new ModelAndView();
+		lista.addObject("allBallsGivenTo", allBallsGivenTo);
 		lista.addObject("money", wynik);
 		lista.addObject("kule", kulki);
 		lista.addObject("login", login);
@@ -118,7 +133,7 @@ public class SecurityNavigation {
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
-		
+
 		List<Comment> commentList = coms.getAllComments();
 		
 		System.out.println("Kom1:" + commentList.get(0).getUser().getName());

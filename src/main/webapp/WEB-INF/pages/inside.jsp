@@ -58,22 +58,25 @@
 					    </thead>
 					    <tbody>
 					    
-					      <c:forEach var="user" items="${listt}">
+					      
+					      <c:forEach var="user" items="${listt}" begin="1" end="${listt.size()-1}" varStatus="loop">
 					    <tr>
 					    <td>
 						    	<div class="checkbox">
-									<label><input type="checkbox" name = "userIds" value = "${user.getId()}"></label>
+									<label><input type="checkbox" name = "userIds" value = "${user.getId()} "></label>
 								</div>
 							</td>
 					          <td><c:out value="${user.name}" /></td>
 					          <td><c:out value="${user.surname}" /></td>
 					          <td><c:out value="${user.login}" /></td>
 					          <td><c:out value="${user.getTeam().getName()}" /></td>
-					          <td><c:out value="${user.getBall().getReceivedBalls()}" /></td>
+
+					          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
+					          
 					          
 					      </tr>
             			</c:forEach>
-					    
+				
 					     
 					     
 					    

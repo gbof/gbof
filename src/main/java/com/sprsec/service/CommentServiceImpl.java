@@ -34,4 +34,7 @@ public class CommentServiceImpl implements CommentService{
 	public List<Long> getBallValue2(){
 		return commentDAO.getBallValue2();
 	}
+	public List<Integer> getAllBallsGivenTo(Integer id, Integer id2){
+		return commentDAO.getAllBallsGivenTo(id, id2);
+	}
 }

@@ -11,5 +11,6 @@ public interface CommentDAO {
 	public List<Comment> getConfirmedComments();
 	public List<Double> getBallValue(Double money);
 	public List<Long> getBallValue2();
+	public List<Integer> getAllBallsGivenTo(Integer id, Integer id2);
 
 }

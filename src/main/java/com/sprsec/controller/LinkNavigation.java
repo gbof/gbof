@@ -116,7 +116,7 @@ public class LinkNavigation {
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
 		if (us.getUser(userName).getBall().getBallsToGive() == 0) {
-			ModelAndView modelAndView = new ModelAndView("redirect:/inside");
+			ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 			System.out.println("================== NIE MASZ JUZ KULEK");
 			modelAndView.addObject("success-comment", false);
 			return modelAndView;
@@ -124,16 +124,16 @@ public class LinkNavigation {
 			for (int i = 0; i < message1List.length; i++) {
 				if (us.getUser(userName).getBall().getBallsToGive() < ballsNumberList[i]) {
 					System.out.println("================== NIE MASZ TYLE KULEK");
-					ModelAndView modelAndView = new ModelAndView("redirect:/inside");
+					ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 					modelAndView.addObject("success-comment", false);
 					return modelAndView;
 				} else {
 					Integer commentToUserId = userList.get(i).getId();
 					cs.addComment(message1List[i], message2List[i], ballsNumberList[i], user_id, commentToUserId);
-					us.setBallsAfterComment(user_id, ballsNumberList[i]);
+					us.setBallsAfterComment(user_id, ballsNumberList[i], commentToUserId);
 				};
 				};
-				ModelAndView modelAndView = new ModelAndView("redirect:/inside");
+				ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 				System.out.println("================== DODANO KOMENTARZ");
 				modelAndView.addObject("success-comment", true);
 				return modelAndView;
