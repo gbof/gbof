@@ -47,6 +47,21 @@ public class CommentDAOImpl implements CommentDAO{
 			return null;	
 		
 	}
+	
+	public List<Comment> getCommentsYouGave(Integer id)
+	{
+		List<Comment> commentList = new ArrayList<Comment>();
+		
+		Query query = openSession().createQuery("from Comment where user_id = :id");
+		query.setParameter("id", id);
+		commentList = query.list();
+		if (commentList.size() > 0)
+			return commentList;
+		else
+			return null;	
+		
+	}
+	
 	public List<Comment> getConfirmedComments() {
 		List<Comment> commentsConfirmedList = new ArrayList<Comment>();
 		Boolean conf = true;
@@ -99,6 +114,12 @@ public class CommentDAOImpl implements CommentDAO{
 		else
 			return null;
 		
+	}
+	@Override
+	public void removeComment(Integer com_id) {
+		String query = "delete from comments where com_id="+com_id;
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
 	}
 	
 	

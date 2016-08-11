@@ -12,4 +12,6 @@ public interface CommentService {
 	public List<Long> getBallValue2();
 	public List<Integer> getAllBallsGivenTo(Integer id, Integer id2);
 	public List<Comment> getYourComments(Integer id);
+	public List<Comment> getCommentsYouGave(Integer integer);
+	public void removeComment(Integer comId);
 }

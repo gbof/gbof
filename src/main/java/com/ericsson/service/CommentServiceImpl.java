@@ -41,4 +41,14 @@ public class CommentServiceImpl implements CommentService{
 	{
 		return commentDAO.getYourComments(id);
 		}
+	@Override
+	public  List<Comment> getCommentsYouGave(Integer id) {
+		return commentDAO.getCommentsYouGave(id);
+		
+	}
+	@Override
+	public void removeComment(Integer comId) {
+		commentDAO.removeComment(comId);
+	}
+
 }

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import com.ericsson.model.Ball;
+import com.ericsson.model.Comment;
 import com.ericsson.model.Department;
 import com.ericsson.model.Role;
 import com.ericsson.model.Settings;
@@ -237,6 +238,28 @@ public class LinkNavigation {
 		Integer leaderID = userList.getId();
 
 		ds.addDept(deptName, leaderID);
+		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/userRemoved", method=RequestMethod.POST)
+	public ModelAndView userRemoved(
+			@RequestParam(value = "userDelIds", required = false) Integer[] userDelIds) {
+		
+		Integer comId;
+		List<Comment> commentList;
+		for (int i=0; i<userDelIds.length; i++){
+			// check if there are any comments for this user
+			commentList = cs.getCommentsYouGave(userDelIds[i]);
+			if (commentList != null){
+				for (int j=0; j<commentList.size(); j++){
+					comId = commentList.get(j).getComId();
+					cs.removeComment(comId);
+				}
+			}
+			us.removeUser(userDelIds[i]);
+		}
+
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
 		return modelAndView;
 	}

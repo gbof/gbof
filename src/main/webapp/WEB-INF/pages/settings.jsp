@@ -59,15 +59,6 @@
 						        </div>
 						    </div>
 					    </div>
-				        <div class="panel-group col-md-6">
-				        	<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#myModal">New user</button>
-				        </div>
-				        <div class="panel-group col-md-6">
-		        			<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#teamModal" >New team</button>
-				        </div>
-				        <div class="panel-group col-md-12">
-		        			<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#deptModal" >New department</button>
-				        </div>
 				        <form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
 				        <div class="panel-group col-md-12">
 				        	
@@ -102,16 +93,47 @@
 						   
 				        </div>
 				        <div class=text-right>
-					<input type="submit" class="btn btn-primary btn-change pull-right" value="Save"/>
+							<input type="submit" class="btn btn-primary btn-change pull-right" value="Save"/>
 					
-					</div>
-              		</div>
+						</div>
 					
 					</form>
               	</div>
            </div>
        </div>
-   <a href="${pageContext.request.contextPath}/adminview"><input  class="btn btn-primary btn-change pull-right" value="Back"/></a>
+       		<div class="col-md-6">
+         		 <div class="panel panel-default">
+         		
+              		<div class="panel-heading">
+              			Users management
+              		</div>
+              		
+              		<div class="panel-body">
+				        <div class="panel-group col-md-6">
+				        	<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#myModal">New user</button>
+				        </div>
+				         <div class="panel-group col-md-6">
+				        	<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#delUserModal">Remove user</button>
+				        </div>
+				        <div class="panel-group col-md-6">
+		        			<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#teamModal" >New team</button>
+				        </div>
+				        <div class="panel-group col-md-6">
+				        	<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#delTeamModal">Remove team</button>
+				        </div>
+				        <div class="panel-group col-md-6">
+		        			<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#deptModal" >New department ???</button>
+				        </div>
+
+				        <div class=text-right>
+							<input type="submit" class="btn btn-primary btn-change pull-right" value="Save"/>
+					
+						</div>
+              	</div>
+           </div>
+       </div>
+   </div>
+   <a href="${pageContext.request.contextPath}/adminview"><input  class="btn btn-primary btn-change pull-left" value="Back"/></a>
 
 	
 	<!-- Modal -->
@@ -122,7 +144,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add employee</h4>
+        <h4 class="modal-title">Add user</h4>
       </div>
   	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/userAdded"> 
       <div class="modal-body">
@@ -315,8 +337,49 @@
 	</div>
 </div>
 
-
-
+<div id="delUserModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+        		<h4 class="modal-title">Remove user</h4>
+      		</div>
+  			<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/userRemoved"> 
+      			<div class="modal-body">
+      				<table class="table table-hover table-responsive">
+      					<thead>
+					      <tr>
+					      	<th>Remove</th>
+					      	<th>Name</th>
+					        <th>Surname</th>
+					        <th>Login</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+    						<c:forEach var="user" items="${listt}">
+						    	<tr>
+						   			<td>
+								    	<div class="checkbox">
+											<label><input type="checkbox" name = "userDelIds" value = "${user.getId()}"></label>
+										</div>
+									</td>
+									<td><c:out value="${user.name}" /></td>
+									<td><c:out value="${user.surname}" /></td>
+									<td><c:out value="${user.login}" /></td>
+						      	</tr>
+	            			</c:forEach>
+					    </tbody>
+      				</table>
+				</div>
+			<div class="modal-footer">
+			    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+			    <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

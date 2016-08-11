@@ -89,6 +89,13 @@ public class UserDAOImpl implements UserDAO {
 			SQLQuery sqlQuery = openSession().createSQLQuery(query);
 			sqlQuery.executeUpdate();
 		}
+
+	@Override
+	public void removeUser(Integer user_id) {
+		String query = "delete from users where user_id="+user_id;
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
 		
 
 	

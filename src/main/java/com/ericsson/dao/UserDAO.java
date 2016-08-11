@@ -11,4 +11,5 @@ public interface UserDAO {
 	public void setBallsAfterComment(Integer id, Integer balls, Integer commentToUserId);
 	public void addUser(String name, String surname, String login, String password, Integer roleID, 
 			Integer teamID, Integer ballsID, String mail, Integer deptID);
+	public void removeUser(Integer user_id);
 }

@@ -109,6 +109,7 @@
 						                    <div class="container col-md-12">          
 											  <table class="table table-hover col-md-12 table-responsive">
 											    <thead>
+											    	<tr>
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
