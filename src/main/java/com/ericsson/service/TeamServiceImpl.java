@@ -26,4 +26,10 @@ public class TeamServiceImpl implements TeamService {
 		return teamDAO.getTeamID(name);
 	}
 
+	@Override
+	public void addTeam(String teamName, Integer leaderID, Integer deptID) {
+		teamDAO.addTeam(teamName, leaderID, deptID);
+		
+	}
+
 }

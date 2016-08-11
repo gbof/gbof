@@ -26,4 +26,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return deptDAO.getDeptId(deptName);
 	}
 
+	@Override
+	public void addDept(String deptName, Integer leaderID) {
+		deptDAO.addDept(deptName, leaderID);
+		
+	}
+
 }

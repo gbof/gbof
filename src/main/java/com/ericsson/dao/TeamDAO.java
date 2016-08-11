@@ -9,4 +9,6 @@ public interface TeamDAO {
 	public List<Team> getAllTeams();
 
 	public Team getTeamID(String teamName);
+
+	public void addTeam(String teamName, Integer leaderID, Integer deptID);
 }

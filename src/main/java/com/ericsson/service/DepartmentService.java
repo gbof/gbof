@@ -10,4 +10,6 @@ public interface DepartmentService {
 
 	public Department getDeptID(String deptName);
 
+	public void addDept(String deptName, Integer leaderID);
+
 }

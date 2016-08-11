@@ -60,7 +60,13 @@
 						    </div>
 					    </div>
 				        <div class="panel-group col-md-6">
-				        	<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#myModal">Add new user</button>
+				        	<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#myModal">New user</button>
+				        </div>
+				        <div class="panel-group col-md-6">
+		        			<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#teamModal" >New team</button>
+				        </div>
+				        <div class="panel-group col-md-12">
+		        			<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#deptModal" >New department</button>
 				        </div>
 				        <form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
 				        <div class="panel-group col-md-12">
@@ -208,6 +214,105 @@
     </div>
 
   </div>
+</div>
+
+	<!-- teamModal -->
+<div id="teamModal" class="modal fade" role="dialog">
+ 	<div class="modal-dialog">
+
+    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	           <button type="button" class="close" data-dismiss="modal">&times;</button>
+	           <h4 class="modal-title">Add team</h4>
+	      </div>
+	      	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/teamAdded">
+	      	      <div class="modal-body">
+	      	     	 	<div class="form-group col-md-12">
+	      	      	   		<div class="col-md-6 col-sm-6">
+				      			<label for="teamName">Name</label>
+				      		</div>
+				      		<div class="col-md-6 col-sm-6">
+				      			<input name="teamName" class="form-control" id="teamName" type="text" placeholder="name"/>
+				      		</div>
+				    	</div>
+				    	<div class="form-group col-md-12">
+					        <label class="col-md-6 control-label">Department</label>
+					        <div class="col-md-6 selectContainer">
+					            <select class="form-control" name="deptName">
+					                <option value="-1">--- Select ---</option>
+						            <c:forEach var="dept" items="${deptlistt}">
+						                <option name = "deptName" value="${dept.getDeptName()}"  >
+						                	<c:out value="${dept.getDeptName()}" />
+						                </option>
+						            </c:forEach>
+					            </select>
+					        </div>
+				    	</div>
+					      <div class="form-group col-md-12">
+					        <label class="col-md-6 control-label">Leader</label>
+					        <div class="col-md-6 selectContainer">
+					            <select class="form-control" name="leaderLogin">
+					                <option value="-1">--- Select ---</option>
+						            <c:forEach var="user" items="${userBasiclistt}">
+						                <option name = "leaderLogin" value="${user}">
+						                	<c:out value="${user}" />
+						                </option>
+						            </c:forEach>
+					            </select>
+					        </div>
+				    	</div>
+				    </div>
+				    <div class="modal-footer">
+				        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+				        <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
+				    </div>
+	      	</form>
+		</div>
+	</div>
+</div>
+
+	<!-- teamModal -->
+<div id="deptModal" class="modal fade" role="dialog">
+ 	<div class="modal-dialog">
+
+    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	           <button type="button" class="close" data-dismiss="modal">&times;</button>
+	           <h4 class="modal-title">Add department</h4>
+	      </div>
+	      	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/deptAdded">
+	      	      <div class="modal-body">
+	      	     	 	<div class="form-group col-md-12">
+	      	      	   		<div class="col-md-6 col-sm-6">
+				      			<label for="deptName">Name</label>
+				      		</div>
+				      		<div class="col-md-6 col-sm-6">
+				      			<input name="deptName" class="form-control" id="teamName" type="text" placeholder="name"/>
+				      		</div>
+				    	</div>
+					      <div class="form-group col-md-12">
+					        <label class="col-md-6 control-label">Leader</label>
+					        <div class="col-md-6 selectContainer">
+					            <select class="form-control" name="leaderLogin">
+					                <option value="-1">--- Select ---</option>
+						            <c:forEach var="user" items="${userBasiclistt}">
+						                <option name = "leaderLogin" value="${user}">
+						                	<c:out value="${user}" />
+						                </option>
+						            </c:forEach>
+					            </select>
+					        </div>
+				    	</div>
+				    </div>
+				    <div class="modal-footer">
+				        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+				        <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
+				    </div>
+	      	</form>
+		</div>
+	</div>
 </div>
 
 

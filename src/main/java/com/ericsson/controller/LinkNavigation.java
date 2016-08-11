@@ -204,5 +204,41 @@ public class LinkNavigation {
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/teamAdded", method=RequestMethod.POST)
+	public ModelAndView teamAdded(
+			@RequestParam("teamName") String teamName,
+			@RequestParam("leaderLogin") String leaderLogin,
+			@RequestParam("deptName") String deptName) {
+		
+		String[] words = leaderLogin.split("\\s+");
+		leaderLogin = words[2];
+		
+		User userList = us.getUser(leaderLogin);
+		Integer leaderID = userList.getId();
+		
+		Department deptList = ds.getDeptID(deptName);
+		Integer deptID = deptList.getDeptId();
+		
+		ts.addTeam(teamName, leaderID, deptID);
+		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/deptAdded", method=RequestMethod.POST)
+	public ModelAndView deptAdded(
+			@RequestParam("deptName") String deptName,
+			@RequestParam("leaderLogin") String leaderLogin) {
+		
+		String[] words = leaderLogin.split("\\s+");
+		leaderLogin = words[2];
+		
+		User userList = us.getUser(leaderLogin);
+		Integer leaderID = userList.getId();
+
+		ds.addDept(deptName, leaderID);
+		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		return modelAndView;
+	}
 
 }

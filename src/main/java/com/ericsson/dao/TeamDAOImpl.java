@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,14 @@ public class TeamDAOImpl implements TeamDAO {
 			return teamList.get(0);
 		else
 			return null;	
+	}
+
+	@Override
+	public void addTeam(String teamName, Integer leaderID, Integer deptID) {
+		String query = "INSERT INTO teams (team_name, leader_id, dept_id) VALUES ('" + teamName +"', '"+ leaderID +"', '"+ deptID +"')";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
 	}
 
 }

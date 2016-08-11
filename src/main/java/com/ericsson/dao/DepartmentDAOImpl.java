@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,15 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 			return deptList.get(0);
 		else
 			return null;
+	}
+
+
+	@Override
+	public void addDept(String deptName, Integer leaderID) {
+		String query = "INSERT INTO departments (dept_name, dept_leader_id) VALUES ('" + deptName +"', '"+ leaderID +"')";
+		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
 	}
 
 }

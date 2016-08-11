@@ -198,7 +198,18 @@ public class SecurityNavigation {
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
-
+		List<String> userBasiclistt = new ArrayList<String>();
+		
+		String _name;
+		String _surname;
+		String _login;
+		for (int i=0; i<listt.size(); i++){
+			_name = listt.get(i).getName();
+			_surname = listt.get(i).getSurname();
+			_login = listt.get(i).getLogin();
+			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+		
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
@@ -212,6 +223,7 @@ public class SecurityNavigation {
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
+		//listt.get(0).ge
 		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("settingsList",settingsList);
@@ -223,6 +235,7 @@ public class SecurityNavigation {
 		lista.addObject("rolelistt", rolelistt);
 		lista.addObject("teamlistt", teamlistt);
 		lista.addObject("deptlistt", deptlistt);
+		lista.addObject("userBasiclistt", userBasiclistt);
 		lista.setViewName("settings");
 		return lista;
 	}
