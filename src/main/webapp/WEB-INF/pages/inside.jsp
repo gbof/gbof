@@ -26,18 +26,26 @@
 	</tiles:insertDefinition>   
     
     
-	<!--  Sidebar menu -->
-	<!--  
 	
-		<div class="col-md-2 sidebar">
-			<ul class="nav nav-pills nav-stacked">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="test">Dalej</a></li>
-				
-				
-			</ul>
-		</div>
-		-->
+	
+	<div class="col-md-12">
+			<div class="tabbable-panel">
+				<div class="tabbable-line">
+					<ul class="nav nav-tabs ">
+						<li class="active">
+							<a href="#tab_default_1" data-toggle="tab">
+							Users List </a>
+						</li>
+						<li>
+							<a href="#tab_default_2" data-toggle="tab">
+							Your Comments </a>
+						</li>
+						
+					</ul>
+					</div>
+					</div>
+		<div class="tab-content">
+		<div class="tab-pane active" id="tab_default_1">
 		<div class="container-fluid main-container">
 		<div class="col-md-12">
             <div class="panel panel-default">
@@ -77,10 +85,6 @@
 					          
 					      </tr>
             			</c:forEach>
-				
-					     
-					     
-					    
             			
 					    </tbody>
 					  </table>
@@ -88,22 +92,61 @@
                 </div>
             </div>
 		</div>
-
-
-		<footer class="pull-left footer">
-
-		</footer>
-	</div>
+		</div>
+		</div>
+		
 	
-	<div class=text-right>
-	     
+	
+	<div class=text-right>   
 	    <button type="submit"  class="btn-info btn btn-lg">Next</button>
-		
-		
+	
 	</div>
 	</form>	
+	<div class="tab-pane" id="tab_default_2">
+			<div class="container-fluid main-container">
+					<div class="col-md-12">
+						    <div class="panel panel-default">
+						             <div class="panel-heading">
+						                    Employees
+						                </div>
+						                <div class="panel-body">
+						                    <div class="container col-md-12">          
+											  <table class="table table-hover col-md-12 table-responsive">
+											    <thead>
+											      	<th>Name</th>
+											        <th>Surname</th>
+											        <th>Balls</th>
+											        <th>First Comment</th>
+											        <th>Second Comment</th>
+											        <th>Edit</th>
+											        <th>Confirm</th>
+											        <th>Delete</th>
+											      </tr>
+											    </thead>
+											    <tbody>
+											    
+											      <c:forEach var="comment" items="--">
+											    <tr>
+										          <td><c:out value="" /></td>
+										          <td><c:out value="" /></td>
+										          <td><c:out value="" /></td>
+										          <td><c:out value="" /></td>
+											      <td><c:out value="" /></td>   
+											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+											      </tr>
+						            			</c:forEach>
 
-	
+											    </tbody>
+											  </table>
+											</div>
+						                </div>
+						            </div>
+								</div>
+							</div>	
+						</div>
+					
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

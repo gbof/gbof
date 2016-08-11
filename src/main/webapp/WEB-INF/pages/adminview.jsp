@@ -42,6 +42,7 @@
 							Confirmed list </a>
 						</li>
 					</ul>
+			</div>
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_default_1">
 							<div class="container-fluid main-container">
@@ -174,8 +175,7 @@
 											      </tr>
 						            			</c:forEach>
 											    
-						    
-						            			
+
 											    </tbody>
 											  </table>
 											</div>
@@ -184,10 +184,7 @@
 								</div>
 							</div>	
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+					
 
 
 
