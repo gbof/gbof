@@ -3,12 +3,12 @@ package com.ericsson.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -118,10 +118,12 @@ public class LinkNavigation {
 		model.addAttribute("login", login);
 		return "comments";
 	}
-
+	
 	@RequestMapping(value = "/commentAdded", method = RequestMethod.POST)
-	public ModelAndView commentAdded(@RequestParam(value = "message1", defaultValue = "") String[] message1List,
-			@RequestParam(value = "message2", defaultValue = "") String[] message2List,
+	public ModelAndView commentAdded(
+			@RequestParam(value = "message1") String[] message1List,
+			@RequestParam(value = "message2") String[] message2List,
+
 			@RequestParam("ballsNumber") Integer[] ballsNumberList,
 			@ModelAttribute("userList") ArrayList<User> userList) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -167,11 +169,79 @@ public class LinkNavigation {
 		}
 	}
 
-	@RequestMapping(value = "/userAdded", method = RequestMethod.POST)
-	public ModelAndView userAdded(@RequestParam("name") String name, @RequestParam("surname") String surname,
-			@RequestParam("login") String login, @RequestParam("password") String password,
-			@RequestParam("roleName") String roleName, @RequestParam("teamName") String teamName,
-			@RequestParam("mail") String mail, @RequestParam("deptName") String deptName) {
+
+	
+
+	
+	@RequestMapping(value = "/editcomment", method = RequestMethod.POST)
+	public String editCommentPage(@RequestParam(value = "buttonComId") Integer buttonComId,
+			Model model) {
+		
+		System.out.println(buttonComId);
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue/ballValue2);
+		String login = us.getUser(userName).getLogin();
+		
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		
+		Comment commentId=cs.getCommentId(buttonComId);
+		
+		Integer commentToUserId= commentId.getUser().getId();
+		Integer comId= commentId.getComId();
+		 
+		System.out.println("To user:"+commentToUserId);
+		System.out.println("Nr kom:"+comId);
+		model.addAttribute("commentId", commentId);
+		model.addAttribute("money", wynik);
+		model.addAttribute("kule", kulki);
+		model.addAttribute("login", login);
+
+		return "editcomment";
+	}
+	
+	@RequestMapping(value = "/commentEdited", method = RequestMethod.POST)
+	public ModelAndView  commentEdited(
+						
+			@RequestParam(value = "message1") String message1,
+			@RequestParam(value = "message2") String message2,
+			@RequestParam("ballsNumber") Integer ballsNumber,
+			@RequestParam("commentToUserId") Integer toUserId,
+			@RequestParam("comId") Integer comId,
+			
+			Model model
+			
+			) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	
+		String userName = userDetails.getUsername();
+		Integer user_id = us.getUser(userName).getId();
+		
+		cs.editComment(message1,message2,ballsNumber,comId);
+		
+		
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+		
+		return modelAndView;
+	}
+		
+
+	@RequestMapping(value="/userAdded", method=RequestMethod.POST)
+	public ModelAndView userAdded(
+			@RequestParam("name") String name,
+			@RequestParam("surname") String surname,
+			@RequestParam("login") String login,
+			@RequestParam("password") String password,
+			@RequestParam("roleName") String roleName,
+			@RequestParam("teamName") String teamName,
+			@RequestParam("mail") String mail,
+			@RequestParam("deptName") String deptName) {
+
 
 		// default initial values
 		received_balls = 0;

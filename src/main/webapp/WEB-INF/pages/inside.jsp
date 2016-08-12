@@ -118,7 +118,7 @@
             </div>
 		</div>
 		</div>
-		</div>
+		
 		
 	
 	
@@ -127,13 +127,15 @@
 	
 	</div>
 	</form>	
+	</div>
+	
+	
 	<div class="tab-pane" id="tab_default_2">
+	  <form method="POST" action="${pageContext.request.contextPath}/editcomment">
 			<div class="container-fluid main-container">
 					<div class="col-md-12">
 						    <div class="panel panel-default">
-						             <div class="panel-heading">
-						                    Employees
-						                </div>
+						             
 						                <div class="panel-body">
 						                    <div class="container col-md-12">          
 											  <table class="table table-hover col-md-12 table-responsive">
@@ -151,14 +153,15 @@
 											    </thead>
 											    <tbody>
 											    
-											      <c:forEach var="comment" items="--">
+											      <c:forEach var="comment" items="${yourComments}">
 											    <tr>
-										          <td><c:out value="" /></td>
-										          <td><c:out value="" /></td>
-										          <td><c:out value="" /></td>
-										          <td><c:out value="" /></td>
-											      <td><c:out value="" /></td>   
-											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+										          <td><c:out value="${comment.getUser().getName()}" /></td>
+										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
+										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
+										          <td><c:out value="${comment.getFirstCom()}" /></td>
+											      <td><c:out value="${comment.getSecondCom()}" /></td>   
+											  
+											      <td> <a href="${pageContext.request.contextPath}/editcomment"><button name="buttonComId" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
 											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
 											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>
@@ -172,7 +175,8 @@
 								</div>
 							</div>	
 						</div>
-					
+						</form>
+					</div>
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

@@ -35,10 +35,14 @@
 						</li>
 						<li>
 							<a href="#tab_default_2" data-toggle="tab">
-							Given balls </a>
+							Your Comments </a>
 						</li>
 						<li>
 							<a href="#tab_default_3" data-toggle="tab">
+							Given balls </a>
+						</li>
+						<li>
+							<a href="#tab_default_4" data-toggle="tab">
 							Confirmed list </a>
 						</li>
 					</ul>
@@ -81,9 +85,7 @@
 											          
 											      </tr>
 						            			</c:forEach>
-											    
-						    
-						            			
+
 											    </tbody>
 											  </table>
 											</div>
@@ -98,7 +100,56 @@
 							
 						<form method="POST" action="${pageContext.request.contextPath}/confirmedComm">
 						</div>
-						<div class="tab-pane" id="tab_default_2">
+						
+			<div class="tab-pane" id="tab_default_2">
+			<form method="POST" action="${pageContext.request.contextPath}/editcomment">
+			<div class="container-fluid main-container">
+					<div class="col-md-12">
+						    <div class="panel panel-default">
+						             <div class="panel-heading">
+						                    Employees
+						                </div>
+						                <div class="panel-body">
+						                    <div class="container col-md-12">          
+											  <table class="table table-hover col-md-12 table-responsive">
+											    <thead>
+											      	<th>Name</th>
+											        <th>Surname</th>
+											        <th>Balls</th>
+											        <th>First Comment</th>
+											        <th>Second Comment</th>
+											        <th>Edit</th>
+											        <th>Confirm</th>
+											        <th>Delete</th>
+											      </tr>
+											    </thead>
+											    <tbody>
+											    
+											      <c:forEach var="comment" items="${yourComments}">
+											    <tr>
+										          <td><c:out value="${comment.getUser().getName()}" /></td>
+										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
+										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
+										          <td><c:out value="${comment.getFirstCom()}" /></td>
+											      <td><c:out value="${comment.getSecondCom()}" /></td>   
+											     <td> <a href="${pageContext.request.contextPath}/editcomment"><button name="buttonComId" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
+											       <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+											      </tr>
+						            			</c:forEach>
+
+											    </tbody>
+											  </table>
+											</div>
+						                </div>
+						            </div>
+								</div>
+							</div>
+							</form>	
+						</div>
+						
+						
+						<div class="tab-pane" id="tab_default_3">
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
 						            <div class="panel panel-default">
@@ -150,6 +201,7 @@
 								</div>
 							</div>	
 						</div>
+<<<<<<< Upstream, based on origin/master
 						
 										<!-- Modal -->
 <c:forEach var="comment" items="${commentList}">
@@ -178,6 +230,9 @@
 
 						</form>
 						<div class="tab-pane" id="tab_default_3">
+=======
+						<div class="tab-pane" id="tab_default_4">
+>>>>>>> 8f2fb21 Edit comments
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
 						            <div class="panel panel-default">

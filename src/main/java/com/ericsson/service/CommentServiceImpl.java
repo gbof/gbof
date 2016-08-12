@@ -20,6 +20,9 @@ public class CommentServiceImpl implements CommentService{
 		commentDAO.addComment(message1, message2, ballsNumber, user_id, commentToUserId);
 
 	}
+	public void editComment(String message1, String message2, Integer ballsNumber,Integer com_id){
+		commentDAO.editComment(message1, message2, ballsNumber,com_id);
+	}
 	public List<Comment> getAllComments() {
 		return commentDAO.getAllComments();
 	}
@@ -62,4 +65,12 @@ public class CommentServiceImpl implements CommentService{
 		commentDAO.setConfirm(id);
 	}
 	
+
+	public Comment getCommentId(Integer id)
+	{
+		return commentDAO.getCommentId(id);
+	}
+	
+
+
 }

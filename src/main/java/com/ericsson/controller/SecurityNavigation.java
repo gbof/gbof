@@ -96,6 +96,8 @@ public class SecurityNavigation {
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
 		
+		List<Comment> yourComments=coms.getYourComments(id);
+		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
@@ -113,6 +115,7 @@ public class SecurityNavigation {
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
 		lista.addObject("money", wynik);
+		lista.addObject("yourComments", yourComments);
 		lista.addObject("kule", kulki);
 		lista.addObject("login", login);
 		lista.addObject("listt", listt);
@@ -128,10 +131,14 @@ public class SecurityNavigation {
 		String login = us.getUser(userName).getLogin();
 		User zalogowany=us.getUser(userName);
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		Integer id = us.getUser(userName).getId();
 		List<User> listt = us.getAllUsers();
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
+
+		List<Comment> yourComments=coms.getYourComments(id);
+
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
@@ -151,6 +158,7 @@ public class SecurityNavigation {
 		
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
+		lista.addObject("yourComments", yourComments);
 		lista.addObject("rola", role);
 		lista.addObject("kule", kulki);
 		lista.addObject("commentList",commentList);

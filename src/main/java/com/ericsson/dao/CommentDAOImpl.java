@@ -82,6 +82,12 @@ public class CommentDAOImpl implements CommentDAO{
 		sqlQuery.executeUpdate();
 	}
 	
+	public void editComment(String message1, String message2, Integer ballsNumber, Integer com_id){
+		String query = "UPDATE comments SET first_com='"+message1+"', second_com='"+message2+"', balls_per_com='"+ballsNumber+"'  WHERE com_id ='"+com_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+	
 	public List<Double> getBallValue(Double money){
 		List<Double> allBalls = new ArrayList<Double>();
 		String sql = "select '"+ money +"'/(sum(balls_to_give)+sum(received_balls)) from Ball";
@@ -115,6 +121,7 @@ public class CommentDAOImpl implements CommentDAO{
 			return null;
 		
 	}
+
 	@Override
 	public void removeComment(Integer com_id) {
 		String query = "delete from comments where com_id="+com_id;
@@ -132,6 +139,18 @@ public class CommentDAOImpl implements CommentDAO{
 		String query = "UPDATE comments SET confirmed = '1' WHERE com_id = '"+ id + "'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
+	}
+
+	public Comment getCommentId(Integer id) {
+		List<Comment> commentList = new ArrayList<Comment>();
+		Query query = openSession().createQuery("from Comment where com_id = :id");
+		query.setParameter("id", id);
+		commentList = query.list();
+		if (commentList.size() > 0)
+			return commentList.get(0);
+		else
+			return null;	
+
 	}
 	
 	

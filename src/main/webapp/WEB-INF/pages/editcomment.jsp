@@ -35,38 +35,35 @@
 		<div class="col-md-4-offset-4">
 		
 		    <div class="form-area">  
-		        <form role="form" method="POST" action="${pageContext.request.contextPath}/commentAdded">
+		        <form role="form" method="POST" action="${pageContext.request.contextPath}/commentEdited">
 		        <br style="clear:both">
-		                    <h3 style="margin-bottom: 25px; text-align: center;">Send balls</h3>
-		       				<c:forEach var="user" items="${userList}">
+		                    <h3 style="margin-bottom: 25px; text-align: center;">Edit comment</h3>
+		       				
 							<div class="form-group">
-								<label>${user.name} ${user.surname}</label>
+								<label>${commentId.getUser().getName()} ${commentId.getUser().getSurname()}</label>
 							</div>
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
+								<input type="number" value="${commentId.getBallsPerCom()}" class="form-control" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
 							</div>
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1" placeholder="What did you like?" maxlength="140" rows="7"></textarea>
+		                    	<textarea class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7">${commentId.getFirstCom()}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 		                    
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" value="message2" name="message2" id="message1" placeholder="What should I work on?" maxlength="140" rows="7"></textarea>
+		                    	<textarea class="form-control" type="textarea" name="message2" id="message" placeholder="What should I work on?" maxlength="140" rows="7">${commentId.getSecondCom()}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
-		           		</c:forEach>
-		        <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Add</button>
+		                    <input type="hidden" name="commentToUserId" value="${commentId.getUser().getId()}" />
+		           			<input type="hidden" name="comId" value="${commentId.getComId()}"/>
+		           				
+		           		
+		        <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Edit</button>
 		        </form>
 		        
 		    </div>
 		</div>
 		</div>
-		
-		
-
-
-Read more: http://mrbool.com/how-to-use-javascript-in-jsp/29895#ixzz4H1tElzLj
-
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
