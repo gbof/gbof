@@ -147,7 +147,7 @@
 											        <th>First Comment</th>
 											        <th>Second Comment</th>
 											        <th>Edit</th>
-											        <th>Confirm</th>
+											      
 											        <th>Delete</th>
 											      </tr>
 											    </thead>
@@ -162,7 +162,6 @@
 											      <td><c:out value="${comment.getSecondCom()}" /></td>   
 											  
 											      <td> <a href="${pageContext.request.contextPath}/editcomment"><button name="buttonComId" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
-											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
 											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>
 						            			</c:forEach>
@@ -177,6 +176,7 @@
 						</div>
 						</form>
 					</div>
+					
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

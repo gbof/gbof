@@ -98,7 +98,7 @@
 							     <button type="submit"class="btn-info btn btn-lg">Next</button></a>
 							</div>
 							
-						<form method="POST" action="${pageContext.request.contextPath}/confirmedComm">
+						
 						</div>
 						
 			<div class="tab-pane" id="tab_default_2">
@@ -119,7 +119,7 @@
 											        <th>First Comment</th>
 											        <th>Second Comment</th>
 											        <th>Edit</th>
-											        <th>Confirm</th>
+											      
 											        <th>Delete</th>
 											      </tr>
 											    </thead>
@@ -132,8 +132,10 @@
 										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
 										          <td><c:out value="${comment.getFirstCom()}" /></td>
 											      <td><c:out value="${comment.getSecondCom()}" /></td>   
+											     
 											     <td> <a href="${pageContext.request.contextPath}/editcomment"><button name="buttonComId" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
-											       <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+											      
+											      
 											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>
 						            			</c:forEach>
@@ -148,8 +150,10 @@
 							</form>	
 						</div>
 						
+					
 						
 						<div class="tab-pane" id="tab_default_3">
+							<form method="POST" action="${pageContext.request.contextPath}/confirmedComm">
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
 						            <div class="panel panel-default">
@@ -201,7 +205,7 @@
 								</div>
 							</div>	
 						</div>
-<<<<<<< Upstream, based on origin/master
+
 						
 										<!-- Modal -->
 <c:forEach var="comment" items="${commentList}">
@@ -229,10 +233,10 @@
 </c:forEach>
 
 						</form>
-						<div class="tab-pane" id="tab_default_3">
-=======
+						
+
 						<div class="tab-pane" id="tab_default_4">
->>>>>>> 8f2fb21 Edit comments
+
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
 						            <div class="panel panel-default">
