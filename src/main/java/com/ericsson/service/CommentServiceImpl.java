@@ -40,6 +40,7 @@ public class CommentServiceImpl implements CommentService{
 	public List<Comment> getYourComments(Integer id)
 	{
 		return commentDAO.getYourComments(id);
+
 		}
 	@Override
 	public  List<Comment> getCommentsYouGave(Integer id) {
@@ -51,4 +52,14 @@ public class CommentServiceImpl implements CommentService{
 		commentDAO.removeComment(comId);
 	}
 
+
+	
+	public boolean checkNull(String string){
+		return commentDAO.checkNull(string);
+	}
+	
+	public void setConfirm(Integer id){
+		commentDAO.setConfirm(id);
+	}
+	
 }

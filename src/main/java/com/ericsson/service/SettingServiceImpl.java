@@ -33,4 +33,8 @@ public class SettingServiceImpl implements SettingService{
 		return settingsDAO.getSettings();
  
 	}
+	
+	public double round(double value, int places){
+		return settingsDAO.round(value, places);
+	}
 }

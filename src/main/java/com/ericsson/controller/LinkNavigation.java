@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import com.ericsson.model.Ball;
 import com.ericsson.model.Comment;
 import com.ericsson.model.Department;
@@ -36,28 +35,27 @@ import com.ericsson.service.UserService;
 @SessionAttributes("userList")
 public class LinkNavigation {
 
-	
 	@Autowired
 	private UserService us;
 
 	@Autowired
 	private CommentService cs;
-	
+
 	@Autowired
 	private BallService bs;
-	
+
 	@Autowired
-	private SettingService ss;
-	
+	private SettingService sett;
+
 	@Autowired
 	private RoleService rs;
-	
+
 	@Autowired
 	private TeamService ts;
-	
+
 	@Autowired
 	private DepartmentService ds;
-	
+
 	private Integer received_balls;
 	private boolean locked;
 	private double cash;
@@ -88,35 +86,32 @@ public class LinkNavigation {
 	}
 
 	@RequestMapping(value = "/comments", method = RequestMethod.POST)
-	public String commentsPageString(@RequestParam(value = "userIds", required = false) Integer[] userIds,
-			Model model) {
+	public String commentsPageString(
+			@RequestParam(value = "userIds", required = false, defaultValue = "") Integer[] userIds, Model model) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		List<Integer> idList = new ArrayList<Integer>();
 		List<User> userList = new ArrayList<User>();
-		for (int i = 0; i < userIds.length; i++) {
-			userList.add(us.getUserId(userIds[i]));
-			idList.add(userIds[i]);
+		if (userIds.length == 0) {
+			return "redirect:/success-login";
+		} else {
+			for (int i = 0; i < userIds.length; i++) {
+				userList.add(us.getUserId(userIds[i]));
+				idList.add(userIds[i]);
+				model.addAttribute("userList", userList);
+				model.addAttribute("correct", true);
+			}
 		}
-		if(userList.size()>0)
-		{
-			model.addAttribute("userList", userList);
-			model.addAttribute("correct", true);
-		}
-		else
-		{
-			model.addAttribute("correct", false);
-		}
-		
-		List<Double> money = ss.getMoney(1);
+
+		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-		
 		List<Long> ballValue2List = cs.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue/ballValue2);
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
 		String login = us.getUser(userName).getLogin();
-		
-		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
 		model.addAttribute("idList", idList);
 		model.addAttribute("money", wynik);
 		model.addAttribute("kule", kulki);
@@ -125,82 +120,82 @@ public class LinkNavigation {
 	}
 
 	@RequestMapping(value = "/commentAdded", method = RequestMethod.POST)
-	public ModelAndView commentAdded(@RequestParam(value = "message1") String[] message1List,
-			@RequestParam(value = "message2") String[] message2List,
+	public ModelAndView commentAdded(@RequestParam(value = "message1", defaultValue = "") String[] message1List,
+			@RequestParam(value = "message2", defaultValue = "") String[] message2List,
 			@RequestParam("ballsNumber") Integer[] ballsNumberList,
 			@ModelAttribute("userList") ArrayList<User> userList) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
+		System.out.println("+++++++++++ " + message1List.length);
+		System.out.println("+++++++++++ " + message2List.length);
 		if (us.getUser(userName).getBall().getBallsToGive() == 0) {
 			ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 			System.out.println("================== NIE MASZ JUZ KULEK");
-			modelAndView.addObject("success-comment", false);
+			modelAndView.addObject("outOfBalls", true);
 			return modelAndView;
 		} else {
-			for (int i = 0; i < message1List.length; i++) {
+			for (int i = 0; i < userList.size(); i++) {
 				if (us.getUser(userName).getBall().getBallsToGive() < ballsNumberList[i]) {
 					System.out.println("================== NIE MASZ TYLE KULEK");
 					ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-					modelAndView.addObject("success-comment", false);
+					modelAndView.addObject("notEnoughBalls", true);
 					return modelAndView;
 				} else {
+					if (cs.checkNull(message1List[i])) {
+						ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+						System.out.println("================== Nie moze byc puste");
+						modelAndView.addObject("nullComment", true);
+						return modelAndView;
+					}
+					if (cs.checkNull(message2List[i])) {
+						ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+						System.out.println("================== Nie moze byc puste");
+						modelAndView.addObject("nullComment", true);
+						return modelAndView;
+					}
 					Integer commentToUserId = userList.get(i).getId();
 					cs.addComment(message1List[i], message2List[i], ballsNumberList[i], user_id, commentToUserId);
 					us.setBallsAfterComment(user_id, ballsNumberList[i], commentToUserId);
 				};
-				};
-				ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-				System.out.println("================== DODANO KOMENTARZ");
-				modelAndView.addObject("success-comment", true);
-				return modelAndView;
-		
+			};
+			ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+			System.out.println("================== DODANO KOMENTARZ");
+			modelAndView.addObject("success-comment", true);
+			return modelAndView;
+
 		}
 	}
 
-	/*
-	 * @RequestMapping(value="/inside", method=RequestMethod.GET) public
-	 * ModelAndView insidePage() { return new ModelAndView("inside2"); }
-	 */
-
-	
-	
-
-	@RequestMapping(value="/userAdded", method=RequestMethod.POST)
-	public ModelAndView userAdded(
-			@RequestParam("name") String name,
-			@RequestParam("surname") String surname,
-			@RequestParam("login") String login,
-			@RequestParam("password") String password,
-			@RequestParam("roleName") String roleName,
-			@RequestParam("teamName") String teamName,
-			@RequestParam("mail") String mail,
-			@RequestParam("deptName") String deptName) {
+	@RequestMapping(value = "/userAdded", method = RequestMethod.POST)
+	public ModelAndView userAdded(@RequestParam("name") String name, @RequestParam("surname") String surname,
+			@RequestParam("login") String login, @RequestParam("password") String password,
+			@RequestParam("roleName") String roleName, @RequestParam("teamName") String teamName,
+			@RequestParam("mail") String mail, @RequestParam("deptName") String deptName) {
 
 		// default initial values
 		received_balls = 0;
-		locked = false;		
+		locked = false;
 		cash = 0;
-		
-		
-		List<Settings> settingsList = ss.getSettings();
-		Integer lastSettingsId = settingsList.get(settingsList.size()-1).getSettingsID();
-		Integer balls_to_give = settingsList.get(lastSettingsId-1).getBallsPerPerson();
-		
-		List <Role> roleList = rs.getRoleId(roleName);
+
+		List<Settings> settingsList = sett.getSettings();
+		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
+		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
+
+		List<Role> roleList = rs.getRoleId(roleName);
 		Integer roleId = roleList.get(0).getId();
-		
+
 		Team teamList = ts.getTeamID(teamName);
 		Integer teamID = teamList.getId();
-		
+
 		Department deptList = ds.getDeptID(deptName);
 		Integer deptID = deptList.getDeptId();
 
 		bs.addBall(received_balls, balls_to_give, locked, cash);
-		
+
 		List<Ball> lastBallId = bs.getBallId();
-		Integer ballsID = lastBallId.get(lastBallId.size()-1).getBallsId();
-		
+		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
+
 		us.addUser(name, surname, login, password, roleId, teamID, ballsID, mail, deptID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
 		return modelAndView;
@@ -264,4 +259,13 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 
+
+	@RequestMapping(value="/confirmedComm", method=RequestMethod.POST)
+	public ModelAndView settingsAdd(@RequestParam("confirmButton") Integer commId){
+		cs.setConfirm(commId);
+		
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+		return modelAndView;
+	}
+	
 }

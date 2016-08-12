@@ -91,12 +91,12 @@
 						            </div>
 								</div>
 							</div>	
-							
+							</form>
 							<div class=text-right>
 							     <button type="submit"class="btn-info btn btn-lg">Next</button></a>
 							</div>
-							</form>
-
+							
+						<form method="POST" action="${pageContext.request.contextPath}/confirmedComm">
 						</div>
 						<div class="tab-pane" id="tab_default_2">
 							<div class="container-fluid main-container">
@@ -124,13 +124,18 @@
 											    
 											      <c:forEach var="comment" items="${commentList}">
 											    <tr>
-										          <td><c:out value="${comment.getUser().getName() }" /></td>
-										          <td><c:out value="${comment.getUser().getSurname() }" /></td>
+										          <td><c:out value="${comment.getUser().getName()}" /></td>
+										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
 										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
 										          <td><c:out value="${comment.getFirstCom()}" /></td>
 											      <td><c:out value="${comment.getSecondCom()}" /></td>   
 											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
-											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+											      
+											      <td><button data-toggle="modal" data-target="#Modal${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
+											      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+											      
+											      
+											      
 											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>
 						            			</c:forEach>
@@ -145,6 +150,33 @@
 								</div>
 							</div>	
 						</div>
+						
+										<!-- Modal -->
+<c:forEach var="comment" items="${commentList}">
+	<div id="Modal${comment.getComId()}" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Confirm</h4>
+	      </div>
+	      <div class="modal-body">
+	           	
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+	         <button type="submit" name="confirmButton" class="btn btn-primary btn-change pull-right" value="${comment.getComId()}">Save</button>
+	      </div>
+	    
+	    </div>
+	
+	  </div>
+	</div>
+</c:forEach>
+
+						</form>
 						<div class="tab-pane" id="tab_default_3">
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
@@ -176,7 +208,7 @@
 											      </tr>
 						            			</c:forEach>
 											    
-
+										
 											    </tbody>
 											  </table>
 											</div>
@@ -185,7 +217,8 @@
 								</div>
 							</div>	
 						</div>
-					
+						
+	
 
 
 

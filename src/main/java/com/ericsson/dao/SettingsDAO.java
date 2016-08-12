@@ -15,5 +15,7 @@ public interface SettingsDAO {
 	
 
 	public List<Settings> getSettings();
+	
+	public double round(double value, int places);
 
 }

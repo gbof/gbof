@@ -122,6 +122,18 @@ public class CommentDAOImpl implements CommentDAO{
 		sqlQuery.executeUpdate();
 	}
 	
+	public boolean checkNull(String string){
+		if(string=="")return true;
+		else
+			return false;
+	}
+	
+	public void setConfirm(Integer id){
+		String query = "UPDATE comments SET confirmed = '1' WHERE com_id = '"+ id + "'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+	
 	
 
 }

@@ -43,15 +43,15 @@
 								<label>${user.name} ${user.surname}</label>
 							</div>
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" min="0" max="20" class="form-control" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
+								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
 							</div>
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7"></textarea>
+		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1" placeholder="What did you like?" maxlength="140" rows="7"></textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 		                    
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" name="message2" id="message" placeholder="What should I work on?" maxlength="140" rows="7"></textarea>
+		                    	<textarea class="form-control" type="textarea" value="message2" name="message2" id="message1" placeholder="What should I work on?" maxlength="140" rows="7"></textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 		           		</c:forEach>
@@ -61,6 +61,12 @@
 		    </div>
 		</div>
 		</div>
+		
+		
+
+
+Read more: http://mrbool.com/how-to-use-javascript-in-jsp/29895#ixzz4H1tElzLj
+
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

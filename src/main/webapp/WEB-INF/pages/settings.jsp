@@ -49,17 +49,24 @@
               		<div class="panel-heading">
               			Settings
               		</div>
-              		
+              		<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
               		<div class="panel-body">
 						<div class="panel-group col-md-6">
 							<div class="funkyradio">
 						        <div class="funkyradio-primary">
-						            <input type="checkbox" name="checkbox" id="checkbox1" checked/>
-						            <label for="checkbox1">Block the function of giving balls for all users</label>
+						            <input type="checkbox" name="checkbox" id="checkbox" value="1"/>
+						            <label for="checkbox">Block the function of giving balls for all users</label>
 						        </div>
 						    </div>
 					    </div>
+
 				        <form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
+
+				        <div class="panel-group col-md-6">
+				        	<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#myModal">Add new user</button>
+				        </div>
+				        
+
 				        <div class="panel-group col-md-12">
 				        	
 					            <div class="form-group">

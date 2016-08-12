@@ -14,6 +14,18 @@
 		<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
 		<style>
+		.error {
+		color: red;
+		}
+		.outOfBalls {
+		color: red;
+		}
+		.notEnoughBalls {
+		color: red;
+		}
+		.nullComment {
+		color: red;
+		}
        		<%@include file="/web-resources/css/inside.css" %>
        		
 		</style>
@@ -24,9 +36,6 @@
 	 <form method="POST" action="${pageContext.request.contextPath}/comments">
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition>   
-    
-    
-	
 	
 	<div class="col-md-12">
 			<div class="tabbable-panel">
@@ -52,9 +61,25 @@
                 <div class="panel-heading">
                     Employees
                 </div>
+                <p>
+		<c:if test="${outOfBalls == true}">
+			<b class="outOfBalls">You are out of balls.</b>
+		</c:if>
+		</p>
+		<p>
+		<c:if test="${notEnoughBalls == true}">
+			<b class="notEnoughBalls">To many balls given. Dont be so generous.</b>
+		</c:if>
+		</p>
+		<p>
+		<c:if test="${nullComment == true}">
+			<b class="nullComment">Comment can not be empty.</b>
+		</c:if>
+		</p>
                 <div class="panel-body">
                     <div class="container col-md-12">          
 					  <table class="table table-hover col-md-12">
+			
 					    <thead>
 					      <tr>
 					      	<th>Add balls</th>
@@ -68,7 +93,7 @@
 					    <tbody>
 					    
 					      
-					      <c:forEach var="user" items="${listt}" begin="1" end="${listt.size()-1}" varStatus="loop">
+					      <c:forEach var="user" items="${listt}" begin="0" end="${listt.size()-1}" varStatus="loop">
 					    <tr>
 					    <td>
 						    	<div class="checkbox">

@@ -98,10 +98,11 @@ public class SecurityNavigation {
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) Math.round(moneyValue/ballValue2);
+		Double wynik = (double) (moneyValue/ballValue2);
+		wynik = sett.round(wynik, 2);
+		
 		List<Integer> allBallsGivenTo = new ArrayList<Integer>();
 		for(int i=0;i<listt.size();i++){
 			allBallsGivenTo.addAll(coms.getAllBallsGivenTo(id, listt.get(i).getId()));
@@ -131,11 +132,11 @@ public class SecurityNavigation {
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-		
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
-
+		wynik = sett.round(wynik, 2);
+		
 		List<Comment> commentList = coms.getAllComments();
 		
 		System.out.println("Kom1:" + commentList.get(0).getUser().getName());
@@ -173,10 +174,10 @@ public class SecurityNavigation {
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-	
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
+		wynik = sett.round(wynik, 2);
 		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("listt", listt);
@@ -219,11 +220,9 @@ public class SecurityNavigation {
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-	
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
-		//listt.get(0).ge
 		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("settingsList",settingsList);
@@ -244,10 +243,16 @@ public class SecurityNavigation {
 			@RequestParam("ballsPerPers") Integer ballsPerPers,
 			@RequestParam("money") Double money,
 			@RequestParam("deadline") String deadline,
-			@RequestParam("extraBalls") Integer extraBalls)
+			@RequestParam("extraBalls") Integer extraBalls,
+			@RequestParam(value = "checkbox", required = false, defaultValue = "") Integer[] isFreeze)
 			 {
+		
 		ModelAndView modelAndView = new ModelAndView("settings");
-		Boolean freeze=false;
+		Boolean freeze;
+		if(isFreeze.length==1)
+		freeze=false;
+		else
+			freeze=true;
 		
 		if (money==null || ballsPerPers==null || deadline=="" || extraBalls==null)
 		{

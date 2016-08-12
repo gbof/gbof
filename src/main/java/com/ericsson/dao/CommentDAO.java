@@ -14,9 +14,14 @@ public interface CommentDAO {
 	public List<Integer> getAllBallsGivenTo(Integer id, Integer id2);
 	public List<Comment> getYourComments(Integer id);
 
+
 	public List<Comment> getCommentsYouGave(Integer id);
 
 	public void removeComment(Integer comId);
 
+
+
+	public boolean checkNull(String string);
+	public void setConfirm(Integer id);
 
 }
