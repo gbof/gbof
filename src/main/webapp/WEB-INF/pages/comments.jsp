@@ -36,9 +36,9 @@
 		
 		    <div class="form-area">  
 		        <form role="form" method="POST" action="${pageContext.request.contextPath}/commentAdded">
-		        <br style="clear:both">
-		                    <h3 style="margin-bottom: 25px; text-align: center;">Send balls</h3>
-		       				<c:forEach var="user" items="${userList}">
+			        <br style="clear:both">
+	                    <h3 style="margin-bottom: 25px; text-align: center;">Send balls</h3>
+	       				<c:forEach var="user" items="${userList}" varStatus="status">
 							<div class="form-group">
 								<label>${user.name} ${user.surname}</label>
 							</div>
@@ -46,7 +46,7 @@
 								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
 							</div>
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1" placeholder="What did you like?" maxlength="140" rows="7"></textarea>
+		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1" placeholder="What did you like?" maxlength="140" rows="7"></textarea><!-- ${message1List[status.index]} -->
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 		                    
@@ -54,18 +54,15 @@
 		                    	<textarea class="form-control" type="textarea" value="message2" name="message2" id="message1" placeholder="What should I work on?" maxlength="140" rows="7"></textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
-		           		</c:forEach>
-		        <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Add</button>
+	           			</c:forEach>
+			        <input type="submit" id="submit" name="submit" value="Add" id="btnSave" class="submit_button" > 
+			        <input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 		        </form>
 		        
 		    </div>
 		</div>
-		</div>
+	</div>
 		
-		
-
-
-Read more: http://mrbool.com/how-to-use-javascript-in-jsp/29895#ixzz4H1tElzLj
 
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>

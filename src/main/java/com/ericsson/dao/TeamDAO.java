@@ -11,4 +11,6 @@ public interface TeamDAO {
 	public Team getTeamID(String teamName);
 
 	public void addTeam(String teamName, Integer leaderID, Integer deptID);
+
+	public void removeTeam(Integer team_id);
 }

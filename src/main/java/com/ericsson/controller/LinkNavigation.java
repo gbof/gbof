@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -119,13 +120,14 @@ public class LinkNavigation {
 		return "comments";
 	}
 	
-	@RequestMapping(value = "/commentAdded", method = RequestMethod.POST)
+	@RequestMapping(value = "/commentAdded", params="submit", method = RequestMethod.POST)
 	public ModelAndView commentAdded(
 			@RequestParam(value = "message1") String[] message1List,
 			@RequestParam(value = "message2") String[] message2List,
 
 			@RequestParam("ballsNumber") Integer[] ballsNumberList,
 			@ModelAttribute("userList") ArrayList<User> userList) {
+		System.out.println("******************3*******"+userList);
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
@@ -168,10 +170,57 @@ public class LinkNavigation {
 
 		}
 	}
-
-
 	
-
+	@RequestMapping(value = "/commentAdded", params="addMore", method = RequestMethod.POST)
+	public String addMoreUsers(
+			@ModelAttribute("userList") ArrayList<User> userList,
+			Model model,
+			@RequestParam(value = "message1") String[] message1List,
+			@RequestParam(value = "message2") String[] message2List){
+		
+		
+		List<User> listt1 = us.getAllUsers();
+		List<Integer> ids = new ArrayList<Integer>();
+		int id;
+		if (userList != null){
+			for (int i=0;i<userList.size(); i++){
+				ids.add(userList.get(i).getId());
+			}
+			if (ids != null){
+				for (int i=0; i<ids.size(); i++){
+					for (int j=0; j<listt1.size(); j++){
+						id = listt1.get(j).getId();
+						if (id == ids.get(i))
+							listt1.remove(j);
+					}
+				}
+			}
+		}
+		model.addAttribute("listt1", listt1);	
+		model.addAttribute("userList", userList);
+		
+		
+		return "moreComments";
+	}
+	
+	
+	@RequestMapping(value="/moreComments", method=RequestMethod.POST)
+	public String moreCommentsPage(
+			@RequestParam(value = "userAddMoreIds", required = false) Integer[] userAddMoreIds,
+			@ModelAttribute("userList") ArrayList<User> userList,
+			Model model) {
+		
+		
+		System.out.println("IDS************"+userAddMoreIds);
+		if (userAddMoreIds != null){
+			for (int i=0; i<userAddMoreIds.length; i++){
+				userList.add(us.getUserId(userAddMoreIds[i]));
+			}
+		}
+		model.addAttribute("userList", userList);
+		return "comments";
+	}
+	
 	
 	@RequestMapping(value = "/editcomment", method = RequestMethod.POST)
 	public String editCommentPage(@RequestParam(value = "buttonComId") Integer buttonComId,
@@ -229,7 +278,7 @@ public class LinkNavigation {
 		
 		return modelAndView;
 	}
-		
+
 
 	@RequestMapping(value="/userAdded", method=RequestMethod.POST)
 	public ModelAndView userAdded(
@@ -338,4 +387,28 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/teamRemoved", method=RequestMethod.POST)
+	public ModelAndView teamRemoved(
+			@RequestParam(value = "teamDelIds", required = false) Integer[] teamDelIds) {
+		
+		/*Integer comId;
+		List<Comment> commentList;
+		for (int i=0; i<teamDelIds.length; i++){
+			// check if there are any comments for this user
+			commentList = cs.getCommentsYouGave(teamDelIds[i]);
+			if (commentList != null){
+				for (int j=0; j<commentList.size(); j++){
+					comId = commentList.get(j).getComId();
+					cs.removeComment(comId);
+				}
+			}
+			us.removeUser(teamDelIds[i]);
+		}*/
+
+		for (int i=0; i<teamDelIds.length; i++){
+			ts.removeTeam(teamDelIds[i]);
+		}
+		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		return modelAndView;
+	}
 }

@@ -61,12 +61,6 @@
 					    </div>
 
 				        <form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
-
-				        <div class="panel-group col-md-6">
-				        	<button class="btn btn-default btn-user btn-lg pull-right" data-toggle="modal" data-target="#myModal">Add new user</button>
-				        </div>
-				        
-
 				        <div class="panel-group col-md-12">
 				        	
 					            <div class="form-group">
@@ -381,7 +375,48 @@
 				</div>
 			<div class="modal-footer">
 			    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-			    <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
+			    <input type="submit" class="btn btn-primary btn-change pull-right" value="Remove" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div id="delTeamModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+        		<h4 class="modal-title">Remove team</h4>
+      		</div>
+  			<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/teamRemoved"> 
+      			<div class="modal-body">
+      				<table class="table table-hover table-responsive">
+      					<thead>
+					      <tr>
+					      	<th>Remove</th>
+					      	<th>Name</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+    						<c:forEach var="team" items="${teamlistt}">
+						    	<tr>
+						   			<td>
+								    	<div class="checkbox">
+											<label><input type="checkbox" name = "teamDelIds" value = "${team.getId()}"></label>
+										</div>
+									</td>
+									<td><c:out value="${team.name}" /></td>
+						      	</tr>
+	            			</c:forEach>
+					    </tbody>
+      				</table>
+				</div>
+			<div class="modal-footer">
+			    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+			    <input type="submit" class="btn btn-primary btn-change pull-right" value="Remove" />
 			</div>
 			</form>
 		</div>

@@ -58,4 +58,11 @@ public class TeamDAOImpl implements TeamDAO {
 		
 	}
 
+	@Override
+	public void removeTeam(Integer team_id) {
+		String query = "delete from teams where team_id="+team_id;
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+
 }
