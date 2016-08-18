@@ -90,7 +90,8 @@ public class LinkNavigation {
 	public String commentsPageString(
 			@RequestParam(value = "userIds", required = false, defaultValue = "") Integer[] userIds, Model model,
 			@ModelAttribute("message1List") ArrayList<String> message1List,
-			@ModelAttribute("message2List") ArrayList<String> message2List) {
+			@ModelAttribute("message2List") ArrayList<String> message2List,
+			@ModelAttribute("ballsNumberList") ArrayList<Integer> ballsNumberList) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		List<Integer> idList = new ArrayList<Integer>();
@@ -126,7 +127,7 @@ public class LinkNavigation {
 	public ModelAndView commentAdded(
 			@RequestParam(value = "message1") ArrayList<String> message1List,
 			@RequestParam(value = "message2") ArrayList<String> message2List,
-			@RequestParam("ballsNumber") Integer[] ballsNumberList,
+			@RequestParam(value = "ballsNumber") ArrayList<Integer> ballsNumberList,
 			@ModelAttribute("userList") ArrayList<User> userList) {
 		System.out.println("******************3*******" + userList);
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -141,7 +142,7 @@ public class LinkNavigation {
 			return modelAndView;
 		} else {
 			for (int i = 0; i < userList.size(); i++) {
-				if (us.getUser(userName).getBall().getBallsToGive() < ballsNumberList[i]) {
+				if (us.getUser(userName).getBall().getBallsToGive() < ballsNumberList.get(i)) {
 					System.out.println("================== NIE MASZ TYLE KULEK");
 					ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 					modelAndView.addObject("notEnoughBalls", true);
@@ -160,8 +161,8 @@ public class LinkNavigation {
 						return modelAndView;
 					}
 					Integer commentToUserId = userList.get(i).getId();
-					cs.addComment(message1List.get(i), message2List.get(i), ballsNumberList[i], user_id, commentToUserId);
-					us.setBallsAfterComment(user_id, ballsNumberList[i], commentToUserId);
+					cs.addComment(message1List.get(i), message2List.get(i), ballsNumberList.get(i), user_id, commentToUserId);
+					us.setBallsAfterComment(user_id, ballsNumberList.get(i), commentToUserId);
 				}
 				;
 			}
@@ -177,7 +178,8 @@ public class LinkNavigation {
 	@RequestMapping(value = "/commentAdded", params = "addMore", method = RequestMethod.POST)
 	public String addMoreUsers(@ModelAttribute("userList") ArrayList<User> userList, Model model,
 			@RequestParam(value = "message1") ArrayList<String> message1List,
-			@RequestParam(value = "message2") ArrayList<String> message2List) {
+			@RequestParam(value = "message2") ArrayList<String> message2List,
+			@RequestParam(value = "ballsNumber") ArrayList<Integer> ballsNumberList) {
 
 		List<User> listt1 = us.getAllUsers();
 		List<Integer> ids = new ArrayList<Integer>();
@@ -208,6 +210,11 @@ public class LinkNavigation {
 		for (int i = 0; i < message2List.size(); i++) {
 			allMess2[i] = message2List.get(i);
 		}
+		System.out.println("BallsLIST==2=============" + ballsNumberList);
+		String[] allBalls = new String[ballsNumberList.size()];
+		for (int i = 0; i < ballsNumberList.size(); i++) {
+			allBalls[i] = ballsNumberList.get(i).toString();
+		}
 		
 		String allMess1s = String.join(";;;;;;", allMess1);
 		System.out.println("allMess1s=============" + allMess1s);
@@ -217,6 +224,9 @@ public class LinkNavigation {
 		System.out.println("allMess2s=============" + allMess2s);
 		model.addAttribute("allMess2s", allMess2s);
 		
+		String allBallss = String.join(";;;;;;", allBalls);
+		System.out.println("allBallss=============" + allBallss);
+		model.addAttribute("allBallss", allBallss);
 		
 		return "moreComments";
 	}
@@ -225,10 +235,12 @@ public class LinkNavigation {
 	public String moreCommentsPage(@RequestParam(value = "userAddMoreIds", defaultValue = "") Integer[] userAddMoreIds,
 			@ModelAttribute("userList") ArrayList<User> userList, Model model,
 			@RequestParam("allMess1s") String allMess1s,
-			@RequestParam("allMess2s") String allMess2s) {
+			@RequestParam("allMess2s") String allMess2s,
+			@RequestParam("allBallss") String allBallss) {
 
 		String[] message1List = allMess1s.split(";;;;;;");
 		String[] message2List = allMess2s.split(";;;;;;");
+		String[] ballsNumberLists = allBallss.split(";;;;;;");
 		
 		System.out.println("allMess1s==1===========" + allMess1s);
 		for (String message : message1List) {
@@ -239,9 +251,19 @@ public class LinkNavigation {
 		for (String message : message2List) {
 			System.out.println("MESSAGELIST==3=============" + message);
 		}
+		
+		Integer[] ballsNumberList = new Integer[ballsNumberLists.length];
+		for (int i=0; i<ballsNumberLists.length; i++) {
+			ballsNumberList[i] = (Integer.parseInt(ballsNumberLists[i]));
+		}
+		System.out.println("allBallss==1===========" + allBallss);
+		for (Integer ball : ballsNumberList) {
+			System.out.println("BallsLIST==3=============" + ball);
+		}
 
 		model.addAttribute("message1List", message1List);
 		model.addAttribute("message2List", message2List);
+		model.addAttribute("ballsNumberList", ballsNumberList);
 		
 		if (userAddMoreIds != null) {
 			for (int i = 0; i < userAddMoreIds.length; i++) {
@@ -256,11 +278,11 @@ public class LinkNavigation {
 	public String moreCommentsPageGet2(@ModelAttribute("userList") ArrayList<User> userList,
 			@RequestParam("message1List") ArrayList<String> message1List,
 			@RequestParam("message2List") ArrayList<String> message2List,
+			@RequestParam("ballsNumberList") ArrayList<Integer> ballsNumberList,
 			Model model) {
-		System.out.println("MESSAGELIST==4=============" + message1List);
 		model.addAttribute("message1List", message1List);
-		System.out.println("MESSAGELIST==4=============" + message2List);
 		model.addAttribute("message2List", message2List);
+		model.addAttribute("ballsNumberList", ballsNumberList);
 		return "/comments";
 	}
 

@@ -44,7 +44,7 @@
 							</div>
 							<div class="form-group col-md-4 col-sm-6">
 								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
-									placeholder="Number of balls" required /> <!-- value="${ballsNumberList[status.index]}" --> 
+									placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required /> 
 							</div>
 		                    <div class="form-group">
 		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1" 
