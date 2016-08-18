@@ -10,9 +10,21 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">
-				GBOF
-			</a>
+			<c:if test="${rola == admin}" >
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/adminview">
+					GBOF
+				</a>
+			</c:if>
+			<c:if test="${rola == moderator}" >
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/inside">
+					GBOF
+				</a>
+			</c:if>
+			<c:if test="${rola == user}" >
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/inside">
+					GBOF
+				</a>
+			</c:if>
 		</div>
 	
 		<!-- Collect the nav links, forms, and other content for toggling -->

@@ -43,19 +43,23 @@
 								<label>${user.name} ${user.surname}</label>
 							</div>
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
+								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
+									placeholder="Number of balls" required /> <!-- value="${ballsNumberList[status.index]}" --> 
 							</div>
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1" placeholder="What did you like?" maxlength="140" rows="7"></textarea><!-- ${message1List[status.index]} -->
+		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1" 
+		                    		placeholder="What did you like?" maxlength="140" rows="7">${message1List[status.index]}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 		                    
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" value="message2" name="message2" id="message1" placeholder="What should I work on?" maxlength="140" rows="7"></textarea>
+		                    	<textarea class="form-control" type="textarea" value="message2" name="message2" id="message2" 
+		                    		placeholder="What can I do better?" maxlength="140" rows="7">${message2List[status.index]}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 	           			</c:forEach>
-			        <input type="submit" id="submit" name="submit" value="Add" id="btnSave" class="submit_button" > 
+	           			
+			        <input type="submit" id="submit" name="submit" value="Send" id="btnSave" class="submit_button pull-right" > 
 			        <input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 		        </form>
 		        

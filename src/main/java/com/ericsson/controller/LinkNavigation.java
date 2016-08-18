@@ -88,7 +88,9 @@ public class LinkNavigation {
 
 	@RequestMapping(value = "/comments", method = RequestMethod.POST)
 	public String commentsPageString(
-			@RequestParam(value = "userIds", required = false, defaultValue = "") Integer[] userIds, Model model) {
+			@RequestParam(value = "userIds", required = false, defaultValue = "") Integer[] userIds, Model model,
+			@ModelAttribute("message1List") ArrayList<String> message1List,
+			@ModelAttribute("message2List") ArrayList<String> message2List) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		List<Integer> idList = new ArrayList<Integer>();
@@ -103,7 +105,6 @@ public class LinkNavigation {
 				model.addAttribute("correct", true);
 			}
 		}
-
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
 		List<Long> ballValue2List = cs.getBallValue2();
@@ -113,26 +114,26 @@ public class LinkNavigation {
 		String login = us.getUser(userName).getLogin();
 
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+
 		model.addAttribute("idList", idList);
 		model.addAttribute("money", wynik);
 		model.addAttribute("kule", kulki);
 		model.addAttribute("login", login);
 		return "comments";
 	}
-	
-	@RequestMapping(value = "/commentAdded", params="submit", method = RequestMethod.POST)
-	public ModelAndView commentAdded(
-			@RequestParam(value = "message1") String[] message1List,
-			@RequestParam(value = "message2") String[] message2List,
 
+	@RequestMapping(value = "/commentAdded", params = "submit", method = RequestMethod.POST)
+	public ModelAndView commentAdded(
+			@RequestParam(value = "message1") ArrayList<String> message1List,
+			@RequestParam(value = "message2") ArrayList<String> message2List,
 			@RequestParam("ballsNumber") Integer[] ballsNumberList,
 			@ModelAttribute("userList") ArrayList<User> userList) {
-		System.out.println("******************3*******"+userList);
+		System.out.println("******************3*******" + userList);
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
-		System.out.println("+++++++++++ " + message1List.length);
-		System.out.println("+++++++++++ " + message2List.length);
+		System.out.println("+++++++++++ " + message1List.size());
+		System.out.println("+++++++++++ " + message2List.size());
 		if (us.getUser(userName).getBall().getBallsToGive() == 0) {
 			ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 			System.out.println("================== NIE MASZ JUZ KULEK");
@@ -146,23 +147,25 @@ public class LinkNavigation {
 					modelAndView.addObject("notEnoughBalls", true);
 					return modelAndView;
 				} else {
-					if (cs.checkNull(message1List[i])) {
+					if (cs.checkNull(message1List.get(i))) {
 						ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 						System.out.println("================== Nie moze byc puste");
 						modelAndView.addObject("nullComment", true);
 						return modelAndView;
 					}
-					if (cs.checkNull(message2List[i])) {
+					if (cs.checkNull(message2List.get(i))) {
 						ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 						System.out.println("================== Nie moze byc puste");
 						modelAndView.addObject("nullComment", true);
 						return modelAndView;
 					}
 					Integer commentToUserId = userList.get(i).getId();
-					cs.addComment(message1List[i], message2List[i], ballsNumberList[i], user_id, commentToUserId);
+					cs.addComment(message1List.get(i), message2List.get(i), ballsNumberList[i], user_id, commentToUserId);
 					us.setBallsAfterComment(user_id, ballsNumberList[i], commentToUserId);
-				};
-			};
+				}
+				;
+			}
+			;
 			ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 			System.out.println("================== DODANO KOMENTARZ");
 			modelAndView.addObject("success-comment", true);
@@ -170,25 +173,22 @@ public class LinkNavigation {
 
 		}
 	}
-	
-	@RequestMapping(value = "/commentAdded", params="addMore", method = RequestMethod.POST)
-	public String addMoreUsers(
-			@ModelAttribute("userList") ArrayList<User> userList,
-			Model model,
-			@RequestParam(value = "message1") String[] message1List,
-			@RequestParam(value = "message2") String[] message2List){
-		
-		
+
+	@RequestMapping(value = "/commentAdded", params = "addMore", method = RequestMethod.POST)
+	public String addMoreUsers(@ModelAttribute("userList") ArrayList<User> userList, Model model,
+			@RequestParam(value = "message1") ArrayList<String> message1List,
+			@RequestParam(value = "message2") ArrayList<String> message2List) {
+
 		List<User> listt1 = us.getAllUsers();
 		List<Integer> ids = new ArrayList<Integer>();
 		int id;
-		if (userList != null){
-			for (int i=0;i<userList.size(); i++){
+		if (userList != null) {
+			for (int i = 0; i < userList.size(); i++) {
 				ids.add(userList.get(i).getId());
 			}
-			if (ids != null){
-				for (int i=0; i<ids.size(); i++){
-					for (int j=0; j<listt1.size(); j++){
+			if (ids != null) {
+				for (int i = 0; i < ids.size(); i++) {
+					for (int j = 0; j < listt1.size(); j++) {
 						id = listt1.get(j).getId();
 						if (id == ids.get(i))
 							listt1.remove(j);
@@ -196,56 +196,97 @@ public class LinkNavigation {
 				}
 			}
 		}
-		model.addAttribute("listt1", listt1);	
-		model.addAttribute("userList", userList);
+		model.addAttribute("listt1", listt1);
+
+		System.out.println("MESSAGELIST==2=============" + message1List);
+		String[] allMess1 = new String[message1List.size()];
+		for (int i = 0; i < message1List.size(); i++) {
+			allMess1[i] = message1List.get(i);
+		}
+		System.out.println("MESSAGELIST==2=============" + message2List);
+		String[] allMess2 = new String[message2List.size()];
+		for (int i = 0; i < message2List.size(); i++) {
+			allMess2[i] = message2List.get(i);
+		}
+		
+		String allMess1s = String.join(";;;;;;", allMess1);
+		System.out.println("allMess1s=============" + allMess1s);
+		model.addAttribute("allMess1s", allMess1s);
+		
+		String allMess2s = String.join(";;;;;;", allMess2);
+		System.out.println("allMess2s=============" + allMess2s);
+		model.addAttribute("allMess2s", allMess2s);
 		
 		
 		return "moreComments";
 	}
-	
-	
-	@RequestMapping(value="/moreComments", method=RequestMethod.POST)
-	public String moreCommentsPage(
-			@RequestParam(value = "userAddMoreIds", required = false) Integer[] userAddMoreIds,
-			@ModelAttribute("userList") ArrayList<User> userList,
-			Model model) {
+
+	@RequestMapping(value = "/moreComments", method = RequestMethod.POST)
+	public String moreCommentsPage(@RequestParam(value = "userAddMoreIds", defaultValue = "") Integer[] userAddMoreIds,
+			@ModelAttribute("userList") ArrayList<User> userList, Model model,
+			@RequestParam("allMess1s") String allMess1s,
+			@RequestParam("allMess2s") String allMess2s) {
+
+		String[] message1List = allMess1s.split(";;;;;;");
+		String[] message2List = allMess2s.split(";;;;;;");
 		
+		System.out.println("allMess1s==1===========" + allMess1s);
+		for (String message : message1List) {
+			System.out.println("MESSAGELIST==3=============" + message);
+		}
+
+		System.out.println("allMess2s==1===========" + allMess2s);
+		for (String message : message2List) {
+			System.out.println("MESSAGELIST==3=============" + message);
+		}
+
+		model.addAttribute("message1List", message1List);
+		model.addAttribute("message2List", message2List);
 		
-		System.out.println("IDS************"+userAddMoreIds);
-		if (userAddMoreIds != null){
-			for (int i=0; i<userAddMoreIds.length; i++){
+		if (userAddMoreIds != null) {
+			for (int i = 0; i < userAddMoreIds.length; i++) {
 				userList.add(us.getUserId(userAddMoreIds[i]));
 			}
 		}
-		model.addAttribute("userList", userList);
-		return "comments";
-	}
-	
-	
-	@RequestMapping(value = "/editcomment", method = RequestMethod.POST)
-	public String editCommentPage(@RequestParam(value = "buttonComId") Integer buttonComId,
-			Model model) {
 		
+		return "redirect:/moreComments2";
+	}
+
+	@RequestMapping(value = "/moreComments2", method = RequestMethod.GET)
+	public String moreCommentsPageGet2(@ModelAttribute("userList") ArrayList<User> userList,
+			@RequestParam("message1List") ArrayList<String> message1List,
+			@RequestParam("message2List") ArrayList<String> message2List,
+			Model model) {
+		System.out.println("MESSAGELIST==4=============" + message1List);
+		model.addAttribute("message1List", message1List);
+		System.out.println("MESSAGELIST==4=============" + message2List);
+		model.addAttribute("message2List", message2List);
+		return "/comments";
+	}
+
+	@RequestMapping(value = "/editcomment", method = RequestMethod.POST)
+	public String editCommentPage(@RequestParam(value = "buttonComId") Integer buttonComId, Model model) {
+
 		System.out.println(buttonComId);
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-		
+
 		List<Long> ballValue2List = cs.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue/ballValue2);
+		Double wynik = (double) (moneyValue / ballValue2);
 		String login = us.getUser(userName).getLogin();
-		
-		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		
-		Comment commentId=cs.getCommentId(buttonComId);
-		
-		Integer commentToUserId= commentId.getUser().getId();
-		Integer comId= commentId.getComId();
-		 
-		System.out.println("To user:"+commentToUserId);
-		System.out.println("Nr kom:"+comId);
+
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+
+		Comment commentId = cs.getCommentId(buttonComId);
+
+		Integer commentToUserId = commentId.getUser().getId();
+		Integer comId = commentId.getComId();
+
+		System.out.println("To user:" + commentToUserId);
+		System.out.println("Nr kom:" + comId);
 		model.addAttribute("commentId", commentId);
 		model.addAttribute("money", wynik);
 		model.addAttribute("kule", kulki);
@@ -253,44 +294,34 @@ public class LinkNavigation {
 
 		return "editcomment";
 	}
-	
+
 	@RequestMapping(value = "/commentEdited", method = RequestMethod.POST)
-	public ModelAndView  commentEdited(
-						
-			@RequestParam(value = "message1") String message1,
-			@RequestParam(value = "message2") String message2,
-			@RequestParam("ballsNumber") Integer ballsNumber,
-			@RequestParam("commentToUserId") Integer toUserId,
+	public ModelAndView commentEdited(
+
+			@RequestParam(value = "message1") String message1, @RequestParam(value = "message2") String message2,
+			@RequestParam("ballsNumber") Integer ballsNumber, @RequestParam("commentToUserId") Integer toUserId,
 			@RequestParam("comId") Integer comId,
-			
+
 			Model model
-			
-			) {
+
+	) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	
+
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
-		
-		cs.editComment(message1,message2,ballsNumber,comId);
-		
-		
+
+		cs.editComment(message1, message2, ballsNumber, comId);
+
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-		
+
 		return modelAndView;
 	}
 
-
-	@RequestMapping(value="/userAdded", method=RequestMethod.POST)
-	public ModelAndView userAdded(
-			@RequestParam("name") String name,
-			@RequestParam("surname") String surname,
-			@RequestParam("login") String login,
-			@RequestParam("password") String password,
-			@RequestParam("roleName") String roleName,
-			@RequestParam("teamName") String teamName,
-			@RequestParam("mail") String mail,
-			@RequestParam("deptName") String deptName) {
-
+	@RequestMapping(value = "/userAdded", method = RequestMethod.POST)
+	public ModelAndView userAdded(@RequestParam("name") String name, @RequestParam("surname") String surname,
+			@RequestParam("login") String login, @RequestParam("password") String password,
+			@RequestParam("roleName") String roleName, @RequestParam("teamName") String teamName,
+			@RequestParam("mail") String mail, @RequestParam("deptName") String deptName) {
 
 		// default initial values
 		received_balls = 0;
@@ -319,35 +350,32 @@ public class LinkNavigation {
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/teamAdded", method=RequestMethod.POST)
-	public ModelAndView teamAdded(
-			@RequestParam("teamName") String teamName,
-			@RequestParam("leaderLogin") String leaderLogin,
-			@RequestParam("deptName") String deptName) {
-		
+
+	@RequestMapping(value = "/teamAdded", method = RequestMethod.POST)
+	public ModelAndView teamAdded(@RequestParam("teamName") String teamName,
+			@RequestParam("leaderLogin") String leaderLogin, @RequestParam("deptName") String deptName) {
+
 		String[] words = leaderLogin.split("\\s+");
 		leaderLogin = words[2];
-		
+
 		User userList = us.getUser(leaderLogin);
 		Integer leaderID = userList.getId();
-		
+
 		Department deptList = ds.getDeptID(deptName);
 		Integer deptID = deptList.getDeptId();
-		
+
 		ts.addTeam(teamName, leaderID, deptID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/deptAdded", method=RequestMethod.POST)
-	public ModelAndView deptAdded(
-			@RequestParam("deptName") String deptName,
+
+	@RequestMapping(value = "/deptAdded", method = RequestMethod.POST)
+	public ModelAndView deptAdded(@RequestParam("deptName") String deptName,
 			@RequestParam("leaderLogin") String leaderLogin) {
-		
+
 		String[] words = leaderLogin.split("\\s+");
 		leaderLogin = words[2];
-		
+
 		User userList = us.getUser(leaderLogin);
 		Integer leaderID = userList.getId();
 
@@ -355,18 +383,17 @@ public class LinkNavigation {
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/userRemoved", method=RequestMethod.POST)
-	public ModelAndView userRemoved(
-			@RequestParam(value = "userDelIds", required = false) Integer[] userDelIds) {
-		
+
+	@RequestMapping(value = "/userRemoved", method = RequestMethod.POST)
+	public ModelAndView userRemoved(@RequestParam(value = "userDelIds", required = false) Integer[] userDelIds) {
+
 		Integer comId;
 		List<Comment> commentList;
-		for (int i=0; i<userDelIds.length; i++){
+		for (int i = 0; i < userDelIds.length; i++) {
 			// check if there are any comments for this user
 			commentList = cs.getCommentsYouGave(userDelIds[i]);
-			if (commentList != null){
-				for (int j=0; j<commentList.size(); j++){
+			if (commentList != null) {
+				for (int j = 0; j < commentList.size(); j++) {
 					comId = commentList.get(j).getComId();
 					cs.removeComment(comId);
 				}
@@ -378,34 +405,27 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 
-
-	@RequestMapping(value="/confirmedComm", method=RequestMethod.POST)
-	public ModelAndView settingsAdd(@RequestParam("confirmButton") Integer commId){
+	@RequestMapping(value = "/confirmedComm", method = RequestMethod.POST)
+	public ModelAndView settingsAdd(@RequestParam("confirmButton") Integer commId) {
 		cs.setConfirm(commId);
-		
+
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/teamRemoved", method=RequestMethod.POST)
-	public ModelAndView teamRemoved(
-			@RequestParam(value = "teamDelIds", required = false) Integer[] teamDelIds) {
-		
-		/*Integer comId;
-		List<Comment> commentList;
-		for (int i=0; i<teamDelIds.length; i++){
-			// check if there are any comments for this user
-			commentList = cs.getCommentsYouGave(teamDelIds[i]);
-			if (commentList != null){
-				for (int j=0; j<commentList.size(); j++){
-					comId = commentList.get(j).getComId();
-					cs.removeComment(comId);
-				}
-			}
-			us.removeUser(teamDelIds[i]);
-		}*/
 
-		for (int i=0; i<teamDelIds.length; i++){
+	@RequestMapping(value = "/teamRemoved", method = RequestMethod.POST)
+	public ModelAndView teamRemoved(@RequestParam(value = "teamDelIds", required = false) Integer[] teamDelIds) {
+
+		/*
+		 * Integer comId; List<Comment> commentList; for (int i=0;
+		 * i<teamDelIds.length; i++){ // check if there are any comments for
+		 * this user commentList = cs.getCommentsYouGave(teamDelIds[i]); if
+		 * (commentList != null){ for (int j=0; j<commentList.size(); j++){
+		 * comId = commentList.get(j).getComId(); cs.removeComment(comId); } }
+		 * us.removeUser(teamDelIds[i]); }
+		 */
+
+		for (int i = 0; i < teamDelIds.length; i++) {
 			ts.removeTeam(teamDelIds[i]);
 		}
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");

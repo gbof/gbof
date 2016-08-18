@@ -28,47 +28,52 @@
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition> 
 	
-<div class="container-fluid main-container">
-	<div class="col-md-12">
-           <div class="panel panel-default">
-               <div class="panel-heading">
-                   Employees
-               </div>
-			  	<form class="form-inline" role="form" method="POST" action="${pageContext.request.contextPath}/moreComments"> 
-			  		<table class="table table-hover table-responsive">
-			  			<thead>
-					      <tr>
-					      	<th>Add</th>
-					      	<th>Name</th>
-					        <th>Surname</th>
-					        <th>Login</th>
-					        <th>Team</th>
-					        <th>Balls</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-						<c:forEach var="user" items="${listt1}">
-				    	<tr>
-				   			<td>
-						    	<div class="checkbox">
-									<label><input type="checkbox" name = "userAddMoreIds" value = "${user.getId()}"></label>
-								</div>
-							</td>
-							<td><c:out value="${user.name}" /></td>
-							<td><c:out value="${user.surname}" /></td>
-							<td><c:out value="${user.login}" /></td>
-				          <td><c:out value="${user.getTeam().getName()}" /></td>
-				          <td><c:out value="${user.getBall().getReceivedBalls()}" /></td>
-				      	</tr>
-			       			</c:forEach>
-				    </tbody>
-			  	</table>
-		    	<button type="button" class="btn btn-default pull-left" >Cancel</button>
-		    	<input type="submit" class="btn btn-primary btn-change pull-right" value="Add" />
-			</form>
+	<div class="container-fluid main-container">
+		<div class="col-md-12">
+	           <div class="panel panel-default">
+	               <div class="panel-heading">
+	                   Employees
+	               </div>
+				  	<form class="form-inline" role="form" method="POST" action="${pageContext.request.contextPath}/moreComments"> 
+				  		<table class="table table-hover table-responsive">
+				  			<thead>
+						      <tr>
+						      	<th>Add</th>
+						      	<th>Name</th>
+						        <th>Surname</th>
+						        <th>Login</th>
+						        <th>Team</th>
+						        <th>Balls</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+							<c:forEach var="user" items="${listt1}" varStatus="status">
+					    	<tr>
+					   			<td>
+							    	<div class="checkbox">
+										<label><input type="checkbox" name = "userAddMoreIds" value = "${user.getId()}"></label>
+									</div>
+								</td>
+								<td><c:out value="${user.name}" /></td>
+								<td><c:out value="${user.surname}" /></td>
+								<td><c:out value="${user.login}" /></td>
+					          <td><c:out value="${user.getTeam().getName()}" /></td>
+					          <td><c:out value="${user.getBall().getReceivedBalls()}" /></td>
+					      	</tr>
+				  	<!--  <input type="hidden" name="message1List" value="<c:out value="${message1List[status.index]}" />"/>-->
+				  	
+				       			</c:forEach>
+					    </tbody>
+				  	</table>
+	       			<input type="hidden" name="allMess1s" value="<c:out value="${allMess1s}" />"/>
+	       			<input type="hidden" name="allMess2s" value="<c:out value="${allMess2s}" />"/>
+	       			<input type="hidden" name="allBallss" value="<c:out value="${allBallss}" />"/>
+			    	<a href="${pageContext.request.contextPath}/adminview"><input  class="btn btn-primary btn-change pull-left" value="Back"/></a>
+			    	<input type="submit" class="btn btn-primary btn-change pull-right" value="Add" />
+				</form>
+			</div>
 		</div>
 	</div>
-</div>
 	
 		
 	
