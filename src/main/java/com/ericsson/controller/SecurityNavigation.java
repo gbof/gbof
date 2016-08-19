@@ -147,9 +147,7 @@ public class SecurityNavigation {
 		List<Comment> commentList = coms.getAllComments();
 		
 		System.out.println("Kom1:" + commentList.get(0).getUser().getName());
-		
-		
-		
+
 		List<Comment> commentConfirmedList = coms.getConfirmedComments();
 		
 		System.out.println("Zalogowano: "+name);
@@ -271,12 +269,26 @@ public class SecurityNavigation {
 		{
 		modelAndView.addObject("correct", true);
 		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,1);
-		System.out.println("Zapisuje ustawinia");
+		System.out.println("Zapisuje ustawienia");
 		}
 	    
 
 		return modelAndView;
 	}
 	
-	
+	@RequestMapping(value="/users", method=RequestMethod.GET)
+	public ModelAndView usersPage() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<User> listt = us.getAllUsers();
+		
+		ModelAndView lista = new ModelAndView();
+
+		for (int i=0; i<listt.size(); i++){
+			System.out.println("User:  "+listt.get(i).getRole());
+		}
+		
+		lista.addObject("listt", listt);
+		lista.setViewName("users");
+		return lista;
+	}
 }

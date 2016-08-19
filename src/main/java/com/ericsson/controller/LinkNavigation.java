@@ -28,6 +28,7 @@ import com.ericsson.service.BallService;
 import com.ericsson.service.CommentService;
 import com.ericsson.service.DepartmentService;
 import com.ericsson.service.RoleService;
+import com.ericsson.service.UserRolesService;
 import com.ericsson.service.SettingService;
 import com.ericsson.service.TeamService;
 import com.ericsson.service.UserService;
@@ -56,6 +57,9 @@ public class LinkNavigation {
 
 	@Autowired
 	private DepartmentService ds;
+	
+	@Autowired
+	private UserRolesService rus;
 
 	private Integer received_balls;
 	private boolean locked;
@@ -369,7 +373,61 @@ public class LinkNavigation {
 		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 
 		us.addUser(name, surname, login, password, roleId, teamID, ballsID, mail, deptID);
+		Integer userId = us.getUser(login).getId();
+		rus.add(userId, roleId);
+		
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/edituser", method = RequestMethod.POST)
+	public String editUserPage(@RequestParam(value = "buttonComId") Integer buttonComId, Model model) {
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = us.getUserId(buttonComId);
+		
+		List<Role> rolelistt = rs.getAllRoles();
+		String roleName = user.getRole().getRole();
+		List<Role> role = rs.getRoleId(roleName);
+		rolelistt.remove(role.get(0).getId()-1);
+		
+		List<Department> deptlistt = ds.getAllDepts();
+		String deptName = user.getDept().getDeptName();
+		Department dept = ds.getDeptID(deptName);
+		deptlistt.remove(dept.getDeptId()-1);
+		
+		List<Team> teamlistt = ts.getAllTeams();
+		String teamName = user.getTeam().getName();
+		Team team = ts.getTeamID(teamName);
+		teamlistt.remove(team.getId()-1);
+
+		model.addAttribute("user", user);
+		model.addAttribute("rolelistt", rolelistt);
+		model.addAttribute("deptlistt", deptlistt);
+		model.addAttribute("teamlistt", teamlistt);
+		
+		return "edituser";
+	}
+	
+	@RequestMapping(value = "/userEdited", method = RequestMethod.POST)
+	public ModelAndView userEdited(
+
+			@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
+			@RequestParam(value = "login") String login, @RequestParam(value = "mail") String mail,
+			@RequestParam(value = "role") String role, @RequestParam(value = "dept") String dept,
+			@RequestParam(value = "team") String team, @RequestParam("user_id") Integer user_id,
+			Model model
+
+	) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		Integer roleID = rs.getRoleId(role).get(0).getId();
+		Integer deptID = ds.getDeptID(dept).getDeptId();
+		Integer teamID = ts.getTeamID(team).getId();
+		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
+		//rus.editUserRoles(user_id, roleID);
+		ModelAndView modelAndView = new ModelAndView("redirect:/users");
+
 		return modelAndView;
 	}
 

@@ -47,4 +47,15 @@ public class UserServiceImpl implements UserService {
 		userDAO.removeUser(user_id);
 		
 	}
+	@Override
+	public void editUser(Integer user_id, String name, String surname, String login, String mail, Integer roleID,
+			Integer deptID, Integer teamID) {
+		userDAO.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
+		
+	}
+	@Override
+	public void addUser2(User user) {
+		userDAO.addUser2(user);
+		
+	}
 }

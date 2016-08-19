@@ -88,6 +88,7 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}	
+	
 	public String getName() {
 		return name;
 	}
@@ -109,7 +110,6 @@ public class User {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-
 
 	public Ball getBall(){
 		return ball;

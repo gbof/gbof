@@ -58,7 +58,8 @@
 		           			<input type="hidden" name="comId" value="${commentId.getComId()}"/>
 		           				
 		           		
-		        <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Edit</button>
+		        		<input type="submit" style="min-width: 100px;" class="btn btn-primary pull-right " id="submit" name="submit" value="Edit" />
+		        		<a href="${pageContext.request.contextPath}/adminview"><input type="button" style="min-width: 100px;" class="btn btn-primary pull-left " id="back" name="back"value="Back" /></a>
 		        </form>
 		        
 		    </div>

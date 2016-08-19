@@ -10,16 +10,22 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
+			<c:set var="rola" scope="session" value="${rola}"/>
+			<c:set var="admin" scope="session" value="admin"/>
 			<c:if test="${rola == admin}" >
 				<a class="navbar-brand" href="${pageContext.request.contextPath}/adminview">
 					GBOF
 				</a>
 			</c:if>
+			<c:set var="rola" scope="session" value="${rola}"/>
+			<c:set var="admin" scope="session" value="admin"/>
 			<c:if test="${rola == moderator}" >
 				<a class="navbar-brand" href="${pageContext.request.contextPath}/inside">
 					GBOF
 				</a>
 			</c:if>
+			<c:set var="rola" scope="session" value="${rola}"/>
+			<c:set var="admin" scope="session" value="admin"/>
 			<c:if test="${rola == user}" >
 				<a class="navbar-brand" href="${pageContext.request.contextPath}/inside">
 					GBOF

@@ -89,12 +89,25 @@ public class UserDAOImpl implements UserDAO {
 			SQLQuery sqlQuery = openSession().createSQLQuery(query);
 			sqlQuery.executeUpdate();
 		}
+	
+	public void addUser2(User user){
+		openSession().persist(user);
+	}
 
 	@Override
 	public void removeUser(Integer user_id) {
 		String query = "delete from users where user_id="+user_id;
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
+	}
+
+	@Override
+	public void editUser(Integer user_id, String name, String surname, String login, String mail, Integer roleID,
+			Integer deptID, Integer teamID) {
+		String query = "UPDATE users SET name='"+name+"', surname='"+surname+"', login='"+login+"', mail='"+mail+"', role_id='"+roleID+"', dept_id='"+deptID+"', team_id='"+teamID+"'  WHERE user_id ='"+user_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
 	}
 		
 

@@ -19,11 +19,11 @@
 
 </head>
 <body>
-	<form method="POST" action="${pageContext.request.contextPath}/comments">
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition>  
 	
 	
+	<form method="POST" action="${pageContext.request.contextPath}/comments">
 
 		<div class="col-md-12">
 			<div class="tabbable-panel">

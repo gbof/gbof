@@ -82,4 +82,30 @@
 
 .btn-user {
 	min-width: 100px;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.btn-back{
+	margin-left: 30px;
+}
+
+.panel-footer{
+	min-height: 50px;
+}
+
+.panel-body{
+	min-height: 400px;
+}
+
+.modal-content .input{
+	margin: 5px;
+}
+
+.modal {
+	padding: 05%;
+}
+
+.form-group {
+	padding: 5px;
 }

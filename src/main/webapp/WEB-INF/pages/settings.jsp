@@ -44,13 +44,13 @@
 		</c:if>
 		</p>
 		<div class="col-md-6">
-         		 <div class="panel panel-default">
-         		
-              		<div class="panel-heading">
-              			Settings
-              		</div>
-              		<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
-              		<div class="panel-body">
+        		 <div class="panel panel-default">
+        		
+             		<div class="panel-heading">
+             			Settings
+             		</div>
+             		<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
+             		<div class="panel-body">
 						<div class="panel-group col-md-6">
 							<div class="funkyradio">
 						        <div class="funkyradio-primary">
@@ -59,82 +59,84 @@
 						        </div>
 						    </div>
 					    </div>
-
+	
 				        <form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
-				        <div class="panel-group col-md-12">
-				        	
-					            <div class="form-group">
-							      <label >Balls Per Person </label>
-							      <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers"/>
-							    </div>
-						  
-				        </div>
-				        <div class="panel-group col-md-12">
-				       
-					            <div class="form-group">
-							      <label >Money </label>
-							      <input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN"/>
-							    </div>
+					        
+					        	
+						            <div class="form-group col-md-12">
+								      <label class="col-md-3">Balls Per Person </label>
+								      <div class="col-md-6">
+								     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers"/>
+								      </div>
+								    </div>
+							  
+					       
+						            <div class="form-group col-md-12">
+								      <label class="col-md-3">Money </label>
+								      <div class="col-md-6">
+								      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN"/>
+								      </div>
+								    </div>
+							
+					        
+						            <div class="form-group col-md-12">
+								      <label class="col-md-3" >Deadline</label>
+								      <div class="col-md-6">
+								      	<input class="form-control" value="${settingsList.get(0).getDeadline()}" type=text name="deadline"/>
+								      </div>
+								    </div>
+							
+					    
+						            <div class="form-group col-md-12">
+								      <label class="col-md-3" for="deadline">Extra balls </label>
+								      <div class="col-md-6">
+								      	<input class="form-control" value="${settingsList.get(0).getExtraBalls()}" type=text name="extraBalls"/>
+								      </div>
+								    </div>
 						
-				        </div>
-				        <div class="panel-group col-md-12">
-				        
-					            <div class="form-group">
-							      <label >Deadline</label>
-							      <input class="form-control" value="${settingsList.get(0).getDeadline()}" type=text name="deadline"/>
-							    </div>
-						
-				        </div>
-				        <div class="panel-group col-md-12">
-				    
-					            <div class="form-group">
-							      <label  for="deadline">Extra balls </label>
-							      <input class="form-control" value="${settingsList.get(0).getExtraBalls()}" type=text name="extraBalls"/>
-							    </div>
-						   
-				        </div>
-				        <div class=text-right>
-							<input type="submit" class="btn btn-primary btn-change pull-right" value="Save"/>
-					
-						</div>
-					
-					</form>
-              	</div>
-           </div>
-       </div>
-       		<div class="col-md-6">
-         		 <div class="panel panel-default">
-         		
-              		<div class="panel-heading">
-              			Users management
-              		</div>
-              		
-              		<div class="panel-body">
-				        <div class="panel-group col-md-6">
-				        	<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#myModal">New user</button>
-				        </div>
-				         <div class="panel-group col-md-6">
-				        	<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#delUserModal">Remove user</button>
-				        </div>
-				        <div class="panel-group col-md-6">
-		        			<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#teamModal" >New team</button>
-				        </div>
-				        <div class="panel-group col-md-6">
-				        	<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#delTeamModal">Remove team</button>
-				        </div>
-				        <div class="panel-group col-md-6">
-		        			<button class="btn btn-default btn-user btn-md" data-toggle="modal" data-target="#deptModal" >New department ???</button>
-				        </div>
+						</form>
+	              	</div>
+	              	<div class="panel-footer">
+						<input type="submit" style="min-width: 100px;" class="btn btn-primary pull-right " value="Save"/>
+					</div>
+	           </div>
+	       </div>
+	       
+		
+      		<div class="col-md-6">
+        		 <div class="panel panel-default">
+        		
+             		<div class="panel-heading">
+             			Users management
+             		</div>
+             		
+             		<div class="panel-body">
+			        <div class="panel-group col-md-5 btn-group-vertical">
+			        	<button class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#myModal">New user</button>
+			        	<button class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#delUserModal">Remove user</button>
+	        			<button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#teamModal" >New team</button>
+			        	<button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#delTeamModal">Remove team</button>
+	        			<a href="${pageContext.request.contextPath}/users"><button class="btn btn-success btn-user btn-lg" >View all users</button></a>
+	        			<!-- <button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#deptModal" >New department ???</button> -->
+			        </div>
+			        <div class="panel-group col-md-6">
+			        </div>
+			         <div class="panel-group col-md-6">
+			        </div>
+			        <div class="panel-group col-md-6">
+			        </div>
+			        <div class="panel-group col-md-6">
+			        </div>
+			        <div class="panel-group col-md-6">
+			        </div>
 
-				        <div class=text-right>
-							<input type="submit" class="btn btn-primary btn-change pull-right" value="Save"/>
-					
-						</div>
               	</div>
+				<div class="panel-footer">
+				</div>
            </div>
        </div>
    </div>
-   <a href="${pageContext.request.contextPath}/adminview"><input  class="btn btn-primary btn-change pull-left" value="Back"/></a>
+   <a href="${pageContext.request.contextPath}/adminview"><input  class="btn btn-primary btn-change pull-left btn-back" value="Back"/></a>
 
 	
 	<!-- Modal -->

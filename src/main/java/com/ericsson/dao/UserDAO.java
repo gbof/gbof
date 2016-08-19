@@ -12,4 +12,7 @@ public interface UserDAO {
 	public void addUser(String name, String surname, String login, String password, Integer roleID, 
 			Integer teamID, Integer ballsID, String mail, Integer deptID);
 	public void removeUser(Integer user_id);
+	public void editUser(Integer user_id, String name, String surname, String login, String mail, Integer roleID,
+			Integer deptID, Integer teamID);
+	public void addUser2(User user);
 }
