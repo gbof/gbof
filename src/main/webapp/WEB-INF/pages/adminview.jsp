@@ -232,7 +232,7 @@
 	</div>
 </c:forEach>
 
-						</form>
+						
 						
 
 						<div class="tab-pane" id="tab_default_4">

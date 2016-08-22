@@ -47,26 +47,57 @@
 									placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required /> 
 							</div>
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1" 
+		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1"
+
 		                    		placeholder="What did you like?" maxlength="140" rows="7" required>${message1List[status.index]}</textarea>
-		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
+		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
+
+		                    		                
+
 		                    </div>
 		                    
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" value="message2" name="message2" id="message2" 
+		                    	<textarea class="form-control" type="textarea" value="message2" name="message2" id="message2"
 		                    		placeholder="What can I do better?" maxlength="140" rows="7" required>${message2List[status.index]}</textarea>
-		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
+		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
+
+		                    		                    
+
 		                    </div>
 	           			</c:forEach>
 	           			
-			        <input type="submit" id="submit" name="submit" value="Send" id="btnSave" class="submit_button pull-right" > 
+			        <input data-toggle="modal" data-target="#ModalCommentConfirm" type="button" id="submit" name="submit" value="Send" id="btnSave" class="submit_button pull-right" > 
 			        <input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
-		        </form>
+		      
 		        
 		    </div>
 		</div>
 	</div>
 		
+
+										<!-- Modal -->
+
+	<div id="ModalCommentConfirm" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        
+	      </div>
+	      <div class="modal-body">
+	           	<center><h4 class="modal-body">Comment Added</h4></center>
+	      </div>
+	      <div class="modal-footer">
+	       <button type="submit" id="submit" name="submit" value="OK" id="btnSave" class="submit_button pull-right">OK</button>
+	       </form>
+	      </div>
+	    
+	    </div>
+	
+	  </div>
+	</div>
 
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>

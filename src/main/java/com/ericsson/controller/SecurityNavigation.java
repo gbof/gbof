@@ -228,9 +228,11 @@ public class SecurityNavigation {
 		Double moneyValue = money.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		
+
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("settingsList",settingsList);
 		lista.addObject("listt", listt);
@@ -264,7 +266,7 @@ public class SecurityNavigation {
 		Double wynik = (double) (moneyValue/ballValue2);
 		wynik = sett.round(wynik, 2);
 		ModelAndView modelAndView = new ModelAndView("settings");
-		
+		wynik = sett.round(wynik, 2);
 		Boolean freeze;
 		if(isFreeze.length==1)
 		freeze=false;
@@ -283,10 +285,30 @@ public class SecurityNavigation {
 		System.out.println("Zapisuje ustawienia");
 		}
 		List<Settings> settingsList=sett.getSettings();
+		List<String> userBasiclistt = new ArrayList<String>();
+		List<User> listt = us.getAllUsers();
+
+		String _name;
+		String _surname;
+		String _login;
+		for (int i=0; i<listt.size(); i++){
+			_name = listt.get(i).getName();
+			_surname = listt.get(i).getSurname();
+			_login = listt.get(i).getLogin();
+			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+		
+		List<Role> rolelistt = rs.getAllRoles();
+		List<Team> teamlistt = ts.getAllTeams();
+		List<Department> deptlistt = ds.getAllDepts();
 		modelAndView.addObject("settingsList",settingsList);
 		modelAndView.addObject("money", wynik);
 		modelAndView.addObject("kule", kulki);
 		modelAndView.addObject("login", login);
+		modelAndView.addObject("rolelistt", rolelistt);
+		modelAndView.addObject("teamlistt", teamlistt);
+		modelAndView.addObject("deptlistt", deptlistt);
+		modelAndView.addObject("userBasiclistt", userBasiclistt);
 		return modelAndView;
 	}
 	
