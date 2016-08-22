@@ -24,4 +24,10 @@ public class BallServiceImpl implements BallService {
 		public List<Ball> getBallId() {
 			return ballDAO.getBallId();
 		}
+
+		@Override
+		public void editBallsToGive(Integer user_id, Integer balls) {
+			ballDAO.editBallsToGive(user_id, balls);
+			
+		}
 }

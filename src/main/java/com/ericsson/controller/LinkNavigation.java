@@ -450,11 +450,14 @@ public class LinkNavigation {
 		String teamName = user.getTeam().getName();
 		Team team = ts.getTeamID(teamName);
 		teamlistt.remove(team.getId()-1);
+		
+		Integer ballstogive = user.getBall().getBallsToGive();
 
 		model.addAttribute("user", user);
 		model.addAttribute("rolelistt", rolelistt);
 		model.addAttribute("deptlistt", deptlistt);
 		model.addAttribute("teamlistt", teamlistt);
+		model.addAttribute("ballstogive", ballstogive);
 		
 		return "edituser";
 	}
@@ -465,7 +468,8 @@ public class LinkNavigation {
 			@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
 			@RequestParam(value = "login") String login, @RequestParam(value = "mail") String mail,
 			@RequestParam(value = "role") String role, @RequestParam(value = "dept") String dept,
-			@RequestParam(value = "team") String team, @RequestParam("user_id") Integer user_id,
+			@RequestParam(value = "team") String team, @RequestParam(value = "balls") Integer balls,
+			@RequestParam("user_id") Integer user_id,
 			Model model
 
 	) {
@@ -474,6 +478,8 @@ public class LinkNavigation {
 		Integer roleID = rs.getRoleId(role).get(0).getId();
 		Integer deptID = ds.getDeptID(dept).getDeptId();
 		Integer teamID = ts.getTeamID(team).getId();
+		
+		bs.editBallsToGive(user_id, balls);
 		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
 		//rus.editUserRoles(user_id, roleID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/users");

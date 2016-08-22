@@ -43,6 +43,7 @@
 						        <th>Role</th>
 						        <th>Department</th>
 						        <th>Team</th>
+						        <th>Balls to give</th>
 								<th>Edit</th>
 						      </tr>
 						    </thead>
@@ -57,6 +58,7 @@
 							        <td><c:out value="${user.getRole().getRole()}" /></td>
 							        <td><c:out value="${user.getDept().getDeptName()}" /></td>
 							        <td><c:out value="${user.getTeam().getName()}" /></td>
+							        <td><c:out value="${user.getBall().getBallsToGive() }" /></td>
 							        <td><a href="${pageContext.request.contextPath}/edituser"><button name="buttonComId" value="${user.getId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
 												      
 								    </tr>
