@@ -252,8 +252,17 @@ public class SecurityNavigation {
 			@RequestParam("extraBalls") Integer extraBalls,
 			@RequestParam(value = "checkbox", required = false, defaultValue = "") Integer[] isFreeze)
 			 {
-		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		String login = us.getUser(userName).getLogin();
+		List<Double> Lmoney = sett.getMoney(1);
+		Double moneyValue = Lmoney.get(0);
+		List<Long> ballValue2List = coms.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue/ballValue2);
 		ModelAndView modelAndView = new ModelAndView("settings");
+		
 		Boolean freeze;
 		if(isFreeze.length==1)
 		freeze=false;
@@ -271,8 +280,11 @@ public class SecurityNavigation {
 		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,1);
 		System.out.println("Zapisuje ustawienia");
 		}
-	    
-
+		List<Settings> settingsList=sett.getSettings();
+		modelAndView.addObject("settingsList",settingsList);
+		modelAndView.addObject("money", wynik);
+		modelAndView.addObject("kule", kulki);
+		modelAndView.addObject("login", login);
 		return modelAndView;
 	}
 	

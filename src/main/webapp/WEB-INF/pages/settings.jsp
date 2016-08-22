@@ -60,8 +60,7 @@
 						    </div>
 					    </div>
 	
-				        <form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
-					        
+				            
 					        	
 						            <div class="form-group col-md-12">
 								      <label class="col-md-3">Balls Per Person </label>
@@ -94,10 +93,11 @@
 								      </div>
 								    </div>
 						
-						</form>
+						
 	              	</div>
 	              	<div class="panel-footer">
 						<input type="submit" style="min-width: 100px;" class="btn btn-primary pull-right " value="Save"/>
+						</form>
 					</div>
 	           </div>
 	       </div>
