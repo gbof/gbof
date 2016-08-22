@@ -25,7 +25,7 @@
 				</a>
 			</c:if>
 			<c:set var="rola" scope="session" value="${rola}"/>
-			<c:set var="admin" scope="session" value="admin"/>
+			<c:set var="user" scope="session" value="user"/>
 			<c:if test="${rola == user}" >
 				<a class="navbar-brand" href="${pageContext.request.contextPath}/inside">
 					GBOF

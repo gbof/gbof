@@ -181,9 +181,9 @@ public class LinkNavigation {
 
 	@RequestMapping(value = "/commentAdded", params = "addMore", method = RequestMethod.POST)
 	public String addMoreUsers(@ModelAttribute("userList") ArrayList<User> userList, Model model,
-			@RequestParam(value = "message1") ArrayList<String> message1List,
-			@RequestParam(value = "message2") ArrayList<String> message2List,
-			@RequestParam(value = "ballsNumber") ArrayList<Integer> ballsNumberList) {
+			@RequestParam(value = "message1", defaultValue="") ArrayList<String> message1List,
+			@RequestParam(value = "message2", defaultValue="") ArrayList<String> message2List,
+			@RequestParam(value = "ballsNumber", defaultValue="0") ArrayList<Integer> ballsNumberList) {
 
 		List<User> listt1 = us.getAllUsers();
 		List<Integer> ids = new ArrayList<Integer>();
@@ -204,85 +204,73 @@ public class LinkNavigation {
 		}
 		model.addAttribute("listt1", listt1);
 
-		System.out.println("MESSAGELIST==2=============" + message1List);
 		String[] allMess1 = new String[message1List.size()];
 		for (int i = 0; i < message1List.size(); i++) {
 			allMess1[i] = message1List.get(i);
 		}
-		System.out.println("MESSAGELIST==2=============" + message2List);
 		String[] allMess2 = new String[message2List.size()];
 		for (int i = 0; i < message2List.size(); i++) {
 			allMess2[i] = message2List.get(i);
 		}
-		System.out.println("BallsLIST==2=============" + ballsNumberList);
+		if (ballsNumberList.size() == 0) ballsNumberList.add(0);
+
 		String[] allBalls = new String[ballsNumberList.size()];
 		for (int i = 0; i < ballsNumberList.size(); i++) {
-			allBalls[i] = ballsNumberList.get(i).toString();
+			if (ballsNumberList.get(i) == null){
+				allBalls[i] = "0";
+			} else{
+				allBalls[i] = ballsNumberList.get(i).toString();
+			}
 		}
 		
 		String allMess1s = String.join(";;;;;;", allMess1);
-		System.out.println("allMess1s=============" + allMess1s);
 		model.addAttribute("allMess1s", allMess1s);
 		
 		String allMess2s = String.join(";;;;;;", allMess2);
-		System.out.println("allMess2s=============" + allMess2s);
 		model.addAttribute("allMess2s", allMess2s);
 		
 		String allBallss = String.join(";;;;;;", allBalls);
-		System.out.println("allBallss=============" + allBallss);
 		model.addAttribute("allBallss", allBallss);
 		
 		return "moreComments";
 	}
 
 	@RequestMapping(value = "/moreComments", method = RequestMethod.POST)
-	public String moreCommentsPage(@RequestParam(value = "userAddMoreIds", defaultValue = "") Integer[] userAddMoreIds,
+	public String moreCommentsPage(
+			@RequestParam(value = "userAddMoreIds", defaultValue = "") Integer[] userAddMoreIds,
 			@ModelAttribute("userList") ArrayList<User> userList, Model model,
 			@RequestParam("allMess1s") String allMess1s,
 			@RequestParam("allMess2s") String allMess2s,
 			@RequestParam("allBallss") String allBallss) {
 
+		
 		String[] message1List = allMess1s.split(";;;;;;");
 		String[] message2List = allMess2s.split(";;;;;;");
 		String[] ballsNumberLists = allBallss.split(";;;;;;");
-		
-		System.out.println("allMess1s==1===========" + allMess1s);
-		for (String message : message1List) {
-			System.out.println("MESSAGELIST==3=============" + message);
-		}
 
-		System.out.println("allMess2s==1===========" + allMess2s);
-		for (String message : message2List) {
-			System.out.println("MESSAGELIST==3=============" + message);
-		}
-		
 		Integer[] ballsNumberList = new Integer[ballsNumberLists.length];
 		for (int i=0; i<ballsNumberLists.length; i++) {
 			ballsNumberList[i] = (Integer.parseInt(ballsNumberLists[i]));
-		}
-		System.out.println("allBallss==1===========" + allBallss);
-		for (Integer ball : ballsNumberList) {
-			System.out.println("BallsLIST==3=============" + ball);
-		}
+			}
 
 		model.addAttribute("message1List", message1List);
 		model.addAttribute("message2List", message2List);
-		model.addAttribute("ballsNumberList", ballsNumberList);
 		
 		if (userAddMoreIds != null) {
 			for (int i = 0; i < userAddMoreIds.length; i++) {
 				userList.add(us.getUserId(userAddMoreIds[i]));
 			}
 		}
+		model.addAttribute("ballsNumberList", ballsNumberList);
 		
 		return "redirect:/moreComments2";
 	}
 
 	@RequestMapping(value = "/moreComments2", method = RequestMethod.GET)
 	public String moreCommentsPageGet2(@ModelAttribute("userList") ArrayList<User> userList,
-			@RequestParam("message1List") ArrayList<String> message1List,
-			@RequestParam("message2List") ArrayList<String> message2List,
-			@RequestParam("ballsNumberList") ArrayList<Integer> ballsNumberList,
+			@RequestParam(value="message1List", defaultValue="") ArrayList<String> message1List,
+			@RequestParam(value="message2List", defaultValue="") ArrayList<String> message2List,
+			@RequestParam(value="ballsNumberList", defaultValue="0") ArrayList<Integer> ballsNumberList,
 			Model model) {
 		model.addAttribute("message1List", message1List);
 		model.addAttribute("message2List", message2List);

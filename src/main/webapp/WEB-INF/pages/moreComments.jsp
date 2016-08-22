@@ -65,11 +65,12 @@
 				       			</c:forEach>
 					    </tbody>
 				  	</table>
+				  	
 	       			<input type="hidden" name="allMess1s" value="<c:out value="${allMess1s}" />"/>
 	       			<input type="hidden" name="allMess2s" value="<c:out value="${allMess2s}" />"/>
 	       			<input type="hidden" name="allBallss" value="<c:out value="${allBallss}" />"/>
-			    	<a href="${pageContext.request.contextPath}/adminview"><input  class="btn btn-primary btn-change pull-left" value="Back"/></a>
-			    	<input type="submit" class="btn btn-primary btn-change pull-right" value="Add" />
+			    	<input type="submit" name="back" class="btn btn-primary btn-change pull-left" value="Back"/>
+			    	<input type="submit" name="submit" class="btn btn-primary btn-change pull-right" value="Add" />
 				</form>
 			</div>
 		</div>
