@@ -228,7 +228,8 @@ public class SecurityNavigation {
 		Double moneyValue = money.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue/ballValue2);
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
 		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("settingsList",settingsList);
@@ -261,6 +262,7 @@ public class SecurityNavigation {
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
+		wynik = sett.round(wynik, 2);
 		ModelAndView modelAndView = new ModelAndView("settings");
 		
 		Boolean freeze;
@@ -292,8 +294,20 @@ public class SecurityNavigation {
 	public ModelAndView usersPage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<User> listt = us.getAllUsers();
-		
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = coms.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		String login = us.getUser(userName).getLogin();
+
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
 		ModelAndView lista = new ModelAndView();
+		lista.addObject("money", wynik);
+		lista.addObject("kule", kulki);
+		lista.addObject("login", login);
 
 		for (int i=0; i<listt.size(); i++){
 			System.out.println("User:  "+listt.get(i).getRole());

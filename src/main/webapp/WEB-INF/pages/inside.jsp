@@ -146,9 +146,9 @@
 											        <th>Balls</th>
 											        <th>First Comment</th>
 											        <th>Second Comment</th>
-											        <th>Edit</th>
+											        <th align="right" style="width:40px">Edit</th>
 											      
-											        <th>Delete</th>
+											        <th align="right" style="width:30px">Delete</th>
 											      </tr>
 											    </thead>
 											    <tbody>
@@ -158,11 +158,11 @@
 										          <td><c:out value="${comment.getUser().getName()}" /></td>
 										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
 										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
-										          <td><c:out value="${comment.getFirstCom()}" /></td>
-											      <td><c:out value="${comment.getSecondCom()}" /></td>   
+										          <td style="max-width:300px; word-wrap: break-word;"><c:out value="${comment.getFirstCom()}" /></td>
+											      <td style="max-width:300px; word-wrap: break-word;"><c:out value="${comment.getSecondCom()}" /></td>   
 											  
-											      <td> <a href="${pageContext.request.contextPath}/editcomment"><button name="buttonComId" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
-											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+											      <td align="center"> <a href="${pageContext.request.contextPath}/editcomment"><button style="width:40px" name="buttonComId" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
+											      <td align="center"><button type="button" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>
 						            			</c:forEach>
 

@@ -51,15 +51,15 @@
 				<tbody>
 				<tr>
 					<td>Old password:</td>
-					<td><input class="inputPass" type="password" name="oldpassword" size="30" maxlength="32" /></td>
+					<td><input class="inputPass" type="password" name="oldpassword" size="30" maxlength="32" required/></td>
 				</tr>
 				<tr>
 					<td>New password:</td>
-					<td><input class="inputPass" type="password" name="newpassword" size="30" maxlength="32" /></td>
+					<td><input class="inputPass" type="password" name="newpassword" size="30" maxlength="32" required/></td>
 				</tr>
 				<tr>
 					<td>Repeat new password:</td>
-					<td><input class="inputPass" type="password" name="newpassword2" size="30" maxlength="32" /></td>
+					<td><input class="inputPass" type="password" name="newpassword2" size="30" maxlength="32" required/></td>
 				</tr>
 				<tr>
 					<td></td>

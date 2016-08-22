@@ -65,7 +65,7 @@
 						            <div class="form-group col-md-12">
 								      <label class="col-md-3">Balls Per Person </label>
 								      <div class="col-md-6">
-								     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers"/>
+								     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers" required/>
 								      </div>
 								    </div>
 							  
@@ -156,7 +156,7 @@
 	      		<label for="name">Name</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="name" class="form-control" id="name" type="text" placeholder="name"/>
+	      		<input name="name" class="form-control" id="name" type="text" placeholder="name" required/>
 	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
@@ -164,7 +164,7 @@
 	      		<label for="surname">Last name</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="surname" class="form-control" id="surname" type="text" placeholder="last name"/>
+	      		<input name="surname" class="form-control" id="surname" type="text" placeholder="last name" required/>
 	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
@@ -172,7 +172,7 @@
 	      		<label for="login">Login</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="login" class="form-control" id="login" type="text" placeholder="login"/>
+	      		<input name="login" class="form-control" id="login" type="text" placeholder="login" required/>
 	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
@@ -180,18 +180,18 @@
 	      		<label for="password">Password</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="password" class="form-control" id="password" type="text" placeholder="password"/>
+	      		<input name="password" class="form-control" id="password" type="text" placeholder="password" required/>
 	      		</div>
 	    	</div>
 		      <div class="form-group col-md-12">
 		        <label class="col-md-6 control-label">Role</label>
 		        <div class="col-md-6 selectContainer">
-		            <select class="form-control" name="roleName">
-		                <option value="-1">--- Select ---</option>
+		            <select class="form-control" name="roleName" required>
+		               
 			            <c:forEach var="role" items="${rolelistt}">
-			                <option name = "roleName" value="${role.getRole()}"  >
-			                	<c:out value="${role.getRole()}" />
-			                </option>
+			                <option name = "roleName" value="${role.getRole()}" required>
+			                	<c:out value="${role.getRole()}"/>
+			               
 			            </c:forEach>
 		            </select>
 		        </div>
@@ -199,12 +199,12 @@
 		     <div class="form-group col-md-12">
 		        <label class="col-md-6 control-label">Team</label>
 		        <div class="col-md-6 selectContainer">
-		            <select class="form-control" name="teamName">
-		                <option value="-1">--- Select ---</option>
+		            <select class="form-control" name="teamName" required>
+		               
 			            <c:forEach var="team" items="${teamlistt}">
 			                <option name = "teamName" value="${team.getName()}"  >
 			                	<c:out value="${team.getName()}" />
-			                </option>
+			               
 			            </c:forEach>
 		            </select>
 		        </div>
@@ -214,18 +214,18 @@
 	      		<label for="mail">Mail</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="mail" class="form-control" id="mail" type="text" placeholder="mail"/>
+	      		<input name="mail" class="form-control" id="mail" type="text" placeholder="mail" required/>
 	      		</div>
 	    	</div>
 	    	 <div class="form-group col-md-12">
 		        <label class="col-md-6 control-label">Department</label>
 		        <div class="col-md-6 selectContainer">
-		            <select class="form-control" name="deptName">
-		                <option value="-1">--- Select ---</option>
+		            <select class="form-control" name="deptName" required>
+		          
 			            <c:forEach var="dept" items="${deptlistt}">
 			                <option name = "deptName" value="${dept.getDeptName()}"  >
 			                	<c:out value="${dept.getDeptName()}" />
-			                </option>
+			                
 			            </c:forEach>
 		            </select>
 		        </div>
@@ -258,18 +258,18 @@
 				      			<label for="teamName">Name</label>
 				      		</div>
 				      		<div class="col-md-6 col-sm-6">
-				      			<input name="teamName" class="form-control" id="teamName" type="text" placeholder="name"/>
+				      			<input name="teamName" class="form-control" id="teamName" type="text" placeholder="name" required/>
 				      		</div>
 				    	</div>
 				    	<div class="form-group col-md-12">
 					        <label class="col-md-6 control-label">Department</label>
 					        <div class="col-md-6 selectContainer">
 					            <select class="form-control" name="deptName">
-					                <option value="-1">--- Select ---</option>
+					               
 						            <c:forEach var="dept" items="${deptlistt}">
 						                <option name = "deptName" value="${dept.getDeptName()}"  >
 						                	<c:out value="${dept.getDeptName()}" />
-						                </option>
+						               
 						            </c:forEach>
 					            </select>
 					        </div>
@@ -278,11 +278,11 @@
 					        <label class="col-md-6 control-label">Leader</label>
 					        <div class="col-md-6 selectContainer">
 					            <select class="form-control" name="leaderLogin">
-					                <option value="-1">--- Select ---</option>
+					             >
 						            <c:forEach var="user" items="${userBasiclistt}">
 						                <option name = "leaderLogin" value="${user}">
 						                	<c:out value="${user}" />
-						                </option>
+						            
 						            </c:forEach>
 					            </select>
 					        </div>
@@ -314,18 +314,18 @@
 				      			<label for="deptName">Name</label>
 				      		</div>
 				      		<div class="col-md-6 col-sm-6">
-				      			<input name="deptName" class="form-control" id="teamName" type="text" placeholder="name"/>
+				      			<input name="deptName" class="form-control" id="teamName" type="text" placeholder="name" required/>
 				      		</div>
 				    	</div>
 					      <div class="form-group col-md-12">
 					        <label class="col-md-6 control-label">Leader</label>
 					        <div class="col-md-6 selectContainer">
 					            <select class="form-control" name="leaderLogin">
-					                <option value="-1">--- Select ---</option>
+					           
 						            <c:forEach var="user" items="${userBasiclistt}">
 						                <option name = "leaderLogin" value="${user}">
 						                	<c:out value="${user}" />
-						                </option>
+						            
 						            </c:forEach>
 					            </select>
 					        </div>
@@ -410,7 +410,7 @@
 											<label><input type="checkbox" name = "teamDelIds" value = "${team.getId()}"></label>
 										</div>
 									</td>
-									<td><c:out value="${team.name}" /></td>
+									<td><c:out value="${team.name}"/></td>
 						      	</tr>
 	            			</c:forEach>
 					    </tbody>

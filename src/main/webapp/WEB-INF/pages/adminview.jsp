@@ -118,9 +118,9 @@
 											        <th>Balls</th>
 											        <th>First Comment</th>
 											        <th>Second Comment</th>
-											        <th>Edit</th>
+											        <th align="right" style="width:30px">Edit</th>
 											      
-											        <th>Delete</th>
+											        <th align="right" style="width:40px">Delete</th>
 											      </tr>
 											    </thead>
 											    <tbody>
@@ -130,13 +130,13 @@
 										          <td><c:out value="${comment.getUser().getName()}" /></td>
 										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
 										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
-										          <td><c:out value="${comment.getFirstCom()}" /></td>
-											      <td><c:out value="${comment.getSecondCom()}" /></td>   
+										          <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getFirstCom()}" /></td>
+											      <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getSecondCom()}" /></td>   
 											     
-											     <td> <a href="${pageContext.request.contextPath}/editcomment"><button name="buttonComId" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
+											     <td align="center"> <a href="${pageContext.request.contextPath}/editcomment"><button name="buttonComId" style="width:40px" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
 											      
 											      
-											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+											      <td align="center"><button type="button" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>
 						            			</c:forEach>
 
@@ -170,9 +170,9 @@
 											        <th>Balls</th>
 											        <th>First Comment</th>
 											        <th>Second Comment</th>
-											        <th>Edit</th>
-											        <th>Confirm</th>
-											        <th>Delete</th>
+											        <th align="right" style="width:40px">Edit</th>
+											        <th align="right" style="width:40px">Confirm</th>
+											        <th align="right" style="width:40px">Delete</th>
 											      </tr>
 											    </thead>
 											    <tbody>
@@ -182,16 +182,16 @@
 										          <td><c:out value="${comment.getUser().getName()}" /></td>
 										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
 										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
-										          <td><c:out value="${comment.getFirstCom()}" /></td>
-											      <td><c:out value="${comment.getSecondCom()}" /></td>   
-											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+										          <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getFirstCom()}" /></td>
+											      <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getSecondCom()}" /></td>   
+											      <td align="center"><button type="button" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
 											      
-											      <td><button data-toggle="modal" data-target="#Modal${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
+											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
 											      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
 											      
 											      
 											      
-											      <td><button type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+											      <td align="center"><button type="button" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>
 						            			</c:forEach>
 											    
@@ -222,7 +222,7 @@
 	           	
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+	        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
 	         <button type="submit" name="confirmButton" class="btn btn-primary btn-change pull-right" value="${comment.getComId()}">Save</button>
 	      </div>
 	    
@@ -262,8 +262,8 @@
 										          <td><c:out value="${commentsC.getUser().getName() }" /></td>
 										          <td><c:out value="${commentsC.getUser().getSurname() }" /></td>
 										          <td><c:out value="${commentsC.getBallsPerCom()}" /></td>
-										          <td><c:out value="${commentsC.getFirstCom()}" /></td>
-											      <td><c:out value="${commentsC.getSecondCom()}" /></td>   
+										          <td style="max-width:300px; word-wrap: normal;"><c:out value="${commentsC.getFirstCom()}" /></td>
+											      <td style="max-width:300px; word-wrap: normal;"><c:out value="${commentsC.getSecondCom()}" /></td>   
 											      </tr>
 						            			</c:forEach>
 											    

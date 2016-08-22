@@ -18,7 +18,7 @@
 				</a>
 			</c:if>
 			<c:set var="rola" scope="session" value="${rola}"/>
-			<c:set var="admin" scope="session" value="admin"/>
+			<c:set var="moder" scope="session" value="moder"/>
 			<c:if test="${rola == moderator}" >
 				<a class="navbar-brand" href="${pageContext.request.contextPath}/inside">
 					GBOF

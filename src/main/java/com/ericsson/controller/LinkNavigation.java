@@ -181,10 +181,27 @@ public class LinkNavigation {
 
 	@RequestMapping(value = "/commentAdded", params = "addMore", method = RequestMethod.POST)
 	public String addMoreUsers(@ModelAttribute("userList") ArrayList<User> userList, Model model,
+
 			@RequestParam(value = "message1", defaultValue="") ArrayList<String> message1List,
 			@RequestParam(value = "message2", defaultValue="") ArrayList<String> message2List,
 			@RequestParam(value = "ballsNumber", defaultValue="0") ArrayList<Integer> ballsNumberList) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		String login = us.getUser(userName).getLogin();
 
+
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+		
+		model.addAttribute("money", wynik);
+		model.addAttribute("kule", kulki);
+		model.addAttribute("login", login);
+		
 		List<User> listt1 = us.getAllUsers();
 		List<Integer> ids = new ArrayList<Integer>();
 		int id;
@@ -242,6 +259,23 @@ public class LinkNavigation {
 			@RequestParam("allMess1s") String allMess1s,
 			@RequestParam("allMess2s") String allMess2s,
 			@RequestParam("allBallss") String allBallss) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		String login = us.getUser(userName).getLogin();
+
+
+
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+		
+		model.addAttribute("money", wynik);
+		model.addAttribute("kule", kulki);
+		model.addAttribute("login", login);
 
 		
 		String[] message1List = allMess1s.split(";;;;;;");
@@ -272,6 +306,21 @@ public class LinkNavigation {
 			@RequestParam(value="message2List", defaultValue="") ArrayList<String> message2List,
 			@RequestParam(value="ballsNumberList", defaultValue="0") ArrayList<Integer> ballsNumberList,
 			Model model) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		String login = us.getUser(userName).getLogin();
+
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+		
+		model.addAttribute("money", wynik);
+		model.addAttribute("kule", kulki);
+		model.addAttribute("login", login);
 		model.addAttribute("message1List", message1List);
 		model.addAttribute("message2List", message2List);
 		model.addAttribute("ballsNumberList", ballsNumberList);
@@ -290,6 +339,7 @@ public class LinkNavigation {
 		List<Long> ballValue2List = cs.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
 		String login = us.getUser(userName).getLogin();
 
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
@@ -370,8 +420,20 @@ public class LinkNavigation {
 	
 	@RequestMapping(value = "/edituser", method = RequestMethod.POST)
 	public String editUserPage(@RequestParam(value = "buttonComId") Integer buttonComId, Model model) {
-		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		String login = us.getUser(userName).getLogin();
+
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+		model.addAttribute("money", wynik);
+		model.addAttribute("kule", kulki);
+		model.addAttribute("login", login);
 		User user = us.getUserId(buttonComId);
 		
 		List<Role> rolelistt = rs.getAllRoles();

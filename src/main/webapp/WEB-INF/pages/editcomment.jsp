@@ -46,12 +46,12 @@
 								<input type="number" value="${commentId.getBallsPerCom()}" class="form-control" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
 							</div>
 		                    <div class="form-group">
-		                    	<textarea class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7">${commentId.getFirstCom()}</textarea>
+		                    	<textarea class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7" required>${commentId.getFirstCom()}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 		                    
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" name="message2" id="message" placeholder="What should I work on?" maxlength="140" rows="7">${commentId.getSecondCom()}</textarea>
+		                    	<textarea class="form-control" type="textarea" name="message2" id="message" placeholder="What should I work on?" maxlength="140" rows="7" required>${commentId.getSecondCom()}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
 		                    </div>
 		                    <input type="hidden" name="commentToUserId" value="${commentId.getUser().getId()}" />
