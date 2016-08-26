@@ -1,5 +1,6 @@
 package com.ericsson.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.ericsson.model.Settings;
@@ -19,5 +20,9 @@ public interface SettingsDAO {
 	public double round(double value, int places);
 	
 	public List<Integer> getSettingsFreeze();
+	
+	public List<Date> getSettingsDate();
+	
+	public void setToFrozen();
 
 }

@@ -1,5 +1,6 @@
 package com.ericsson.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,13 @@ public class SettingServiceImpl implements SettingService{
 	
 	public List<Integer> getSettingsFreeze(){
 		return settingsDAO.getSettingsFreeze();
+	}
+	
+	public List<Date> getSettingsDate(){
+		return settingsDAO.getSettingsDate();
+	}
+	
+	public void setToFrozen(){
+		settingsDAO.setToFrozen();
 	}
 }

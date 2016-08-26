@@ -3,6 +3,7 @@ package com.ericsson.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Date;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -96,6 +97,25 @@ public class SettingsDAOImpl implements SettingsDAO{
 			return integerList;
 		else
 			return null;
+	}
+	
+	public List<Date> getSettingsDate() {
+		List<Date> integerList = new ArrayList<Date>();
+		
+		String sql = "select deadline from Settings";
+		Query query = openSession().createQuery(sql);
+		
+		integerList = query.list();
+		if (integerList.size() > 0)
+			return integerList;
+		else
+			return null;
+	}
+	
+	public void setToFrozen(){	
+		String query = "UPDATE settings SET freeze='1'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
 	}
 
 }

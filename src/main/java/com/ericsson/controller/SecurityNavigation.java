@@ -2,6 +2,7 @@ package com.ericsson.controller;
 
 
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -79,6 +80,13 @@ public class SecurityNavigation {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Role role = us.getUser(userName).getRole();
+
+		   Date date = new Date();
+		   Date date1 = sett.getSettingsDate().get(0);
+		   if(date1.before(date)){
+			   sett.setToFrozen();
+		   }
+		   
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("redirect:/adminview");
 		else if(sett.getSettingsFreeze().get(0)==1)
@@ -253,7 +261,7 @@ public class SecurityNavigation {
 		List<Department> deptlistt = ds.getAllDepts();
 
 		List<Settings> settingsList=sett.getSettings();
-
+		
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
@@ -263,8 +271,14 @@ public class SecurityNavigation {
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		
+		 Date date = new Date();
+		   Date date1 = sett.getSettingsDate().get(0);
+		   if(date1.before(date)){
+			   sett.setToFrozen();
+		   }
 
 		ModelAndView lista = new ModelAndView();
+		
 		if(sett.getSettingsFreeze().get(0)==1)
 			lista.addObject("checked", true);
 		else
@@ -304,10 +318,6 @@ public class SecurityNavigation {
 		wynik = sett.round(wynik, 2);
 		Boolean freeze;
 		System.out.println("================ "+isFreeze[0].intValue());
-		if(sett.getSettingsFreeze().get(0)==0)
-			modelAndView.addObject("checked", true);
-		else
-			modelAndView.addObject("checked", false);
 		if(isFreeze[0].intValue()==0)
 		freeze=false;
 		else
@@ -341,6 +351,15 @@ public class SecurityNavigation {
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
+		 Date date = new Date();
+		   Date date1 = sett.getSettingsDate().get(0);
+		   if(date1.before(date)){
+			   sett.setToFrozen();
+		   }
+		if(sett.getSettingsFreeze().get(0)==1)
+			modelAndView.addObject("checked", true);
+		else
+			modelAndView.addObject("checked", false);
 		modelAndView.addObject("settingsList",settingsList);
 		modelAndView.addObject("money", wynik);
 		modelAndView.addObject("kule", kulki);
