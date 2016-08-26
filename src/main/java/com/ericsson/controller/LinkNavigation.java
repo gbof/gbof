@@ -621,7 +621,10 @@ public class LinkNavigation {
 					cs.removeComment(comId);
 				}
 			}
+			Integer balls_id = us.getUserId(userDelIds[i]).getBall().getBallsId();
 			us.removeUser(userDelIds[i]);
+			bs.removeBalls(balls_id);
+			rus.removeUserRole(userDelIds[i]);
 		}
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<Settings> settingsList=sett.getSettings();

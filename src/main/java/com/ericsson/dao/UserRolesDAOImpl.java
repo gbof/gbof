@@ -28,6 +28,14 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 		sqlQuery.executeUpdate();
 		
 	}
+	
+	@Override
+	public void removeUserRole(Integer user_id) {
+		String query = "delete from user_roles where user_id="+user_id;
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
 
 	/*@Override
 	public void editUserRoles(Integer userId, Integer roleId) {

@@ -64,4 +64,11 @@ public class BallDAOImpl implements BallDAO {
 		
 	}
 
+	@Override
+	public void removeBalls(Integer balls_id) {
+		String query = "delete from balls where balls_id="+balls_id;
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
 }

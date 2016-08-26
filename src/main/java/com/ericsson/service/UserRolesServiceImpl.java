@@ -20,6 +20,12 @@ public class UserRolesServiceImpl implements UserRolesService {
 		roleusersDAO.add(userId, roleId);
 	}
 
+	@Override
+	public void removeUserRole(Integer user_id) {
+		roleusersDAO.removeUserRole(user_id);
+		
+	}
+
 	/*@Override
 	public void editUserRoles(Integer userId, Integer roleId) {
 		roleusersDAO.editUserRoles(userId, roleId);
