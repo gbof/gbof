@@ -1,6 +1,12 @@
 package com.ericsson.controller;
 
+
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.util.ArrayList;
+
 
 import java.util.List;
 
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ericsson.init.MailMail;
 import com.ericsson.model.Comment;
 import com.ericsson.model.Department;
 import com.ericsson.model.Role;
@@ -28,6 +35,9 @@ import com.ericsson.service.RoleService;
 import com.ericsson.service.SettingService;
 import com.ericsson.service.TeamService;
 import com.ericsson.service.UserService;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @Controller
 public class SecurityNavigation {
@@ -71,10 +81,12 @@ public class SecurityNavigation {
 		Role role = us.getUser(userName).getRole();
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("redirect:/adminview");
-		else if (role.getRole().equals("moderator"))
-			return new ModelAndView("redirect:/inside");
-		else
-			return new ModelAndView("redirect:/inside");
+		else if(sett.getSettingsFreeze().get(0)==1)
+				return new ModelAndView("redirect:/freeze");
+			else if (role.getRole().equals("moderator"))
+				return new ModelAndView("redirect:/inside");
+			else
+				return new ModelAndView("redirect:/inside");
 	}
 	
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
@@ -148,6 +160,9 @@ public class SecurityNavigation {
 		String role = us.getUser(userName).getRole().getRole();
 		ModelAndView lista = new ModelAndView();
 		
+	
+	        
+	        
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
 		lista.addObject("yourComments", yourComments);
@@ -158,6 +173,28 @@ public class SecurityNavigation {
 		lista.addObject("login", login);
 		lista.setViewName("adminview");
 		return lista;
+	}
+	
+	@RequestMapping(value = "/freeze", method = RequestMethod.GET)
+	public ModelAndView freezeLogin() {
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = coms.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue/ballValue2);
+		wynik = sett.round(wynik, 2);
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String login = us.getUser(userName).getLogin();
+		
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		ModelAndView modelAndView = new ModelAndView("freeze");
+		
+		modelAndView.addObject("kule", kulki);
+		modelAndView.addObject("money", wynik);
+		modelAndView.addObject("login", login);
+		return modelAndView;
 	}
 	
 	@RequestMapping(value="/change", method=RequestMethod.GET)
@@ -222,12 +259,16 @@ public class SecurityNavigation {
 		Double moneyValue = money.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		
+
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		
 
 		ModelAndView lista = new ModelAndView();
+		if(sett.getSettingsFreeze().get(0)==1)
+			lista.addObject("checked", true);
+		else
+			lista.addObject("checked", false);
 		lista.addObject("settingsList",settingsList);
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
@@ -239,17 +280,15 @@ public class SecurityNavigation {
 		lista.addObject("deptlistt", deptlistt);
 		lista.addObject("userBasiclistt", userBasiclistt);
 		lista.setViewName("settings");
-
 		return lista;
 	}
-	
 	@RequestMapping(value="/settingsAdd", method=RequestMethod.POST)
 	public ModelAndView settingsAdd(
 			@RequestParam("ballsPerPers") Integer ballsPerPers,
 			@RequestParam("money") Double money,
 			@RequestParam("deadline") String deadline,
 			@RequestParam("extraBalls") Integer extraBalls,
-			@RequestParam(value = "checkbox", required = false, defaultValue = "") Integer[] isFreeze)
+			@RequestParam(value = "checkbox", required = false, defaultValue = "0") Integer[] isFreeze)
 			 {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
@@ -264,7 +303,12 @@ public class SecurityNavigation {
 		ModelAndView modelAndView = new ModelAndView("settings");
 		wynik = sett.round(wynik, 2);
 		Boolean freeze;
-		if(isFreeze.length==1)
+		System.out.println("================ "+isFreeze[0].intValue());
+		if(sett.getSettingsFreeze().get(0)==0)
+			modelAndView.addObject("checked", true);
+		else
+			modelAndView.addObject("checked", false);
+		if(isFreeze[0].intValue()==0)
 		freeze=false;
 		else
 			freeze=true;
@@ -327,7 +371,9 @@ public class SecurityNavigation {
 		lista.addObject("kule", kulki);
 		lista.addObject("login", login);
 
-		
+		for (int i=0; i<listt.size(); i++){
+			System.out.println("User:  "+listt.get(i).getRole());
+		}
 		
 		lista.addObject("listt", listt);
 		lista.setViewName("users");

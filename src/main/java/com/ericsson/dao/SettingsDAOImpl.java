@@ -39,7 +39,7 @@ public class SettingsDAOImpl implements SettingsDAO{
 		{
 			freezeId=0;
 		}
-		String queryInsert = "INSERT INTO settings (extra_balls, balls_per_person, money, deadline, freeze,balls_left, settings_id) VALUES ('"+ extraBalls +"', '"+ balls_per_pers +"', '"+ money +"', '"+ deadline +"','"+ 0 +"', '"+ freezeId +"', '"+ settings_id +"')";
+		String queryInsert = "INSERT INTO settings (extra_balls, balls_per_person, money, deadline, freeze,balls_left, settings_id) VALUES ('"+ extraBalls +"', '"+ balls_per_pers +"', '"+ money +"', '"+ deadline +"','"+ freezeId +"', '"+ 0 +"', '"+ settings_id +"')";
 		sqlQuery = openSession().createSQLQuery(queryInsert);
 		sqlQuery.executeUpdate();
 	}
@@ -83,6 +83,19 @@ public class SettingsDAOImpl implements SettingsDAO{
 	    long tmp = Math.round(value);
 	    double money = (double) tmp/factor;
 	    return money;
+	}
+	
+	public List<Integer> getSettingsFreeze() {
+		List<Integer> integerList = new ArrayList<Integer>();
+		
+		String sql = "select freeze from Settings";
+		Query query = openSession().createQuery(sql);
+		
+		integerList = query.list();
+		if (integerList.size() > 0)
+			return integerList;
+		else
+			return null;
 	}
 
 }

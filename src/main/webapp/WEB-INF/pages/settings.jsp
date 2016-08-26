@@ -8,7 +8,6 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page session="false" %>
 <html>
 <head>
 	<title>Admin</title>
@@ -60,8 +59,17 @@
 						<div class="panel-group col-md-6">
 							<div class="funkyradio">
 						        <div class="funkyradio-primary">
-						            <input type="checkbox" name="checkbox" id="checkbox" value="1"/>
+						        	<c:if test="${checked == false}">
+						            		<input type="checkbox" name="checkbox" id="checkbox" value="1"/>
+						          		
 						            <label for="checkbox">Block the function of giving balls for all users</label>
+						            </c:if>
+						            
+						            <c:if test="${checked == true}">
+						            		<input type="checkbox" name="checkbox" id="checkbox" value="1" checked/>
+						          		
+						            <label for="checkbox">Block the function of giving balls for all users</label>
+						            </c:if>
 						        </div>
 						    </div>
 					    </div>

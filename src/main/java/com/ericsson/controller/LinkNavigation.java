@@ -473,6 +473,10 @@ public class LinkNavigation {
 		
 		
 		ModelAndView modelAndView = new ModelAndView("settings");
+		if(sett.getSettingsFreeze().get(0)==1)
+			modelAndView.addObject("checked", true);
+		else
+			modelAndView.addObject("checked", false);
 		modelAndView.addObject("Uadded", true);
 		modelAndView.addObject("settingsList",settingsList);
 		modelAndView.addObject("listt", listt);
@@ -586,6 +590,7 @@ public class LinkNavigation {
 
 		ds.addDept(deptName, leaderID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+	
 		return modelAndView;
 	}
 
@@ -638,6 +643,10 @@ public class LinkNavigation {
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
 		}
 		ModelAndView modelAndView = new ModelAndView("settings");
+		if(sett.getSettingsFreeze().get(0)==1)
+			modelAndView.addObject("checked", true);
+		else
+			modelAndView.addObject("checked", false);
 		modelAndView.addObject("uRemoved", true);
 		modelAndView.addObject("listt", listt);
 		modelAndView.addObject("settingsList",settingsList);
