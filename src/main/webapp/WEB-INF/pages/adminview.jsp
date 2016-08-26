@@ -189,7 +189,7 @@
 											      <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getSecondCom()}" /></td>   
 											      
 											      <td align="center"><button type="submit" name="buttonComId" value="${comment.getComId()}" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
-											      
+
 											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
 											      
 											      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
