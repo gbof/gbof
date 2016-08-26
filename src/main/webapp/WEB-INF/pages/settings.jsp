@@ -21,6 +21,11 @@
 		}
 		.error {
 		color: red;
+		.Uadded {
+		color: green;
+		.uRemoved{
+		color: green
+		}
 	}
 	
 	</style>
@@ -43,6 +48,7 @@
 			<b class="error">Settings not saved, missing data</b>
 		</c:if>
 		</p>
+		
 		<div class="col-md-6">
         		 <div class="panel panel-default">
         		
@@ -101,7 +107,11 @@
 					</div>
 	           </div>
 	       </div>
-	       
+	       <p>
+		<c:if test="${error == true}">
+			<b class="error">Settings not saved, missing data</b>
+		</c:if>
+		</p>
 		
       		<div class="col-md-6">
         		 <div class="panel panel-default">
@@ -111,6 +121,16 @@
              		</div>
              		
              		<div class="panel-body">
+             		<p>
+					<c:if test="${Uadded == true}">
+					<b class="correct">User added</b>
+					</c:if>
+					</p>
+					<p>
+					<c:if test="${uRemoved == true}">
+					<b class="correct">User removed</b>
+					</c:if>
+					</p>
 			        <div class="panel-group col-md-5 btn-group-vertical">
 			        	<button class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#myModal">New user</button>
 			        	<button class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#delUserModal">Remove user</button>
@@ -227,19 +247,24 @@
 			                	<c:out value="${dept.getDeptName()}" />
 			                
 			            </c:forEach>
+			            
+			            
 		            </select>
 		        </div>
 	    	</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-        <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
+        <input type="submit" id="submit" class="btn btn-primary btn-change pull-right" value="Save" />
       </div>
     </form>
     </div>
 
   </div>
 </div>
+
+
+
 
 	<!-- teamModal -->
 <div id="teamModal" class="modal fade" role="dialog">
@@ -278,7 +303,7 @@
 					        <label class="col-md-6 control-label">Leader</label>
 					        <div class="col-md-6 selectContainer">
 					            <select class="form-control" name="leaderLogin">
-					             >
+					             
 						            <c:forEach var="user" items="${userBasiclistt}">
 						                <option name = "leaderLogin" value="${user}">
 						                	<c:out value="${user}" />

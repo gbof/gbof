@@ -47,47 +47,20 @@
 							</div>
 		                    <div class="form-group">
 		                    	<textarea class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7" required>${commentId.getFirstCom()}</textarea>
-		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
+		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 		                    </div>
 		                    
 		                    <div class="form-group">
 		                    	<textarea class="form-control" type="textarea" name="message2" id="message" placeholder="What should I work on?" maxlength="140" rows="7" required>${commentId.getSecondCom()}</textarea>
-		                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
+		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 		                    </div>
 		                    
-		                    <input data-toggle="modal" data-target="#ModalCommentEdited" type="button" id="submit" name="submit" value="Send" id="btnSave" class="submit_button pull-right" > 
+		                    <input type="submit" id="submit" name="submit" value="Edit" id="btnSave" class="btn btn-primary pull-right" > 
 			        		<input type="hidden" name="commentToUserId" value="${commentId.getUser().getId()}" />
 		           			<input type="hidden" name="comId" value="${commentId.getComId()}"/>
 		           				
-		           		
-		        		<a href="${pageContext.request.contextPath}/adminview"><input type="button" style="min-width: 100px;" class="btn btn-primary pull-left " id="back" name="back"value="Back" /></a>
-		        
-		        	<!-- Modal -->
-		        
-		        
-	<div id="ModalCommentEdited" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
-	
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        
-	      </div>
-	      <div class="modal-body">
-	           	<center><h4 class="modal-body">Comment Edited</h4></center>
-	      </div>
-	      <div class="modal-footer">
-	       <button type="submit" id="submit" name="submit" value="OK" id="btnSave" class="submit_button pull-right">OK</button>
-	       </form>
-	      </div>
-	    
-	    </div>
-	
-	  </div>
-	</div>
-		        
-		        
+		           		</form>
+		        		<a href="${pageContext.request.contextPath}/success-login"><input type="button" style="min-width: 100px;" class="btn btn-default pull-left " id="back" name="back"value="Back" /></a>
 		        
 		        
 		        

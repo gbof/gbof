@@ -154,6 +154,8 @@
 						
 						<div class="tab-pane" id="tab_default_3">
 							<form method="POST" action="${pageContext.request.contextPath}/confirmedComm">
+							
+							
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
 						            <div class="panel panel-default">
@@ -184,9 +186,11 @@
 										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
 										          <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getFirstCom()}" /></td>
 											      <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getSecondCom()}" /></td>   
-											      <td align="center"><button type="button" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
 											      
+											      <td align="center"><button type="submit" name="buttonComId" value="${comment.getComId()}" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+											      </form>
 											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
+											      
 											      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
 											      
 											      
@@ -195,8 +199,7 @@
 											      </tr>
 						            			</c:forEach>
 											    
-						    
-						            			
+						    						            			
 											    </tbody>
 											  </table>
 											</div>
@@ -219,7 +222,7 @@
 	        <h4 class="modal-title">Confirm</h4>
 	      </div>
 	      <div class="modal-body">
-	           	
+	           	Confirm this comment ?
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
@@ -232,8 +235,7 @@
 	</div>
 </c:forEach>
 
-						
-						
+</form>
 
 						<div class="tab-pane" id="tab_default_4">
 
@@ -277,11 +279,6 @@
 							</div>	
 						</div>
 						
-	
-
-
-
-
 
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

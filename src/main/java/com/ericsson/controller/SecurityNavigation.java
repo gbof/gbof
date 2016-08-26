@@ -1,12 +1,6 @@
 package com.ericsson.controller;
 
-
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import java.util.ArrayList;
-
 
 import java.util.List;
 
@@ -228,7 +222,7 @@ public class SecurityNavigation {
 		Double moneyValue = money.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-
+		
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		
@@ -245,8 +239,10 @@ public class SecurityNavigation {
 		lista.addObject("deptlistt", deptlistt);
 		lista.addObject("userBasiclistt", userBasiclistt);
 		lista.setViewName("settings");
+
 		return lista;
 	}
+	
 	@RequestMapping(value="/settingsAdd", method=RequestMethod.POST)
 	public ModelAndView settingsAdd(
 			@RequestParam("ballsPerPers") Integer ballsPerPers,
@@ -331,9 +327,7 @@ public class SecurityNavigation {
 		lista.addObject("kule", kulki);
 		lista.addObject("login", login);
 
-		for (int i=0; i<listt.size(); i++){
-			System.out.println("User:  "+listt.get(i).getRole());
-		}
+		
 		
 		lista.addObject("listt", listt);
 		lista.setViewName("users");

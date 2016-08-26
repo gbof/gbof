@@ -361,7 +361,7 @@ public class LinkNavigation {
 
 	@RequestMapping(value = "/editcomment", method = RequestMethod.POST)
 	public String editCommentPage(@RequestParam(value = "buttonComId") Integer buttonComId, Model model) {
-
+		
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
@@ -396,7 +396,6 @@ public class LinkNavigation {
 			@RequestParam(value = "message1") String message1, @RequestParam(value = "message2") String message2,
 			@RequestParam("ballsNumber") Integer ballsNumber, @RequestParam("commentToUserId") Integer toUserId,
 			@RequestParam("comId") Integer comId,
-
 			Model model
 
 	) {
@@ -411,9 +410,10 @@ public class LinkNavigation {
 
 		return modelAndView;
 	}
-
+	
 	@RequestMapping(value = "/userAdded", method = RequestMethod.POST)
-	public ModelAndView userAdded(@RequestParam("name") String name, @RequestParam("surname") String surname,
+	public ModelAndView userAdded(
+			@RequestParam("name") String name, @RequestParam("surname") String surname,
 			@RequestParam("login") String login, @RequestParam("password") String password,
 			@RequestParam("roleName") String roleName, @RequestParam("teamName") String teamName,
 			@RequestParam("mail") String mail, @RequestParam("deptName") String deptName) {
@@ -423,6 +423,11 @@ public class LinkNavigation {
 		locked = false;
 		cash = 0;
 
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String login2 = us.getUser(userName).getLogin();
+		String role = us.getUser(userName).getRole().getRole();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<Settings> settingsList = sett.getSettings();
 		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
 		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
@@ -440,12 +445,45 @@ public class LinkNavigation {
 
 		List<Ball> lastBallId = bs.getBallId();
 		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
-
+		List<User> listt = us.getAllUsers();
 		us.addUser(name, surname, login, password, roleId, teamID, ballsID, mail, deptID);
 		Integer userId = us.getUser(login).getId();
 		rus.add(userId, roleId);
+		List<Role> rolelistt = rs.getAllRoles();
+		List<Team> teamlistt = ts.getAllTeams();
+		List<Department> deptlistt = ds.getAllDepts();
+		List<String> userBasiclistt = new ArrayList<String>();
+		String _name;
+		String _surname;
+		String _login;
+		for (int i=0; i<listt.size(); i++){
+			_name = listt.get(i).getName();
+			_surname = listt.get(i).getSurname();
+			_login = listt.get(i).getLogin();
+			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+				
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		
-		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		
+		
+		ModelAndView modelAndView = new ModelAndView("settings");
+		modelAndView.addObject("Uadded", true);
+		modelAndView.addObject("settingsList",settingsList);
+		modelAndView.addObject("listt", listt);
+		modelAndView.addObject("money", wynik);
+		modelAndView.addObject("kule", kulki);
+		modelAndView.addObject("rola", role);
+		modelAndView.addObject("login", login2);
+		modelAndView.addObject("rolelistt", rolelistt);
+		modelAndView.addObject("teamlistt", teamlistt);
+		modelAndView.addObject("deptlistt", deptlistt);
+		modelAndView.addObject("userBasiclistt", userBasiclistt);
 		return modelAndView;
 	}
 	
@@ -553,9 +591,27 @@ public class LinkNavigation {
 
 	@RequestMapping(value = "/userRemoved", method = RequestMethod.POST)
 	public ModelAndView userRemoved(@RequestParam(value = "userDelIds", required = false) Integer[] userDelIds) {
-
+		List<User> listt = us.getAllUsers();
 		Integer comId;
 		List<Comment> commentList;
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		
+		String login = us.getUser(userName).getLogin();
+		
+		String role = us.getUser(userName).getRole().getRole();
+		
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		List<Role> rolelistt = rs.getAllRoles();
+		List<Team> teamlistt = ts.getAllTeams();
+		List<Department> deptlistt = ds.getAllDepts();
 		for (int i = 0; i < userDelIds.length; i++) {
 			// check if there are any comments for this user
 			commentList = cs.getCommentsYouGave(userDelIds[i]);
@@ -567,8 +623,29 @@ public class LinkNavigation {
 			}
 			us.removeUser(userDelIds[i]);
 		}
-
-		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		List<String> userBasiclistt = new ArrayList<String>();
+		List<Settings> settingsList=sett.getSettings();
+		String _name;
+		String _surname;
+		String _login;
+		for (int i=0; i<listt.size(); i++){
+			_name = listt.get(i).getName();
+			_surname = listt.get(i).getSurname();
+			_login = listt.get(i).getLogin();
+			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+		ModelAndView modelAndView = new ModelAndView("settings");
+		modelAndView.addObject("uRemoved", true);
+		modelAndView.addObject("listt", listt);
+		modelAndView.addObject("settingsList",settingsList);
+		modelAndView.addObject("money", wynik);
+		modelAndView.addObject("kule", kulki);
+		modelAndView.addObject("rola", role);
+		modelAndView.addObject("login", login);
+		modelAndView.addObject("rolelistt", rolelistt);
+		modelAndView.addObject("teamlistt", teamlistt);
+		modelAndView.addObject("deptlistt", deptlistt);
+		modelAndView.addObject("userBasiclistt", userBasiclistt);
 		return modelAndView;
 	}
 
@@ -577,6 +654,26 @@ public class LinkNavigation {
 		cs.setConfirm(commId);
 
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+		return modelAndView;
+	}
+	@RequestMapping(value = "/confirmedComm", params="buttonComId", method = RequestMethod.POST)
+	public ModelAndView adminEditComm(@RequestParam("buttonComId")  Integer buttonComId, Model model) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		Comment commentId = cs.getCommentId(buttonComId);
+		String login = us.getUser(userName).getLogin();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		ModelAndView modelAndView = new ModelAndView("editcomment");
+		modelAndView.addObject("commentId", commentId);
+		modelAndView.addObject("login", login);
+		modelAndView.addObject("money", wynik);
+		modelAndView.addObject("kule", kulki);
 		return modelAndView;
 	}
 	
