@@ -161,8 +161,9 @@
 										          <td style="max-width:300px; word-wrap: break-word;"><c:out value="${comment.getFirstCom()}" /></td>
 											      <td style="max-width:300px; word-wrap: break-word;"><c:out value="${comment.getSecondCom()}" /></td>   
 											  
-											      <td align="center"> <a href="${pageContext.request.contextPath}/editcomment"><button style="width:40px" name="buttonComId" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
-											      <td align="center"><button type="button" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+											      <td align="center"><button style="width:40px" name="buttonComId" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
+											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal2${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
+											      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>
 						            			</c:forEach>
 
@@ -173,10 +174,33 @@
 						            </div>
 								</div>
 							</div>	
+							
 						</div>
-						</form>
 					</div>
 					
+					<c:forEach var="comment" items="${yourComments}">
+	<div id="Modal2${comment.getComId()}" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Delete</h4>
+	      </div>
+	      <div class="modal-body">
+	           	
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+	         <button type="submit" name="deleteButton1" class="btn btn-primary btn-change pull-right" value="${comment.getComId()}">Delete</button>
+	      </div>
+	    
+	    </div>
+	
+	  </div>
+	</div>
+</c:forEach>
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

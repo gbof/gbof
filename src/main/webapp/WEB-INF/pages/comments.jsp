@@ -18,7 +18,7 @@
        		<%@include file="/web-resources/css/comments.css" %>
 		</style>
 		
-
+	
 
 </head>
 
@@ -29,7 +29,10 @@
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition> 
 	
-	
+	<br/>
+	<div style="text-align: center; color:red; font-size:160%;" >
+<span id="balls"></span>
+</div>
 	<!-- Comments place -->
 	<div class="container">
 		<div class="col-md-4-offset-4">
@@ -42,9 +45,10 @@
 							<div class="form-group">
 								<label>${user.name} ${user.surname}</label>
 							</div>
+							
 							<div class="form-group col-md-4 col-sm-6">
 								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
-									placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required /> 
+									placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
 							</div>
 		                    <div class="form-group">
 		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1"
@@ -97,6 +101,36 @@
 	
 	  </div>
 	</div>
+	
+	<script>
+	function findTotal(){
+	    var arr = document.getElementsByName('ballsNumber');
+	    var totalCount = ${kule};
+	    var tot=0;
+	    var total = ${kule};
+	    for(var i=0;i<arr.length;i++){
+	        if(parseInt(arr[i].value))
+	            tot += parseInt(arr[i].value);
+	    }
+	    if(totalCount-tot<0)
+	    	$('#balls').text("Rozdales za duzo kulek");
+	    else
+	    	{
+	    		total = totalCount;
+	    		var ballsLeft = total-tot;
+	    		$('#balls').text(ballsLeft).val();
+	    		balls = ballsLeft;
+	    	}
+	}
+	
+	function maxLengthCheck(object)
+	  {
+	      object.value = object.value.slice($('#balls').text(ballsLeft).val(), object.max)
+	  }
+	</script>
+
+	
+	
 
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>

@@ -650,7 +650,7 @@ public class LinkNavigation {
 	}
 
 	@RequestMapping(value = "/confirmedComm", params="confirmButton", method = RequestMethod.POST)
-	public ModelAndView settingsAdd(@RequestParam("confirmButton") Integer commId) {
+	public ModelAndView confirmComm(@RequestParam("confirmButton") Integer commId) {
 		cs.setConfirm(commId);
 
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
@@ -677,6 +677,20 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/confirmedComm", params="deleteButton", method = RequestMethod.POST)
+	public ModelAndView deleteComm(@RequestParam("deleteButton") Integer commId) {
+		cs.removeComment(commId);
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/editcomment", params="deleteButton1", method = RequestMethod.POST)
+	public ModelAndView deleteComm1(@RequestParam("deleteButton1") Integer commId) {
+		cs.removeComment(commId);
+		System.out.println("========= "+commId);
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+		return modelAndView;
+	}
 
 	@RequestMapping(value = "/teamRemoved", method = RequestMethod.POST)
 	public ModelAndView teamRemoved(@RequestParam(value = "teamDelIds", required = false) Integer[] teamDelIds) {

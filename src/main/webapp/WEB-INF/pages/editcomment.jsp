@@ -59,8 +59,37 @@
 			        		<input type="hidden" name="commentToUserId" value="${commentId.getUser().getId()}" />
 		           			<input type="hidden" name="comId" value="${commentId.getComId()}"/>
 		           				
+
 		           		</form>
 		        		<a href="${pageContext.request.contextPath}/success-login"><input type="button" style="min-width: 100px;" class="btn btn-default pull-left " id="back" name="back"value="Back" /></a>
+
+		        
+		        	<!-- Modal -->
+		        
+		        
+	<div id="ModalCommentEdited" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        
+	      </div>
+	      <div class="modal-body">
+	           	<center><h4 class="modal-body">Comment Edited</h4></center>
+	      </div>
+	      <div class="modal-footer">
+	       <button type="submit" id="submit" name="submit" value="OK" id="btnSave" class="submit_button pull-right">OK</button>
+	       </form>
+	      </div>
+	    
+	    </div>
+	
+	  </div>
+	</div>
+		        
+		        
 		        
 		        
 		        

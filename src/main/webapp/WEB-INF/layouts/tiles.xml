@@ -13,6 +13,14 @@
 	 <definition name="headerTemplate" extends="defaultTemplate">
      	 <put-attribute name="header" value="/WEB-INF/template/header.jsp" />
  	</definition>
+ 	
+ 	 <definition name="defaultModalTemplate" template="/WEB-INF/template/templateModal.jsp">
+		<put-attribute name="title" value="Page" />
+	</definition>
+	
+	 <definition name="modalTemplate" extends="defaultTemplate">
+     	 <put-attribute name="modal" value="/WEB-INF/template/modal.jsp" />
+ 	</definition>
  
 </tiles-definitions>
 
