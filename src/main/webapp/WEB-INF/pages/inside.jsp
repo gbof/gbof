@@ -7,7 +7,6 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page session="false" %>
 <html>
 <head>
 	<title>Home</title>
@@ -20,12 +19,6 @@
 		.outOfBalls {
 		color: red;
 		}
-		.notEnoughBalls {
-		color: red;
-		}
-		.nullComment {
-		color: red;
-		}
        		<%@include file="/web-resources/css/inside.css" %>
        		
 		</style>
@@ -33,6 +26,11 @@
 </head>
 
 <body>
+ <p>
+		<c:if test="${outOfBalls == true}">
+			<b class="outOfBalls">To many balls given. Dont be so generous.</b>
+		</c:if>
+		</p>
 	 <form method="POST" action="${pageContext.request.contextPath}/comments">
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition>   
@@ -61,21 +59,7 @@
                 <div class="panel-heading">
                     Employees
                 </div>
-                <p>
-		<c:if test="${outOfBalls == true}">
-			<b class="outOfBalls">You are out of balls.</b>
-		</c:if>
-		</p>
-		<p>
-		<c:if test="${notEnoughBalls == true}">
-			<b class="notEnoughBalls">To many balls given. Dont be so generous.</b>
-		</c:if>
-		</p>
-		<p>
-		<c:if test="${nullComment == true}">
-			<b class="nullComment">Comment can not be empty.</b>
-		</c:if>
-		</p>
+               
                 <div class="panel-body">
                     <div class="container col-md-12">          
 					  <table class="table table-hover col-md-12">

@@ -115,7 +115,7 @@
 								     <div class="form-area">
 								      <label class="col-md-3" for="deadline">Help message </label>
 								      <div class="col-md-6">
-								      	<textarea class="form-control" type=text name="helpMsg" ${settingsList.get(0).getHelpMsg()}>${settingsList.get(0).getHelpMsg()}</textarea>
+								      	<textarea class="form-control" type=text maxlength="1000" name="helpMsg" ${settingsList.get(0).getHelpMsg()}>${settingsList.get(0).getHelpMsg()}</textarea>
 								      </div>
 								    </div>
 						

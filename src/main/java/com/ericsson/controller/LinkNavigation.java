@@ -161,9 +161,11 @@ public class LinkNavigation {
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
 		
-		if (us.getUser(userName).getBall().getBallsToGive() == 0) {
+		Integer allBallsGiven = 0;
+		for (int i = 0; i < userList.size(); i++)
+			allBallsGiven = allBallsGiven+ballsNumberList.get(i);
+		if (allBallsGiven > us.getUser(userName).getBall().getBallsToGive()) {
 			ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-			
 			modelAndView.addObject("outOfBalls", true);
 			return modelAndView;
 		} else {

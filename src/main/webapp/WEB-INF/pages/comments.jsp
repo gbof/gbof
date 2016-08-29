@@ -47,7 +47,7 @@
 							</div>
 							
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" min="0" max="${balls}" class="form-control" id="mobile" name="ballsNumber" 
+								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
 									placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
 							</div>
 		                    <div class="form-group">
@@ -69,7 +69,7 @@
 		                    </div>
 	           			</c:forEach>
 	           			
-			        <input data-toggle="modal" data-target="#ModalCommentConfirm" type="button" id="submit" name="submit" value="Send" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
+			        <input type="submit" id="submit" name="submit" value="Send" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
 			        <input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 		      
 		        
@@ -77,30 +77,6 @@
 		</div>
 	</div>
 		
-
-										<!-- Modal -->
-
-	<div id="ModalCommentConfirm" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
-	
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        
-	      </div>
-	      <div class="modal-body">
-	           	<center><h4 class="modal-body">Comment Added</h4></center>
-	      </div>
-	      <div class="modal-footer">
-	       <button type="submit" id="submit" name="submit" value="OK" id="btnSave" class="submit_button pull-right">OK</button>
-	       </form>
-	      </div>
-	    
-	    </div>
-	
-	  </div>
-	</div>
 	
 	<script>
 	function findTotal(){
