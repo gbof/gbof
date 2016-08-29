@@ -101,6 +101,7 @@ public class UserDAOImpl implements UserDAO {
 		sqlQuery.executeUpdate();
 		sqlQuery1.executeUpdate();
 	}
+	
 
 	@Override
 	public void addUser(String name, String surname, String login, String password, Integer roleID, Integer teamID, Integer ballsID, String mail, Integer deptID){

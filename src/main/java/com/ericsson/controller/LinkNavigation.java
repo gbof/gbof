@@ -430,8 +430,14 @@ public class LinkNavigation {
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
 		if(cs.getCommentId(comId).getBallsPerCom()!=ballsNumber){
+			if(cs.getCommentId(comId).getCreatorId()==user_id)
 			us.setBallsAfterCommentEdit(user_id, cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
-			System.out.println("================ jestem");
+			else{
+				if(cs.getCommentId(comId).getBallsPerCom()>ballsNumber)
+				us.setBallsAfterCommentEdit(cs.getCommentId(comId).getCreatorId(), cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
+				else
+					us.setBallsAfterCommentEdit(user_id, cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
+			}
 		}
 		cs.editComment(message1, message2, ballsNumber, comId);
 		
