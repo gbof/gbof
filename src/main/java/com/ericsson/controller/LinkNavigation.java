@@ -665,7 +665,7 @@ public class LinkNavigation {
 	}
 
 	@RequestMapping(value = "/userRemoved", method = RequestMethod.POST)
-	public ModelAndView userRemoved(@RequestParam(value = "userDelIds", required = false) Integer[] userDelIds) {
+	public ModelAndView userRemoved(@RequestParam(value = "userDelIds", required = false,  defaultValue = "") Integer[] userDelIds) {
 		List<User> listt = us.getAllUsers();
 		Integer comId;
 		List<Comment> commentList;
@@ -687,20 +687,7 @@ public class LinkNavigation {
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
-		for (int i = 0; i < userDelIds.length; i++) {
-			// check if there are any comments for this user
-			commentList = cs.getCommentsYouGave(userDelIds[i]);
-			if (commentList != null) {
-				for (int j = 0; j < commentList.size(); j++) {
-					comId = commentList.get(j).getComId();
-					cs.removeComment(comId);
-				}
-			}
-			Integer balls_id = us.getUserId(userDelIds[i]).getBall().getBallsId();
-			us.removeUser(userDelIds[i]);
-			bs.removeBalls(balls_id);
-			rus.removeUserRole(userDelIds[i]);
-		}
+		
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<Settings> settingsList=sett.getSettings();
 		String _name;
@@ -717,7 +704,6 @@ public class LinkNavigation {
 			modelAndView.addObject("checked", true);
 		else
 			modelAndView.addObject("checked", false);
-		modelAndView.addObject("uRemoved", true);
 		modelAndView.addObject("listt", listt);
 		modelAndView.addObject("settingsList",settingsList);
 		modelAndView.addObject("money", wynik);
@@ -728,6 +714,28 @@ public class LinkNavigation {
 		modelAndView.addObject("teamlistt", teamlistt);
 		modelAndView.addObject("deptlistt", deptlistt);
 		modelAndView.addObject("userBasiclistt", userBasiclistt);
+		if(userDelIds.length == 0)
+		{
+			modelAndView.addObject("uRemoved", false);
+			return modelAndView;
+		}
+		else{
+		for (int i = 0; i < userDelIds.length; i++) {
+			// check if there are any comments for this user
+			commentList = cs.getCommentsYouGave(userDelIds[i]);
+			if (commentList != null) {
+				for (int j = 0; j < commentList.size(); j++) {
+					comId = commentList.get(j).getComId();
+					cs.removeComment(comId);
+				}
+			}
+			Integer balls_id = us.getUserId(userDelIds[i]).getBall().getBallsId();
+			us.removeUser(userDelIds[i]);
+			bs.removeBalls(balls_id);
+			rus.removeUserRole(userDelIds[i]);
+			modelAndView.addObject("uRemoved", true);
+		}
+		}
 		return modelAndView;
 	}
 
@@ -775,7 +783,7 @@ public class LinkNavigation {
 	}
 
 	@RequestMapping(value = "/teamRemoved", method = RequestMethod.POST)
-	public ModelAndView teamRemoved(@RequestParam(value = "teamDelIds", required = false) Integer[] teamDelIds) {
+	public ModelAndView teamRemoved(@RequestParam(value = "teamDelIds", required = false, defaultValue = "") Integer[] teamDelIds) {
 		List<User> listt = us.getAllUsers();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
@@ -783,6 +791,7 @@ public class LinkNavigation {
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
+		
 
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -796,9 +805,23 @@ public class LinkNavigation {
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
+
+		/*
+		 * Integer comId; List<Comment> commentList; for (int i=0;
+		 * i<teamDelIds.length; i++){ // check if there are any comments for
+		 * this user commentList = cs.getCommentsYouGave(teamDelIds[i]); if
+		 * (commentList != null){ for (int j=0; j<commentList.size(); j++){
+		 * comId = commentList.get(j).getComId(); cs.removeComment(comId); } }
+		 * us.removeUser(teamDelIds[i]); }
+		 */
+		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		if(teamDelIds.length == 0)
+			return modelAndView;
+			else{
 		for (int i = 0; i < teamDelIds.length; i++) {
 			ts.removeTeam(teamDelIds[i]);
 		}
+
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<Settings> settingsList=sett.getSettings();
 		String _name;
@@ -810,7 +833,6 @@ public class LinkNavigation {
 			_login = listt.get(i).getLogin();
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
 		}
-		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
 		modelAndView.addObject("tremoved", true);
 		modelAndView.addObject("listt", listt);
 		modelAndView.addObject("settingsList",settingsList);
@@ -822,6 +844,9 @@ public class LinkNavigation {
 		modelAndView.addObject("teamlistt", teamlistt);
 		modelAndView.addObject("deptlistt", deptlistt);
 		modelAndView.addObject("userBasiclistt", userBasiclistt);
+
+			}
+
 		return modelAndView;
 	}
 }

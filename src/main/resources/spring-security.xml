@@ -9,7 +9,20 @@
 	<http auto-config="true">
 	
 		<intercept-url pattern="/inside" access="ROLE_USER" />
-		<intercept-url pattern="/admin/*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/adminview" access="ROLE_ADMIN" />
+		<intercept-url pattern="/settings" access="ROLE_ADMIN" />
+		<intercept-url pattern="/settingsAdd" access="ROLE_ADMIN" />
+		<intercept-url pattern="/users" access="ROLE_ADMIN" />
+		<intercept-url pattern="/userAdded" access="ROLE_ADMIN" />
+		<intercept-url pattern="/edituser" access="ROLE_ADMIN" />
+		<intercept-url pattern="/userEdited" access="ROLE_ADMIN" />
+		<intercept-url pattern="/teamAdded" access="ROLE_ADMIN" />
+		<intercept-url pattern="/deptAdded" access="ROLE_ADMIN" />
+		<intercept-url pattern="/userRemoved" access="ROLE_ADMIN" />
+		<intercept-url pattern="/confirmedComm" access="ROLE_ADMIN" />
+		<intercept-url pattern="/teamRemoved" access="ROLE_ADMIN" />
+		
+		
 		
 		<form-login login-page="/user-login.html" 
 			default-target-url="/success-login.html"
