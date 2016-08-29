@@ -34,7 +34,7 @@
 	}
 	
 	</style>
-
+	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
 
@@ -116,7 +116,6 @@
 								      <label class="col-md-3" for="deadline">Help message </label>
 								      <div class="col-md-6">
 
-								      	<textarea class="form-control" type=text maxlength="1000" name="helpMsg" ${settingsList.get(0).getHelpMsg()}>${settingsList.get(0).getHelpMsg()}</textarea>
 
 								      	<textarea style="height: 400px; width: 600px;" class="form-control" type=text name="helpMsg" ${settingsList.get(0).getHelpMsg()}>${settingsList.get(0).getHelpMsg()}</textarea>
 
@@ -532,7 +531,7 @@
 	
 	  </div>
 	</div>
-	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>

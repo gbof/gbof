@@ -19,10 +19,9 @@
 		.outOfBalls {
 		color: red;
 		}
-       		<%@include file="/web-resources/css/inside.css" %>
        		
 		</style>
-		
+	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -61,11 +60,15 @@
                 </div>
                
                 <div class="panel-body">
-                    <div class="container col-md-12">          
+                    <div class="container col-md-12"> 								        
+   						<button type="button" class="btn btn-success btn-filter" data-target="all">All</button>
+				        <c:forEach var="team" items="${teamlistt}">
+	                            <button type="button" class="btn btn-success btn-filter" data-target="${team.getName() }">${team.getName() }</button>
+	                      </c:forEach>            
 					  <table class="table table-hover col-md-12">
 			
 					    <thead>
-					      <tr>
+					      <tr data-status="tableeee" >
 					      	<th>Add balls</th>
 					      	<th>Name</th>
 					        <th>Surname</th>
@@ -78,8 +81,8 @@
 					    
 					      
 					      <c:forEach var="user" items="${listt}" begin="0" end="${listt.size()-1}" varStatus="loop">
-					    <tr>
-					    <td>
+					    	<tr data-status="${user.getTeam().getName()}">
+					   	 	<td>
 						    	<div class="checkbox">
 									<label><input type="checkbox" name = "userIds" value = "${user.getId()} "></label>
 								</div>
@@ -124,7 +127,7 @@
 						                    <div class="container col-md-12">          
 											  <table class="table table-hover col-md-12 table-responsive">
 											    <thead>
-											    	<tr>
+											    	<tr data-status="tableeee">
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
@@ -138,7 +141,7 @@
 											    <tbody>
 											    
 											      <c:forEach var="comment" items="${yourComments}">
-											    <tr>
+											    <tr data-status="tableeee">
 										          <td><c:out value="${comment.getUser().getName()}" /></td>
 										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
 										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
@@ -185,8 +188,33 @@
 	  </div>
 	</div>
 </c:forEach>
+
+	<script>
+		$(document).ready(function () {
+		
+			$('.star').on('click', function () {
+		      $(this).toggleClass('star-checked');
+		    });
+		
+		    $('.ckbox label').on('click', function () {
+		      $(this).parents('tr').toggleClass('selected');
+		    });
+		
+		    $('.btn-filter').on('click', function () {
+		      var $target = $(this).data('target');
+		      if ($target != 'all') {
+		        $('.table tr').css('display', 'none');
+		        $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+		        $('.table tr[data-status="tableeee"]').fadeIn('slow');
+		      } else {
+		        $('.table tr').css('display', 'none').fadeIn('slow');
+		      }
+		    });
+		 });
+	</script>
 	
-	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+	
+
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 </body>

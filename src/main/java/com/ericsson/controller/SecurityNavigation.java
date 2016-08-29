@@ -109,7 +109,7 @@ public class SecurityNavigation {
 
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
-		
+		List <Team> teamlistt = ts.getAllTeams();
 		List<Comment> yourComments=coms.getYourComments(id);
 		
 		List<Double> money = sett.getMoney(1);
@@ -133,6 +133,7 @@ public class SecurityNavigation {
 		lista.addObject("kule", kulki);
 		lista.addObject("login", login);
 		lista.addObject("listt", listt);
+		lista.addObject("teamlistt", teamlistt);
 		lista.setViewName("inside");
 		return lista;
 	}

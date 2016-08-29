@@ -13,7 +13,7 @@
 	<title>Help page</title>
 		<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
-		
+			<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
 <tiles:insertDefinition name="headerTemplate">
@@ -47,7 +47,7 @@
 		    </div>
 		</div>
 	</div>
-		
+	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
 	
 </body>
 

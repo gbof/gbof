@@ -17,7 +17,7 @@
 		<style>
 			<%@include file="/web-resources/css/settings.css" %>
 		</style>
-		
+			<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -122,7 +122,7 @@
 		
 		
 	
-	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 

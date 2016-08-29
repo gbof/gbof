@@ -56,15 +56,14 @@
 						                    Employees
 						                </div>
 						                <div class="panel-body">
-						                    <div class="container col-md-12">  		
-									        
+						                    <div class="container col-md-12">  											        
         									<button type="button" class="btn btn-success btn-filter" data-target="all">All</button>
 									        <c:forEach var="team" items="${teamlistt}">
 						                            <button type="button" class="btn btn-success btn-filter" data-target="${team.getName() }">${team.getName() }</button>
 						                      </c:forEach>    
 											  <table  class="table table-filter table-hover col-md-12 table-responsive">
 											    <thead>
-											      <tr>
+											      <tr data-status="tableeee">
 											      	<th>Add balls</th>
 											      	<th>Name</th>
 											        <th>Surname</th>
@@ -118,6 +117,7 @@
 						                    <div class="container col-md-12">          
 											  <table class="table table-hover col-md-12 table-responsive">
 											    <thead>
+											    <tr data-status="tableeee">
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
@@ -131,7 +131,7 @@
 											    <tbody>
 											    
 											      <c:forEach var="comment" items="${yourComments}">
-											    <tr>
+											    <tr data-status="tableeee">
 										          <td><c:out value="${comment.getUser().getName()}" /></td>
 										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
 										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
@@ -172,7 +172,7 @@
 						                    <div class="container col-md-12">          
 											  <table class="table table-hover col-md-12 table-responsive">
 											    <thead>
-											    	<tr>
+											    	<tr data-status="tableeee">
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
@@ -186,7 +186,7 @@
 											    <tbody>
 											    
 											      <c:forEach var="comment" items="${commentList}">
-											    <tr>
+											    <tr data-status="tableeee">
 										          <td><c:out value="${comment.getUser().getName()}" /></td>
 										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
 										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
@@ -308,7 +308,7 @@
 						                    <div class="container col-md-12">        
 											  <table class="table table-hover col-md-12 table-responsive">
 											    <thead>
-											      <tr>
+											      <tr data-status="tableeee">
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
@@ -319,7 +319,7 @@
 											    <tbody>
 											    
 											      <c:forEach var="commentsC" items="${commentConfirmedList}">
-											    <tr>
+											    <tr data-status="tableeee">
 										          <td><c:out value="${commentsC.getUser().getName() }" /></td>
 										          <td><c:out value="${commentsC.getUser().getSurname() }" /></td>
 										          <td><c:out value="${commentsC.getBallsPerCom()}" /></td>
@@ -362,11 +362,11 @@
 		      if ($target != 'all') {
 		        $('.table tr').css('display', 'none');
 		        $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+		        $('.table tr[data-status="tableeee"]').fadeIn('slow');
 		      } else {
 		        $('.table tr').css('display', 'none').fadeIn('slow');
 		      }
 		    });
-		
 		 });
 	</script>
 	
