@@ -82,6 +82,25 @@ public class UserDAOImpl implements UserDAO {
 		sqlQuery.executeUpdate();
 		sqlQuery1.executeUpdate();
 	}
+	
+	public void setBallsAfterCommentEdit(Integer id, Integer oldBalls, Integer balls, Integer commentToUserId){
+		Integer ballsToGive;
+		Integer reveivedBalls;
+		if(oldBalls>balls){
+		ballsToGive = getUserId(id).getBall().getBallsToGive()+(oldBalls-balls);
+		reveivedBalls = getUserId(commentToUserId).getBall().getReceivedBalls()-(oldBalls-balls);
+		}
+		else {
+			ballsToGive = getUserId(id).getBall().getBallsToGive()-(balls-oldBalls);
+			reveivedBalls = getUserId(commentToUserId).getBall().getReceivedBalls()+(balls-oldBalls);
+		}
+		String query = "UPDATE balls b, users u set b.balls_to_give = '" + ballsToGive + "' where u.user_id = '" + id + "' and b.balls_id = u.balls_id";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		String query1 = "UPDATE balls b, users u set b.received_balls = '" + reveivedBalls + "' where u.user_id = '" + commentToUserId + "' and b.balls_id = u.balls_id";
+		SQLQuery sqlQuery1 = openSession().createSQLQuery(query1);
+		sqlQuery.executeUpdate();
+		sqlQuery1.executeUpdate();
+	}
 
 	@Override
 	public void addUser(String name, String surname, String login, String password, Integer roleID, Integer teamID, Integer ballsID, String mail, Integer deptID){

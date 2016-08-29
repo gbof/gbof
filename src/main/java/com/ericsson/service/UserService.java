@@ -20,4 +20,5 @@ public interface UserService {
 	public void editUser(Integer user_id, String name, String surname, String login, String mail, Integer roleID,
 			Integer deptID, Integer teamID);
 	public void addUser2(User user);
+	public void setBallsAfterCommentEdit(Integer id, Integer oldBalls, Integer balls, Integer commentToUserId);
 }

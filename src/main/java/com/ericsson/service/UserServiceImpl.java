@@ -58,4 +58,8 @@ public class UserServiceImpl implements UserService {
 		userDAO.addUser2(user);
 		
 	}
+	@Override
+	public void setBallsAfterCommentEdit(Integer id, Integer oldBalls, Integer balls, Integer commentToUserId){
+		userDAO.setBallsAfterCommentEdit(id, oldBalls, balls, commentToUserId);
+	}
 }

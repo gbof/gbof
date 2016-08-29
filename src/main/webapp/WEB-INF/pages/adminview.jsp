@@ -66,11 +66,12 @@
 											        <th>Login</th>
 											        <th>Team</th>
 											        <th>Balls</th>
+											        <th>Balls distributed</th>
 											      </tr>
 											    </thead>
 											    <tbody>
 											    
-											      <c:forEach var="user" items="${listt}">
+											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
 											    <tr>
 											    <td>
 												    	<div class="checkbox">
@@ -82,7 +83,7 @@
 											          <td><c:out value="${user.login}" /></td>
 											          <td><c:out value="${user.getTeam().getName()}" /></td>
 											          <td><c:out value="${user.getBall().getReceivedBalls()}" /></td>
-											          
+											          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
 											      </tr>
 						            			</c:forEach>
 

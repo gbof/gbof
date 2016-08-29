@@ -168,7 +168,11 @@ public class SecurityNavigation {
 		String role = us.getUser(userName).getRole().getRole();
 		ModelAndView lista = new ModelAndView();
 		
-	
+		List<Integer> allBallsGivenTo = new ArrayList<Integer>();
+		for(int i=0;i<listt.size();i++){
+			allBallsGivenTo.addAll(coms.getAllBallsGivenTo(id, listt.get(i).getId()));
+			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
+		}
 	        
 	        
 		lista.addObject("listt", listt);
@@ -178,6 +182,7 @@ public class SecurityNavigation {
 		lista.addObject("kule", kulki);
 		lista.addObject("commentList",commentList);
 		lista.addObject("commentConfirmedList",commentConfirmedList);
+		lista.addObject("allBallsGivenTo", allBallsGivenTo);
 		lista.addObject("login", login);
 		lista.setViewName("adminview");
 		return lista;

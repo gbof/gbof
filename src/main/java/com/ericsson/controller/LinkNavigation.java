@@ -424,9 +424,12 @@ public class LinkNavigation {
 
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
-
+		if(cs.getCommentId(comId).getBallsPerCom()!=ballsNumber){
+			us.setBallsAfterCommentEdit(user_id, cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
+			System.out.println("================ jestem");
+		}
 		cs.editComment(message1, message2, ballsNumber, comId);
-
+		
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 
 		return modelAndView;

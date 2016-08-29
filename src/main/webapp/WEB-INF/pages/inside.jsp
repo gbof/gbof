@@ -87,7 +87,7 @@
 					        <th>Surname</th>
 					        <th>Login</th>
 					        <th>Team</th>
-					        <th>Balls</th>
+					        <th>Balls distributed</th>
 					      </tr>
 					    </thead>
 					    <tbody>
