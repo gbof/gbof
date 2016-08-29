@@ -147,7 +147,7 @@ public class SecurityNavigation {
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		Integer id = us.getUser(userName).getId();
 		List<User> listt = us.getAllUsers();
-		
+		List<Team> teamlistt = ts.getAllTeams();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
 
@@ -184,6 +184,7 @@ public class SecurityNavigation {
 		lista.addObject("commentConfirmedList",commentConfirmedList);
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
 		lista.addObject("login", login);
+		lista.addObject("teamlistt", teamlistt);
 		lista.setViewName("adminview");
 		return lista;
 	}

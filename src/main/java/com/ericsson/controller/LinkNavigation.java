@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ericsson.init.MailMail;
 import com.ericsson.model.Ball;
 import com.ericsson.model.Comment;
 import com.ericsson.model.Department;
@@ -495,6 +498,7 @@ public class LinkNavigation {
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		
+
 		
 		ModelAndView modelAndView = new ModelAndView("settings");
 		if(sett.getSettingsFreeze().get(0)==1)
@@ -851,5 +855,22 @@ public class LinkNavigation {
 			}
 
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
+	public ModelAndView sendMail(){
+		
+    	ApplicationContext context =
+                new ClassPathXmlApplicationContext("Spring-Mail.xml");
+
+       	MailMail mm = (MailMail) context.getBean("mailMail");
+           mm.sendMail("internshiptestproject@gmail.com",
+       		   "internshiptestproject@gmail.com",
+       		   "Testing123",
+       		   "Testing only \n\n Hello Spring Email Sender");
+		
+		
+		
+		return new ModelAndView("redirect:/success-login");
 	}
 }

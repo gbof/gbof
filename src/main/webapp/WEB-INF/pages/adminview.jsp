@@ -16,7 +16,7 @@
 	<style>
       		<%@include file="/web-resources/css/adminview.css" %>
 	</style>
-
+	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
 	<tiles:insertDefinition name="headerTemplate">
@@ -56,8 +56,13 @@
 						                    Employees
 						                </div>
 						                <div class="panel-body">
-						                    <div class="container col-md-12">          
-											  <table class="table table-hover col-md-12 table-responsive">
+						                    <div class="container col-md-12">  		
+									        
+        									<button type="button" class="btn btn-success btn-filter" data-target="all">All</button>
+									        <c:forEach var="team" items="${teamlistt}">
+						                            <button type="button" class="btn btn-success btn-filter" data-target="${team.getName() }">${team.getName() }</button>
+						                      </c:forEach>    
+											  <table  class="table table-filter table-hover col-md-12 table-responsive">
 											    <thead>
 											      <tr>
 											      	<th>Add balls</th>
@@ -70,9 +75,13 @@
 											      </tr>
 											    </thead>
 											    <tbody>
-											    
+
 											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
 											    <tr>
+
+											      <c:forEach var="user" items="${listt}">
+											    <tr data-status="${user.getTeam().getName()}" >
+
 											    <td>
 												    	<div class="checkbox">
 															<label><input type="checkbox" name = "userIds" value = "${user.getId()}"></label>
@@ -289,7 +298,7 @@
 	</div>
 </c:forEach>
 					
-						
+			</form>			
 
 
 						<div class="tab-pane" id="tab_default_4">
@@ -301,11 +310,11 @@
 						                    Employees
 						                </div>
 						                <div class="panel-body">
-						                    <div class="container col-md-12">          
+						                    <div class="container col-md-12">        
 											  <table class="table table-hover col-md-12 table-responsive">
 											    <thead>
 											      <tr>
-											      	  	<th>Name</th>
+											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
 											        <th>First Comment</th>
@@ -334,8 +343,38 @@
 							</div>	
 						</div>
 						
+						
+			<form method="POST" action="${pageContext.request.contextPath}/sendMail">
+				<input type="submit" value="Send mail" />
+			</form>		
+			
 
-	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+
+
+	<script>
+		$(document).ready(function () {
+		
+			$('.star').on('click', function () {
+		      $(this).toggleClass('star-checked');
+		    });
+		
+		    $('.ckbox label').on('click', function () {
+		      $(this).parents('tr').toggleClass('selected');
+		    });
+		
+		    $('.btn-filter').on('click', function () {
+		      var $target = $(this).data('target');
+		      if ($target != 'all') {
+		        $('.table tr').css('display', 'none');
+		        $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+		      } else {
+		        $('.table tr').css('display', 'none').fadeIn('slow');
+		      }
+		    });
+		
+		 });
+	</script>
+	
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>
