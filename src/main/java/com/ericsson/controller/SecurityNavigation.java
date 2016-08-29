@@ -160,8 +160,7 @@ public class SecurityNavigation {
 		
 		List<Comment> commentList = coms.getAllComments();
 		
-		System.out.println("Kom1:" + commentList.get(0).getUser().getName());
-
+	
 		List<Comment> commentConfirmedList = coms.getConfirmedComments();
 		
 		System.out.println("Zalogowano: "+name);

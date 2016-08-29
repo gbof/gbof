@@ -104,7 +104,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void addUser(String name, String surname, String login, String password, Integer roleID, Integer teamID, Integer ballsID, String mail, Integer deptID){
-			String query = "INSERT INTO users (name, surname, login, password, role_id, team_id, balls_id, mail, dept_id) VALUES ('" + name +"', '"+ surname +"', '"+ login +"', '"+ password +"', '"+ roleID +"', '"+teamID+"', '"+ballsID+"', '"+mail+"', '"+deptID+"')";
+			String FullMail=mail+"@ericsson.com";
+			String query = "INSERT INTO users (name, surname, login, password, role_id, team_id, balls_id, mail, dept_id) VALUES ('" + name +"', '"+ surname +"', '"+ login +"', '"+ password +"', '"+ roleID +"', '"+teamID+"', '"+ballsID+"', '"+FullMail+"', '"+deptID+"')";
 			SQLQuery sqlQuery = openSession().createSQLQuery(query);
 			sqlQuery.executeUpdate();
 		}

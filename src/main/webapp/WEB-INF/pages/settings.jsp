@@ -166,7 +166,7 @@
 			        	<button class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#delUserModal">Remove user</button>
 	        			<button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#teamModal" >New team</button>
 			        	<button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#delTeamModal">Remove team</button>
-	        			<a href="${pageContext.request.contextPath}/users"><button class="btn btn-success btn-user btn-lg" >View all users</button></a>
+	        			<a href="${pageContext.request.contextPath}/users"><button class="btn btn-success btn-user btn-lg" >Edit users</button></a>
 	        			<!-- <button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#deptModal" >New department ???</button> -->
 			        </div>
 			        <div class="panel-group col-md-6">
