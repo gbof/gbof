@@ -784,15 +784,19 @@ public class LinkNavigation {
 	
 	@RequestMapping(value = "/confirmedComm", params="deleteButton", method = RequestMethod.POST)
 	public ModelAndView deleteComm(@RequestParam("deleteButton") Integer commId) {
+		us.setBallsAfterCommentDelete(cs.getCommentId(commId).getCreatorId(), cs.getCommentId(commId).getBallsPerCom(), cs.getCommentId(commId).getUser().getId());
 		cs.removeComment(commId);
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 		return modelAndView;
 	}
 	
+	//delete comment
 	@RequestMapping(value = "/editcomment", params="deleteButton1", method = RequestMethod.POST)
 	public ModelAndView deleteComm1(@RequestParam("deleteButton1") Integer commId) {
+		
+		us.setBallsAfterCommentDelete(cs.getCommentId(commId).getCreatorId(), cs.getCommentId(commId).getBallsPerCom(), cs.getCommentId(commId).getUser().getId());
+		System.out.println("=========== "+cs.getCommentId(commId).getUser().getId());
 		cs.removeComment(commId);
-		System.out.println("========= "+commId);
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 		return modelAndView;
 	}

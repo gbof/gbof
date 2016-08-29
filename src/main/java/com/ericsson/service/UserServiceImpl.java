@@ -62,4 +62,9 @@ public class UserServiceImpl implements UserService {
 	public void setBallsAfterCommentEdit(Integer id, Integer oldBalls, Integer balls, Integer commentToUserId){
 		userDAO.setBallsAfterCommentEdit(id, oldBalls, balls, commentToUserId);
 	}
+	
+	@Override
+	public void setBallsAfterCommentDelete(Integer id, Integer balls, Integer commentToUserId){
+		userDAO.setBallsAfterCommentDelete(id, balls, commentToUserId);
+	}
 }

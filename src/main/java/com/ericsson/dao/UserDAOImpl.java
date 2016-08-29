@@ -83,6 +83,18 @@ public class UserDAOImpl implements UserDAO {
 		sqlQuery1.executeUpdate();
 	}
 	
+	public void setBallsAfterCommentDelete(Integer id, Integer balls, Integer commentToUserId){
+		Integer ballsToGive = getUserId(id).getBall().getBallsToGive()+balls;
+		Integer reveivedBalls = getUserId(commentToUserId).getBall().getReceivedBalls()-balls;
+		String query = "UPDATE balls b, users u set b.balls_to_give = '" + ballsToGive + "' where u.user_id = '" + id + "' and b.balls_id = u.balls_id";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		String query1 = "UPDATE balls b, users u set b.received_balls = '" + reveivedBalls + "' where u.user_id = '" + commentToUserId + "' and b.balls_id = u.balls_id";
+		SQLQuery sqlQuery1 = openSession().createSQLQuery(query1);
+		sqlQuery.executeUpdate();
+		sqlQuery1.executeUpdate();
+	}
+	
+	
 	public void setBallsAfterCommentEdit(Integer id, Integer oldBalls, Integer balls, Integer commentToUserId){
 		Integer ballsToGive;
 		Integer reveivedBalls;
