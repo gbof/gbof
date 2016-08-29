@@ -36,6 +36,8 @@
 	</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
+	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
+
 <body>
 
 	<tiles:insertDefinition name="headerTemplate">
@@ -115,7 +117,6 @@
 								     <div class="form-area">
 								      <label class="col-md-3" for="deadline">Help message </label>
 								      <div class="col-md-6">
-
 
 								      	<textarea style="height: 400px; width: 600px;" class="form-control" type=text name="helpMsg" ${settingsList.get(0).getHelpMsg()}>${settingsList.get(0).getHelpMsg()}</textarea>
 

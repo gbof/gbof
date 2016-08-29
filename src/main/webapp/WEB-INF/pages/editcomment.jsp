@@ -21,7 +21,7 @@
 
 
 </head>
-
+	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 <body>
 
 

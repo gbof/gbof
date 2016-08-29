@@ -15,6 +15,8 @@
 
 			<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
+	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
+
 <body>
 <tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition>   
@@ -50,6 +52,6 @@
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
 	
 </body>
-
+	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </html>
 		
