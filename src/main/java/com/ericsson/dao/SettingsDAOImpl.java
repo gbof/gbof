@@ -26,11 +26,9 @@ public class SettingsDAOImpl implements SettingsDAO{
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer settings_id){
-		String queryDel = "DELETE FROM settings";
-		SQLQuery sqlQuery = openSession().createSQLQuery(queryDel);
-		sqlQuery.executeUpdate();
+	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer settings_id,String helpMsg){
 		
+			
 		Integer freezeId;
 		if(freeze==true)
 		{
@@ -40,11 +38,18 @@ public class SettingsDAOImpl implements SettingsDAO{
 		{
 			freezeId=0;
 		}
-		String queryInsert = "INSERT INTO settings (extra_balls, balls_per_person, money, deadline, freeze,balls_left, settings_id) VALUES ('"+ extraBalls +"', '"+ balls_per_pers +"', '"+ money +"', '"+ deadline +"','"+ freezeId +"', '"+ 0 +"', '"+ settings_id +"')";
-		sqlQuery = openSession().createSQLQuery(queryInsert);
+
+		
+
+		System.out.println("Wchodze");	
+		System.out.println("Setting id: "+settings_id);
+		String queryInsert = "UPDATE settings SET extra_balls='"+extraBalls+"', balls_per_person='"+balls_per_pers+"', money='"+money+"', deadline='"+deadline+"', freeze='"+freezeId+"',balls_left='"+0+"',helpMsg='"+helpMsg+"' WHERE settings_id='"+settings_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(queryInsert);
+
 		sqlQuery.executeUpdate();
+		
 	}
-	
+		
 	public List<Double> getMoney(Integer settingsId){
 		List<Double> getMoney = new ArrayList<Double>();
 		

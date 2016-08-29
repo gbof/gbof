@@ -271,11 +271,13 @@ public class SecurityNavigation {
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		
+
 		 Date date = new Date();
 		   Date date1 = sett.getSettingsDate().get(0);
 		   if(date1.before(date)){
 			   sett.setToFrozen();
 		   }
+
 
 		ModelAndView lista = new ModelAndView();
 		
@@ -302,7 +304,8 @@ public class SecurityNavigation {
 			@RequestParam("money") Double money,
 			@RequestParam("deadline") String deadline,
 			@RequestParam("extraBalls") Integer extraBalls,
-			@RequestParam(value = "checkbox", required = false, defaultValue = "0") Integer[] isFreeze)
+			@RequestParam(value = "checkbox", required = false, defaultValue = "0") Integer[] isFreeze,
+			@RequestParam("helpMsg") String helpMsg)
 			 {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
@@ -311,6 +314,7 @@ public class SecurityNavigation {
 		List<Double> Lmoney = sett.getMoney(1);
 		Double moneyValue = Lmoney.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
+		
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
 		wynik = sett.round(wynik, 2);
@@ -331,10 +335,11 @@ public class SecurityNavigation {
 		else
 		{
 		modelAndView.addObject("correct", true);
-		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,1);
+		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,1,helpMsg);
 		System.out.println("Zapisuje ustawienia");
+		
 		}
-		List<Settings> settingsList=sett.getSettings();
+		
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<User> listt = us.getAllUsers();
 
@@ -347,7 +352,8 @@ public class SecurityNavigation {
 			_login = listt.get(i).getLogin();
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
 		}
-		
+		List<Settings> settingsList=sett.getSettings();
+		System.out.println(settingsList.get(0).getHelpMsg());
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();

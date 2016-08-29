@@ -25,6 +25,12 @@
 		.uRemoved{
 		color: green
 		}
+		.tadded{
+		color: green
+		}
+		.tRemoved{
+		color: green
+		}
 	}
 	
 	</style>
@@ -106,6 +112,12 @@
 								      	<input class="form-control" value="${settingsList.get(0).getExtraBalls()}" type=text name="extraBalls"/>
 								      </div>
 								    </div>
+								     <div class="form-area">
+								      <label class="col-md-3" for="deadline">Help message </label>
+								      <div class="col-md-6">
+								      	<textarea class="form-control" type=text name="helpMsg" ${settingsList.get(0).getHelpMsg()}>${settingsList.get(0).getHelpMsg()}</textarea>
+								      </div>
+								    </div>
 						
 						
 	              	</div>
@@ -137,6 +149,16 @@
 					<p>
 					<c:if test="${uRemoved == true}">
 					<b class="correct">User removed</b>
+					</c:if>
+					</p>
+					<p>
+					<c:if test="${tadded == true}">
+					<b class="correct">team added</b>
+					</c:if>
+					</p>
+					<p>
+					<c:if test="${tremoved == true}">
+					<b class="correct">team removed</b>
 					</c:if>
 					</p>
 			        <div class="panel-group col-md-5 btn-group-vertical">
@@ -410,12 +432,36 @@
 				</div>
 			<div class="modal-footer">
 			    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-			    <input type="submit" class="btn btn-primary btn-change pull-right" value="Remove" />
+			    <button type="button" data-toggle="modal" data-target="#ModalRemoveUser" class="btn btn-primary btn-change pull-right" value="Remove">Remove</button>
 			</div>
-			</form>
+			
 		</div>
 	</div>
 </div>
+<!-- modal -->
+
+	<div id="ModalRemoveUser" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Confirm</h4>
+	      </div>
+	      <div class="modal-body">
+	           	Delete this user(s) ?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+	         <button type="submit" name="confirmButton" class="btn btn-primary btn-change pull-right" >Remove</button>
+	      </div>
+	    
+	    </div>
+	
+	  </div>
+	</div>
+	</form>
 
 
 <div id="delTeamModal" class="modal fade" role="dialog">
@@ -451,13 +497,35 @@
 				</div>
 			<div class="modal-footer">
 			    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-			    <input type="submit" class="btn btn-primary btn-change pull-right" value="Remove" />
+			    <button type="button" data-toggle="modal" data-target="#ModalRemoveTeam" class="btn btn-primary btn-change pull-right" value="Remove" >Remove</button>
 			</div>
-			</form>
+			
 		</div>
 	</div>
 </div>
+<!-- modal -->
 
+	<div id="ModalRemoveTeam" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Confirm</h4>
+	      </div>
+	      <div class="modal-body">
+	           	Delete this team(s) ?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+	         <button type="submit" name="confirmButton" class="btn btn-primary btn-change pull-right" >Remove</button>
+	      </div>
+	    </form>
+	    </div>
+	
+	  </div>
+	</div>
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>

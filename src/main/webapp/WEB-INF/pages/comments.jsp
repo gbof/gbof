@@ -69,7 +69,7 @@
 		                    </div>
 	           			</c:forEach>
 	           			
-			        <input data-toggle="modal" data-target="#ModalCommentConfirm" type="button" id="submit" name="submit" value="Send" id="btnSave" class="submit_button pull-right" > 
+			        <input data-toggle="modal" data-target="#ModalCommentConfirm" type="button" id="submit" name="submit" value="Send" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
 			        <input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 		      
 		        

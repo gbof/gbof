@@ -20,8 +20,10 @@
 			<ul class="nav navbar-nav navbar-right">
 			<c:set var="rola" scope="session" value="${rola}"/>
 			<c:set var="admin" scope="session" value="admin"/>
+			<li><a href="${pageContext.request.contextPath}/helpPage">Help</a></li>
 			<c:if test="${rola == admin}" >
-			
+				
+				
 				<li><a href="${pageContext.request.contextPath}/settings">Settings</a></li>
 				</c:if>
 				<li><a>Username: ${login}</a></li>

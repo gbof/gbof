@@ -24,7 +24,8 @@ public class Settings {
 	private Integer freeze;
 	@Column(name="balls_left")
 	private Integer balls_left;
-	
+	@Column(name="helpMsg")
+	private String helpMsg;
 	
 	public Integer getSettingsID(){
 		return settings_id;
@@ -86,5 +87,12 @@ public class Settings {
 	public void setBallsLeft(Integer balls_left){
 		this.balls_left = balls_left;
 	}
-
+	public String getHelpMsg()
+	{
+		return helpMsg;
+	}
+	public void setHelpMsg(String helpMsg)
+	{
+		this.helpMsg=helpMsg;
+	}
 }
