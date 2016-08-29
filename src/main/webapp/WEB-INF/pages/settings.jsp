@@ -122,12 +122,23 @@
 
 								      </div>
 								    </div>
+								    <div class="form-group col-md-12">
+						<label class="col-md-3">Extra money </label>
+						 <div class="col-md-6">
+						<input class="form-control"  type =text name="extramoney" placeholder="PLN"/>
+						
+						</div>
+						<input type="submit" style="min-width: 100px;" name= extramoney class="btn btn-primary pull-right " value="Add extra money"/>
+						
+						</div>
+						</div>
 						
 						
-	              	</div>
+	              	
 	              	<div class="panel-footer">
-						<input type="submit" style="min-width: 100px;" class="btn btn-primary pull-right " value="Save"/>
+						<input type="submit" style="min-width: 100px;" name=save class="btn btn-primary pull-right " value="Save"/>
 						</form>
+				
 					</div>
 	           </div>
 	       </div>
@@ -212,7 +223,7 @@
 	      		<label for="name">Name</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="name" class="form-control" id="name" type="text" placeholder="name" required/>
+	      		<input name="name" class="form-control" maxlength=40 id="name" type="text" placeholder="name" required/>
 	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
@@ -220,7 +231,7 @@
 	      		<label for="surname">Last name</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="surname" class="form-control" id="surname" type="text" placeholder="last name" required/>
+	      		<input name="surname" class="form-control" maxlength=40 id="surname" type="text" placeholder="last name" required/>
 	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
@@ -228,7 +239,7 @@
 	      		<label for="login">Login</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="login" class="form-control" id="login" type="text" placeholder="login" required/>
+	      		<input name="login" class="form-control" maxlength=5 id="login" type="text" placeholder="login" required/>
 	      		</div>
 	    	</div>
 	    	<div class="form-group col-md-12">
@@ -236,7 +247,7 @@
 	      		<label for="password">Password</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="password" class="form-control" id="password" type="text" placeholder="password" required/>
+	      		<input name="password" class="form-control" maxlength=30 id="password" type="text" placeholder="password" required/>
 	      		</div>
 	    	</div>
 		      <div class="form-group col-md-12">
@@ -267,10 +278,10 @@
 	    	</div>
 	    	<div class="form-group col-md-12">
 	    	<div class="col-md-6 col-sm-6">
-	      		<label for="mail">Mail</label>
+	      		<label for="mail">Mail (only nickname)</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
-	      		<input name="mail" class="form-control" id="mail" type="text" placeholder="mail" required/>
+	      		<input name="mail" class="form-control" maxlength=30 id="mail" type="text" placeholder="mail" required/>
 	      		</div>
 	    	</div>
 	    	 <div class="form-group col-md-12">

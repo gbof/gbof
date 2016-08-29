@@ -304,7 +304,7 @@ public class SecurityNavigation {
 		lista.setViewName("settings");
 		return lista;
 	}
-	@RequestMapping(value="/settingsAdd", method=RequestMethod.POST)
+	@RequestMapping(value="/settingsAdd", params="save", method=RequestMethod.POST)
 	public ModelAndView settingsAdd(
 			@RequestParam("ballsPerPers") Integer ballsPerPers,
 			@RequestParam("money") Double money,
@@ -345,6 +345,69 @@ public class SecurityNavigation {
 		System.out.println("Zapisuje ustawienia");
 		
 		}
+		
+		List<String> userBasiclistt = new ArrayList<String>();
+		List<User> listt = us.getAllUsers();
+
+		String _name;
+		String _surname;
+		String _login;
+		for (int i=0; i<listt.size(); i++){
+			_name = listt.get(i).getName();
+			_surname = listt.get(i).getSurname();
+			_login = listt.get(i).getLogin();
+			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+		List<Settings> settingsList=sett.getSettings();
+		System.out.println(settingsList.get(0).getHelpMsg());
+		List<Role> rolelistt = rs.getAllRoles();
+		List<Team> teamlistt = ts.getAllTeams();
+		List<Department> deptlistt = ds.getAllDepts();
+		 Date date = new Date();
+		   Date date1 = sett.getSettingsDate().get(0);
+		   if(date1.before(date)){
+			   sett.setToFrozen();
+		   }
+		if(sett.getSettingsFreeze().get(0)==1)
+			modelAndView.addObject("checked", true);
+		else
+			modelAndView.addObject("checked", false);
+		modelAndView.addObject("settingsList",settingsList);
+		modelAndView.addObject("money", wynik);
+		modelAndView.addObject("kule", kulki);
+		modelAndView.addObject("login", login);
+		modelAndView.addObject("rolelistt", rolelistt);
+		modelAndView.addObject("teamlistt", teamlistt);
+		modelAndView.addObject("deptlistt", deptlistt);
+		modelAndView.addObject("userBasiclistt", userBasiclistt);
+		return modelAndView;
+	}
+	@RequestMapping(value="/settingsAdd", params="extramoney", method=RequestMethod.POST)
+	public ModelAndView settingsAddExtraMonney(
+			
+			@RequestParam("money") Double money,
+			@RequestParam("extramoney") Double extramoney
+			)
+			 {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		String login = us.getUser(userName).getLogin();
+		List<Double> Lmoney = sett.getMoney(1);
+		Double moneyValue = Lmoney.get(0);
+		List<Long> ballValue2List = coms.getBallValue2();
+		
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue/ballValue2);
+		wynik = sett.round(wynik, 2);
+		ModelAndView modelAndView = new ModelAndView("settings");
+		wynik = sett.round(wynik, 2);
+		Boolean freeze;
+		
+		freeze=false;
+		
+		Double withExtraMoney=money+extramoney;
+		sett.addExtraMoney(1, withExtraMoney);
 		
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<User> listt = us.getAllUsers();

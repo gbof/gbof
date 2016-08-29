@@ -1,5 +1,7 @@
 package com.ericsson.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,12 +11,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ericsson.service.CommentService;
+import com.ericsson.service.SettingService;
 import com.ericsson.service.UserService;
 
 @Controller
 public class ChangingNavigation {
 	@Autowired
-	private UserService service;
+	private UserService us;
+	
+
+	@Autowired
+	private SettingService sett;
+	@Autowired
+	private CommentService cs;
 	
 	@RequestMapping(value = "/password-verify", method = RequestMethod.POST)
 	public ModelAndView passwordVerify(@RequestParam("oldpassword") String oldpassword,
@@ -22,15 +32,26 @@ public class ChangingNavigation {
 			@RequestParam("newpassword2") String newpassword2) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
-		String passwordVerify = service.getUser(userName).getPassword();
-		Integer id = service.getUser(userName).getId();
+		String passwordVerify = us.getUser(userName).getPassword();
+		Integer id = us.getUser(userName).getId();
+		
+		String login = us.getUser(userName).getLogin();
+		
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		if(oldpassword.equals(passwordVerify)){                    
 			if(!newpassword.equals(newpassword2)){                    
 				ModelAndView modelAndView = new ModelAndView("changePassword");
 				modelAndView.addObject("error2", true);
 				return modelAndView;
 			}
-			service.setPassword(id, newpassword);
+			us.setPassword(id, newpassword);
 			ModelAndView modelAndView = new ModelAndView("changePassword");
 			modelAndView.addObject("correct", true);
 			return modelAndView;
@@ -38,6 +59,11 @@ public class ChangingNavigation {
 		else{
 			ModelAndView modelAndView = new ModelAndView("changePassword");
 			modelAndView.addObject("error", true);
+			
+			modelAndView.addObject("money", wynik);
+			modelAndView.addObject("kule", kulki);
+			modelAndView.addObject("login", login);
+			
 			return modelAndView;
 			//
 		}

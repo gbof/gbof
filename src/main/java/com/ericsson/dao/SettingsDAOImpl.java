@@ -41,8 +41,7 @@ public class SettingsDAOImpl implements SettingsDAO{
 
 		
 
-		System.out.println("Wchodze");	
-		System.out.println("Setting id: "+settings_id);
+		
 		String queryInsert = "UPDATE settings SET extra_balls='"+extraBalls+"', balls_per_person='"+balls_per_pers+"', money='"+money+"', deadline='"+deadline+"', freeze='"+freezeId+"',balls_left='"+0+"',helpMsg='"+helpMsg+"' WHERE settings_id='"+settings_id+"'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(queryInsert);
 
@@ -61,6 +60,15 @@ public class SettingsDAOImpl implements SettingsDAO{
 		else
 			return null;	
 	
+	}
+	
+	public void addExtraMoney(Integer settings_id, Double withExtraMoney)
+	{
+		
+		String queryInsert = "UPDATE settings SET money='"+withExtraMoney+"' WHERE settings_id='"+settings_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(queryInsert);
+
+		sqlQuery.executeUpdate();
 	}
 
 	

@@ -27,5 +27,6 @@ public interface SettingService {
 	public List<Date> getSettingsDate();
 
 	public void setToFrozen();
+	public void addExtraMoney(Integer settings_id, Double withExtraMoney);
 
 }

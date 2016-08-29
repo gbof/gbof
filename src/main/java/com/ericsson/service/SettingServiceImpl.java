@@ -50,4 +50,8 @@ public class SettingServiceImpl implements SettingService{
 	public void setToFrozen(){
 		settingsDAO.setToFrozen();
 	}
+	public void addExtraMoney(Integer settings_id, Double withExtraMoney){
+		
+		settingsDAO.addExtraMoney(settings_id, withExtraMoney);
+	}
 }
