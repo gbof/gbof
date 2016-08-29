@@ -55,7 +55,7 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> getAllUsers() {
 		List<User> usersList = new ArrayList<User>();
 		
-		String sql = "from User";
+		String sql = "from User order by surname";
 		Query query = openSession().createQuery(sql);
 		
 		usersList = query.list();

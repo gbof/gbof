@@ -77,7 +77,7 @@
 											    <tbody>
 
 											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
-											    <tr>
+											    <tr data-status="${user.getTeam().getName()}">
 											    <td>
 												    	<div class="checkbox">
 															<label><input type="checkbox" name = "userIds" value = "${user.getId()}"></label>

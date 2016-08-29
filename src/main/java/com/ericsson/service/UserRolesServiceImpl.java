@@ -26,6 +26,12 @@ public class UserRolesServiceImpl implements UserRolesService {
 		
 	}
 
+	@Override
+	public void editRole(Integer user_id, Integer roleID) {
+		roleusersDAO.editRole(user_id, roleID);
+		
+	}
+
 	/*@Override
 	public void editUserRoles(Integer userId, Integer roleId) {
 		roleusersDAO.editUserRoles(userId, roleId);

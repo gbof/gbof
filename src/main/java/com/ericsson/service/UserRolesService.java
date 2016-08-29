@@ -6,6 +6,8 @@ public interface UserRolesService {
 
 	public void removeUserRole(Integer user_id);
 
+	public void editRole(Integer user_id, Integer roleID);
+
 	//public void editUserRoles(Integer userId, Integer roleId);
 
 }

@@ -37,11 +37,13 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 		
 	}
 
-	/*@Override
-	public void editUserRoles(Integer userId, Integer roleId) {
-		String query = "UPDATE user_roles SET user_id='"+userId+"', role_id='"+roleId+"'";
+	@Override
+	public void editRole(Integer user_id, Integer roleID) {
+		String query = "UPDATE user_roles SET role_id='"+roleID+"' where user_id='"+user_id+"'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
-	}*/
+		
+	}
+
 
 }

@@ -583,8 +583,8 @@ public class LinkNavigation {
 		Integer teamID = ts.getTeamID(team).getId();
 		
 		bs.editBallsToGive(user_id, balls);
+		rus.editRole(user_id, roleID);
 		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
-		//rus.editUserRoles(user_id, roleID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/users");
 
 		return modelAndView;
