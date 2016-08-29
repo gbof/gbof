@@ -7,7 +7,8 @@
     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     
 	<http auto-config="true">
-	
+		
+		<access-denied-handler error-page="/403" />
 		<intercept-url pattern="/inside" access="ROLE_USER" />
 		<intercept-url pattern="/adminview" access="ROLE_ADMIN" />
 		<intercept-url pattern="/settings" access="ROLE_ADMIN" />
@@ -31,6 +32,11 @@
 
 		
 	</http>
+	
+	<beans:bean id="my403"
+	class="com.ericsson.init.MyAccessDeniedHandler">
+	<beans:property name="errorPage" value="403" />
+	</beans:bean>
 	
 	<authentication-manager>
 		<authentication-provider user-service-ref="customUserDetailsService">

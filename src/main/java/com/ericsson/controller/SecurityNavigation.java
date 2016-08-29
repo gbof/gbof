@@ -473,4 +473,11 @@ public class SecurityNavigation {
 		lista.setViewName("users");
 		return lista;
 	}
+	
+	@RequestMapping(value="/403", method=RequestMethod.GET)
+	public ModelAndView errorPage() {
+		ModelAndView lista = new ModelAndView();
+		lista.setViewName("403");
+		return lista;
+	}
 }
