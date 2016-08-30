@@ -23,7 +23,6 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 	@Override
 	public void add(Integer userId, Integer roleId) {
 		String query = "INSERT INTO user_roles (user_id, role_id) VALUES ('" + userId +"', '"+ roleId +"')";
-		
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 		

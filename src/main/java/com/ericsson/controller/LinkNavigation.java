@@ -453,8 +453,7 @@ public class LinkNavigation {
 			@RequestParam("login") String login, 
 			@RequestParam("roleName") String roleName, 
 			@RequestParam("teamName") String teamName,
-			@RequestParam("mail") String mail, 
-			@RequestParam("deptName") String deptName) {
+			@RequestParam("mail") String mail) {
 
 		// default initial values
 		received_balls = 0;
@@ -473,11 +472,11 @@ public class LinkNavigation {
 		List<Role> roleList = rs.getRoleId(roleName);
 		Integer roleId = roleList.get(0).getId();
 
+		System.out.println("roleId==="+roleId);
 		Team teamList = ts.getTeamID(teamName);
 		Integer teamID = teamList.getId();
 
-		Department deptList = ds.getDeptID(deptName);
-		Integer deptID = deptList.getDeptId();
+		Integer deptID = us.getUser(userName).getDept().getDeptId();
 
 		bs.addBall(received_balls, balls_to_give, locked, cash);
 
@@ -485,7 +484,9 @@ public class LinkNavigation {
 		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 		List<User> listt = us.getAllUsers();
 		us.addUser(name, surname, login, roleId, teamID, ballsID, mail, deptID);
+		
 		Integer userId = us.getUser(login).getId();
+		System.out.println("userId==="+userId);
 		rus.add(userId, roleId);
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();

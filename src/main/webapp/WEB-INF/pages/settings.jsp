@@ -216,7 +216,7 @@
         <h4 class="modal-title">Add user</h4>
       </div>
   	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/userAdded"> 
-      <div class="modal-body">
+      <div class="">
            	<div class="form-group col-md-12">
            		<div class="col-md-6 col-sm-6">
 	      		<label for="name">Name</label>
@@ -276,21 +276,6 @@
 	      		<input name="mail" class="form-control" maxlength=30 id="mail" type="text" placeholder="mail" required/>
 	      		</div>
 	    	</div>
-	    	 <div class="form-group col-md-12">
-		        <label class="col-md-6 control-label">Department</label>
-		        <div class="col-md-6 selectContainer">
-		            <select class="form-control" name="deptName" required>
-		          
-			            <c:forEach var="dept" items="${deptlistt}">
-			                <option name = "deptName" value="${dept.getDeptName()}"  >
-			                	<c:out value="${dept.getDeptName()}" />
-			                
-			            </c:forEach>
-			            
-			            
-		            </select>
-		        </div>
-	    	</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
@@ -316,7 +301,7 @@
 	           <h4 class="modal-title">Add team</h4>
 	      </div>
 	      	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/teamAdded">
-	      	      <div class="modal-body">
+	      	      <div class="">
 	      	     	 	<div class="form-group col-md-12">
 	      	      	   		<div class="col-md-6 col-sm-6">
 				      			<label for="teamName">Name</label>
@@ -372,7 +357,7 @@
 	           <h4 class="modal-title">Add department</h4>
 	      </div>
 	      	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/deptAdded">
-	      	      <div class="modal-body">
+	      	      <div class="">
 	      	     	 	<div class="form-group col-md-12">
 	      	      	   		<div class="col-md-6 col-sm-6">
 				      			<label for="deptName">Name</label>
@@ -413,7 +398,7 @@
         		<h4 class="modal-title">Remove user</h4>
       		</div>
   			<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/userRemoved"> 
-      			<div class="modal-body">
+      			<div class="">
       				<table class="table table-hover table-responsive">
       					<thead>
 					      <tr>
@@ -458,7 +443,7 @@
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title">Confirm</h4>
 	      </div>
-	      <div class="modal-body">
+	      <div class="">
 	           	Delete this user(s) ?
 	      </div>
 	      <div class="modal-footer">
@@ -482,7 +467,7 @@
         		<h4 class="modal-title">Remove team</h4>
       		</div>
   			<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/teamRemoved"> 
-      			<div class="modal-body">
+      			<div class="">
       				<table class="table table-hover table-responsive">
       					<thead>
 					      <tr>

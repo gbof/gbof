@@ -113,7 +113,7 @@
 		           	</div>	
 		           	<div class="panel-footer">	
   						<input type="submit" name="save" style="min-width: 100px;" class="btn btn-primary pull-right " value="Save"/>
-  						<button type="button" data-toggle="modal" data-target="#ModalRemoveUser" class="btn btn-primary btn-change pull-right" value="Remove">Delete user</button>
+  						<button style="" type="button" data-toggle="modal" data-target="#ModalRemoveUser" class="btn btn-default btn-change pull-right" value="Remove">Delete user</button>
 		        		<a href="${pageContext.request.contextPath}/users"><input type="button" style="min-width: 100px;" class="btn btn-primary pull-left " id="back" name="back"value="Back" /></a>
         			</div>
 		    	</div>
