@@ -310,19 +310,6 @@
 				      			<input name="teamName" class="form-control" id="teamName" type="text" placeholder="name" required/>
 				      		</div>
 				    	</div>
-				    	<div class="form-group col-md-12">
-					        <label class="col-md-6 control-label">Department</label>
-					        <div class="col-md-6 selectContainer">
-					            <select class="form-control" name="deptName">
-					               
-						            <c:forEach var="dept" items="${deptlistt}">
-						                <option name = "deptName" value="${dept.getDeptName()}"  >
-						                	<c:out value="${dept.getDeptName()}" />
-						               
-						            </c:forEach>
-					            </select>
-					        </div>
-				    	</div>
 					      <div class="form-group col-md-12">
 					        <label class="col-md-6 control-label">Leader</label>
 					        <div class="col-md-6 selectContainer">

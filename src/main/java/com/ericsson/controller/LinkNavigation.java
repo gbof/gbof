@@ -581,16 +581,17 @@ public class LinkNavigation {
 
 			@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
 			@RequestParam(value = "login") String login, @RequestParam(value = "mail") String mail,
-			@RequestParam(value = "role") String role, @RequestParam(value = "dept") String dept,
+			@RequestParam(value = "role") String role,
 			@RequestParam(value = "team") String team, @RequestParam(value = "balls") Integer balls,
 			@RequestParam("user_id") Integer user_id,
 			Model model
 
 	) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+		String userName = userDetails.getUsername();
+		String login1 = us.getUser(userName).getLogin();
 		Integer roleID = rs.getRoleId(role).get(0).getId();
-		Integer deptID = ds.getDeptID(dept).getDeptId();
+		Integer deptID = us.getUser(login1).getDept().getDeptId();
 		Integer teamID = ts.getTeamID(team).getId();
 		
 		bs.editBallsToGive(user_id, balls);
@@ -682,23 +683,24 @@ public class LinkNavigation {
 
 	@RequestMapping(value = "/teamAdded", method = RequestMethod.POST)
 	public ModelAndView teamAdded(@RequestParam("teamName") String teamName,
-			@RequestParam("leaderLogin") String leaderLogin, @RequestParam("deptName") String deptName) {
+			@RequestParam("leaderLogin") String leaderLogin) {
 
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		
+		String login = us.getUser(userName).getLogin();
+		
 		String[] words = leaderLogin.split("\\s+");
 		leaderLogin = words[2];
 
 		User userList = us.getUser(leaderLogin);
 		Integer leaderID = userList.getId();
 
-		Department deptList = ds.getDeptID(deptName);
-		Integer deptID = deptList.getDeptId();
+		Integer deptID = us.getUser(userName).getDept().getDeptId();
 
 		ts.addTeam(teamName, leaderID, deptID);
 		ModelAndView modelAndView = new ModelAndView("settings");
 		
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = userDetails.getUsername();
-		String login = us.getUser(userName).getLogin();
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<Settings> settingsList = sett.getSettings();
