@@ -19,7 +19,7 @@
 <body>
 
 	<h1 align="center">
-		Great Balls Of Fire
+		Great Balls of Fire
 	</h1>
 	
 	<!-- LOGIN FORM -->

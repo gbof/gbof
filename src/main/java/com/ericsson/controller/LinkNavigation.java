@@ -78,20 +78,7 @@ public class LinkNavigation {
 		return new ModelAndView("home");
 	}
 
-	@RequestMapping(value = "/sec/moderation", method = RequestMethod.GET)
-	public ModelAndView moderatorPage() {
-		return new ModelAndView("moderation");
-	}
-
-	@RequestMapping(value = "/admin/first", method = RequestMethod.GET)
-	public ModelAndView firstAdminPage() {
-		return new ModelAndView("admin-first");
-	}
-
-	@RequestMapping(value = "/admin/second", method = RequestMethod.GET)
-	public ModelAndView secondAdminPage() {
-		return new ModelAndView("admin-second");
-	}
+	
 	@RequestMapping(value = "/helpPage", method = RequestMethod.GET)
 	public ModelAndView helpPage() {
 		List<Settings> settingsList=sett.getSettings();
@@ -931,14 +918,8 @@ public class LinkNavigation {
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
 
-		/*
-		 * Integer comId; List<Comment> commentList; for (int i=0;
-		 * i<teamDelIds.length; i++){ // check if there are any comments for
-		 * this user commentList = cs.getCommentsYouGave(teamDelIds[i]); if
-		 * (commentList != null){ for (int j=0; j<commentList.size(); j++){
-		 * comId = commentList.get(j).getComId(); cs.removeComment(comId); } }
-		 * us.removeUser(teamDelIds[i]); }
-		 */
+	
+		 
 		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
 		if(teamDelIds.length == 0)
 			return modelAndView;

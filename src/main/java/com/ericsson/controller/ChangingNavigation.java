@@ -53,6 +53,7 @@ public class ChangingNavigation {
 				modelAndView.addObject("money", wynik);
 				modelAndView.addObject("kule", kulki);
 				modelAndView.addObject("login", login);
+
 				return modelAndView;
 			}
 			us.setPassword(id, newpassword);
@@ -61,12 +62,12 @@ public class ChangingNavigation {
 			modelAndView.addObject("money", wynik);
 			modelAndView.addObject("kule", kulki);
 			modelAndView.addObject("login", login);
+
 			return modelAndView;
 		}
 		else{
 			ModelAndView modelAndView = new ModelAndView("changePassword");
 			modelAndView.addObject("error", true);
-			
 			modelAndView.addObject("money", wynik);
 			modelAndView.addObject("kule", kulki);
 			modelAndView.addObject("login", login);
