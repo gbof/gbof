@@ -914,7 +914,7 @@ public class LinkNavigation {
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		
-
+		
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
