@@ -13,6 +13,10 @@ public interface TeamService {
 	public void addTeam(String teamName, Integer leaderID, Integer deptID);
 
 	public void removeTeam(Integer team_id);
+
+	public void editTeam(Integer team_id, Integer leaderID, String name, Integer dept_id);
+
+	public Team getTeam(Integer team_id);
 	
 
 }

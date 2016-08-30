@@ -339,10 +339,10 @@
 						</div>
 						
 						
-			<form method="POST" action="${pageContext.request.contextPath}/sendMail">
+		<!-- 	<form method="POST" action="${pageContext.request.contextPath}/sendMail">
 				<input type="submit" value="Send mail" />
 			</form>		
-			
+		 -->	
 
 
 

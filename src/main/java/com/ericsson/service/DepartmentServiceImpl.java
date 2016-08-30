@@ -32,4 +32,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 		
 	}
 
+	@Override
+	public String getDeptName(Integer deptId) {
+		return deptDAO.getDeptName(deptId);
+	}
+
 }

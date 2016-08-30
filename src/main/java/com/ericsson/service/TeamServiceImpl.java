@@ -38,4 +38,15 @@ public class TeamServiceImpl implements TeamService {
 		
 	}
 
+	@Override
+	public void editTeam(Integer team_id, Integer user_id, String name, Integer dept_id) {
+		teamDAO.editTeam(team_id, user_id, name, dept_id);
+		
+	}
+
+	@Override
+	public Team getTeam(Integer team_id) {
+		return teamDAO.getTeam(team_id);
+	}
+
 }

@@ -176,14 +176,14 @@
 					<b class="correct">team removed</b>
 					</c:if>
 					</p>
-			        <div class="panel-group col-md-5 btn-group-vertical">
-			        	<button class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#myModal">New user</button>
-			        	<button class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#delUserModal">Remove user</button>
-	        			<button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#teamModal" >New team</button>
-			        	<button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#delTeamModal">Remove team</button>
+			        <div class="panel-group col-md-5 col-xs-8 btn-group-vertical">
+			        	<a class="col-md-12 col-xs-8" ><button style="width: 100%; border-radius: 0;" class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#myModal">New user</button></a>
+			        	 <!-- <button class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#delUserModal">Remove user</button>-->
+	        			<a class="col-md-12 col-xs-8" ><button style="width: 100%; border-radius: 0;" class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#teamModal" >New team</button></a>
+			        	<!--<button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#delTeamModal">Remove team</button>-->
 
-	        			<a href="${pageContext.request.contextPath}/users"><button class="btn btn-success btn-user btn-lg" >Edit users</button></a>
-
+	        			<a class="col-md-12 col-xs-8" href="${pageContext.request.contextPath}/users"><button style="width: 100%; border-radius: 0;" class="btn btn-default btn-user btn-lg" >Edit users</button></a>
+						<a class="col-md-12 col-xs-8" href="${pageContext.request.contextPath}/teams"><button style="width: 100%; border-radius: 0;" class="btn btn-default btn-user btn-lg" >Edit teams</button></a>
 	        			<!-- <button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#deptModal" >New department ???</button> -->
 			        </div>
 			        <div class="panel-group col-md-6">

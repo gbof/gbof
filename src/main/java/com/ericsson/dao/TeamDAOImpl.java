@@ -65,4 +65,25 @@ public class TeamDAOImpl implements TeamDAO {
 		sqlQuery.executeUpdate();
 	}
 
+	@Override
+	public void editTeam(Integer team_id, Integer user_id, String name, Integer dept_id) {
+		String query = "UPDATE teams SET team_name='"+name+"', leader_id='"+user_id+"', dept_id='"+dept_id+"' where team_id='"+team_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+
+	@Override
+	public Team getTeam(Integer team_id) {
+		List<Team> teamList = new ArrayList<Team>();
+		String sql = "from Team where team_id=:team_id";
+		Query query = openSession().createQuery(sql);
+		query.setParameter("team_id", team_id);
+		teamList = query.list();
+		if (teamList.size() > 0)
+			return teamList.get(0);
+		else
+			return null;
+	}
+
 }

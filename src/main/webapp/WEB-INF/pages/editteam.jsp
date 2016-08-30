@@ -31,55 +31,24 @@
 	<!-- Comments place -->
 	<div class="container">
 		<div class="col-md-4-offset-4">
-			<form role="form" method="POST" action="${pageContext.request.contextPath}/userEdited">
+			<form role="form" method="POST" action="${pageContext.request.contextPath}/teamEdited">
 		    	<div class="panel panel-default">  
 		        	<div class="panel-heading">
-		                    <h3 style="margin-bottom: 25px; text-align: center;">Edit user</h3>
+		                    <h3 style="margin-bottom: 25px; text-align: center;">Edit team</h3>
 		            </div>
 		            <div class="panel-body">
 		                    
 							<div class="form-group col-md-6 col-sm-6">
 								<label class="col-md-4">Name</label>
 								<div class="col-md-6">
-									<input value="${user.name }" class="form-control" name="name" required />
+									<input value="${team.getName() }" class="form-control" name="name" required />
 								</div>
-							</div>
-							<div class="form-group col-md-6 col-sm-6">
-								<label class="col-md-4">Surname</label>
-								<div class="col-md-6">
-									<input value="${user.surname }" class="form-control" name="surname" required />
-								</div>
-							</div>
-							<div class="form-group col-md-6 col-sm-6">
-								<label class="col-md-4">Login</label>
-								<div class="col-md-6">
-									<input value="${user.login }" class="form-control" name="login" required />
-								</div>
-							</div>
-							<div class="form-group col-md-6 col-sm-6">
-								<label class="col-md-4">Mail</label>
-								<div class="col-md-6">
-									<input value="${user.mail }" class="form-control" name="mail" required />
-								</div>
-							</div>							
+							</div>					
 						    <div class="form-group col-md-6 col-sm-6">
-						        <label class="col-md-4 control-label">Role</label>
-						        <div class="col-md-6 selectContainer">
-						            <select class="form-control" name="role">
-						                <option >${user.getRole().getRole() }</option>
-							            <c:forEach var="role" items="${rolelistt}">
-							                <option name = "role" value="${role.getRole()}"  >
-							                	<c:out value="${role.getRole()}" />
-							                </option>
-							            </c:forEach>
-						            </select>
-						        </div>
-					    	</div>
-					    	 <div class="form-group col-md-6 col-sm-6">
 						        <label class="col-md-4 control-label">Department</label>
 						        <div class="col-md-6 selectContainer">
 						            <select class="form-control" name="dept">
-						                <option>${user.getDept().getDeptName() }</option>
+						                <option >${deptName }</option>
 							            <c:forEach var="dept" items="${deptlistt}">
 							                <option name = "dept" value="${dept.getDeptName()}"  >
 							                	<c:out value="${dept.getDeptName()}" />
@@ -89,36 +58,30 @@
 						        </div>
 					    	</div>
 						     <div class="form-group col-md-6 col-sm-6">
-						        <label class="col-md-4 control-label">Team</label>
+						        <label class="col-md-4 control-label">Leader</label>
 						        <div class="col-md-6 selectContainer">
-						            <select class="form-control" name="team">
-						                <option>${user.getTeam().getName() }</option>
-							            <c:forEach var="team" items="${teamlistt}">
-							                <option name = "team" value="${team.getName()}"  >
-							                	<c:out value="${team.getName()}" />
+						            <select class="form-control" name="user">
+						                <option>${leaderName } ${leaderSurname } ${leaderLogin }</option>
+							            <c:forEach var="user" items="${listt}">
+							                <option name = "user" value="${user.getName()} ${user.getSurname() } ${user.getLogin()}"  >
+							                	<c:out value="${user.getName()} ${user.getSurname() } ${user.getLogin()}" />
 							                </option>
 							            </c:forEach>
 						            </select>
 						        </div>
-					    	</div>	
-					    	<div class="form-group col-md-6 col-sm-6">
-								<label class="col-md-4">Balls</label>
-								<div class="col-md-6">
-									<input value="${user.getBall().getBallsToGive() }" class="form-control" name="balls" required />
-								</div>
-							</div>												
-		           			<input type="hidden" name="user_id" value="${user.getId()}"/>
+					    	</div>												
+		           			<input type="hidden" name="team_id" value="${team.getId()}"/>
 		           			
 		           			
 		           	</div>	
 		           	<div class="panel-footer">	
   						<input type="submit" name="save" style="min-width: 100px;" class="btn btn-primary pull-right " value="Save"/>
-  						<button type="button" data-toggle="modal" data-target="#ModalRemoveUser" class="btn btn-primary btn-change pull-right" value="Remove">Delete user</button>
-		        		<a href="${pageContext.request.contextPath}/users"><input type="button" style="min-width: 100px;" class="btn btn-primary pull-left " id="back" name="back"value="Back" /></a>
+  						<!-- <button type="button" data-toggle="modal" data-target="#ModalRemoveTeam" class="btn btn-primary btn-change pull-right" value="Remove">Delete user</button>-->
+		        		<a href="${pageContext.request.contextPath}/teams"><input type="button" style="min-width: 100px;" class="btn btn-primary pull-left " id="back" name="back"value="Back" /></a>
         			</div>
 		    	</div>
 		    	
-		    		<div id="ModalRemoveUser" class="modal fade" role="dialog">
+		    		<div id="ModalRemoveTeam" class="modal fade" role="dialog">
 					  <div class="modal-dialog">
 					
 					    <!-- Modal content-->
@@ -128,7 +91,7 @@
 					        <h4 class="modal-title">Confirm</h4>
 					      </div>
 					      <div class="modal-body">
-					           	Delete this user ?
+					           	Delete this team ?
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>

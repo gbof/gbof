@@ -12,4 +12,6 @@ public interface DepartmentDAO {
 
 	public void addDept(String deptName, Integer leaderID);
 
+	public String getDeptName(Integer deptId);
+
 }

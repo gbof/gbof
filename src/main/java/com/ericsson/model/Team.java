@@ -15,6 +15,8 @@ public class Team {
 	private String team_name;
 	@Column(name="dept_id")
 	private Integer dept_id;
+	@Column(name="leader_id")
+	private Integer leader_id;
 	@OneToMany
 	@JoinColumn(name="team_id", referencedColumnName="team_id")
 	private Set<User> users;
@@ -52,5 +54,13 @@ public class Team {
 	
 	public void setUsers(Set<User> users){
 		this.users = users;
+	}
+	
+	public Integer getLeaderId(){
+		return leader_id;
+	}
+	
+	public void setLeaderId(Integer leader_id){
+		this.leader_id = leader_id;
 	}
 }
