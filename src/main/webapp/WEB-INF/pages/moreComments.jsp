@@ -47,18 +47,18 @@
 						      </tr>
 						    </thead>
 						    <tbody>
-							<c:forEach var="user" items="${listt1}" varStatus="status">
+							<c:forEach var="user" items="${listt1}"  begin="0" end="${listt1.size()-1}" varStatus="loop">
 					    	<tr>
 					   			<td>
 							    	<div class="checkbox">
-										<label><input type="checkbox" name = "userAddMoreIds" value = "${user.getId()}"></label>
+										<label><input type="checkbox" name = "userAddMoreIds" value = "${user.getId()}" ></label>
 									</div>
 								</td>
 								<td><c:out value="${user.name}" /></td>
 								<td><c:out value="${user.surname}" /></td>
 								<td><c:out value="${user.login}" /></td>
 					          <td><c:out value="${user.getTeam().getName()}" /></td>
-					          <td><c:out value="${user.getBall().getReceivedBalls()}" /></td>
+					          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
 					      	</tr>
 				  	<!--  <input type="hidden" name="message1List" value="<c:out value="${message1List[status.index]}" />"/>-->
 				  	

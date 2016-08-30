@@ -205,7 +205,7 @@ public class LinkNavigation {
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		String login = us.getUser(userName).getLogin();
-
+		Integer id1 = us.getUser(userName).getId();
 
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
 		
@@ -231,7 +231,13 @@ public class LinkNavigation {
 			}
 		}
 		model.addAttribute("listt1", listt1);
-
+		
+		List<Integer> allBallsGivenTo = new ArrayList<Integer>();
+		for(int i=0;i<listt1.size();i++){
+			allBallsGivenTo.addAll(cs.getAllBallsGivenTo(id1, listt1.get(i).getId()));
+			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
+		}
+		model.addAttribute("allBallsGivenTo", allBallsGivenTo);
 
 		String[] allMess1 = new String[message1List.size()];
 		for (int i = 0; i < message1List.size(); i++) {
@@ -307,29 +313,14 @@ public class LinkNavigation {
 		String[] message1List = allMess1s.split(";;;;;;");
 		String[] message2List = allMess2s.split(";;;;;;");
 		String[] ballsNumberLists = allBallss.split(";;;;;;");
-
 		
-		for (String message : message1List) {
-			
-		}
-
 	
-		for (String message : message2List) {
-			
-		}
-		
 
 		Integer[] ballsNumberList = new Integer[ballsNumberLists.length];
 		for (int i=0; i<ballsNumberLists.length; i++) {
 			ballsNumberList[i] = (Integer.parseInt(ballsNumberLists[i]));
 
 			}
-
-		
-		
-		for (Integer ball : ballsNumberList) {
-			
-		}
 
 
 		model.addAttribute("message1List", message1List);
