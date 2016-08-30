@@ -29,6 +29,9 @@
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition> 
 	
+	<div style="text-align: center; color:red; font-size:160%;" >
+<span id="balls"></span>
+</div>
 	
 	<!-- Comments place -->
 	<div class="container">
@@ -43,7 +46,7 @@
 								<label>${commentId.getUser().getName()} ${commentId.getUser().getSurname()}</label>
 							</div>
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" value="${commentId.getBallsPerCom()}" class="form-control" min="0" max="${commentId.getBallsPerCom() + kule}" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
+								<input type="number" value="${commentId.getBallsPerCom()}" class="form-control" min="0" max="${commentId.getBallsPerCom() + kule}" id="mobile" name="ballsNumber" placeholder="Number of balls" onkeyup="findTotal();" onmouseup="findTotal();" required />
 							</div>
 		                    <div class="form-group">
 		                    	<textarea class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7" required>${commentId.getFirstCom()}</textarea>
@@ -94,7 +97,28 @@
 		    </div>
 		</div>
 		</div>
-	
+	<script>
+	function findTotal(){
+	    var arr = document.getElementsByName('ballsNumber');
+	    var totalCount = ${kule + commentId.getBallsPerCom()};
+	    var tot=0;
+	    var total = ${kule};
+	    for(var i=0;i<arr.length;i++){
+	        if(parseInt(arr[i].value))
+	            tot += parseInt(arr[i].value);
+	    }
+	    if(totalCount-tot<0)
+	    	$('#balls').text("Rozdales za duzo kulek");
+	    else
+	    	{
+	    		total = totalCount;
+	    		var ballsLeft = total-tot;
+	    		$('#balls').text(ballsLeft).val();
+	    		balls = ballsLeft;
+	    	}
+	}
+
+	</script>
 
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 

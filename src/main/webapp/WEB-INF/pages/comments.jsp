@@ -98,11 +98,7 @@
 	    		balls = ballsLeft;
 	    	}
 	}
-	
-	function maxLengthCheck(object)
-	  {
-	      object.value = object.value.slice($('#balls').text(ballsLeft).val(), object.max)
-	  }
+
 	</script>
 
 	
