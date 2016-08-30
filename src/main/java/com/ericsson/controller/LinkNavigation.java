@@ -764,9 +764,22 @@ public class LinkNavigation {
 		String leaderSurname = us.getUserId(user_id).getSurname();
 		String leaderLogin = us.getUserId(user_id).getLogin();
 		
-		teamlistt.remove(team.getId()-1);
+		
+		List<User> users = new ArrayList<User>();
+		for (User t: listt){
+			users.add(t);
+		}
+		for (int i=0; i<users.size(); i++){
+			if ( users.get(i).getId() == user_id)
+				users.remove(i);
+		}
+
 		deptlistt.remove(dept_id-1);
-		listt.remove(user_id-1);
+		listt.clear();
+		for (User t: users){
+			listt.add(t);
+		}
+
 		
 		model.addAttribute("team", team);
 		model.addAttribute("leaderName", leaderName);

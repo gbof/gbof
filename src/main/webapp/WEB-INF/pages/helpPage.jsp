@@ -42,7 +42,7 @@
 								
 						</div>
 			        
-		       <a href="${pageContext.request.contextPath}/success-login"><input  class="btn btn-primary btn-change pull-back btn-back" value="Back"/></a>
+		       <a href="${pageContext.request.contextPath}/success-login"><input style="width: 100px;" class="btn btn-primary btn-change pull-back btn-back" value="Back"/></a>
 		      
 		     
 		        	</center>

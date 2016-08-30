@@ -72,11 +72,11 @@
 				</tbody>
 			</table>
 		</form>
-		<p>
-		<a href="${pageContext.request.contextPath}/success-login.html">Home page</a><br/>
-		</p>
+		
 	</div>
-	
+	<p>
+		<a href="${pageContext.request.contextPath}/success-login"><input style="width: 100px; margin-left: 30px;" class="btn btn-primary btn-change pull-left btn-back" value="Back"/></a>
+		</p>
 
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>

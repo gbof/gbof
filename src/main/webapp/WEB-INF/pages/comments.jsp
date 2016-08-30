@@ -69,7 +69,7 @@
 		                    </div>
 	           			</c:forEach>
 	           			
-			        <input type="submit" id="submit" name="submit" value="Send" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
+			        <input style="width: 100px;" type="submit" id="submit" name="submit" value="Send" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
 			        <input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 		      
 		        

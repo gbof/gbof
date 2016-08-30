@@ -72,7 +72,7 @@
 			</div>
 		</div>	
 		<div class=text-right>	     
-			<a href="${pageContext.request.contextPath}/settings"><input style="margin-left: 30px;" class="btn btn-primary btn-change pull-left btn-back" value="Back"/></a>
+			<a href="${pageContext.request.contextPath}/settings"><input style="width: 100px; margin-left: 30px;" class="btn btn-primary btn-change pull-left btn-back" value="Back"/></a>
 		</div>
 	</form>
 
