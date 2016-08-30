@@ -14,7 +14,7 @@ public interface UserService {
 
 	public void setBallsAfterComment(Integer id, Integer balls, Integer commentToUserId);
 
-	public void addUser(String name, String surname, String login, String password, Integer roleID, Integer teamID, 
+	public void addUser(String name, String surname, String login, Integer roleID, Integer teamID, 
 			Integer ballsID, String mail, Integer deptID);
 	public void removeUser(Integer user_id);
 	public void editUser(Integer user_id, String name, String surname, String login, String mail, Integer roleID,

@@ -1,7 +1,5 @@
 package com.ericsson.controller;
 
-
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -309,6 +307,7 @@ public class SecurityNavigation {
 			@RequestParam(value = "checkbox", required = false, defaultValue = "0") Integer[] isFreeze,
 			@RequestParam("helpMsg") String helpMsg)
 			 {
+		System.out.println("settingsadd");
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
@@ -377,6 +376,7 @@ public class SecurityNavigation {
 		modelAndView.addObject("userBasiclistt", userBasiclistt);
 		return modelAndView;
 	}
+
 	
 	@RequestMapping(value="/settingsAdd", params="extramoney1", method=RequestMethod.POST)
 	public ModelAndView settingsAddExtraMonney(
@@ -385,6 +385,8 @@ public class SecurityNavigation {
 			@RequestParam("extramoney") Double extramoney
 			)
 			 {
+		
+		System.out.println("extramoneyadd");
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();

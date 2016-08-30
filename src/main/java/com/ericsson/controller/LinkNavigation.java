@@ -448,10 +448,13 @@ public class LinkNavigation {
 	
 	@RequestMapping(value = "/userAdded", method = RequestMethod.POST)
 	public ModelAndView userAdded(
-			@RequestParam("name") String name, @RequestParam("surname") String surname,
-			@RequestParam("login") String login, @RequestParam("password") String password,
-			@RequestParam("roleName") String roleName, @RequestParam("teamName") String teamName,
-			@RequestParam("mail") String mail, @RequestParam("deptName") String deptName) {
+			@RequestParam("name") String name, 
+			@RequestParam("surname") String surname,
+			@RequestParam("login") String login, 
+			@RequestParam("roleName") String roleName, 
+			@RequestParam("teamName") String teamName,
+			@RequestParam("mail") String mail, 
+			@RequestParam("deptName") String deptName) {
 
 		// default initial values
 		received_balls = 0;
@@ -481,7 +484,7 @@ public class LinkNavigation {
 		List<Ball> lastBallId = bs.getBallId();
 		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 		List<User> listt = us.getAllUsers();
-		us.addUser(name, surname, login, password, roleId, teamID, ballsID, mail, deptID);
+		us.addUser(name, surname, login, roleId, teamID, ballsID, mail, deptID);
 		Integer userId = us.getUser(login).getId();
 		rus.add(userId, roleId);
 		List<Role> rolelistt = rs.getAllRoles();

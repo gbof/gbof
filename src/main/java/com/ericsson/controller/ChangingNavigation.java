@@ -45,6 +45,7 @@ public class ChangingNavigation {
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		
 		if(oldpassword.equals(passwordVerify)){                    
 			if(!newpassword.equals(newpassword2)){                    
 				ModelAndView modelAndView = new ModelAndView("changePassword");

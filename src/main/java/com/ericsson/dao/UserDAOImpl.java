@@ -3,6 +3,7 @@ package com.ericsson.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -116,9 +117,24 @@ public class UserDAOImpl implements UserDAO {
 	
 
 	@Override
-	public void addUser(String name, String surname, String login, String password, Integer roleID, Integer teamID, Integer ballsID, String mail, Integer deptID){
+	public void addUser(String name, String surname, String login, Integer roleID, Integer teamID, Integer ballsID, String mail, Integer deptID){
+			
+			Random r = new Random();
+			String RandomPassword="";
+			for(int i=0;i<10;i++)
+			{
+			
+			int a = r.nextInt(25) + 97;
+			
+			System.out.println((char)a);
+			RandomPassword+=(char)a;
+			}
+			
+			System.out.println(RandomPassword);
 			String FullMail=mail+"@ericsson.com";
-			String query = "INSERT INTO users (name, surname, login, password, role_id, team_id, balls_id, mail, dept_id) VALUES ('" + name +"', '"+ surname +"', '"+ login +"', '"+ password +"', '"+ roleID +"', '"+teamID+"', '"+ballsID+"', '"+FullMail+"', '"+deptID+"')";
+			
+			RandomPassword="user";
+			String query = "INSERT INTO users (name, surname, login, password, role_id, team_id, balls_id, mail, dept_id) VALUES ('" + name +"', '"+ surname +"', '"+ login +"', '"+ RandomPassword +"', '"+ roleID +"', '"+teamID+"', '"+ballsID+"', '"+FullMail+"', '"+deptID+"')";
 			SQLQuery sqlQuery = openSession().createSQLQuery(query);
 			sqlQuery.executeUpdate();
 		}

@@ -43,7 +43,6 @@
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition> 
 	
-
 	<div class="container-fluid main-container">
 	<p>
 		<c:if test="${correct == true}">
@@ -80,9 +79,7 @@
 						            </c:if>
 						        </div>
 						    </div>
-					    </div>
-	
-				            
+					    </div>		            
 					        	
 						            <div class="form-group col-md-12">
 								      <label class="col-md-3">Balls Per Person </label>
@@ -106,8 +103,7 @@
 								      	<input class="form-control" value="${settingsList.get(0).getDeadline()}" type=text name="deadline" required/>
 								      </div>
 								    </div>
-							
-					    
+								    
 						            <div class="form-group col-md-12">
 								      <label class="col-md-3" for="deadline">Extra balls </label>
 								      <div class="col-md-6">
@@ -125,14 +121,17 @@
 								    <div class="form-group col-md-12">
 						<label class="col-md-3">Extra money </label>
 						 <div class="col-md-6">
+
 						<input class="form-control" type =text value="0" name="extramoney" placeholder="PLN" required/>
 						
+						
 						</div>
+
 						<input type="submit" style="min-width: 100px;" name="extramoney1" class="btn btn-primary pull-right " value="Add extra money"/>
-						
+
+					
 						</div>
 						</div>
-						
 						
 	              	
 	              	<div class="panel-footer">
@@ -242,14 +241,7 @@
 	      		<input name="login" class="form-control" maxlength=5 id="login" type="text" placeholder="login" required/>
 	      		</div>
 	    	</div>
-	    	<div class="form-group col-md-12">
-	    	<div class="col-md-6 col-sm-6">
-	      		<label for="password">Password</label>
-	      		</div>
-	      		<div class="col-md-6 col-sm-6">
-	      		<input name="password" class="form-control" maxlength=30 id="password" type="text" placeholder="password" required/>
-	      		</div>
-	    	</div>
+	    	
 		      <div class="form-group col-md-12">
 		        <label class="col-md-6 control-label">Role</label>
 		        <div class="col-md-6 selectContainer">

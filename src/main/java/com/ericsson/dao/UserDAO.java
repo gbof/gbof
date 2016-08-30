@@ -9,7 +9,7 @@ public interface UserDAO {
 	public void setPassword(Integer id, String password);
 	public User getUserId(Integer id);
 	public void setBallsAfterComment(Integer id, Integer balls, Integer commentToUserId);
-	public void addUser(String name, String surname, String login, String password, Integer roleID, 
+	public void addUser(String name, String surname, String login, Integer roleID, 
 			Integer teamID, Integer ballsID, String mail, Integer deptID);
 	public void removeUser(Integer user_id);
 	public void editUser(Integer user_id, String name, String surname, String login, String mail, Integer roleID,
