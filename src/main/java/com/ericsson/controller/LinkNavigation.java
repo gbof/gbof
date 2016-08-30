@@ -96,7 +96,7 @@ public class LinkNavigation {
 	public ModelAndView helpPage() {
 		List<Settings> settingsList=sett.getSettings();
 		ModelAndView modelandview = new ModelAndView();
-		System.out.println(settingsList.get(0).getHelpMsg());
+		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		List<Double> money = sett.getMoney(1);

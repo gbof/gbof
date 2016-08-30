@@ -35,4 +35,9 @@ public class BallServiceImpl implements BallService {
 		public void removeBalls(Integer balls_id) {
 			ballDAO.removeBalls(balls_id);
 		}
+		
+		@Override
+		public List<Integer> getBallsToGive(){
+			return ballDAO.getBallsToGive();
+		}
 }

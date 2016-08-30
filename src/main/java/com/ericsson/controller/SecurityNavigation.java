@@ -124,8 +124,6 @@ public class SecurityNavigation {
 			allBallsGivenTo.addAll(coms.getAllBallsGivenTo(id, listt.get(i).getId()));
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
-		
-		System.out.println("Zalogowano: "+name);
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
 		lista.addObject("money", wynik);
@@ -163,8 +161,6 @@ public class SecurityNavigation {
 		
 	
 		List<Comment> commentConfirmedList = coms.getConfirmedComments();
-		
-		System.out.println("Zalogowano: "+name);
 		String role = us.getUser(userName).getRole().getRole();
 		ModelAndView lista = new ModelAndView();
 		
@@ -327,7 +323,6 @@ public class SecurityNavigation {
 		ModelAndView modelAndView = new ModelAndView("settings");
 		wynik = sett.round(wynik, 2);
 		Boolean freeze;
-		System.out.println("================ "+isFreeze[0].intValue());
 		if(isFreeze[0].intValue()==0)
 		freeze=false;
 		else
@@ -335,14 +330,14 @@ public class SecurityNavigation {
 		
 		if (money==null || ballsPerPers==null || deadline=="" || extraBalls==null)
 		{
-			System.out.println("Brak danych");
+			;
 			modelAndView.addObject("error", true);
 		}
 		else
 		{
 		modelAndView.addObject("correct", true);
 		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,1,helpMsg);
-		System.out.println("Zapisuje ustawienia");
+		
 		
 		}
 		
@@ -382,7 +377,8 @@ public class SecurityNavigation {
 		modelAndView.addObject("userBasiclistt", userBasiclistt);
 		return modelAndView;
 	}
-	@RequestMapping(value="/settingsAdd", params="extramoney", method=RequestMethod.POST)
+	
+	@RequestMapping(value="/settingsAdd", params="extramoney1", method=RequestMethod.POST)
 	public ModelAndView settingsAddExtraMonney(
 			
 			@RequestParam("money") Double money,
@@ -422,7 +418,7 @@ public class SecurityNavigation {
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
 		}
 		List<Settings> settingsList=sett.getSettings();
-		System.out.println(settingsList.get(0).getHelpMsg());
+		
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
@@ -465,9 +461,7 @@ public class SecurityNavigation {
 		lista.addObject("kule", kulki);
 		lista.addObject("login", login);
 
-		for (int i=0; i<listt.size(); i++){
-			System.out.println("User:  "+listt.get(i).getRole());
-		}
+	
 		
 		lista.addObject("listt", listt);
 		lista.setViewName("users");

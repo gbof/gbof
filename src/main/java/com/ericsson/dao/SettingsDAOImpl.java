@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ericsson.model.Settings;
 import com.ericsson.model.User;
-
+import com.ericsson.service.BallService;
 import com.ericsson.model.Settings;
 
 @Repository
@@ -21,6 +21,9 @@ public class SettingsDAOImpl implements SettingsDAO{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private BallService ballservice;
 	
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
@@ -40,9 +43,7 @@ public class SettingsDAOImpl implements SettingsDAO{
 		}
 
 		
-
-		
-		String queryInsert = "UPDATE settings SET extra_balls='"+extraBalls+"', balls_per_person='"+balls_per_pers+"', money='"+money+"', deadline='"+deadline+"', freeze='"+freezeId+"',balls_left='"+0+"',helpMsg='"+helpMsg+"' WHERE settings_id='"+settings_id+"'";
+		String queryInsert = "UPDATE settings SET extra_balls='"+extraBalls+"', balls_per_person='"+balls_per_pers+"', money='"+money+"', deadline='"+deadline+"', freeze='"+freezeId+"',balls_left='"+ballservice.getBallsToGive().get(0)+"',helpMsg='"+helpMsg+"' WHERE settings_id='"+settings_id+"'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(queryInsert);
 
 		sqlQuery.executeUpdate();

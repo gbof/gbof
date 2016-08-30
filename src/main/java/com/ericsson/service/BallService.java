@@ -14,4 +14,6 @@ public interface BallService {
 
 	public void removeBalls(Integer balls_id);
 	
+	public List<Integer> getBallsToGive();
+	
 }

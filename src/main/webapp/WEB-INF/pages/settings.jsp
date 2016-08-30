@@ -95,7 +95,7 @@
 						            <div class="form-group col-md-12">
 								      <label class="col-md-3">Money </label>
 								      <div class="col-md-6">
-								      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN"/>
+								      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN" required/>
 								      </div>
 								    </div>
 							
@@ -103,7 +103,7 @@
 						            <div class="form-group col-md-12">
 								      <label class="col-md-3" >Deadline</label>
 								      <div class="col-md-6">
-								      	<input class="form-control" value="${settingsList.get(0).getDeadline()}" type=text name="deadline"/>
+								      	<input class="form-control" value="${settingsList.get(0).getDeadline()}" type=text name="deadline" required/>
 								      </div>
 								    </div>
 							
@@ -111,24 +111,24 @@
 						            <div class="form-group col-md-12">
 								      <label class="col-md-3" for="deadline">Extra balls </label>
 								      <div class="col-md-6">
-								      	<input class="form-control" value="${settingsList.get(0).getExtraBalls()}" type=text name="extraBalls"/>
+								      	<input class="form-control" value="${settingsList.get(0).getExtraBalls()}" type=text name="extraBalls" required/>
 								      </div>
 								    </div>
 								     <div class="form-area">
 								      <label class="col-md-3" for="deadline">Help message </label>
 								      <div class="col-md-6">
 
-								      	<textarea style="height: 400px; width: 600px;" class="form-control" type=text name="helpMsg" ${settingsList.get(0).getHelpMsg()}>${settingsList.get(0).getHelpMsg()}</textarea>
+								      	<textarea style="height: 400px; width: 600px;" class="form-control" type=text name="helpMsg" required>${settingsList.get(0).getHelpMsg()}</textarea>
 
 								      </div>
 								    </div>
 								    <div class="form-group col-md-12">
 						<label class="col-md-3">Extra money </label>
 						 <div class="col-md-6">
-						<input class="form-control"  type =text name="extramoney" placeholder="PLN"/>
+						<input class="form-control" type =text value="0" name="extramoney" placeholder="PLN" required/>
 						
 						</div>
-						<input type="submit" style="min-width: 100px;" name= extramoney class="btn btn-primary pull-right " value="Add extra money"/>
+						<input type="submit" style="min-width: 100px;" name="extramoney1" class="btn btn-primary pull-right " value="Add extra money"/>
 						
 						</div>
 						</div>
@@ -136,7 +136,7 @@
 						
 	              	
 	              	<div class="panel-footer">
-						<input type="submit" style="min-width: 100px;" name=save class="btn btn-primary pull-right " value="Save"/>
+						<input type="submit" style="min-width: 100px;" name="save" class="btn btn-primary pull-right " value="Save"/>
 						</form>
 				
 					</div>
