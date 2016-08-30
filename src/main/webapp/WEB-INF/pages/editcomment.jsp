@@ -43,7 +43,7 @@
 								<label>${commentId.getUser().getName()} ${commentId.getUser().getSurname()}</label>
 							</div>
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" value="${commentId.getBallsPerCom()}" class="form-control" min="0" max="${kule}" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
+								<input type="number" value="${commentId.getBallsPerCom()}" class="form-control" min="0" max="${commentId.getBallsPerCom() + kule}" id="mobile" name="ballsNumber" placeholder="Number of balls" required />
 							</div>
 		                    <div class="form-group">
 		                    	<textarea class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7" required>${commentId.getFirstCom()}</textarea>
