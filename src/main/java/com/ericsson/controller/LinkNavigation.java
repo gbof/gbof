@@ -559,7 +559,7 @@ public class LinkNavigation {
 
 			@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
 			@RequestParam(value = "login") String login, @RequestParam(value = "mail") String mail,
-			@RequestParam(value = "role") String role,
+			@RequestParam(value = "role") String role, @RequestParam(value = "dept") String dept,
 			@RequestParam(value = "team") String team, @RequestParam(value = "balls") Integer balls,
 			@RequestParam("user_id") Integer user_id,
 			Model model
@@ -668,11 +668,21 @@ public class LinkNavigation {
 		
 		String login = us.getUser(userName).getLogin();
 		
-		String[] words = leaderLogin.split("\\s+");
-		leaderLogin = words[2];
 
-		User userList = us.getUser(leaderLogin);
-		Integer leaderID = userList.getId();
+		User userList;
+		Integer leaderID;
+		
+		if (leaderLogin.equals("no leader")){
+			userList = us.getUser(login);
+			leaderID = userList.getId();
+		} else {
+			String[] words = leaderLogin.split("\\s+");
+			leaderLogin = words[2];
+			
+			userList = us.getUser(leaderLogin);
+			leaderID = userList.getId();
+		}
+		
 
 		Integer deptID = us.getUser(userName).getDept().getDeptId();
 

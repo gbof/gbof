@@ -314,11 +314,11 @@
 					        <label class="col-md-6 control-label">Leader</label>
 					        <div class="col-md-6 selectContainer">
 					            <select class="form-control" name="leaderLogin">
-					             
+					        		<option name = "leaderLogin" value="no leader" >
+					        				<c:out value="no leader" />
 						            <c:forEach var="user" items="${userBasiclistt}">
 						                <option name = "leaderLogin" value="${user}">
 						                	<c:out value="${user}" />
-						            
 						            </c:forEach>
 					            </select>
 					        </div>
