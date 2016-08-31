@@ -49,4 +49,8 @@ public class TeamServiceImpl implements TeamService {
 		return teamDAO.getTeam(team_id);
 	}
 
+	@Override
+	public void editTeamLeader(Integer team_id){
+		teamDAO.editTeamLeader(team_id);
+	}
 }

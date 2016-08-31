@@ -17,4 +17,6 @@ public interface TeamDAO {
 	public void editTeam(Integer team_id, Integer leader_id, String name, Integer dept_id);
 
 	public Team getTeam(Integer team_id);
+	
+	public void editTeamLeader(Integer team_id);
 }

@@ -40,6 +40,7 @@
 						      	<th>Department</th>
 						        <th>Leader</th>
 						        <th>Edit</th>
+						        <th>Delete</th>
 						      </tr>
 						    </thead>
 						    <tbody>
@@ -49,8 +50,8 @@
 							        <td><c:out value="${team.getName()}" /></td>
 							        <td><c:out value="${deptNames[status.index]}" /></td>
 							        <td><c:out value="${leaderNames[status.index]} ${leaderSurnames[status.index] }" /></td>
-							        <td><a href="${pageContext.request.contextPath}/editteam"><button name="buttonComId" value="${team.getId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
-												      
+							        <td><button name="edit" value="${team.getId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
+									<td><button name="delete" value="${team.getId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a></td>		      
 								    </tr>
 								</c:forEach>
 	

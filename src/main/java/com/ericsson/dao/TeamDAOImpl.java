@@ -8,10 +8,13 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import com.ericsson.model.Role;
 import com.ericsson.model.Team;
+import com.ericsson.service.UserService;
 
 @Repository
 public class TeamDAOImpl implements TeamDAO {
@@ -19,6 +22,9 @@ public class TeamDAOImpl implements TeamDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Autowired
+	private UserService us;
+	
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -85,5 +91,15 @@ public class TeamDAOImpl implements TeamDAO {
 		else
 			return null;
 	}
-
+	
+	@Override
+	public void editTeamLeader(Integer team_id) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		Integer user_id = us.getUser(userName).getId();
+		String query = "UPDATE teams SET leader_id='"+user_id+"' where team_id='"+team_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
 }

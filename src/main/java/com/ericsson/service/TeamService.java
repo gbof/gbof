@@ -18,5 +18,6 @@ public interface TeamService {
 
 	public Team getTeam(Integer team_id);
 	
+	public void editTeamLeader(Integer team_id);
 
 }

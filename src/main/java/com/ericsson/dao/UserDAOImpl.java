@@ -14,7 +14,9 @@ import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
 
+import com.ericsson.model.Team;
 import com.ericsson.model.User;
+import com.ericsson.service.TeamService;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -22,6 +24,9 @@ public class UserDAOImpl implements UserDAO {
 	 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private TeamService teamService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 	
@@ -145,6 +150,12 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void removeUser(Integer user_id) {
+		List <Team> teamList = teamService.getAllTeams();
+		for(int i=0;i<teamList.size();i++){
+			if(teamList.get(i).getLeaderId().equals(user_id)){
+				teamService.editTeamLeader(teamList.get(i).getId());
+			}
+		}
 		String query = "delete from users where user_id="+user_id;
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();

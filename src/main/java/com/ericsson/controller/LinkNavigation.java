@@ -769,9 +769,9 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/editteam", method = RequestMethod.POST)
+	@RequestMapping(value = "/editteam",  params="edit", method = RequestMethod.POST)
 	public String editTeamPage(
-		@RequestParam(value = "buttonComId") Integer buttonComId, Model model) {
+		@RequestParam(value = "edit") Integer buttonComId, Model model) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		String login = us.getUser(userName).getLogin();
@@ -816,6 +816,27 @@ public class LinkNavigation {
 		return "editteam";
 	}
 	
+	//Delete team
+		@RequestMapping(value = "/editteam", params="delete", method = RequestMethod.POST)
+		public ModelAndView teamRemoved(@RequestParam(value = "delete") Integer teamDelId){
+			List<User> listt = us.getAllUsers();
+
+		
+			ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+			boolean check = true;
+			for(int i=0;i<listt.size();i++){
+				if(ts.getTeam(teamDelId).getId()==listt.get(i).getTeam().getId())
+					check = false;
+			}
+			
+			if(check){
+				ts.removeTeam(teamDelId);
+			}
+			else
+				System.out.println("============= NIE MOGE");
+			return modelAndView;
+		}
+	
 	@RequestMapping(value = "/teamEdited", params="save", method = RequestMethod.POST)
 	public ModelAndView teamEdited(
 
@@ -840,6 +861,7 @@ public class LinkNavigation {
 		model.addAttribute("login", login);
 		return modelAndView;
 	}
+	
 	
 	
 	@RequestMapping(value = "/teams", method = RequestMethod.GET)
@@ -926,67 +948,6 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/teamRemoved", method = RequestMethod.POST)
-	public ModelAndView teamRemoved(@RequestParam(value = "teamDelIds", required = false, defaultValue = "") Integer[] teamDelIds) {
-		List<User> listt = us.getAllUsers();
-		List<Double> money = sett.getMoney(1);
-		Double moneyValue = money.get(0);
-		List<Long> ballValue2List = cs.getBallValue2();
-		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue / ballValue2);
-		wynik = sett.round(wynik, 2);
-		
-		
-		
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = userDetails.getUsername();
-		
-		String login = us.getUser(userName).getLogin();
-		
-		String role = us.getUser(userName).getRole().getRole();
-		
-		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		List<Role> rolelistt = rs.getAllRoles();
-		List<Team> teamlistt = ts.getAllTeams();
-		List<Department> deptlistt = ds.getAllDepts();
-
-	
-		 
-		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
-		if(teamDelIds.length == 0)
-			return modelAndView;
-			else{
-		for (int i = 0; i < teamDelIds.length; i++) {
-			ts.removeTeam(teamDelIds[i]);
-		}
-
-		List<String> userBasiclistt = new ArrayList<String>();
-		List<Settings> settingsList=sett.getSettings();
-		String _name;
-		String _surname;
-		String _login;
-		for (int i=0; i<listt.size(); i++){
-			_name = listt.get(i).getName();
-			_surname = listt.get(i).getSurname();
-			_login = listt.get(i).getLogin();
-			userBasiclistt.add(_name+" "+_surname+" "+_login);
-		}
-		modelAndView.addObject("tremoved", true);
-		modelAndView.addObject("listt", listt);
-		modelAndView.addObject("settingsList",settingsList);
-		modelAndView.addObject("money", wynik);
-		modelAndView.addObject("kule", kulki);
-		modelAndView.addObject("rola", role);
-		modelAndView.addObject("login", login);
-		modelAndView.addObject("rolelistt", rolelistt);
-		modelAndView.addObject("teamlistt", teamlistt);
-		modelAndView.addObject("deptlistt", deptlistt);
-		modelAndView.addObject("userBasiclistt", userBasiclistt);
-
-			}
-
-		return modelAndView;
-	}
 	
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
 	public ModelAndView sendMail(){
