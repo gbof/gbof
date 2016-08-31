@@ -68,7 +68,9 @@ public class UserServiceImpl implements UserService {
 	public void setBallsAfterCommentDelete(Integer id, Integer balls, Integer commentToUserId){
 		userDAO.setBallsAfterCommentDelete(id, balls, commentToUserId);
 	}
-
+	public Boolean checkLogin(String login){
+		return userDAO.checkLogin(login);
+	}
 
 
 }

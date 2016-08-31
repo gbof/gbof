@@ -18,10 +18,15 @@
       	.correct {
 		color: green;
 		}
+		
 		.error {
 		color: red;
-		.Uadded {
-		color: green;
+		}
+		
+		.Ubadlogin {
+		color: red;
+		}
+		
 		.uRemoved{
 		color: green
 		}
@@ -158,6 +163,11 @@
              		<p>
 					<c:if test="${Uadded == true}">
 					<b class="correct">User added</b>
+					</c:if>
+					</p>
+					<p>
+					<c:if test="${Ubadlogin == true}">
+					<b class="error">User can not be added, login is not available</b>
 					</c:if>
 					</p>
 					<p>

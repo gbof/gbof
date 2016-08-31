@@ -158,7 +158,27 @@ public class UserDAOImpl implements UserDAO {
 		sqlQuery.executeUpdate();
 		
 	}
+	
+	public Boolean checkLogin(String login)
+	{
+		List<User> loginList = new ArrayList<User>();
 		
+		Query query = openSession().createQuery("from User u where u.login = :login");
+		query.setParameter("login", login);
+		loginList = query.list();
+		
+		if (loginList.size() == 0)
+		{
+			System.out.println("Login wolny");
+			return true;
+		}
+		else
+		{
+			System.out.println("Login zajety");
+			return false;
+		}
+		
+	}
 
 	
 	

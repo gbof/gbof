@@ -446,26 +446,28 @@ public class LinkNavigation {
 		List<Settings> settingsList = sett.getSettings();
 		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
 		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
-
+		
+		
+		
 		List<Role> roleList = rs.getRoleId(roleName);
 		Integer roleId = roleList.get(0).getId();
-
+		
 		System.out.println("roleId==="+roleId);
+		
 		Team teamList = ts.getTeamID(teamName);
 		Integer teamID = teamList.getId();
 
 		Integer deptID = us.getUser(userName).getDept().getDeptId();
 
-		bs.addBall(received_balls, balls_to_give, locked, cash);
+		
 
 		List<Ball> lastBallId = bs.getBallId();
 		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 		List<User> listt = us.getAllUsers();
-		us.addUser(name, surname, login, roleId, teamID, ballsID, mail, deptID);
 		
-		Integer userId = us.getUser(login).getId();
-		System.out.println("userId==="+userId);
-		rus.add(userId, roleId);
+		
+		
+
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
@@ -489,13 +491,30 @@ public class LinkNavigation {
 		wynik = sett.round(wynik, 2);
 		
 
-		
 		ModelAndView modelAndView = new ModelAndView("settings");
+		
+		if (us.checkLogin(login)==true)
+		{
+			
+			bs.addBall(received_balls, balls_to_give, locked, cash);
+			us.addUser(name, surname, login, roleId, teamID, ballsID, mail, deptID);
+			Integer userId = us.getUser(login).getId();
+			rus.add(userId, roleId);
+			modelAndView.addObject("Uadded", true);
+		}
+		else
+		{
+			modelAndView.addObject("Ubadlogin", true);
+		}
+		
+				
+		
+		
 		if(sett.getSettingsFreeze().get(0)==1)
 			modelAndView.addObject("checked", true);
 		else
 			modelAndView.addObject("checked", false);
-		modelAndView.addObject("Uadded", true);
+		
 		modelAndView.addObject("settingsList",settingsList);
 		modelAndView.addObject("listt", listt);
 		modelAndView.addObject("money", wynik);
