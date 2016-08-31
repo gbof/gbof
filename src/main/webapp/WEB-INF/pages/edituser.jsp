@@ -104,7 +104,7 @@
 					    	<div class="form-group col-md-6 col-sm-6">
 								<label class="col-md-4">Balls</label>
 								<div class="col-md-6">
-									<input value="${user.getBall().getBallsToGive() }" class="form-control" name="balls" required />
+									<input value="${user.getBall().getBallsToGive()}" class="form-control" name="balls" required />
 								</div>
 							</div>												
 		           			<input type="hidden" name="user_id" value="${user.getId()}"/>
@@ -146,7 +146,17 @@
 	</div>
 		
 		
-	
+	<script>
+	$(document).ready(function(){
+		   var $form = $('form');
+		   $form.submit(function(){
+		      $.post($(this).attr('action'), $(this).serialize(), function(response){
+		            // do something here on success
+		      },'json');
+		      return false;
+		   });
+		});
+	</script>
 
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 

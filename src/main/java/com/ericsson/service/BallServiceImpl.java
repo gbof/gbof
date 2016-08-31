@@ -26,8 +26,8 @@ public class BallServiceImpl implements BallService {
 		}
 
 		@Override
-		public void editBallsToGive(Integer user_id, Integer balls) {
-			ballDAO.editBallsToGive(user_id, balls);
+		public void editBallsToGive(Integer balls_id, Integer balls) {
+			ballDAO.editBallsToGive(balls_id, balls);
 			
 		}
 

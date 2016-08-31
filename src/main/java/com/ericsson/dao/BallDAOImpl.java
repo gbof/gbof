@@ -57,8 +57,8 @@ public class BallDAOImpl implements BallDAO {
 	}
 
 	@Override
-	public void editBallsToGive(Integer user_id, Integer balls) {
-		String query = "UPDATE balls SET balls_to_give='"+balls+"'  WHERE balls_id ='"+user_id+"'";
+	public void editBallsToGive(Integer balls_id, Integer balls) {
+		String query = "UPDATE balls SET balls_to_give='"+balls+"'  WHERE balls_id ='"+balls_id+"'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 		

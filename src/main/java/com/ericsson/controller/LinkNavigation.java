@@ -663,7 +663,7 @@ public class LinkNavigation {
 
 			@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
 			@RequestParam(value = "login") String login, @RequestParam(value = "mail") String mail,
-			@RequestParam(value = "role") String role, @RequestParam(value = "dept") String dept,
+			@RequestParam(value = "role") String role,
 			@RequestParam(value = "team") String team, @RequestParam(value = "balls") Integer balls,
 			@RequestParam("user_id") Integer user_id,
 			Model model
@@ -675,8 +675,10 @@ public class LinkNavigation {
 		Integer roleID = rs.getRoleId(role).get(0).getId();
 		Integer deptID = us.getUser(login1).getDept().getDeptId();
 		Integer teamID = ts.getTeamID(team).getId();
+		Integer balls_id = us.getUserId(user_id).getBall().getBallsId();
 		
-		bs.editBallsToGive(user_id, balls);
+		
+		bs.editBallsToGive(balls_id, balls);
 		rus.editRole(user_id, roleID);
 		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/users");

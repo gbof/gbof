@@ -119,7 +119,7 @@
 								      <label class="col-md-3" for="deadline">Help message </label>
 								      <div class="col-md-6">
 
-								      	<textarea style="height: 400px; width: 600px;" class="form-control" type=text name="helpMsg" required>${settingsList.get(0).getHelpMsg()}</textarea>
+								      	<textarea style="height: 300px; width: 600px;" class="form-control" type=text name="helpMsg" required>${settingsList.get(0).getHelpMsg()}</textarea>
 
 								      </div>
 								    </div>
@@ -212,7 +212,7 @@
            </div>
        </div>
    </div>
-   <a href="${pageContext.request.contextPath}/adminview"><input  class="btn btn-primary btn-change pull-left btn-back" value="Back"/></a>
+   <a href="${pageContext.request.contextPath}/adminview"><input style="width: 100px;" class="btn btn-primary btn-change pull-left btn-back" value="Back"/></a>
 
 	
 	<!-- Modal -->
