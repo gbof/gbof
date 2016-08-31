@@ -871,12 +871,26 @@ public class LinkNavigation {
 		List<String> leaderNames = new ArrayList<String>();
 		List<String> leaderSurnames = new ArrayList<String>();
 		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		String login = us.getUser(userName).getLogin();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		
 		for (Team t : teamlistt){
 			deptNames.add(ds.getDeptName(t.getDeptId()));
 			leaderNames.add(us.getUserId(t.getLeaderId()).getName());
 			leaderSurnames.add(us.getUserId(t.getLeaderId()).getSurname());
 		}
 		ModelAndView lista = new ModelAndView();
+		lista.addObject("money", wynik);
+		lista.addObject("login", login);
+		lista.addObject("kule", kulki);
 		lista.addObject("teamlistt", teamlistt);
 		lista.addObject("deptNames", deptNames);
 		lista.addObject("leaderNames", leaderNames);
