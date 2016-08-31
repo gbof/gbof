@@ -45,6 +45,7 @@
 						        <th>Team</th>
 						        <th>Balls to give</th>
 								<th>Edit</th>
+								<th>Delete</th>
 						      </tr>
 						    </thead>
 						    <tbody>
@@ -59,8 +60,11 @@
 							        <td><c:out value="${user.getDept().getDeptName()}" /></td>
 							        <td><c:out value="${user.getTeam().getName()}" /></td>
 							        <td><c:out value="${user.getBall().getBallsToGive() }" /></td>
-							        <td><a href="${pageContext.request.contextPath}/edituser"><button name="buttonComId" value="${user.getId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
-												      
+							        <td><a href="${pageContext.request.contextPath}/edituser"><button name="buttonComId" value="${user.getId()}" type="submit" 
+							        	class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
+									<td><a ><button name="delete" data-toggle="modal" data-target="#ModalRemoveUser${user.getId()}" 
+										value="${user.getId()}" type="button"  class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" 
+										aria-hidden="true"></span></button></a></td>			      
 								    </tr>
 								</c:forEach>
 	
@@ -74,9 +78,35 @@
 		<div class=text-right>	     
 			<a href="${pageContext.request.contextPath}/settings"><input style="width: 100px; margin-left: 30px;" class="btn btn-primary btn-change pull-left btn-back" value="Back"/></a>
 		</div>
+
+		<c:forEach var="user" items="${listt}">
+	  		<div id="ModalRemoveUser${user.getId()}" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+			
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title">Confirm</h4>
+			      </div>
+			      <div class="modal-body">
+			           	Delete this user ?
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+			         <button type="submit" value="${user.getId()}" name="delete" class="btn btn-primary btn-change pull-right" >Delete</button>
+			      </div>
+			    
+			    </div>
+			
+			  </div>
+			</div>		
+		</c:forEach>
+	
+	
 	</form>
-
-
+	
+		
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>

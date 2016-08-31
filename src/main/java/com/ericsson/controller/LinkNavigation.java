@@ -509,7 +509,7 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/edituser", method = RequestMethod.POST)
+	@RequestMapping(value = "/edituser", params="buttonComId", method = RequestMethod.POST)
 	public String editUserPage(@RequestParam(value = "buttonComId") Integer buttonComId, Model model) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
@@ -553,36 +553,16 @@ public class LinkNavigation {
 		return "edituser";
 	}
 	
-	
-	@RequestMapping(value = "/userEdited", params="save", method = RequestMethod.POST)
-	public ModelAndView userEdited(
-
-			@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
-			@RequestParam(value = "login") String login, @RequestParam(value = "mail") String mail,
-			@RequestParam(value = "role") String role, @RequestParam(value = "dept") String dept,
-			@RequestParam(value = "team") String team, @RequestParam(value = "balls") Integer balls,
-			@RequestParam("user_id") Integer user_id,
-			Model model
-
-	) {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = userDetails.getUsername();
-		String login1 = us.getUser(userName).getLogin();
-		Integer roleID = rs.getRoleId(role).get(0).getId();
-		Integer deptID = us.getUser(login1).getDept().getDeptId();
-		Integer teamID = ts.getTeamID(team).getId();
-		
-		bs.editBallsToGive(user_id, balls);
-		rus.editRole(user_id, roleID);
-		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
-		ModelAndView modelAndView = new ModelAndView("redirect:/users");
-
-		return modelAndView;
+	@RequestMapping(value = "/edituser", params="delete", method = RequestMethod.POST)
+	public String deleteUserPage(@RequestParam(value = "delete") Integer delete, Model model) {
+		model.addAttribute("delete", delete);
+		return "redirect:/userRemoved";
 	}
 	
-	@RequestMapping(value = "/userEdited", params="delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/userRemoved", method = RequestMethod.GET)
 	public ModelAndView userRemoved(
-			@RequestParam("user_id") Integer user_id){
+			@ModelAttribute("delete") Integer buttonComId, 
+			Model model){
 		
 		List<User> listt = us.getAllUsers();
 		Integer comId;
@@ -633,7 +613,7 @@ public class LinkNavigation {
 		modelAndView.addObject("deptlistt", deptlistt);
 		modelAndView.addObject("userBasiclistt", userBasiclistt);
 		
-		Integer[] userDelIds = {user_id};
+		Integer[] userDelIds = {buttonComId};
 		if(userDelIds.length == 0)
 		{
 			modelAndView.addObject("uRemoved", false);
@@ -657,6 +637,39 @@ public class LinkNavigation {
 		}
 		}
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/userEdited", params="save", method = RequestMethod.POST)
+	public ModelAndView userEdited(
+
+			@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
+			@RequestParam(value = "login") String login, @RequestParam(value = "mail") String mail,
+			@RequestParam(value = "role") String role, @RequestParam(value = "dept") String dept,
+			@RequestParam(value = "team") String team, @RequestParam(value = "balls") Integer balls,
+			@RequestParam("user_id") Integer user_id,
+			Model model
+
+	) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String login1 = us.getUser(userName).getLogin();
+		Integer roleID = rs.getRoleId(role).get(0).getId();
+		Integer deptID = us.getUser(login1).getDept().getDeptId();
+		Integer teamID = ts.getTeamID(team).getId();
+		
+		bs.editBallsToGive(user_id, balls);
+		rus.editRole(user_id, roleID);
+		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
+		ModelAndView modelAndView = new ModelAndView("redirect:/users");
+
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/userEdited", params="delete", method = RequestMethod.POST)
+	public String userRemoved1(
+			@RequestParam("user_id") Integer user_id, Model model){
+			model.addAttribute("delete", user_id);
+			return "redirect:/userRemoved";
 	}
 
 	@RequestMapping(value = "/teamAdded", method = RequestMethod.POST)
@@ -789,7 +802,6 @@ public class LinkNavigation {
 
 			@RequestParam(value = "name") String name, 
 			@RequestParam(value = "user") String user,
-			@RequestParam(value = "dept") String dept,
 			@RequestParam(value = "team_id") Integer team_id,
 			Model model
 
@@ -801,7 +813,7 @@ public class LinkNavigation {
 		String login = us.getUser(userName).getLogin();
 		System.out.println("leader:="+leader);
 		Integer leaderID = us.getUser(leader).getId();
-		Integer deptID = ds.getDeptID(dept).getDeptId();
+		Integer deptID = us.getUser(userName).getDept().getDeptId();
 		
 		ts.editTeam(team_id, leaderID, name, deptID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/teams");

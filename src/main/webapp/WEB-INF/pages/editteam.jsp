@@ -43,7 +43,7 @@
 								<div class="col-md-6">
 									<input value="${team.getName() }" class="form-control" name="name" required />
 								</div>
-							</div>					
+							</div><!--  			
 						    <div class="form-group col-md-6 col-sm-6">
 						        <label class="col-md-4 control-label">Department</label>
 						        <div class="col-md-6 selectContainer">
@@ -56,7 +56,7 @@
 							            </c:forEach>
 						            </select>
 						        </div>
-					    	</div>
+					    	</div>-->		
 						     <div class="form-group col-md-6 col-sm-6">
 						        <label class="col-md-4 control-label">Leader</label>
 						        <div class="col-md-6 selectContainer">
