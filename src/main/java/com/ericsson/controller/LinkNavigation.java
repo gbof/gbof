@@ -1057,13 +1057,23 @@ public class LinkNavigation {
 		wynik = sett.round(wynik, 2);
 		String login = us.getUser(userName).getLogin();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		ModelAndView lista = new ModelAndView();
 		
+		;
+		
+		if(teamlistt==null)
+		{
+			lista.setViewName("noTeams");
+			return lista;
+		}
+		
+		else{
 		for (Team t : teamlistt){
 			deptNames.add(ds.getDeptName(t.getDeptId()));
 			leaderNames.add(us.getUserId(t.getLeaderId()).getName());
 			leaderSurnames.add(us.getUserId(t.getLeaderId()).getSurname());
-		}
-		ModelAndView lista = new ModelAndView();
+		}}
+		
 		lista.addObject("money", wynik);
 		lista.addObject("login", login);
 		lista.addObject("kule", kulki);
@@ -1157,5 +1167,11 @@ public class LinkNavigation {
 		
 		
 		return new ModelAndView("redirect:/success-login");
+	}
+	@RequestMapping(value="/noTeams", method=RequestMethod.GET)
+	public ModelAndView noTeamsPage() {
+		ModelAndView lista = new ModelAndView();
+		lista.setViewName("noTeams");
+		return lista;
 	}
 }
