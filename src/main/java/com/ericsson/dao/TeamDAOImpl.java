@@ -31,9 +31,12 @@ public class TeamDAOImpl implements TeamDAO {
 	
 	@Override
 	public List<Team> getAllTeams() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		Integer dept_id = us.getUser(userName).getDept().getDeptId();
 		List<Team> teamsList = new ArrayList<Team>();
 		
-		String sql = "from Team";
+		String sql = "from Team where dept_id='"+dept_id+"'";
 		Query query = openSession().createQuery(sql);
 		
 		teamsList = query.list();

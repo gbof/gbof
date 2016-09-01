@@ -8,15 +8,21 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import com.ericsson.model.Comment;
 import com.ericsson.model.User;
+import com.ericsson.service.UserService;
 
 @Repository
 public class CommentDAOImpl implements CommentDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private UserService us;
 	
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
@@ -24,10 +30,24 @@ public class CommentDAOImpl implements CommentDAO{
 	public List<Comment> getAllComments() {
 		List<Comment> commentsList = new ArrayList<Comment>();
 		
-		String sql = "FROM Comment WHERE confirmed = false";
-		Query query = openSession().createQuery(sql);
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		Integer dept_id = us.getUser(userName).getDept().getDeptId();
 		
+		List<User> listt = us.getAllUsers();
+		String sql = "FROM Comment c where (";
+		for(int i=0;i<listt.size();i++){
+				Integer user_id = listt.get(i).getId();
+				sql = sql+"c.creator_id = '"+user_id+"'";
+				if(i!=listt.size()-1)
+					sql = sql + " or ";
+				else
+					sql = sql + ") and c.confirmed=false";
+			}
+			
+		Query query = openSession().createQuery(sql);
 		commentsList = query.list();
+		System.out.println("==== "+commentsList);
 		if (commentsList.size() > 0)
 			return commentsList;
 		else
@@ -38,7 +58,7 @@ public class CommentDAOImpl implements CommentDAO{
 	{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
-		Query query = openSession().createQuery("from Comment where creator_id = :id");
+		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false");
 		query.setParameter("id", id);
 		commentList = query.list();
 		if (commentList.size() > 0)
@@ -64,16 +84,25 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	public List<Comment> getConfirmedComments() {
 		List<Comment> commentsConfirmedList = new ArrayList<Comment>();
-		Boolean conf = true;
-		String sql = "from Comment where confirmed = true";
-		Query query = openSession().createQuery(sql);
+	
+	List<User> listt = us.getAllUsers();
+	String sql = "FROM Comment c where (";
+	for(int i=0;i<listt.size();i++){
+			Integer user_id = listt.get(i).getId();
+			sql = sql+"c.creator_id = '"+user_id+"'";
+			if(i!=listt.size()-1)
+				sql = sql + " or ";
+			else
+				sql = sql + ") and c.confirmed=true";
+		}
 		
-		commentsConfirmedList = query.list();
-		System.out.println(commentsConfirmedList);
-		if (commentsConfirmedList.size() > 0)
-			return commentsConfirmedList;
-		else
-			return null;	
+	Query query = openSession().createQuery(sql);
+	commentsConfirmedList = query.list();
+	System.out.println("==== "+commentsConfirmedList);
+	if (commentsConfirmedList.size() > 0)
+		return commentsConfirmedList;
+	else
+		return null;		
 	}
     
 	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id, Integer commentToUserId){

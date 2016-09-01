@@ -20,7 +20,6 @@ public class ChangingNavigation {
 	@Autowired
 	private UserService us;
 	
-
 	@Autowired
 	private SettingService sett;
 	@Autowired

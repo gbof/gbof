@@ -5,6 +5,8 @@ import java.util.List;
 
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -59,9 +61,13 @@ public class UserDAOImpl implements UserDAO {
 	
 
 	public List<User> getAllUsers() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		Integer dept_id = getUser(userName).getDept().getDeptId();
+		
 		List<User> usersList = new ArrayList<User>();
 		
-		String sql = "from User order by surname";
+		String sql = "from User where dept_id = '" + dept_id + "' order by surname";
 		Query query = openSession().createQuery(sql);
 		
 		usersList = query.list();

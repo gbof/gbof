@@ -160,7 +160,6 @@ public class SecurityNavigation {
 		wynik = sett.round(wynik, 2);
 		
 		List<Comment> commentList = coms.getAllComments();
-		
 	
 		List<Comment> commentConfirmedList = coms.getConfirmedComments();
 		String role = us.getUser(userName).getRole().getRole();
