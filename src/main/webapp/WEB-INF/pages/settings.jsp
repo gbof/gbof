@@ -33,8 +33,11 @@
 		.tadded{
 		color: green
 		}
-		.tRemoved{
+		.tremoved{
 		color: green
+		}
+		.tnotremoved{
+		color: red
 		}
 	}
 	
@@ -183,6 +186,11 @@
 					<p>
 					<c:if test="${tremoved == true}">
 					<b class="correct">team removed</b>
+					</c:if>
+					</p>
+					<p>
+					<c:if test="${tnotremoved == true}">
+					<b class="correct">team not removed</b>
 					</c:if>
 					</p>
 			        <div class="panel-group col-md-5 col-xs-8 btn-group-vertical">

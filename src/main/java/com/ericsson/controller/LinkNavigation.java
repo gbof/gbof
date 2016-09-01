@@ -1,6 +1,7 @@
 package com.ericsson.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -568,7 +569,7 @@ public class LinkNavigation {
 		model.addAttribute("deptlistt", deptlistt);
 		model.addAttribute("teamlistt", teamlistt);
 		model.addAttribute("ballstogive", ballstogive);
-		
+
 		return "edituser";
 	}
 	
@@ -580,8 +581,7 @@ public class LinkNavigation {
 	
 	@RequestMapping(value = "/userRemoved", method = RequestMethod.GET)
 	public ModelAndView userRemoved(
-			@ModelAttribute("delete") Integer buttonComId, 
-			Model model){
+			@ModelAttribute("delete") Integer buttonComId, Model model){
 		
 		List<User> listt = us.getAllUsers();
 		Integer comId;
@@ -824,7 +824,7 @@ public class LinkNavigation {
 			List<User> listt = us.getAllUsers();
 
 		
-			ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+			ModelAndView modelAndView = new ModelAndView();
 			boolean check = true;
 			for(int i=0;i<listt.size();i++){
 				if(ts.getTeam(teamDelId).getId()==listt.get(i).getTeam().getId())
@@ -833,8 +833,10 @@ public class LinkNavigation {
 			
 			if(check){
 				ts.removeTeam(teamDelId);
+				modelAndView.setViewName("redirect:/teamRemoved");
 			}
 			else
+				modelAndView.setViewName("redirect:/settings");
 				System.out.println("============= NIE MOGE");
 			return modelAndView;
 		}
@@ -863,7 +865,73 @@ public class LinkNavigation {
 		model.addAttribute("login", login);
 		return modelAndView;
 	}
-	
+	@RequestMapping(value = "/teamRemoved",  method = RequestMethod.GET)
+	public ModelAndView  teamRemoved()
+		 {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String name = us.getUser(userName).getName();
+		String login = us.getUser(userName).getLogin();
+		
+		String role = us.getUser(userName).getRole().getRole();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		List<User> listt = us.getAllUsers();
+		List<String> userBasiclistt = new ArrayList<String>();
+		
+		String _name;
+		String _surname;
+		String _login;
+		for (int i=0; i<listt.size(); i++){
+			_name = listt.get(i).getName();
+			_surname = listt.get(i).getSurname();
+			_login = listt.get(i).getLogin();
+			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+		
+		List<Role> rolelistt = rs.getAllRoles();
+		List<Team> teamlistt = ts.getAllTeams();
+		List<Department> deptlistt = ds.getAllDepts();
+
+		List<Settings> settingsList=sett.getSettings();
+		
+		
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		
+
+		 Date date = new Date();
+		   Date date1 = sett.getSettingsDate().get(0);
+		   if(date1.before(date)){
+			   sett.setToFrozen();
+		   }
+
+		
+		ModelAndView lista = new ModelAndView();
+		
+		if(sett.getSettingsFreeze().get(0)==1)
+			lista.addObject("checked", true);
+		else
+			lista.addObject("checked", false);
+		
+		lista.addObject("tremoved", true);
+		lista.addObject("settingsList",settingsList);
+		lista.addObject("listt", listt);
+		lista.addObject("money", wynik);
+		lista.addObject("kule", kulki);
+		lista.addObject("rola", role);
+		lista.addObject("login", login);
+		lista.addObject("rolelistt", rolelistt);
+		lista.addObject("teamlistt", teamlistt);
+		lista.addObject("deptlistt", deptlistt);
+		lista.addObject("userBasiclistt", userBasiclistt);
+		lista.setViewName("settings");
+		return lista;
+	}
 	
 	
 	@RequestMapping(value = "/teams", method = RequestMethod.GET)

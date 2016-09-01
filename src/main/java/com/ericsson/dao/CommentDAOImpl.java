@@ -58,7 +58,10 @@ public class CommentDAOImpl implements CommentDAO{
 	{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
+
 		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false");
+
+
 		query.setParameter("id", id);
 		commentList = query.list();
 		if (commentList.size() > 0)

@@ -47,9 +47,27 @@
 							</div>
 							
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
-									placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
+							
+							<c:set var="rola" value="${user.role.id}"/>
+							<c:set var="admin" value="1"/>
+							<c:if test="${rola == admin}" >
+							This person is admin, You can not give him balls
+							<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
+								placeholder="Number of balls" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
+							
+							</c:if>
+							<c:set var="rola" value="${user.role.id}"/>
+							<c:set var="admin" value="1"/>
+							<c:if test="${rola != admin}" >
+							
+							<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
+								placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
+							
+							
+							</c:if>
+							
 							</div>
+							
 		                    <div class="form-group">
 		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1"
 
@@ -64,8 +82,6 @@
 		                    	<textarea class="form-control" type="textarea" value="message2" name="message2" id="message2"
 		                    		placeholder="What can I do better?" maxlength="140" rows="7" required>${message2List[status.index]}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
-                    
-
 		                    </div>
 	           			</c:forEach>
 	           			
