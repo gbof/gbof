@@ -18,4 +18,5 @@ public interface UserDAO {
 	public void setBallsAfterCommentEdit(Integer id, Integer oldBalls, Integer balls, Integer commentToUserId);
 	public void setBallsAfterCommentDelete(Integer id, Integer balls, Integer commentToUserId);
 	public Boolean checkLogin(String login);
+	public void editRoleID(Integer leader_id, int role_id);
 }

@@ -71,6 +71,11 @@ public class UserServiceImpl implements UserService {
 	public Boolean checkLogin(String login){
 		return userDAO.checkLogin(login);
 	}
+	@Override
+	public void editRoleID(Integer leader_id, int role_id) {
+		userDAO.editRoleID(leader_id, role_id);
+		
+	}
 
 
 }

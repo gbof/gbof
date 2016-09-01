@@ -197,6 +197,13 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 
+	@Override
+	public void editRoleID(Integer leader_id, int role_id) {
+		String query = "UPDATE users SET role_id='"+role_id+"' where user_id='"+leader_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+
 	
 	
 }

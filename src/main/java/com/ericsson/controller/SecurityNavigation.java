@@ -95,8 +95,10 @@ public class SecurityNavigation {
 				return new ModelAndView("redirect:/freeze");
 			else if (role.getRole().equals("moderator"))
 				return new ModelAndView("redirect:/inside");
-			else
+			else if (role.getRole().equals("user"))
 				return new ModelAndView("redirect:/inside");
+			else
+				return new ModelAndView("redirect:/superUser");
 	}
 	
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
@@ -183,6 +185,55 @@ public class SecurityNavigation {
 		lista.addObject("login", login);
 		lista.addObject("teamlistt", teamlistt);
 		lista.setViewName("adminview");
+		return lista;
+	}
+	
+	@RequestMapping(value="/superUser", method=RequestMethod.GET)
+	public ModelAndView superuserPage() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String login = us.getUser(userName).getLogin();
+		
+		List<User> listt = us.getAllUsers();
+		List<String> userBasiclistt = new ArrayList<String>();
+		List<Department> deptlistt = ds.getAllDepts();
+		
+		System.out.println("====="+us.getUser(userName).getDept().getDeptName());
+		
+		for (int i=0; i<deptlistt.size(); i++){
+			if (deptlistt.get(i).getDeptName().equals(us.getUser(userName).getDept().getDeptName()))
+				deptlistt.remove(i);
+		}
+		List<String> deptLeaders = new ArrayList<String>();
+		List<Team> teamlistt = ts.getAllTeams();
+		String leader;
+		
+		for(Department d : deptlistt){
+			leader = us.getUserId(d.getDeptLeaderId()).getName() + " " + us.getUserId(d.getDeptLeaderId()).getSurname();
+			deptLeaders.add(leader);
+		}
+		
+		String _name;
+		String _surname;
+		String _login;
+		for (int i=0; i<listt.size(); i++){
+			_name = listt.get(i).getName();
+			_surname = listt.get(i).getSurname();
+			_login = listt.get(i).getLogin();
+			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+		
+
+		String rola = "superuser";
+		
+		ModelAndView lista = new ModelAndView();
+		lista.addObject("login", login);
+		lista.addObject("rola", rola);
+		lista.addObject("userBasiclistt", userBasiclistt);
+		lista.addObject("deptlistt", deptlistt);
+		lista.addObject("deptLeaders", deptLeaders);
+		lista.addObject("teamlistt", teamlistt);
+		lista.setViewName("superUser");
 		return lista;
 	}
 	
@@ -280,8 +331,11 @@ public class SecurityNavigation {
 		   if(date1.before(date)){
 			   sett.setToFrozen();
 		   }
-
-
+		   
+		for (int i=0; i<rolelistt.size(); i++){
+			if (rolelistt.get(i).getRole().equals("superuser") || rolelistt.get(i).getRole().equals("admin"))
+				rolelistt.remove(i);
+		}
 		ModelAndView lista = new ModelAndView();
 		
 		if(sett.getSettingsFreeze().get(0)==1)

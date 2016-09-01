@@ -201,7 +201,7 @@
 
 	        			<a class="col-md-12 col-xs-8" href="${pageContext.request.contextPath}/users"><button style="width: 100%; border-radius: 0;" class="btn btn-default btn-user btn-lg" >Edit users</button></a>
 						<a class="col-md-12 col-xs-8" href="${pageContext.request.contextPath}/teams"><button style="width: 100%; border-radius: 0;" class="btn btn-default btn-user btn-lg" >Edit teams</button></a>
-	        			<!-- <button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#deptModal" >New department ???</button> -->
+	        			
 			        </div>
 			        <div class="panel-group col-md-6">
 			        </div>
@@ -351,48 +351,7 @@
 	</div>
 </div>
 
-	<!-- teamModal -->
-<div id="deptModal" class="modal fade" role="dialog">
- 	<div class="modal-dialog">
 
-    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	           <button type="button" class="close" data-dismiss="modal">&times;</button>
-	           <h4 class="modal-title">Add department</h4>
-	      </div>
-	      	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/deptAdded">
-	      	      <div class="">
-	      	     	 	<div class="form-group col-md-12">
-	      	      	   		<div class="col-md-6 col-sm-6">
-				      			<label for="deptName">Name</label>
-				      		</div>
-				      		<div class="col-md-6 col-sm-6">
-				      			<input name="deptName" class="form-control" id="teamName" type="text" placeholder="name" required/>
-				      		</div>
-				    	</div>
-					      <div class="form-group col-md-12">
-					        <label class="col-md-6 control-label">Leader</label>
-					        <div class="col-md-6 selectContainer">
-					            <select class="form-control" name="leaderLogin">
-					           
-						            <c:forEach var="user" items="${userBasiclistt}">
-						                <option name = "leaderLogin" value="${user}">
-						                	<c:out value="${user}" />
-						            
-						            </c:forEach>
-					            </select>
-					        </div>
-				    	</div>
-				    </div>
-				    <div class="modal-footer">
-				        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-				        <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
-				    </div>
-	      	</form>
-		</div>
-	</div>
-</div>
 
 <div id="delUserModal" class="modal fade" role="dialog">
   <div class="modal-dialog">

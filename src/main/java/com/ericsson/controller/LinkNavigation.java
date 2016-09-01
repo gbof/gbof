@@ -509,7 +509,10 @@ public class LinkNavigation {
 		}
 		
 				
-		
+		for (int i=0; i<rolelistt.size(); i++){
+			if (rolelistt.get(i).getRole().equals("superuser") || rolelistt.get(i).getRole().equals("admin"))
+				rolelistt.remove(i);
+		}
 		
 		if(sett.getSettingsFreeze().get(0)==1)
 			modelAndView.addObject("checked", true);
@@ -528,6 +531,109 @@ public class LinkNavigation {
 		modelAndView.addObject("userBasiclistt", userBasiclistt);
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/userAddedforsuperuser", method = RequestMethod.POST)
+	public ModelAndView userAddedforsuperuser(
+			@RequestParam("name") String name, 
+			@RequestParam("surname") String surname,
+			@RequestParam("login") String login, 
+			@RequestParam("roleName") String roleName, 
+			@RequestParam("teamName") String teamName,
+			@RequestParam("mail") String mail,
+			@RequestParam("deptName") String deptName) {
+
+		// default initial values
+		received_balls = 0;
+		locked = false;
+		cash = 0;
+
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String login2 = us.getUser(userName).getLogin();
+		String role = us.getUser(userName).getRole().getRole();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		List<Settings> settingsList = sett.getSettings();
+		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
+		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
+		
+		
+		
+		List<Role> roleList = rs.getRoleId(roleName);
+		Integer roleId = roleList.get(0).getId();
+		
+		System.out.println("roleId==="+roleId);
+		
+		Team teamList = ts.getTeamID(teamName);
+		Integer teamID = teamList.getId();
+
+		Integer deptID = ds.getDeptID(deptName).getDeptId();
+
+		
+
+		List<Ball> lastBallId = bs.getBallId();
+		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
+		List<User> listt = us.getAllUsers();
+		
+		
+		
+
+		List<Role> rolelistt = rs.getAllRoles();
+		List<Team> teamlistt = ts.getAllTeams();
+		List<Department> deptlistt = ds.getAllDepts();
+		List<String> userBasiclistt = new ArrayList<String>();
+		String _name;
+		String _surname;
+		String _login;
+		for (int i=0; i<listt.size(); i++){
+			_name = listt.get(i).getName();
+			_surname = listt.get(i).getSurname();
+			_login = listt.get(i).getLogin();
+			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+				
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+
+		
+
+		ModelAndView modelAndView = new ModelAndView("superUser");
+		
+		if (us.checkLogin(login)==true)
+		{
+			
+			bs.addBall(received_balls, balls_to_give, locked, cash);
+			us.addUser(name, surname, login, roleId, teamID, ballsID, mail, deptID);
+			Integer userId = us.getUser(login).getId();
+			rus.add(userId, roleId);
+			modelAndView.addObject("Uadded", true);
+			modelAndView.addObject("Ubadlogin", false);
+		}
+		else
+		{
+			modelAndView.addObject("Ubadlogin", true);
+			modelAndView.addObject("Uadded", false);
+		}
+
+		List<String> deptLeaders = new ArrayList<String>();
+		String leader;
+		
+		for(Department d : deptlistt){
+			leader = us.getUserId(d.getDeptLeaderId()).getName() + " " + us.getUserId(d.getDeptLeaderId()).getSurname();
+			deptLeaders.add(leader);
+		}
+		modelAndView.addObject("settingsList",settingsList);
+		modelAndView.addObject("listt", listt);
+		modelAndView.addObject("kule", kulki);
+		modelAndView.addObject("rola", role);
+		modelAndView.addObject("login", login2);
+		modelAndView.addObject("rolelistt", rolelistt);
+		modelAndView.addObject("teamlistt", teamlistt);
+		modelAndView.addObject("deptlistt", deptlistt);
+		modelAndView.addObject("userBasiclistt", userBasiclistt);
+		modelAndView.addObject("deptLeaders", deptLeaders);
+		return modelAndView;
+	}
+	
 	
 	@RequestMapping(value = "/edituser", params="buttonComId", method = RequestMethod.POST)
 	public String editUserPage(@RequestParam(value = "buttonComId") Integer buttonComId, Model model) {
@@ -970,7 +1076,8 @@ public class LinkNavigation {
 	}
 	
 	@RequestMapping(value = "/deptAdded", method = RequestMethod.POST)
-	public ModelAndView deptAdded(@RequestParam("deptName") String deptName,
+	public ModelAndView deptAdded(
+			@RequestParam("deptName") String deptName,
 			@RequestParam("leaderLogin") String leaderLogin) {
 
 		String[] words = leaderLogin.split("\\s+");
@@ -979,8 +1086,10 @@ public class LinkNavigation {
 		User userList = us.getUser(leaderLogin);
 		Integer leaderID = userList.getId();
 
+		rus.editRole(leaderID, 1);
+		us.editRoleID(leaderID, 1);
 		ds.addDept(deptName, leaderID);
-		ModelAndView modelAndView = new ModelAndView("redirect:/settings");
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 	
 		return modelAndView;
 	}

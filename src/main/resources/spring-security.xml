@@ -18,10 +18,12 @@
 		<intercept-url pattern="/edituser" access="ROLE_ADMIN" />
 		<intercept-url pattern="/userEdited" access="ROLE_ADMIN" />
 		<intercept-url pattern="/teamAdded" access="ROLE_ADMIN" />
-		<intercept-url pattern="/deptAdded" access="ROLE_ADMIN" />
 		<intercept-url pattern="/userRemoved" access="ROLE_ADMIN" />
 		<intercept-url pattern="/confirmedComm" access="ROLE_ADMIN" />
 		<intercept-url pattern="/teamRemoved" access="ROLE_ADMIN" />
+		<intercept-url pattern="/superUser" access="ROLE_SUPERUSER" />
+		<intercept-url pattern="/deptAdded" access="ROLE_SUPERUSER" />
+		<intercept-url pattern="/userAddedforsuperuser" access="ROLE_SUPERUSER" />
 		
 		
 		
