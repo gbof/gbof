@@ -13,5 +13,7 @@ public interface DepartmentService {
 	public void addDept(String deptName, Integer leaderID);
 
 	public String getDeptName(Integer deptId);
+	
+	public Department getDept(Integer deptId);
 
 }

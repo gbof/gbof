@@ -51,7 +51,18 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		else
 			return null;
 	}
-
+	@Override
+	public Department getDept(Integer dept_id) {
+		List<Department> deptList = new ArrayList<Department>();
+		String sql = "from Department where dept_id=:dept_id";
+		Query query = getCurrentSession().createQuery(sql);
+		query.setParameter("dept_id", dept_id);
+		deptList = query.list();
+		if (deptList.size() > 0)
+			return deptList.get(0);
+		else
+			return null;
+	}
 
 	@Override
 	public void addDept(String deptName, Integer leaderID) {

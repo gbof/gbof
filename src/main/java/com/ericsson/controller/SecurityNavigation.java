@@ -360,7 +360,7 @@ public class SecurityNavigation {
 			@RequestParam("ballsPerPers") Integer ballsPerPers,
 			@RequestParam("money") Double money,
 			@RequestParam("deadline") String deadline,
-			@RequestParam("extraBalls") Integer extraBalls,
+			
 			@RequestParam(value = "checkbox", required = false, defaultValue = "0") Integer[] isFreeze,
 			@RequestParam("helpMsg") String helpMsg)
 			 {
@@ -384,7 +384,7 @@ public class SecurityNavigation {
 		else
 			freeze=true;
 		
-		if (money==null || ballsPerPers==null || deadline=="" || extraBalls==null)
+		if (money==null || ballsPerPers==null || deadline=="")
 		{
 			;
 			modelAndView.addObject("error", true);
@@ -392,7 +392,7 @@ public class SecurityNavigation {
 		else
 		{
 		modelAndView.addObject("correct", true);
-		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,1,helpMsg);
+		sett.addSetting(ballsPerPers,money,deadline,freeze,1,helpMsg);
 		
 		
 		}

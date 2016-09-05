@@ -86,7 +86,7 @@
 											          <td><c:out value="${user.surname}" /></td>
 											          <td><c:out value="${user.login}" /></td>
 											          <td><c:out value="${user.getTeam().getName()}" /></td>
-											          <td><c:out value="${user.getBall().getReceivedBalls()}" /></td>
+											          <td><c:out value="${user.getBall().getBallsToGive()}" /></td>
 											          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
 											      </tr>
 						            			</c:forEach>

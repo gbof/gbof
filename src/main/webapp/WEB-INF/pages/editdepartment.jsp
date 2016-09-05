@@ -31,17 +31,17 @@
 	<!-- Comments place -->
 	<div class="container">
 		<div class="col-md-4-offset-4">
-			<form role="form" method="POST" action="${pageContext.request.contextPath}/teamEdited">
+			<form role="form" method="POST" action="${pageContext.request.contextPath}/deptEdited">
 		    	<div class="panel panel-default">  
 		        	<div class="panel-heading">
-		                    <h3 style="margin-bottom: 25px; text-align: center;">Edit team</h3>
+		                    <h3 style="margin-bottom: 25px; text-align: center;">Edit department</h3>
 		            </div>
 		            <div class="panel-body">
 		                    
 							<div class="form-group col-md-6 col-sm-6">
 								<label class="col-md-4">Name</label>
 								<div class="col-md-6">
-									<input value="${team.getName() }" class="form-control" name="name" required />
+									<input value="${dept.getDeptName()}" class="form-control" name="name" required />
 								</div>
 							</div><!--  			
 						    <div class="form-group col-md-6 col-sm-6">
@@ -70,7 +70,7 @@
 						            </select>
 						        </div>
 					    	</div>												
-		           			<input type="hidden" name="team_id" value="${team.getId()}"/>
+		           			<input type="hidden" name="dept_id" value="${deptartment.getDeptId()}"/>
 		           			
 		           			
 		           	</div>	

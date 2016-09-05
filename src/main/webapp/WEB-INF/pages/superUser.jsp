@@ -48,11 +48,12 @@
 
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition> 
-	<form method="POST" action="${pageContext.request.contextPath}/editdepartment">	
+	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
+				<form method="POST" action="${pageContext.request.contextPath}/editdepartment">	
 					<div class="panel-heading">
 						Current departments
 					</div>				
@@ -69,8 +70,8 @@
 								<tr>
 									<td><c:out value="${dept.getDeptName()}" /></td>
 									<td><c:out value="${deptLeaders[status.index] }" /></td>
-									 <td><button name="edit" value="${team.getId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
-									<td><button name="delete" value="${team.getId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a></td>		      
+									 <td><button name="edit" value="${dept.getDeptId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
+									<td><button name="delete" value="${dept.getDeptId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a></td>		      
 								   
 								</tr>
 								</c:forEach>
@@ -79,6 +80,7 @@
 					</div>
 					<div class="panel-footer">
 					</div>
+					</form>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -110,7 +112,7 @@
 			</div>
 		</div>
 	</div>
-	</form>
+	
 	
 
 	

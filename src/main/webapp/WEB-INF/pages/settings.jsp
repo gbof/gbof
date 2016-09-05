@@ -112,12 +112,7 @@
 								      </div>
 								    </div>
 								    
-						            <div class="form-group col-md-12">
-								      <label class="col-md-3" for="deadline">Extra balls </label>
-								      <div class="col-md-6">
-								      	<input class="form-control" value="${settingsList.get(0).getExtraBalls()}" type=text name="extraBalls" required/>
-								      </div>
-								    </div>
+						           
 								     <div class="form-area">
 								      <label class="col-md-3" for="deadline">Help message </label>
 								      <div class="col-md-6">
