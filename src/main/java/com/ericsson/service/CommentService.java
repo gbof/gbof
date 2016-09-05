@@ -23,6 +23,6 @@ public interface CommentService {
  
 
 	public Comment getCommentId(Integer id);
-
+	public void setConfirmAll();
 
 }

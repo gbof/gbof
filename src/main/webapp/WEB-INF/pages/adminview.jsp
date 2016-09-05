@@ -180,7 +180,7 @@
 											        <th>First Comment</th>
 											        <th>Second Comment</th>
 											        <th align="right" style="width:40px">Edit</th>
-											        <th align="right" style="width:40px">Confirm</th>
+											        
 											        <th align="right" style="width:40px">Delete</th>
 											      </tr>
 											    </thead>
@@ -196,12 +196,6 @@
 											      
 											      <td align="center"><button type="submit" name="buttonComId" value="${comment.getComId()}" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
 
-											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
-											      
-											      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
-											      
-											      
-											      
 											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal1${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
 											      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      </tr>

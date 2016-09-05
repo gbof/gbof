@@ -65,6 +65,9 @@ public class CommentServiceImpl implements CommentService{
 		commentDAO.setConfirm(id);
 	}
 	
+	public void setConfirmAll(){
+		commentDAO.setConfirmAll();
+	}
 
 	public Comment getCommentId(Integer id)
 	{

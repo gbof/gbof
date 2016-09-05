@@ -87,7 +87,10 @@ public class SecurityNavigation {
 		   Date date1 = sett.getSettingsDate().get(0);
 		   if(date1.before(date)){
 			   sett.setToFrozen();
+			   coms.setConfirmAll();
 		   }
+		   
+		   
 		   
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("redirect:/adminview");
@@ -252,7 +255,8 @@ public class SecurityNavigation {
 		
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		ModelAndView modelAndView = new ModelAndView("freeze");
-		
+		System.out.println("freeze zrobiony");
+		coms.setConfirmAll();
 		modelAndView.addObject("kule", kulki);
 		modelAndView.addObject("money", wynik);
 		modelAndView.addObject("login", login);
@@ -309,13 +313,17 @@ public class SecurityNavigation {
 			_login = listt.get(i).getLogin();
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
 		}
-		
+	
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
 
 		List<Settings> settingsList=sett.getSettings();
 		
+		if(settingsList.get(0).getFreeze()==1)
+		{
+			coms.setConfirmAll();
+		}
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
@@ -330,6 +338,7 @@ public class SecurityNavigation {
 		   Date date1 = sett.getSettingsDate().get(0);
 		   if(date1.before(date)){
 			   sett.setToFrozen();
+			   coms.setConfirmAll();
 		   }
 		   
 		for (int i=0; i<rolelistt.size(); i++){
@@ -369,15 +378,9 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		String login = us.getUser(userName).getLogin();
-		List<Double> Lmoney = sett.getMoney(1);
-		Double moneyValue = Lmoney.get(0);
-		List<Long> ballValue2List = coms.getBallValue2();
 		
-		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue/ballValue2);
-		wynik = sett.round(wynik, 2);
 		ModelAndView modelAndView = new ModelAndView("settings");
-		wynik = sett.round(wynik, 2);
+		
 		Boolean freeze;
 		if(isFreeze[0].intValue()==0)
 		freeze=false;
@@ -418,11 +421,19 @@ public class SecurityNavigation {
 		   Date date1 = sett.getSettingsDate().get(0);
 		   if(date1.before(date)){
 			   sett.setToFrozen();
+			   coms.setConfirmAll();
 		   }
 		if(sett.getSettingsFreeze().get(0)==1)
 			modelAndView.addObject("checked", true);
 		else
 			modelAndView.addObject("checked", false);
+		List<Double> Lmoney = sett.getMoney(1);
+		Double moneyValue = Lmoney.get(0);
+		List<Long> ballValue2List = coms.getBallValue2();
+		
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue/ballValue2);
+		wynik = sett.round(wynik, 2);
 		modelAndView.addObject("settingsList",settingsList);
 		modelAndView.addObject("money", wynik);
 		modelAndView.addObject("kule", kulki);
@@ -485,6 +496,7 @@ public class SecurityNavigation {
 		   Date date1 = sett.getSettingsDate().get(0);
 		   if(date1.before(date)){
 			   sett.setToFrozen();
+			   coms.setConfirmAll();
 		   }
 		if(sett.getSettingsFreeze().get(0)==1)
 			modelAndView.addObject("checked", true);

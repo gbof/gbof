@@ -19,5 +19,5 @@ public interface CommentDAO {
 	public boolean checkNull(String string);
 	public void setConfirm(Integer id);
 	public Comment getCommentId(Integer id);
-
+	public void setConfirmAll();
 }

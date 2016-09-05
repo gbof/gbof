@@ -172,6 +172,14 @@ public class CommentDAOImpl implements CommentDAO{
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}
+	
+	public void setConfirmAll()
+	{
+		String query = "UPDATE comments SET confirmed = 1";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		System.out.println("==========Robie freeze=====");
+	}
 
 	public Comment getCommentId(Integer id) {
 		List<Comment> commentList = new ArrayList<Comment>();

@@ -1197,10 +1197,12 @@ public class LinkNavigation {
 	@RequestMapping(value = "/confirmedComm", params="confirmButton", method = RequestMethod.POST)
 	public ModelAndView confirmComm(@RequestParam("confirmButton") Integer commId) {
 		cs.setConfirm(commId);
-
+		
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 		return modelAndView;
 	}
+	
+	
 	@RequestMapping(value = "/confirmedComm", params="buttonComId", method = RequestMethod.POST)
 	public ModelAndView adminEditComm(@RequestParam("buttonComId")  Integer buttonComId, Model model) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
