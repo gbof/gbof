@@ -15,6 +15,7 @@
 	
 	<style>
       	<%@include file="/web-resources/css/settings.css" %>
+      	
       	.correct {
 		color: green;
 		}

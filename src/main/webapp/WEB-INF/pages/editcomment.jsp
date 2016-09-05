@@ -46,7 +46,23 @@
 								<label>${commentId.getUser().getName()} ${commentId.getUser().getSurname()}</label>
 							</div>
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" value="${commentId.getBallsPerCom()}" class="form-control" min="0" max="${commentId.getBallsPerCom() + kule}" id="mobile" name="ballsNumber" placeholder="Number of balls" onkeyup="findTotal();" onmouseup="findTotal();" required />
+							<c:set var="rola" value="${commentId.getUser().getId()}"/>
+							<c:set var="admin" value="1"/>
+							<c:if test="${rola == admin}" >
+							This person is admin, You cannot give him balls
+							<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
+								placeholder="Number of balls" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
+							
+							</c:if>
+							<c:set var="rola" value="${commentId.getUser().getId()}"/>
+							<c:set var="admin" value="1"/>
+							<c:if test="${rola != admin}" >
+							
+							<input type="number" value="${commentId.getBallsPerCom()} min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
+								placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
+							
+							
+							</c:if>
 							</div>
 		                    <div class="form-group">
 		                    	<textarea class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7" required>${commentId.getFirstCom()}</textarea>

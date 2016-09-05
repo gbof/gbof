@@ -51,7 +51,7 @@
 							<c:set var="rola" value="${user.role.id}"/>
 							<c:set var="admin" value="1"/>
 							<c:if test="${rola == admin}" >
-							This person is admin, You can not give him balls
+							This person is admin, You cannot give him balls
 							<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
 								placeholder="Number of balls" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
 							

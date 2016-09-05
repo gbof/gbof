@@ -520,8 +520,6 @@ public class SecurityNavigation {
 		lista.addObject("kule", kulki);
 		lista.addObject("login", login);
 
-	
-		
 		lista.addObject("listt", listt);
 		lista.setViewName("users");
 		return lista;

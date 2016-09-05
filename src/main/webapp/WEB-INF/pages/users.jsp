@@ -15,6 +15,15 @@
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 	
 	<style>
+		<%@include file="/web-resources/css/settings.css" %>
+		
+	.Ubadlogin {
+	color: red
+	}
+		
+	.Uedited {
+	color: green
+	}	
 	
 	</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
@@ -23,7 +32,20 @@
 
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition> 
-
+<div style="text-align: center; color:green; font-size:100%;" >
+	<p>
+ <c:if test="${Uedited == true}">
+<b class="correct">User edited</b>
+</c:if>
+</p>
+</div>
+<div style="text-align: center; color:red; font-size:100%;" >
+<p>
+<c:if test="${Ubadlogin == true}">
+<b class="error">User cannot be edited, login is not available</b>
+</c:if>
+</p>
+</div>
 	<form method="POST" action="${pageContext.request.contextPath}/edituser">	
 		<div class="container-fluid main-container">
 			<div class="col-md-12">

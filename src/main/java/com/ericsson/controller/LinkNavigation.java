@@ -460,15 +460,8 @@ public class LinkNavigation {
 
 		Integer deptID = us.getUser(userName).getDept().getDeptId();
 
-		
-
 	
-		
 		List<User> listt = us.getAllUsers();
-		
-		
-		
-
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
@@ -763,6 +756,7 @@ public class LinkNavigation {
 			modelAndView.addObject("uRemoved", true);
 		}
 		}
+		
 		return modelAndView;
 	}
 	
@@ -784,13 +778,53 @@ public class LinkNavigation {
 		Integer deptID = us.getUser(login1).getDept().getDeptId();
 		Integer teamID = ts.getTeamID(team).getId();
 		Integer balls_id = us.getUserId(user_id).getBall().getBallsId();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
 		
+		ModelAndView modelAndView = new ModelAndView("users");
+		if(us.getUserId(user_id).getLogin().equals(login))
+		{
+			System.out.println("login taki jak stary");
+			bs.editBallsToGive(balls_id, balls);
+			List<Ball> lastBallId = bs.getBallId();
+			Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
+			us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
+			Integer userId = us.getUser(login).getId();
+			rus.editRole(user_id, roleID);
+			modelAndView.addObject("Uedited", true);
+		}	
+		else{
+			
 		
-		bs.editBallsToGive(balls_id, balls);
-		rus.editRole(user_id, roleID);
-		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
-		ModelAndView modelAndView = new ModelAndView("redirect:/users");
+		if (us.checkLogin(login)==true )
+		{
+			
+			bs.editBallsToGive(balls_id, balls);
+			List<Ball> lastBallId = bs.getBallId();
+			Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
+			us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
+			Integer userId = us.getUser(login).getId();
+			rus.editRole(user_id, roleID);
+			modelAndView.addObject("Uedited", true);
+		}
+		else
+		{
+			
+			modelAndView.addObject("Ubadlogin", true);
+		}
+		}
+		List<User> listt = us.getAllUsers();
+		modelAndView.addObject("money", wynik);
+		modelAndView.addObject("kule", kulki);
+		modelAndView.addObject("login", login);
 
+		modelAndView.addObject("listt", listt);
+		modelAndView.setViewName("users");
 		return modelAndView;
 	}
 	
