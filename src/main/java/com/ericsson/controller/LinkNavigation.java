@@ -660,11 +660,19 @@ public class LinkNavigation {
 		
 		List<Team> teamlistt = ts.getAllTeams();
 		String teamName = user.getTeam().getName();
+		System.out.println("teamName=="+teamName);
 		Team team = ts.getTeamID(teamName);
-		teamlistt.remove(team.getId()-1);
+		System.out.println("team===="+team.getId());
 		
 		Integer ballstogive = user.getBall().getBallsToGive();
-
+		for (int i=0; i<rolelistt.size(); i++){
+			if (rolelistt.get(i).getRole().equals("superuser") || rolelistt.get(i).getRole().equals("admin"))
+				rolelistt.remove(i);
+		}
+		for (int i=0; i<teamlistt.size(); i++){
+			if (teamlistt.get(i).getId() == teamlistt.get(i).getId())
+				teamlistt.remove(i);
+		}
 		model.addAttribute("user", user);
 		model.addAttribute("rolelistt", rolelistt);
 		model.addAttribute("deptlistt", deptlistt);
