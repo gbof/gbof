@@ -176,7 +176,7 @@
 											    	<tr data-status="tableeee">
 											      	<th>Name</th>
 											        <th>Surname</th>
-											        <th>Balls</th>
+											        
 											        <th>First Comment</th>
 											        <th>Second Comment</th>
 											        <th align="right" style="width:40px">Edit</th>
@@ -190,7 +190,7 @@
 											    <tr data-status="tableeee">
 										          <td><c:out value="${comment.getUser().getName()}" /></td>
 										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
-										          <td><c:out value="${comment.getBallsPerCom()}" /></td>
+										       
 										          <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getFirstCom()}" /></td>
 											      <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getSecondCom()}" /></td>   
 											      

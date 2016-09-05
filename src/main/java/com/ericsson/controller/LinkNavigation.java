@@ -378,9 +378,8 @@ public class LinkNavigation {
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		String login = us.getUser(userName).getLogin();
-
+		
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
-
 		Comment commentId = cs.getCommentId(buttonComId);
 
 		Integer commentToUserId = commentId.getUser().getId();
@@ -424,6 +423,7 @@ public class LinkNavigation {
 
 		return modelAndView;
 	}
+	
 	
 	@RequestMapping(value = "/userAdded", method = RequestMethod.POST)
 	public ModelAndView userAdded(
@@ -1207,6 +1207,9 @@ public class LinkNavigation {
 		String login = us.getUser(userName).getLogin();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		ModelAndView modelAndView = new ModelAndView("editcomment");
+		User user = us.getUser(userName);
+		
+		modelAndView.addObject("user", user);
 		modelAndView.addObject("commentId", commentId);
 		modelAndView.addObject("login", login);
 		modelAndView.addObject("money", wynik);
