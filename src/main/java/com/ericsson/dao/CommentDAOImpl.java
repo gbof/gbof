@@ -44,7 +44,7 @@ public class CommentDAOImpl implements CommentDAO{
 				else
 					sql = sql + ") and c.confirmed=false";
 			}
-			
+		sql = sql+" order by user_id";
 		Query query = openSession().createQuery(sql);
 		commentsList = query.list();
 		System.out.println("==== "+commentsList);

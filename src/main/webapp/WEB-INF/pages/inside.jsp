@@ -133,8 +133,8 @@
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
-											        <th>First Comment</th>
-											        <th>Second Comment</th>
+											        <th>"What did you like?"</th>
+											        <th>"What can (s)he do better?"</th>
 											        <th align="right" style="width:40px">Edit</th>
 											      
 											        <th align="right" style="width:30px">Delete</th>

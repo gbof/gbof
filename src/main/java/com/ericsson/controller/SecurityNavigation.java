@@ -87,10 +87,16 @@ public class SecurityNavigation {
 		   Date date1 = sett.getSettingsDate().get(0);
 		   if(date1.before(date)){
 			   sett.setToFrozen();
-			   coms.setConfirmAll();
+			   
 		   }
 		   
-		   
+		   List<Settings> settingsList=sett.getSettings();
+			
+			if(settingsList.get(0).getFreeze()==1)
+			{
+				System.out.println("login confirm");
+				coms.setConfirmAll();
+			}
 		   
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("redirect:/adminview");
@@ -131,6 +137,10 @@ public class SecurityNavigation {
 			allBallsGivenTo.addAll(coms.getAllBallsGivenTo(id, listt.get(i).getId()));
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
+		
+		List<Settings> settingsList=sett.getSettings();
+		
+		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
 		lista.addObject("money", wynik);
@@ -176,7 +186,9 @@ public class SecurityNavigation {
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
 	        
-	        
+		List<Settings> settingsList=sett.getSettings();
+		
+		
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
 		lista.addObject("yourComments", yourComments);
@@ -255,8 +267,8 @@ public class SecurityNavigation {
 		
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		ModelAndView modelAndView = new ModelAndView("freeze");
-		System.out.println("freeze zrobiony");
-		coms.setConfirmAll();
+		
+		
 		modelAndView.addObject("kule", kulki);
 		modelAndView.addObject("money", wynik);
 		modelAndView.addObject("login", login);
@@ -320,10 +332,7 @@ public class SecurityNavigation {
 
 		List<Settings> settingsList=sett.getSettings();
 		
-		if(settingsList.get(0).getFreeze()==1)
-		{
-			coms.setConfirmAll();
-		}
+		
 		
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
@@ -338,7 +347,7 @@ public class SecurityNavigation {
 		   Date date1 = sett.getSettingsDate().get(0);
 		   if(date1.before(date)){
 			   sett.setToFrozen();
-			   coms.setConfirmAll();
+			   
 		   }
 		   
 		for (int i=0; i<rolelistt.size(); i++){
@@ -421,7 +430,7 @@ public class SecurityNavigation {
 		   Date date1 = sett.getSettingsDate().get(0);
 		   if(date1.before(date)){
 			   sett.setToFrozen();
-			   coms.setConfirmAll();
+			   
 		   }
 		if(sett.getSettingsFreeze().get(0)==1)
 			modelAndView.addObject("checked", true);
@@ -496,7 +505,7 @@ public class SecurityNavigation {
 		   Date date1 = sett.getSettingsDate().get(0);
 		   if(date1.before(date)){
 			   sett.setToFrozen();
-			   coms.setConfirmAll();
+			   
 		   }
 		if(sett.getSettingsFreeze().get(0)==1)
 			modelAndView.addObject("checked", true);

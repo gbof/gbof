@@ -81,7 +81,7 @@
 		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 		                    </div>
 		                    
-		                    <input type="submit" id="submit" name="submit" value="Edit" id="btnSave" class="btn btn-primary pull-right" > 
+		                    <input type="submit" id="submit" name="submit" value="Save" id="btnSave" class="btn btn-primary pull-right" > 
 			        		<input type="hidden" name="commentToUserId" value="${commentId.getUser().getId()}" />
 		           			<input type="hidden" name="comId" value="${commentId.getComId()}"/>
 		           				

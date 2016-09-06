@@ -39,7 +39,7 @@
 						</li>
 						<li>
 							<a href="#tab_default_3" data-toggle="tab">
-							Given balls </a>
+							Given comments </a>
 						</li>
 						<li>
 							<a href="#tab_default_4" data-toggle="tab">
@@ -121,8 +121,8 @@
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
-											        <th>First Comment</th>
-											        <th>Second Comment</th>
+											        <th>"What did you like?"</th>
+											        <th>"What can (s)he do better?"</th>
 											        <th align="right" style="width:30px">Edit</th>
 											      
 											        <th align="right" style="width:40px">Delete</th>
@@ -177,8 +177,8 @@
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        
-											        <th>First Comment</th>
-											        <th>Second Comment</th>
+											        <th>"What did you like?"</th>
+											        <th>"What can (s)he do better?"</th>
 											        <th align="right" style="width:40px">Edit</th>
 											        
 											        <th align="right" style="width:40px">Delete</th>
@@ -188,6 +188,7 @@
 											    
 											      <c:forEach var="comment" items="${commentList}">
 											    <tr data-status="tableeee">
+											    
 										          <td><c:out value="${comment.getUser().getName()}" /></td>
 										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
 										       
@@ -307,8 +308,8 @@
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
-											        <th>First Comment</th>
-											        <th>Second Comment</th>
+											        <th>"What did you like?"</th>
+											        <th>"What can (s)he do better?"</th>
 											      </tr>
 											    </thead>
 											    <tbody>
