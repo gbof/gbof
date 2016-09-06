@@ -185,11 +185,13 @@
 											      </tr>
 											    </thead>
 											    <tbody>
-											    
+											    <!-- 
 											      <c:forEach var="comment" items="${commentList}">
+											      
 											    <tr data-status="tableeee">
 											    
 										          <td><c:out value="${comment.getUser().getName()}" /></td>
+										          
 										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
 										       
 										          <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getFirstCom()}" /></td>
@@ -199,9 +201,56 @@
 
 											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal1${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
 											      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+											      
+											      </tr>
+											      
+											      
+											      
+						            			</c:forEach>
+											     -->
+											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
+											    <tr data-status="${user.getTeam().getName()}">
+											    
+											    	
+											         
+											          <td><c:out value="${user.name}" /></td>
+											          <td><c:out value="${user.surname}" /></td>
+											        
+											        <td style="max-width:300px; word-wrap: normal;">
+												        <c:forEach var="comment" items="${commentList}">
+													        
+													        <c:set var="userId" value="${user.getId()}"/>
+															<c:set var="userComId" value="${comment.getUser().getId()}"/>
+															<c:if test="${userId == userComId}" >
+																<c:out value="${comment.getFirstCom()}"/>
+																<br>
+															</c:if>
+												        
+											         	</c:forEach>
+											         	
+						            				</td>
+						            				
+						            				<td style="max-width:300px; word-wrap: normal;">
+												        <c:forEach var="comment" items="${commentList}">
+													        
+													        <c:set var="userId" value="${user.getId()}"/>
+															<c:set var="userComId" value="${comment.getUser().getId()}"/>
+															<c:if test="${userId == userComId}" >
+																<c:out value="${comment.getSecondCom()}"/>
+																<br>
+															</c:if>
+												         	
+											         	</c:forEach>
+											         	
+						            				</td>
+						            				 <td align="center"><button type="submit" name="buttonComId" value="${user.getId()}" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+
+											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal1${user.getId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
+											      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+											     
+						            				
 											      </tr>
 						            			</c:forEach>
-											    
 						    						            			
 											    </tbody>
 											  </table>

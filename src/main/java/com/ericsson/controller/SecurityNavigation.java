@@ -166,7 +166,9 @@ public class SecurityNavigation {
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-
+		
+		
+		
 		List<Comment> yourComments=coms.getYourComments(id);
 
 		List<Long> ballValue2List = coms.getBallValue2();
@@ -187,6 +189,7 @@ public class SecurityNavigation {
 		}
 	        
 		List<Settings> settingsList=sett.getSettings();
+		
 		
 		
 		lista.addObject("listt", listt);
