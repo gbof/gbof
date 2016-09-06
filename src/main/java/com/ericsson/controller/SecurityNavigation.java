@@ -212,7 +212,7 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		String login = us.getUser(userName).getLogin();
 		
-		List<User> listt = us.getAllUsers();
+		List<User> listt = us.getAllUsersForSuperUser();
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<Department> deptlistt = ds.getAllDepts();
 		

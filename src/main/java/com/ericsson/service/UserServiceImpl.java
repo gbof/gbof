@@ -76,6 +76,10 @@ public class UserServiceImpl implements UserService {
 		userDAO.editRoleID(leader_id, role_id);
 		
 	}
+	@Override
+	public List<User> getAllUsersForSuperUser() {
+		return userDAO.getAllUsersForSuperUser();
+	}
 
 
 }

@@ -378,8 +378,9 @@ public class LinkNavigation {
 		Double wynik = (double) (moneyValue / ballValue2);
 		wynik = sett.round(wynik, 2);
 		String login = us.getUser(userName).getLogin();
-		
+
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+
 		Comment commentId = cs.getCommentId(buttonComId);
 
 		Integer commentToUserId = commentId.getUser().getId();
@@ -424,7 +425,6 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 	
-	
 	@RequestMapping(value = "/userAdded", method = RequestMethod.POST)
 	public ModelAndView userAdded(
 			@RequestParam("name") String name, 
@@ -460,8 +460,15 @@ public class LinkNavigation {
 
 		Integer deptID = us.getUser(userName).getDept().getDeptId();
 
-	
+		
+
+		List<Ball> lastBallId = bs.getBallId();
+		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 		List<User> listt = us.getAllUsers();
+		
+		
+		
+
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
@@ -491,8 +498,6 @@ public class LinkNavigation {
 		{
 			
 			bs.addBall(received_balls, balls_to_give, locked, cash);
-			List<Ball> lastBallId = bs.getBallId();
-			Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 			us.addUser(name, surname, login, roleId, teamID, ballsID, mail, deptID);
 			Integer userId = us.getUser(login).getId();
 			rus.add(userId, roleId);
@@ -557,20 +562,20 @@ public class LinkNavigation {
 		Integer roleId = roleList.get(0).getId();
 		
 		System.out.println("roleId==="+roleId);
-		
-		Team teamList = ts.getTeamID(teamName);
-		Integer teamID = teamList.getId();
+	
 
 		Integer deptID = ds.getDeptID(deptName).getDeptId();
-
+		Integer teamID = 0;
 		
+		List<Team> teamList = ts.getTeamsID(teamName);
+		for ( int i=0; i<teamList.size(); i++){
+			if (teamList.get(i).getDeptId() == deptID){
+				teamID = teamList.get(i).getId();
+			}
+		}
 
-		List<Ball> lastBallId = bs.getBallId();
-		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 		List<User> listt = us.getAllUsers();
-		
-		
-		
+
 
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
@@ -597,6 +602,8 @@ public class LinkNavigation {
 		{
 			
 			bs.addBall(received_balls, balls_to_give, locked, cash);
+			List<Ball> lastBallId = bs.getBallId();
+			Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 			us.addUser(name, surname, login, roleId, teamID, ballsID, mail, deptID);
 			Integer userId = us.getUser(login).getId();
 			rus.add(userId, roleId);
@@ -764,7 +771,6 @@ public class LinkNavigation {
 			modelAndView.addObject("uRemoved", true);
 		}
 		}
-		
 		return modelAndView;
 	}
 	
@@ -786,53 +792,13 @@ public class LinkNavigation {
 		Integer deptID = us.getUser(login1).getDept().getDeptId();
 		Integer teamID = ts.getTeamID(team).getId();
 		Integer balls_id = us.getUserId(user_id).getBall().getBallsId();
-		List<Double> money = sett.getMoney(1);
-		Double moneyValue = money.get(0);
-		List<Long> ballValue2List = cs.getBallValue2();
-		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue / ballValue2);
-		wynik = sett.round(wynik, 2);
-		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
 		
-		ModelAndView modelAndView = new ModelAndView("users");
-		if(us.getUserId(user_id).getLogin().equals(login))
-		{
-			System.out.println("login taki jak stary");
-			bs.editBallsToGive(balls_id, balls);
-			List<Ball> lastBallId = bs.getBallId();
-			Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
-			us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
-			Integer userId = us.getUser(login).getId();
-			rus.editRole(user_id, roleID);
-			modelAndView.addObject("Uedited", true);
-		}	
-		else{
-			
 		
-		if (us.checkLogin(login)==true )
-		{
-			
-			bs.editBallsToGive(balls_id, balls);
-			List<Ball> lastBallId = bs.getBallId();
-			Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
-			us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
-			Integer userId = us.getUser(login).getId();
-			rus.editRole(user_id, roleID);
-			modelAndView.addObject("Uedited", true);
-		}
-		else
-		{
-			
-			modelAndView.addObject("Ubadlogin", true);
-		}
-		}
-		List<User> listt = us.getAllUsers();
-		modelAndView.addObject("money", wynik);
-		modelAndView.addObject("kule", kulki);
-		modelAndView.addObject("login", login);
+		bs.editBallsToGive(balls_id, balls);
+		rus.editRole(user_id, roleID);
+		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
+		ModelAndView modelAndView = new ModelAndView("redirect:/users");
 
-		modelAndView.addObject("listt", listt);
-		modelAndView.setViewName("users");
 		return modelAndView;
 	}
 	
@@ -1082,53 +1048,7 @@ public class LinkNavigation {
 		lista.setViewName("settings");
 		return lista;
 	}
-	@RequestMapping(value = "/editdepartment",  params="edit", method = RequestMethod.POST)
-	public String editDepartmentPage(
-		@RequestParam(value = "edit") Integer buttonComId, Model model) {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = userDetails.getUsername();
-		String login = us.getUser(userName).getLogin();
-		
-		List<Department> deptlistt = ds.getAllDepts();
-		List<User> listt = us.getAllUsers();
-		System.out.println(buttonComId);
-		Department department = ds.getDept(buttonComId);
-		Integer user_id = ds.getDept(buttonComId).getDeptLeaderId();
-		System.out.println(user_id);
-		Integer dept_id = ds.getDept(buttonComId).getDeptId();
-		String deptName = ds.getDeptName(dept_id);
-		String leaderName = us.getUserId(user_id).getName();
-		String leaderSurname = us.getUserId(user_id).getSurname();
-		String leaderLogin = us.getUserId(user_id).getLogin();
-		
-		
-		List<User> users = new ArrayList<User>();
-		for (User t: listt){
-			users.add(t);
-		}
-		for (int i=0; i<users.size(); i++){
-			if ( users.get(i).getId() == user_id)
-				users.remove(i);
-		}
-
-		deptlistt.remove(dept_id-1);
-		listt.clear();
-		for (User t: users){
-			listt.add(t);
-		}
-
-		
-		model.addAttribute("department", department);
-		model.addAttribute("leaderName", leaderName);
-		model.addAttribute("leaderSurname", leaderSurname);
-		model.addAttribute("leaderLogin", leaderLogin);
-		model.addAttribute("deptName", deptName);
-		
-		model.addAttribute("listt", listt);
-		model.addAttribute("deptlistt", deptlistt);
-		model.addAttribute("login", login);
-		return "editteam";
-	}
+	
 	
 	@RequestMapping(value = "/teams", method = RequestMethod.GET)
 	public ModelAndView teamsPage() {
@@ -1185,10 +1105,16 @@ public class LinkNavigation {
 
 		User userList = us.getUser(leaderLogin);
 		Integer leaderID = userList.getId();
-
-		rus.editRole(leaderID, 1);
-		us.editRoleID(leaderID, 1);
+		String leaderRole = userList.getRole().getRole();
+		
+		if (!leaderRole.equals("superuser")){
+			rus.editRole(leaderID, 1);
+			us.editRoleID(leaderID, 1);
+		}
 		ds.addDept(deptName, leaderID);
+		List<Department> lastDeptId = ds.getAllDepts();
+		Integer deptID = lastDeptId.get(lastDeptId.size() - 1).getDeptId();
+		ts.addTeam("no-team", leaderID, deptID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 	
 		return modelAndView;
@@ -1217,9 +1143,6 @@ public class LinkNavigation {
 		String login = us.getUser(userName).getLogin();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		ModelAndView modelAndView = new ModelAndView("editcomment");
-		User user = us.getUser(userName);
-		
-		modelAndView.addObject("user", user);
 		modelAndView.addObject("commentId", commentId);
 		modelAndView.addObject("login", login);
 		modelAndView.addObject("money", wynik);

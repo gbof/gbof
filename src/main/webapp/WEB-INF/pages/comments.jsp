@@ -39,7 +39,7 @@
 		
 		
 			<h3 style="margin-bottom: 25px; text-align: center;">Comments</h3>
-				<form id="commentsform" role="form" method="POST" action="${pageContext.request.contextPath}/commentAdded">
+				<form name="commentsform" id="commentsform" role="form" method="POST" action="${pageContext.request.contextPath}/commentAdded">
 					<div class="panel panel-default">
 						<c:forEach var="user" items="${userList}" varStatus="status">
 							<div class="panel-heading">
@@ -122,7 +122,7 @@
 	    		balls = ballsLeft;
 	    	}
 	}
-	
+
 
 	</script>
 

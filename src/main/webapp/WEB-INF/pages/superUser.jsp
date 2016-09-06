@@ -11,7 +11,7 @@
 
 <html>
 <head>
-	<title>Admin</title>
+	<title>SuperUser</title>
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 	
 	<style>

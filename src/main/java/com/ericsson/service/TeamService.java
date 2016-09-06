@@ -20,4 +20,6 @@ public interface TeamService {
 	
 	public void editTeamLeader(Integer team_id);
 
+	public List<Team> getTeamsID(String teamName);
+
 }
