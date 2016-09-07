@@ -525,7 +525,7 @@ public class LinkNavigation {
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<Settings> settingsList = sett.getSettings();
 		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
-		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
+		Integer balls_to_give = settingsList.get(0).getBallsPerPerson();
 		
 		
 		
@@ -539,13 +539,8 @@ public class LinkNavigation {
 
 		Integer deptID = us.getUser(userName).getDept().getDeptId();
 
-		
-
-
 		List<User> listt = us.getAllUsers();
-		
-		
-		
+
 
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
