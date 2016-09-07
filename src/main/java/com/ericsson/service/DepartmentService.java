@@ -18,4 +18,6 @@ public interface DepartmentService {
 
 	public void editDepartment(Integer deptID, Integer leaderID);
 
+	public void removeDept(Integer dept_id);
+
 }

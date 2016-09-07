@@ -16,4 +16,6 @@ public interface DepartmentDAO {
 	public Department getDept(Integer deptId);
 
 	public void editDepartment(Integer deptID, Integer leaderID);
+
+	public void removeDept(Integer dept_id);
 }

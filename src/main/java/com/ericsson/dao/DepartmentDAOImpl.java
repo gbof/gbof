@@ -96,4 +96,12 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		
 	}
 
+
+	@Override
+	public void removeDept(Integer dept_id) {
+		String query = "delete from departments where dept_id="+dept_id;
+		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+
 }

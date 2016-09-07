@@ -53,10 +53,11 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
-				<form method="POST" action="${pageContext.request.contextPath}/editdepartment">	
+				<form method="POST" action="${pageContext.request.contextPath}/editdept">	
 					<div class="panel-heading">
 						Current departments
-					</div>				
+					</div>		
+					<input type="hidden" name="dept_id" value="${dept.getDeptId()}"/>		
 					<div class="panel-body">
 						<table  class="table table-filter table-hover col-md-12 table-responsive">
 						    <thead>

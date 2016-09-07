@@ -47,5 +47,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 		deptDAO.editDepartment(deptID, leaderID);
 		
 	}
+
+	@Override
+	public void removeDept(Integer dept_id) {
+		deptDAO.removeDept(dept_id);
+		
+	}
 	
 }

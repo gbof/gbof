@@ -1245,6 +1245,23 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 
+	//Delete team
+	@RequestMapping(value = "/editdept", params="delete", method = RequestMethod.POST)
+	public ModelAndView deptRemoved(
+		@RequestParam(value = "delete") Integer deptDelId){
+		List<User> listt = us.getAllUsersForSuperUser();
+
+		ModelAndView modelAndView = new ModelAndView();
+		ds.editDepartment(deptDelId, 4);
+		for(int i=0;i<listt.size();i++){
+			if (listt.get(i).getDept().getDeptId().equals(deptDelId))
+				us.removeUser(listt.get(i).getId());
+		}
+
+			ds.removeDept(deptDelId);
+		modelAndView.setViewName("redirect:/success-login");
+		return modelAndView;
+	}
 	
 /*
 	@RequestMapping(value = "/confirmedComm", params="buttonComId", method = RequestMethod.POST)
