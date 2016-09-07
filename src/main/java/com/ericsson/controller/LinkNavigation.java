@@ -531,6 +531,7 @@ public class LinkNavigation {
 		modelAndView.addObject("userBasiclistt", userBasiclistt);
 		return modelAndView;
 	}
+
 	
 	@RequestMapping(value = "/userAddedforsuperuser", method = RequestMethod.POST)
 	public ModelAndView userAddedforsuperuser(
@@ -560,11 +561,10 @@ public class LinkNavigation {
 		
 		List<Role> roleList = rs.getRoleId(roleName);
 		Integer roleId = roleList.get(0).getId();
-		
-		System.out.println("roleId==="+roleId);
 	
 
 		Integer deptID = ds.getDeptID(deptName).getDeptId();
+		Integer current_leader_id = ds.getDeptID(deptName).getDeptLeaderId();
 		Integer teamID = 0;
 		
 		List<Team> teamList = ts.getTeamsID(teamName);
@@ -574,21 +574,30 @@ public class LinkNavigation {
 			}
 		}
 
-		List<User> listt = us.getAllUsers();
-
-
+		List<User> listt = us.getAllUsersForSuperUser();
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
 		List<String> userBasiclistt = new ArrayList<String>();
+		List<Department> deptlistt1 = ds.getAllDepts();
+		
 		String _name;
 		String _surname;
 		String _login;
+		boolean isLeader = false;
 		for (int i=0; i<listt.size(); i++){
-			_name = listt.get(i).getName();
-			_surname = listt.get(i).getSurname();
-			_login = listt.get(i).getLogin();
-			userBasiclistt.add(_name+" "+_surname+" "+_login);
+			for (int j=0; j<deptlistt1.size(); j++){
+				if (deptlistt1.get(j).getDeptLeaderId().equals(listt.get(i).getId())){
+					isLeader = true;
+				}
+			}
+			if (isLeader == false){
+				_name = listt.get(i).getName();
+				_surname = listt.get(i).getSurname();
+				_login = listt.get(i).getLogin();
+				userBasiclistt.add(_name+" "+_surname+" "+_login);
+			}
+			isLeader = false;
 		}
 				
 		List<Double> money = sett.getMoney(1);
@@ -606,7 +615,13 @@ public class LinkNavigation {
 			Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 			us.addUser(name, surname, login, roleId, teamID, ballsID, mail, deptID);
 			Integer userId = us.getUser(login).getId();
+			Integer leaderID = us.getUser(login).getId();			
 			rus.add(userId, roleId);
+			if (!us.getUserId(current_leader_id).getRole().getRole().equals("superuser")){
+				rus.editRole(current_leader_id, rs.getRoleId("user").get(0).getId());
+				us.editRoleID(current_leader_id, rs.getRoleId("user").get(0).getId());
+			}
+			ds.editDepartment(deptID, leaderID);
 			modelAndView.addObject("Uadded", true);
 			modelAndView.addObject("Ubadlogin", false);
 		}
@@ -636,7 +651,7 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 	
-	
+
 	@RequestMapping(value = "/edituser", params="buttonComId", method = RequestMethod.POST)
 	public String editUserPage(@RequestParam(value = "buttonComId") Integer buttonComId, Model model) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -205,6 +205,7 @@ public class SecurityNavigation {
 		lista.setViewName("adminview");
 		return lista;
 	}
+
 	
 	@RequestMapping(value="/superUser", method=RequestMethod.GET)
 	public ModelAndView superuserPage() {

@@ -87,4 +87,13 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		
 	}
 
+
+	@Override
+	public void editDepartment(Integer dept_id, Integer leader_id) {
+		String query = "UPDATE departments SET dept_leader_id='"+leader_id+"' where dept_id='"+dept_id+"'";
+		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+
 }

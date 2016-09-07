@@ -41,5 +41,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	{
 		return deptDAO.getDept(deptId);
 	}
+
+	@Override
+	public void editDepartment(Integer deptID, Integer leaderID) {
+		deptDAO.editDepartment(deptID, leaderID);
+		
+	}
 	
 }

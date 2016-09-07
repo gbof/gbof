@@ -16,4 +16,6 @@ public interface DepartmentService {
 	
 	public Department getDept(Integer deptId);
 
+	public void editDepartment(Integer deptID, Integer leaderID);
+
 }
