@@ -81,7 +81,7 @@
 											    </thead>
 											    <tbody>
 
-											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
+											      <c:forEach var="user" items="${listt}"  varStatus="loop">
 											    <tr data-status="${user.getTeam().getName()}">
 											          <td><c:out value="${user.name}" /></td>
 											          <td><c:out value="${user.surname}" /></td>

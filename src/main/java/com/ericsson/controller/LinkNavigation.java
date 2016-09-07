@@ -541,8 +541,7 @@ public class LinkNavigation {
 
 		
 
-		List<Ball> lastBallId = bs.getBallId();
-		Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
+
 		List<User> listt = us.getAllUsers();
 		
 		
@@ -577,6 +576,8 @@ public class LinkNavigation {
 		{
 			
 			bs.addBall(received_balls, balls_to_give, locked, cash);
+			List<Ball> lastBallId = bs.getBallId();
+			Integer ballsID = lastBallId.get(lastBallId.size() - 1).getBallsId();
 			us.addUser(name, surname, login, roleId, teamID, ballsID, mail, deptID);
 			Integer userId = us.getUser(login).getId();
 			rus.add(userId, roleId);
@@ -999,21 +1000,23 @@ public class LinkNavigation {
 		String leaderSurname = us.getUserId(user_id).getSurname();
 		String leaderLogin = us.getUserId(user_id).getLogin();
 		
-		
-		List<User> users = new ArrayList<User>();
-		for (User t: listt){
-			users.add(t);
-		}
-		for (int i=0; i<users.size(); i++){
-			if ( users.get(i).getId() == user_id)
-				users.remove(i);
-		}
 
-		deptlistt.remove(dept_id-1);
-		listt.clear();
-		for (User t: users){
-			listt.add(t);
+		List<User> users = new ArrayList<User>();
+		if (listt != null){
+			for (User t: listt){
+				users.add(t);
+			}
+			for (int i=0; i<users.size(); i++){
+				if ( users.get(i).getId() == user_id)
+					users.remove(i);
+			}
+			
+			listt.clear();
+			for (User t: users){
+				listt.add(t);
+			}
 		}
+		deptlistt.remove(dept_id-1);
 		
 		model.addAttribute("team", team);
 		model.addAttribute("leaderName", leaderName);
