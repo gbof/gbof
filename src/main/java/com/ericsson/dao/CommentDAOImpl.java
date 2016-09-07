@@ -101,7 +101,6 @@ public class CommentDAOImpl implements CommentDAO{
 		
 	Query query = openSession().createQuery(sql);
 	commentsConfirmedList = query.list();
-	System.out.println("==== "+commentsConfirmedList);
 	if (commentsConfirmedList.size() > 0)
 		return commentsConfirmedList;
 	else
@@ -133,7 +132,16 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	public List<Long> getBallValue2(){
 		List<Long> allBalls = new ArrayList<Long>();
-		String sql = "select (sum(balls_to_give)+sum(received_balls)) from Ball";
+		List<User> listt = us.getAllUsers();
+		String sql = "select (sum(b.balls_to_give)+sum(b.received_balls)) from Ball b where(";
+		for(int i=0;i<listt.size();i++){
+				Integer ball_id = listt.get(i).getBall().getBallsId();
+				sql = sql+"b.balls_id = '"+ball_id+"'";
+				if(i!=listt.size()-1)
+					sql = sql + " or ";
+				else
+					sql = sql + ")";
+			}
 		Query query = openSession().createQuery(sql);
 		allBalls = query.list();
 		if (allBalls.size() > 0)

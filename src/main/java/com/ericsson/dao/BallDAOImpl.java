@@ -85,4 +85,18 @@ public class BallDAOImpl implements BallDAO {
 		sqlQuery.executeUpdate();
 		
 	}
+	
+	@Override
+	public List<Integer> getReceivedMoney(Integer balls_id, Double money) {
+		List<Integer> ballsList = new ArrayList<Integer>();
+		String sql = "select received_balls from Ball where balls_id='"+balls_id+"'";
+		Query query = openSession().createQuery(sql);
+		ballsList = query.list();
+		if (ballsList.size() > 0)
+			return ballsList;
+		else
+			return null;
+		
+	}
+	
 }

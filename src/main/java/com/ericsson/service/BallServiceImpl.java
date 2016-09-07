@@ -40,4 +40,10 @@ public class BallServiceImpl implements BallService {
 		public List<Integer> getBallsToGive(){
 			return ballDAO.getBallsToGive();
 		}
+		
+		@Override
+		public List<Integer> getReceivedMoney(Integer balls_id, Double money){
+			return ballDAO.getReceivedMoney(balls_id, money);
+		}
+		
 }

@@ -32,6 +32,7 @@ import com.ericsson.model.Team;
 
 
 import com.ericsson.model.User;
+import com.ericsson.service.BallService;
 import com.ericsson.service.CommentService;
 import com.ericsson.service.DepartmentService;
 import com.ericsson.service.RoleService;
@@ -63,6 +64,9 @@ public class SecurityNavigation {
 	
 	@Autowired
 	private DepartmentService ds;
+	
+	@Autowired
+	private BallService bs;
 	
 
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
@@ -174,7 +178,6 @@ public class SecurityNavigation {
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
-		wynik = sett.round(wynik, 2);
 		
 		List<Comment> commentList = coms.getAllComments();
 	
@@ -190,10 +193,21 @@ public class SecurityNavigation {
 	        
 		List<Settings> settingsList=sett.getSettings();
 		
+		Double suma = 0.0;
+		List<Double> moneyList = new ArrayList<Double>();
+		for(int i=0;i<listt.size();i++){
+			Integer userMoney = bs.getReceivedMoney(listt.get(i).getBall().getBallsId(), wynik).get(0);
+			Double wynik1 = userMoney*wynik;
+			wynik1 = sett.round(wynik1, 2);
+			moneyList.add(wynik1);
+			suma=suma+wynik1;
+			suma = sett.round(suma, 2);
+			
+		}
 		
-		
-		
-		
+		lista.addObject("suma",suma);
+		lista.addObject("moneyList", moneyList);
+
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
 		lista.addObject("yourComments", yourComments);

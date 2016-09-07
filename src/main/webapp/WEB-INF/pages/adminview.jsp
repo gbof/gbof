@@ -71,6 +71,7 @@
 											        <th>Team</th>
 											        <th>Balls</th>
 											        <th>Balls distributed</th>
+											        <th>Money</th>
 											      </tr>
 											    </thead>
 											    <tbody>
@@ -88,9 +89,27 @@
 											          <td><c:out value="${user.getTeam().getName()}" /></td>
 											          <td><c:out value="${user.getBall().getBallsToGive()}" /></td>
 											          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
+											          <td><c:out value="${moneyList.get(loop.count-1)} zl"/></td>
 											      </tr>
 						            			</c:forEach>
 											    </tbody>
+											  </table>
+											  <table>
+											  <thead>
+											  <tr>
+											  <th style="width: 35%">
+											  </th>
+											  <th style="width: 6%">
+											  </th>
+											  </tr>
+											  </thead>
+											  <tbody>
+											  <tr>
+											  <td>
+											  </td>
+											  <td><b>Sum </b><c:out value="${suma} zl" /></td>							
+											  </tr>
+											  </tbody>
 											  </table>
 											</div>
 						                </div>
