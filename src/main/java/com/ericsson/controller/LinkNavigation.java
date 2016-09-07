@@ -1107,6 +1107,7 @@ public class LinkNavigation {
 		Integer leaderID = userList.getId();
 		String leaderRole = userList.getRole().getRole();
 		
+		
 		if (!leaderRole.equals("superuser")){
 			rus.editRole(leaderID, 1);
 			us.editRoleID(leaderID, 1);

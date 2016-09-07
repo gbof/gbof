@@ -80,6 +80,11 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsersForSuperUser() {
 		return userDAO.getAllUsersForSuperUser();
 	}
+	@Override
+	public void editDept(Integer user_id, Integer dept_id) {
+		userDAO.editDept(user_id, dept_id);
+		
+	}
 
 
 }

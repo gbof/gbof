@@ -25,5 +25,6 @@ public interface UserService {
 	public Boolean checkLogin(String login);
 	public void editRoleID(Integer leader_id, int role_id);
 	public List<User> getAllUsersForSuperUser();
+	public void editDept(Integer user_id, Integer dept_id);
 	
 }

@@ -231,14 +231,25 @@ public class SecurityNavigation {
 			deptLeaders.add(leader);
 		}
 		
+		List<Department> deptlistt1 = ds.getAllDepts();
+		
 		String _name;
 		String _surname;
 		String _login;
+		boolean isLeader = false;
 		for (int i=0; i<listt.size(); i++){
-			_name = listt.get(i).getName();
-			_surname = listt.get(i).getSurname();
-			_login = listt.get(i).getLogin();
-			userBasiclistt.add(_name+" "+_surname+" "+_login);
+			for (int j=0; j<deptlistt1.size(); j++){
+				if (deptlistt1.get(j).getDeptLeaderId() == listt.get(i).getId()){
+					isLeader = true;
+				}
+			}
+			if (isLeader == false){
+				_name = listt.get(i).getName();
+				_surname = listt.get(i).getSurname();
+				_login = listt.get(i).getLogin();
+				userBasiclistt.add(_name+" "+_surname+" "+_login);
+			}
+			isLeader = false;
 		}
 		
 

@@ -218,6 +218,14 @@ public class UserDAOImpl implements UserDAO {
 			return null;
 	}
 
+	@Override
+	public void editDept(Integer user_id, Integer dept_id) {
+		String query = "UPDATE users SET dept_id='"+dept_id+"' where user_id='"+user_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+
 	
 	
 }
