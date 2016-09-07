@@ -401,6 +401,7 @@ public class LinkNavigation {
 			@RequestParam(value = "message1") String message1, @RequestParam(value = "message2") String message2,
 			@RequestParam("ballsNumber") Integer ballsNumber, @RequestParam("commentToUserId") Integer toUserId,
 			@RequestParam("comId") Integer comId,
+			
 			Model model
 
 	) {
@@ -422,6 +423,84 @@ public class LinkNavigation {
 		
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 
+		return modelAndView;
+	}
+	@RequestMapping(value = "/commentsEdited", method = RequestMethod.POST)
+	public ModelAndView commentsEdited(
+
+			@RequestParam(value = "message1") ArrayList<String> messages1,
+			@RequestParam(value = "message2") ArrayList<String> messages2,
+			@RequestParam("ballsPerCom") ArrayList<Integer> balls,			
+			@RequestParam("comId") ArrayList<Integer> comId,
+			
+			Model model
+
+	) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String userName = userDetails.getUsername();
+		Integer user_id = us.getUser(userName).getId();
+		
+		
+		for(int i=0;i<comId.size();i++)
+		{
+			cs.editComment(messages1.get(i), messages2.get(i), balls.get(i), comId.get(i));
+		}
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+
+		return modelAndView;
+	}
+	@RequestMapping(value = "/confirmedComm", params="confirmButton", method = RequestMethod.POST)
+	public ModelAndView confirmComm(@RequestParam("confirmButton") Integer commId) {
+		cs.setConfirm(commId);
+		
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value = "/confirmedComm", params="buttonComId", method = RequestMethod.POST)
+	public ModelAndView adminEditComm(@RequestParam("buttonComId")  Integer buttonComId, Model model) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		//Comment commentId = cs.getCommentId(buttonComId);
+		List<Comment> commentsList=cs.getCommentsYouGave(buttonComId);
+		String login = us.getUser(userName).getLogin();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		ModelAndView modelAndView = new ModelAndView("editcomments");
+		User user = us.getUser(userName);
+		
+				
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("commentList", commentsList);
+		modelAndView.addObject("login", login);
+		modelAndView.addObject("money", wynik);
+		modelAndView.addObject("kule", kulki);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/confirmedComm", params="deleteButton", method = RequestMethod.POST)
+	public ModelAndView deleteComm(@RequestParam("deleteButton") Integer commId) {
+		us.setBallsAfterCommentDelete(cs.getCommentId(commId).getCreatorId(), cs.getCommentId(commId).getBallsPerCom(), cs.getCommentId(commId).getUser().getId());
+		cs.removeComment(commId);
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+		return modelAndView;
+	}
+	
+	//delete comment
+	@RequestMapping(value = "/editcomment", params="deleteButton1", method = RequestMethod.POST)
+	public ModelAndView deleteComm1(@RequestParam("deleteButton1") Integer commId) {
+		
+		us.setBallsAfterCommentDelete(cs.getCommentId(commId).getCreatorId(), cs.getCommentId(commId).getBallsPerCom(), cs.getCommentId(commId).getUser().getId());
+		System.out.println("=========== "+cs.getCommentId(commId).getUser().getId());
+		cs.removeComment(commId);
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 		return modelAndView;
 	}
 	
@@ -1162,15 +1241,8 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/confirmedComm", params="confirmButton", method = RequestMethod.POST)
-	public ModelAndView confirmComm(@RequestParam("confirmButton") Integer commId) {
-		cs.setConfirm(commId);
-		
-		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-		return modelAndView;
-	}
 	
-	
+/*
 	@RequestMapping(value = "/confirmedComm", params="buttonComId", method = RequestMethod.POST)
 	public ModelAndView adminEditComm(@RequestParam("buttonComId")  Integer buttonComId, Model model) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -1192,24 +1264,8 @@ public class LinkNavigation {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/confirmedComm", params="deleteButton", method = RequestMethod.POST)
-	public ModelAndView deleteComm(@RequestParam("deleteButton") Integer commId) {
-		us.setBallsAfterCommentDelete(cs.getCommentId(commId).getCreatorId(), cs.getCommentId(commId).getBallsPerCom(), cs.getCommentId(commId).getUser().getId());
-		cs.removeComment(commId);
-		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-		return modelAndView;
-	}
-	
-	//delete comment
-	@RequestMapping(value = "/editcomment", params="deleteButton1", method = RequestMethod.POST)
-	public ModelAndView deleteComm1(@RequestParam("deleteButton1") Integer commId) {
-		
-		us.setBallsAfterCommentDelete(cs.getCommentId(commId).getCreatorId(), cs.getCommentId(commId).getBallsPerCom(), cs.getCommentId(commId).getUser().getId());
-		System.out.println("=========== "+cs.getCommentId(commId).getUser().getId());
-		cs.removeComment(commId);
-		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-		return modelAndView;
-	}
+	*/
+
 
 	
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
@@ -1228,6 +1284,7 @@ public class LinkNavigation {
 		
 		return new ModelAndView("redirect:/success-login");
 	}
+	
 	@RequestMapping(value="/noTeams", method=RequestMethod.GET)
 	public ModelAndView noTeamsPage() {
 		ModelAndView lista = new ModelAndView();

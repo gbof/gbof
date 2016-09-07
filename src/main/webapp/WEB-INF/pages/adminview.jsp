@@ -180,8 +180,9 @@
 											        <th>"What did you like?"</th>
 											        <th>"What can (s)he do better?"</th>
 											        <th align="right" style="width:40px">Edit</th>
-											        
+											        <!-- 
 											        <th align="right" style="width:40px">Delete</th>
+											        -->
 											      </tr>
 											    </thead>
 											    <tbody>
@@ -203,16 +204,13 @@
 											      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 											      
 											      </tr>
-											      
-											      
-											      
+
 						            			</c:forEach>
 											     -->
 											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
-											    <tr data-status="${user.getTeam().getName()}">
-											    
-											    	
-											         
+											   <!--  <tr data-status="${user.getTeam().getName()}">-->
+											    <tr data-status="tableeee">
+  
 											          <td><c:out value="${user.name}" /></td>
 											          <td><c:out value="${user.surname}" /></td>
 											        
@@ -240,15 +238,58 @@
 																<br>
 															</c:if>
 												         	
+											         	
 											         	</c:forEach>
 											         	
 						            				</td>
-						            				 <td align="center"><button type="submit" name="buttonComId" value="${user.getId()}" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
 
-											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal1${user.getId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
-											      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
-											     
-						            				
+													<td align="center">
+													<c:set var="licznik1" value="0"/>
+													<c:forEach var="comment" items="${commentList}">
+													        
+													        <c:set var="userId" value="${user.getId()}"/>
+															<c:set var="userComId" value="${comment.getUser().getId()}"/>
+
+															<c:if test="${userId == userComId}" >
+															<c:set var="licznik1" value="1"/>
+																
+															</c:if>
+											       </c:forEach> 
+											       <c:if test="${licznik1 == 1}" >
+													 	
+											         	<button type="submit"  name="buttonComId" value="${user.getId()}" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+													</c:if>
+													<c:if test="${licznik1 == 0}" >
+													 	
+											         	<button type="submit"  name="buttonComId" disabled value="${user.getId()}" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+													</c:if>
+														
+													 </td>
+													<!-- 
+											      <td align="center">
+											      <c:set var="licznik2" value="0"/>
+											     <c:forEach var="comment" items="${commentList}">
+													        
+													        <c:set var="userId" value="${user.getId()}"/>
+															<c:set var="userComId" value="${comment.getUser().getId()}"/>
+															
+															<c:if test="${userId == userComId}" >
+																<c:set var="licznik2" value="1"/>
+
+															</c:if>
+												         	
+											       </c:forEach>  
+											       <c:if test="${licznik2 == 1}" >
+													<button data-toggle="modal" style="width:40px" data-target="#Modal1${user.getId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
+											      	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+											      </c:if>
+											      <c:if test="${licznik2 == 0}" >
+													<button data-toggle="modal" disabled style="width:40px" data-target="#Modal1${user.getId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
+											      	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+											      </c:if>
+											      <td>
+											     	
+						            				--->
 											      </tr>
 						            			</c:forEach>
 						    						            			

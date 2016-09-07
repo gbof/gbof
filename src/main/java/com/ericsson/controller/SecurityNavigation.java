@@ -192,6 +192,8 @@ public class SecurityNavigation {
 		
 		
 		
+		
+		
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
 		lista.addObject("yourComments", yourComments);
