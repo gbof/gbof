@@ -86,5 +86,13 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public List<User> getAllUsersTeam(Integer team_id){
+		return userDAO.getAllUsersTeam(team_id);
+	}
 
+	@Override
+	public void editTeamId(Integer team_id, Integer user_id){
+		userDAO.editTeamId(team_id, user_id);
+	}
 }

@@ -31,6 +31,7 @@
 	                <div class="panel-heading">
 	                    Employees
 	                </div>
+	                <input type="hidden" name="team_id" value="${team.getId()}"/>
 	                <div class="panel-body">
 	                    <div class="container col-md-12">          
 						  <table class="table table-hover col-md-12 table-responsive">

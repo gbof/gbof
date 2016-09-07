@@ -77,6 +77,19 @@ public class UserDAOImpl implements UserDAO {
 			return null;	
 	}
 	
+	public List<User> getAllUsersTeam(Integer team_id) {
+		List<User> usersList = new ArrayList<User>();
+		
+		String sql = "from User where team_id = '" + team_id + "' order by surname";
+		Query query = openSession().createQuery(sql);
+		
+		usersList = query.list();
+		if (usersList.size() > 0)
+			return usersList;
+		else
+			return null;	
+	}
+	
 	
 	public void setPassword(Integer id, String password){
 		String query = "UPDATE users SET password = '"+ password +"' WHERE user_id = '"+ id + "'";
@@ -200,6 +213,13 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void editRoleID(Integer leader_id, int role_id) {
 		String query = "UPDATE users SET role_id='"+role_id+"' where user_id='"+leader_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+	
+	@Override
+	public void editTeamId(Integer team_id, Integer user_id) {
+		String query = "UPDATE users SET team_id='"+team_id+"' where user_id='"+user_id+"'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}

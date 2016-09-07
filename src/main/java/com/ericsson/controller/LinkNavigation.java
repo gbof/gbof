@@ -895,7 +895,7 @@ public class LinkNavigation {
 		String login = us.getUser(userName).getLogin();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
-		List<User> listt = us.getAllUsers();
+		List<User> listt = us.getAllUsersTeam(buttonComId);
 		
 		Team team = ts.getTeam(buttonComId);
 		Integer user_id = ts.getTeam(buttonComId).getLeaderId();
@@ -920,7 +920,6 @@ public class LinkNavigation {
 		for (User t: users){
 			listt.add(t);
 		}
-
 		
 		model.addAttribute("team", team);
 		model.addAttribute("leaderName", leaderName);
@@ -1069,14 +1068,17 @@ public class LinkNavigation {
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		ModelAndView lista = new ModelAndView();
 		
-		;
+		for(int i=0;i<teamlistt.size();i++)
+		{
+			if(teamlistt.get(i).getName().equals("no-team"))
+				teamlistt.remove(i);
+		}
 		
 		if(teamlistt==null)
 		{
 			lista.setViewName("noTeams");
 			return lista;
 		}
-		
 		else{
 		for (Team t : teamlistt){
 			deptNames.add(ds.getDeptName(t.getDeptId()));
@@ -1093,6 +1095,30 @@ public class LinkNavigation {
 		lista.addObject("leaderSurnames", leaderSurnames);
 		lista.setViewName("teams");
 		return lista;
+	}
+	
+	@RequestMapping(value = "/teamEdited", params = "addMore", method = RequestMethod.POST)
+	public ModelAndView teamsPageMore(@RequestParam(value = "team_id") Integer team_id) {
+		List<User> listt = us.getAllUsers();
+		Team team = ts.getTeam(team_id);
+		Integer teamId = ts.getTeam(team_id).getId();
+		for(int i=0;i<listt.size();i++){
+			for(int j=0;j<listt.size();j++)
+			if(listt.get(j).getTeam().getId().equals(teamId))
+				listt.remove(j);
+		}
+		ModelAndView lista = new ModelAndView("newUsers");
+		lista.addObject("team", team);
+		lista.addObject("listt", listt);
+		return lista;
+	}
+	
+	@RequestMapping(value = "/teamEdited1", method = RequestMethod.POST)
+	public String teamsEdit1(@RequestParam(value = "userAddMoreIds", required = false, defaultValue = "") Integer[] userAddMoreIds, 
+			@RequestParam(value = "team_id") Integer team_id) {
+		for(int i=0;i<userAddMoreIds.length;i++)
+			us.editTeamId(team_id, userAddMoreIds[i]);
+		return "redirect:/teams";
 	}
 	
 	@RequestMapping(value = "/deptAdded", method = RequestMethod.POST)

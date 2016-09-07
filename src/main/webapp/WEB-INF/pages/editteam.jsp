@@ -71,12 +71,31 @@
 						        </div>
 					    	</div>												
 		           			<input type="hidden" name="team_id" value="${team.getId()}"/>
-		           			
+		           			<table class="table table-filter table-hover col-md-12 table-responsive">
+											    <thead>
+											      <tr data-status="tableeee">
+											      	<th>Name</th>
+											        <th>Surname</th>
+											        <th>Login</th>
+											      </tr>
+											    </thead>
+											    <tbody>
+
+											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
+											    <tr data-status="${user.getTeam().getName()}">
+											          <td><c:out value="${user.name}" /></td>
+											          <td><c:out value="${user.surname}" /></td>
+											          <td><c:out value="${user.login}" /></td>
+											      </tr>
+						            			</c:forEach>
+											    </tbody>
+											  </table>
 		           			
 		           	</div>	
 		           	<div class="panel-footer">	
   						<input type="submit" name="save" style="min-width: 100px;" class="btn btn-primary pull-right " value="Save"/>
   						<!-- <button type="button" data-toggle="modal" data-target="#ModalRemoveTeam" class="btn btn-primary btn-change pull-right" value="Remove">Delete user</button>-->
+		        		<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 		        		<a href="${pageContext.request.contextPath}/teams"><input type="button" style="min-width: 100px;" class="btn btn-primary pull-left " id="back" name="back"value="Back" /></a>
         			</div>
 		    	</div>
