@@ -239,7 +239,7 @@ public class SecurityNavigation {
 		boolean isLeader = false;
 		for (int i=0; i<listt.size(); i++){
 			for (int j=0; j<deptlistt1.size(); j++){
-				if (deptlistt1.get(j).getDeptLeaderId() == listt.get(i).getId()){
+				if (deptlistt1.get(j).getDeptLeaderId().equals(listt.get(i).getId())){
 					isLeader = true;
 				}
 			}
