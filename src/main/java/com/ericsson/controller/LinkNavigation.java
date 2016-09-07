@@ -816,6 +816,12 @@ public class LinkNavigation {
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
 		
+		for (Department d:deptlistt){
+			if (us.getUserId(buttonComId).getId().equals(d.getDeptLeaderId())){
+				ds.editDepartment(d.getDeptId(), us.getUserWithRole(rs.getRoleId("superuser").get(0).getId()).get(0).getId());				
+			}	
+		}
+		
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<Settings> settingsList=sett.getSettings();
 		String _name;

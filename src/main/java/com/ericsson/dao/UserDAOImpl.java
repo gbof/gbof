@@ -246,6 +246,20 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 
+	@Override
+	public List<User> getUserWithRole(Integer role_id) {
+		List<User> usersList = new ArrayList<User>();
+		
+		String sql = "from User where role_id = '" + role_id + "'";
+		Query query = openSession().createQuery(sql);
+		
+		usersList = query.list();
+		if (usersList.size() > 0)
+			return usersList;
+		else
+			return null;
+	}
+
 	
 	
 }

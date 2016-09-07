@@ -95,4 +95,8 @@ public class UserServiceImpl implements UserService {
 	public void editTeamId(Integer team_id, Integer user_id){
 		userDAO.editTeamId(team_id, user_id);
 	}
+	@Override
+	public List<User> getUserWithRole(Integer role_id) {
+		return userDAO.getUserWithRole(role_id);
+	}
 }
