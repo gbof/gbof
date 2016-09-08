@@ -55,7 +55,9 @@ public class SettingsDAOImpl implements SettingsDAO{
 		List<Double> getMoney = new ArrayList<Double>();
 		
 		String sql = "select money from Settings WHERE settings_id = '"+ settingsId + "'";
+		
 		Query query = openSession().createQuery(sql);
+		
 		getMoney = query.list();
 		if (getMoney.size() > 0)
 			return getMoney;
@@ -77,11 +79,11 @@ public class SettingsDAOImpl implements SettingsDAO{
 	@Override
 	
 
-	public List<Settings> getSettings() {
+	public List<Settings> getSettings(Integer settings_id) {
 
 		List<Settings> settingsList = new ArrayList<Settings>();
 		
-		String sql = "from Settings";
+		String sql = "from Settings where settings_id ='" + settings_id + "'";
 		Query query = openSession().createQuery(sql);
 		
 		settingsList = query.list();

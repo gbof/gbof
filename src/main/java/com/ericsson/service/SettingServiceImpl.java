@@ -30,9 +30,9 @@ public class SettingServiceImpl implements SettingService{
 
 	
 
-	public List<Settings> getSettings()
+	public List<Settings> getSettings(Integer settings_id)
 	{
-		return settingsDAO.getSettings();
+		return settingsDAO.getSettings(settings_id);
  
 	}
 	

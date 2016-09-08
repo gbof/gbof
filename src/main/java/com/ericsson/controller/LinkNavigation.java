@@ -82,7 +82,7 @@ public class LinkNavigation {
 	
 	@RequestMapping(value = "/helpPage", method = RequestMethod.GET)
 	public ModelAndView helpPage() {
-		List<Settings> settingsList=sett.getSettings();
+		
 		ModelAndView modelandview = new ModelAndView();
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -95,6 +95,8 @@ public class LinkNavigation {
 		wynik = sett.round(wynik, 2);
 		String login = us.getUser(userName).getLogin();
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingsList=sett.getSettings(idDept);
 		modelandview.addObject("settingsList",settingsList);
 		modelandview.addObject("money", wynik);
 		modelandview.addObject("kule", kulki);
@@ -523,9 +525,17 @@ public class LinkNavigation {
 		String login2 = us.getUser(userName).getLogin();
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		List<Settings> settingsList = sett.getSettings();
-		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+
+		List<Settings> settingsList = sett.getSettings(idDept);
 		Integer balls_to_give = settingsList.get(0).getBallsPerPerson();
+		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
+		
+
+		
+		
+		//Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
+		
 		
 		
 		
@@ -533,11 +543,13 @@ public class LinkNavigation {
 		Integer roleId = roleList.get(0).getId();
 		
 		System.out.println("roleId==="+roleId);
-		
+		System.out.println("settings list: "+settingsList.get(0).getSettingsID()+ balls_to_give);
 		Team teamList = ts.getTeamID(teamName);
 		Integer teamID = teamList.getId();
 
 		Integer deptID = us.getUser(userName).getDept().getDeptId();
+
+
 
 		List<User> listt = us.getAllUsers();
 
@@ -628,11 +640,11 @@ public class LinkNavigation {
 		String login2 = us.getUser(userName).getLogin();
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		List<Settings> settingsList = sett.getSettings();
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingsList = sett.getSettings(idDept);
 		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
 		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
-		
-		
+			
 		
 		List<Role> roleList = rs.getRoleId(roleName);
 		Integer roleId = roleList.get(0).getId();
@@ -750,11 +762,7 @@ public class LinkNavigation {
 		List<Role> role = rs.getRoleId(roleName);
 		rolelistt.remove(role.get(0).getId()-1);
 		
-		List<Department> deptlistt = ds.getAllDepts();
-		String deptName = user.getDept().getDeptName();
-		Department dept = ds.getDeptID(deptName);
-		deptlistt.remove(dept.getDeptId()-1);
-		
+				
 		List<Team> teamlistt = ts.getAllTeams();
 		String teamName = user.getTeam().getName();
 		System.out.println("teamName=="+teamName);
@@ -772,7 +780,7 @@ public class LinkNavigation {
 		}
 		model.addAttribute("user", user);
 		model.addAttribute("rolelistt", rolelistt);
-		model.addAttribute("deptlistt", deptlistt);
+		
 		model.addAttribute("teamlistt", teamlistt);
 		model.addAttribute("ballstogive", ballstogive);
 
@@ -818,7 +826,8 @@ public class LinkNavigation {
 		}
 		
 		List<String> userBasiclistt = new ArrayList<String>();
-		List<Settings> settingsList=sett.getSettings();
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingsList=sett.getSettings(idDept);
 		String _name;
 		String _surname;
 		String _login;
@@ -937,7 +946,8 @@ public class LinkNavigation {
 		
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		List<Settings> settingsList = sett.getSettings();
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingsList = sett.getSettings(idDept);
 		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
 		List<User> listt = us.getAllUsers();
 		
@@ -1103,8 +1113,8 @@ public class LinkNavigation {
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
-
-		List<Settings> settingsList=sett.getSettings();
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingsList=sett.getSettings(idDept);
 		
 		
 		List<Double> money = sett.getMoney(1);

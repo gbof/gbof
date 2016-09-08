@@ -19,7 +19,7 @@ public interface SettingService {
 
 
 
-	public List<Settings> getSettings();
+	public List<Settings> getSettings(Integer settings_id);
 	
 	public double round(double value, int places);
 	

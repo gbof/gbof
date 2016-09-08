@@ -93,15 +93,16 @@ public class SecurityNavigation {
 			   sett.setToFrozen();
 			   
 		   }
-		   
-		   List<Settings> settingsList=sett.getSettings();
-			
+		   Integer idDept=us.getUser(userName).getDept().getDeptId();
+		   List<Settings> settingsList=sett.getSettings(idDept);
+			if(settingsList != null)
+			{
 			if(settingsList.get(0).getFreeze()==1)
 			{
 				System.out.println("login confirm");
 				coms.setConfirmAll();
 			}
-		   
+			}
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("redirect:/adminview");
 			else if (role.getRole().equals("superuser"))
@@ -112,9 +113,8 @@ public class SecurityNavigation {
 				return new ModelAndView("redirect:/inside");
 			else 
 				return new ModelAndView("redirect:/inside");
+	
 	}
-	
-	
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
 	public ModelAndView insidePage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -143,7 +143,7 @@ public class SecurityNavigation {
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
 		
-		List<Settings> settingsList=sett.getSettings();
+
 		
 		
 		ModelAndView lista = new ModelAndView();
@@ -191,8 +191,8 @@ public class SecurityNavigation {
 			allBallsGivenTo.addAll(coms.getAllBallsGivenTo(id, listt.get(i).getId()));
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
-	        
-		List<Settings> settingsList=sett.getSettings();
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingsList=sett.getSettings(idDept);
 		
 		Double suma = 0.0;
 		List<Double> moneyList = new ArrayList<Double>();
@@ -342,7 +342,7 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		String name = us.getUser(userName).getName();
 		String login = us.getUser(userName).getLogin();
-		
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		String role = us.getUser(userName).getRole().getRole();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
@@ -362,7 +362,7 @@ public class SecurityNavigation {
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
 
-		List<Settings> settingsList=sett.getSettings();
+		List<Settings> settingsList=sett.getSettings(idDept);
 		
 		
 		
@@ -419,7 +419,7 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		String login = us.getUser(userName).getLogin();
-		
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		ModelAndView modelAndView = new ModelAndView("settings");
 		
 		Boolean freeze;
@@ -436,7 +436,7 @@ public class SecurityNavigation {
 		else
 		{
 		modelAndView.addObject("correct", true);
-		sett.addSetting(ballsPerPers,money,deadline,freeze,1,helpMsg);
+		sett.addSetting(ballsPerPers,money,deadline,freeze,idDept,helpMsg);
 		
 		
 		}
@@ -453,7 +453,8 @@ public class SecurityNavigation {
 			_login = listt.get(i).getLogin();
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
 		}
-		List<Settings> settingsList=sett.getSettings();
+		
+		List<Settings> settingsList=sett.getSettings(idDept);
 		System.out.println(settingsList.get(0).getHelpMsg());
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
@@ -471,7 +472,7 @@ public class SecurityNavigation {
 		List<Double> Lmoney = sett.getMoney(1);
 		Double moneyValue = Lmoney.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
-		
+	
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
 		wynik = sett.round(wynik, 2);
@@ -503,7 +504,7 @@ public class SecurityNavigation {
 		List<Double> Lmoney = sett.getMoney(1);
 		Double moneyValue = Lmoney.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
-		
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
 		wynik = sett.round(wynik, 2);
@@ -514,7 +515,7 @@ public class SecurityNavigation {
 		freeze=false;
 		
 		Double withExtraMoney=money+extramoney;
-		sett.addExtraMoney(1, withExtraMoney);
+		sett.addExtraMoney(idDept, withExtraMoney);
 		
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<User> listt = us.getAllUsers();
@@ -528,7 +529,8 @@ public class SecurityNavigation {
 			_login = listt.get(i).getLogin();
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
 		}
-		List<Settings> settingsList=sett.getSettings();
+		
+		List<Settings> settingsList=sett.getSettings(idDept);
 		
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
