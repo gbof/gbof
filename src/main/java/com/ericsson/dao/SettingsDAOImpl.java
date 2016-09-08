@@ -103,10 +103,10 @@ public class SettingsDAOImpl implements SettingsDAO{
 	    return money;
 	}
 	
-	public List<Integer> getSettingsFreeze() {
+	public List<Integer> getSettingsFreeze(Integer settings_id) {
 		List<Integer> integerList = new ArrayList<Integer>();
 		
-		String sql = "select freeze from Settings";
+		String sql = "select freeze from Settings where settings_id ='" + settings_id + "'";
 		Query query = openSession().createQuery(sql);
 		
 		integerList = query.list();
@@ -116,10 +116,10 @@ public class SettingsDAOImpl implements SettingsDAO{
 			return null;
 	}
 	
-	public List<Date> getSettingsDate() {
+	public List<Date> getSettingsDate(Integer settings_id) {
 		List<Date> integerList = new ArrayList<Date>();
 		
-		String sql = "select deadline from Settings";
+		String sql = "select deadline from Settings  where settings_id ='" + settings_id + "'";
 		Query query = openSession().createQuery(sql);
 		
 		integerList = query.list();
@@ -129,8 +129,8 @@ public class SettingsDAOImpl implements SettingsDAO{
 			return null;
 	}
 	
-	public void setToFrozen(){	
-		String query = "UPDATE settings SET freeze='1'";
+	public void setToFrozen(Integer settings_id){	
+		String query = "UPDATE settings SET freeze='1' where settings_id ='" + settings_id + "'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}

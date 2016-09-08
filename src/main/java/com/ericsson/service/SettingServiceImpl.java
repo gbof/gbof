@@ -40,16 +40,16 @@ public class SettingServiceImpl implements SettingService{
 		return settingsDAO.round(value, places);
 	}
 	
-	public List<Integer> getSettingsFreeze(){
-		return settingsDAO.getSettingsFreeze();
+	public List<Integer> getSettingsFreeze(Integer settings_id){
+		return settingsDAO.getSettingsFreeze(settings_id);
 	}
 	
-	public List<Date> getSettingsDate(){
-		return settingsDAO.getSettingsDate();
+	public List<Date> getSettingsDate(Integer settings_id){
+		return settingsDAO.getSettingsDate(settings_id);
 	}
 	
-	public void setToFrozen(){
-		settingsDAO.setToFrozen();
+	public void setToFrozen(Integer settings_id){
+		settingsDAO.setToFrozen(settings_id);
 	}
 	public void addExtraMoney(Integer settings_id, Double withExtraMoney){
 		

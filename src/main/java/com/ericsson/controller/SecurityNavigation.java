@@ -86,14 +86,14 @@ public class SecurityNavigation {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Role role = us.getUser(userName).getRole();
-
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		   Date date = new Date();
-		   Date date1 = sett.getSettingsDate().get(0);
+		   Date date1 = sett.getSettingsDate(idDept).get(0);
 		   if(date1.before(date)){
-			   sett.setToFrozen();
+			   sett.setToFrozen(idDept);
 			   
 		   }
-		   Integer idDept=us.getUser(userName).getDept().getDeptId();
+		   
 		   List<Settings> settingsList=sett.getSettings(idDept);
 			if(settingsList != null)
 			{
@@ -107,7 +107,7 @@ public class SecurityNavigation {
 			return new ModelAndView("redirect:/adminview");
 			else if (role.getRole().equals("superuser"))
 				return new ModelAndView("redirect:/superUser");
-			else if(sett.getSettingsFreeze().get(0)==1)
+			else if(sett.getSettingsFreeze(idDept).get(0)==1)
 				return new ModelAndView("redirect:/freeze");
 			else if (role.getRole().equals("moderator"))
 				return new ModelAndView("redirect:/inside");
@@ -376,9 +376,9 @@ public class SecurityNavigation {
 		
 
 		 Date date = new Date();
-		   Date date1 = sett.getSettingsDate().get(0);
+		   Date date1 = sett.getSettingsDate(idDept).get(0);
 		   if(date1.before(date)){
-			   sett.setToFrozen();
+			   sett.setToFrozen(idDept);
 			   
 		   }
 		   
@@ -388,7 +388,7 @@ public class SecurityNavigation {
 		}
 		ModelAndView lista = new ModelAndView();
 		
-		if(sett.getSettingsFreeze().get(0)==1)
+		if(sett.getSettingsFreeze(idDept).get(0)==1)
 			lista.addObject("checked", true);
 		else
 			lista.addObject("checked", false);
@@ -460,12 +460,12 @@ public class SecurityNavigation {
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
 		 Date date = new Date();
-		   Date date1 = sett.getSettingsDate().get(0);
+		   Date date1 = sett.getSettingsDate(idDept).get(0);
 		   if(date1.before(date)){
-			   sett.setToFrozen();
+			   sett.setToFrozen(idDept);
 			   
 		   }
-		if(sett.getSettingsFreeze().get(0)==1)
+		if(sett.getSettingsFreeze(idDept).get(0)==1)
 			modelAndView.addObject("checked", true);
 		else
 			modelAndView.addObject("checked", false);
@@ -536,12 +536,12 @@ public class SecurityNavigation {
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
 		 Date date = new Date();
-		   Date date1 = sett.getSettingsDate().get(0);
+		   Date date1 = sett.getSettingsDate(idDept).get(0);
 		   if(date1.before(date)){
-			   sett.setToFrozen();
+			   sett.setToFrozen(idDept);
 			   
 		   }
-		if(sett.getSettingsFreeze().get(0)==1)
+		if(sett.getSettingsFreeze(idDept).get(0)==1)
 			modelAndView.addObject("checked", true);
 		else
 			modelAndView.addObject("checked", false);

@@ -601,7 +601,7 @@ public class LinkNavigation {
 				rolelistt.remove(i);
 		}
 		
-		if(sett.getSettingsFreeze().get(0)==1)
+		if(sett.getSettingsFreeze(deptID).get(0)==1)
 			modelAndView.addObject("checked", true);
 		else
 			modelAndView.addObject("checked", false);
@@ -825,6 +825,7 @@ public class LinkNavigation {
 			}	
 		}
 		
+		
 		List<String> userBasiclistt = new ArrayList<String>();
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		List<Settings> settingsList=sett.getSettings(idDept);
@@ -838,7 +839,7 @@ public class LinkNavigation {
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
 		}
 		ModelAndView modelAndView = new ModelAndView("settings");
-		if(sett.getSettingsFreeze().get(0)==1)
+		if(sett.getSettingsFreeze(idDept).get(0)==1)
 			modelAndView.addObject("checked", true);
 		else
 			modelAndView.addObject("checked", false);
@@ -1127,15 +1128,15 @@ public class LinkNavigation {
 		
 
 		 Date date = new Date();
-		   Date date1 = sett.getSettingsDate().get(0);
+		   Date date1 = sett.getSettingsDate(idDept).get(0);
 		   if(date1.before(date)){
-			   sett.setToFrozen();
+			   sett.setToFrozen(idDept);
 		   }
 
 		
 		ModelAndView lista = new ModelAndView();
 		
-		if(sett.getSettingsFreeze().get(0)==1)
+		if(sett.getSettingsFreeze(idDept).get(0)==1)
 			lista.addObject("checked", true);
 		else
 			lista.addObject("checked", false);
