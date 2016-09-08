@@ -24,5 +24,7 @@ public interface CommentService {
 
 	public Comment getCommentId(Integer id);
 	public void setConfirmAll();
+	public List<Double> getCash();
+	public void editCommentBalls(Integer com_id);
 
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.ericsson.model.Settings;
 import com.ericsson.model.User;
 import com.ericsson.service.BallService;
+import com.ericsson.service.CommentService;
 import com.ericsson.model.Settings;
 
 @Repository
@@ -25,6 +26,9 @@ public class SettingsDAOImpl implements SettingsDAO{
 	
 	@Autowired
 	private BallService ballservice;
+	
+	@Autowired
+	private CommentService commentservice;
 	
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
@@ -53,9 +57,8 @@ public class SettingsDAOImpl implements SettingsDAO{
 		
 	public List<Double> getMoney(Integer settingsId){
 		List<Double> getMoney = new ArrayList<Double>();
-		
-		String sql = "select money from Settings WHERE settings_id = '"+ settingsId + "'";
-		
+		Double cash = commentservice.getCash().get(0);
+		String sql = "select money-'"+cash+"' from Settings WHERE settings_id = '"+ settingsId + "'";
 		Query query = openSession().createQuery(sql);
 		
 		getMoney = query.list();

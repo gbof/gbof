@@ -119,6 +119,12 @@ public class CommentDAOImpl implements CommentDAO{
 		sqlQuery.executeUpdate();
 	}
 	
+	public void editCommentBalls(Integer com_id){
+		String query = "UPDATE comments SET balls_per_com=0  WHERE com_id ='"+com_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+	
 	public List<Double> getBallValue(Double money){
 		List<Double> allBalls = new ArrayList<Double>();
 		String sql = "select '"+ money +"'/(sum(balls_to_give)+sum(received_balls)) from Ball";
@@ -129,6 +135,18 @@ public class CommentDAOImpl implements CommentDAO{
 		else
 			return null;	
 	}
+	
+	public List<Double> getCash(){
+		List<Double> allBalls = new ArrayList<Double>();
+		String sql = "select sum(cash) from Ball";
+		Query query = openSession().createQuery(sql);
+		allBalls = query.list();
+		if (allBalls.size() > 0)
+			return allBalls;
+		else
+			return null;	
+	}
+	
 	
 	public List<Long> getBallValue2(){
 		List<Long> allBalls = new ArrayList<Long>();

@@ -59,9 +59,18 @@
 												placeholder="" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
 										</div>	
 										</c:if>
+										<c:set var="locked" value="${user.getBall().getLocked()}"/>
+										<c:set var="isLocked" value="1"/>
+										<c:if test="${locked == isLocked}" >
+										<div>This person is locked, You cannot give him balls</div>
+										<div class="col-md-3 col-sm-3 col-xs-5">	
+											<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
+												placeholder="" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
+										</div>	
+										</c:if>
 										<c:set var="rola" value="${user.role.id}"/>
 										<c:set var="admin" value="1"/>
-										<c:if test="${rola != admin}" >
+										<c:if test="${rola != admin && locked != isLocked}" >
 											
 										<div class="col-md-3 col-sm-3 col-xs-2">	
 											<input type="number" min="0" max="${kule}" class="form-control" id="ballsnumber" name="ballsNumber" 

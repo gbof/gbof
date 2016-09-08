@@ -74,6 +74,12 @@ public class CommentServiceImpl implements CommentService{
 		return commentDAO.getCommentId(id);
 	}
 	
+	public List<Double> getCash(){
+		return commentDAO.getCash();
+	}
 
+	public void editCommentBalls(Integer com_id){
+		commentDAO.editCommentBalls(com_id);
+	}
 
 }

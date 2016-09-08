@@ -106,7 +106,25 @@
 								<div class="col-md-6">
 									<input value="${user.getBall().getBallsToGive()}" class="form-control" name="balls" required />
 								</div>
-							</div>												
+							</div>		
+							<div class="form-group col-md-6 col-sm-6">
+								<label class="col-md-4">Money</label>
+								<div class="col-md-6">
+									<input value="${user.getBall().getCash()}" class="form-control" name="extraMoney" required />
+								</div>
+							</div>		
+							<div class="form-group col-md-6 col-sm-6">
+								<label class="col-md-4">Block?</label>
+								<div class="checkbox">
+								<c:if test="${checked == false}">
+									<input type="checkbox" name = "userIds" value = "1">
+									</c:if>
+									<c:if test="${checked == true}">
+									<input type="checkbox" name = "userIds" value = "1" checked>
+									</c:if>
+								</div>	
+							</div>	
+															
 		           			<input type="hidden" name="user_id" value="${user.getId()}"/>
 		           			
 		           			

@@ -65,6 +65,23 @@ public class BallDAOImpl implements BallDAO {
 	}
 	
 	@Override
+	public void editCach(Integer balls_id, Double cash) {
+		String query = "UPDATE balls SET cash='"+cash+"'  WHERE balls_id ='"+balls_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+	
+	@Override
+	public void editLocked(Integer balls_id, Integer locked) {
+		String query = "UPDATE balls SET locked='"+locked+"'  WHERE balls_id ='"+balls_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+	
+	
+	@Override
 	public List<Integer> getBallsToGive(){
 		List<Integer> ballsList = new ArrayList<Integer>();
 		
@@ -98,5 +115,7 @@ public class BallDAOImpl implements BallDAO {
 			return null;
 		
 	}
+	
+	
 	
 }

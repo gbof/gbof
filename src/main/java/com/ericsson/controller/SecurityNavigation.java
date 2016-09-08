@@ -195,15 +195,17 @@ public class SecurityNavigation {
 		List<Settings> settingsList=sett.getSettings(idDept);
 		
 		Double suma = 0.0;
+		Double extraMoney;
 		List<Double> moneyList = new ArrayList<Double>();
 		for(int i=0;i<listt.size();i++){
 			Integer userMoney = bs.getReceivedMoney(listt.get(i).getBall().getBallsId(), wynik).get(0);
 			Double wynik1 = userMoney*wynik;
+			extraMoney = listt.get(i).getBall().getCash();
+			wynik1 = wynik1 + extraMoney;
 			Double wynik2 = wynik1;
 			wynik1 = sett.round(wynik1, 2);
 			moneyList.add(wynik1);
-			suma=suma+wynik2;
-			
+			suma=suma+wynik2;	
 		}
 		suma = sett.round(suma, 2);
 		lista.addObject("suma",suma);

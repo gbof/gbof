@@ -778,6 +778,11 @@ public class LinkNavigation {
 			if (teamlistt.get(i).getId() == teamlistt.get(i).getId())
 				teamlistt.remove(i);
 		}
+		if(user.getBall().getLocked()==1)
+			model.addAttribute("checked", true);
+		else
+			model.addAttribute("checked", false);
+		
 		model.addAttribute("user", user);
 		model.addAttribute("rolelistt", rolelistt);
 		
@@ -887,6 +892,8 @@ public class LinkNavigation {
 			@RequestParam(value = "login") String login, @RequestParam(value = "mail") String mail,
 			@RequestParam(value = "role") String role,
 			@RequestParam(value = "team") String team, @RequestParam(value = "balls") Integer balls,
+			@RequestParam(value = "extraMoney") Double money, 
+			@RequestParam(value = "userIds", required = false, defaultValue = "0") Integer[] isLocked,
 			@RequestParam("user_id") Integer user_id,
 			Model model
 
@@ -899,7 +906,29 @@ public class LinkNavigation {
 		Integer teamID = ts.getTeamID(team).getId();
 		Integer balls_id = us.getUserId(user_id).getBall().getBallsId();
 		
+		Integer locked;
+		Integer creator_id;
+		Integer ballsForComment;
+		if(isLocked[0].equals(1)){
+			locked = 1;
+			List<Comment> commentsList = cs.getCommentsYouGave(user_id);
+			if(commentsList!=null)
+			for(int i=0;i<commentsList.size();i++){
+				creator_id = commentsList.get(i).getCreatorId();
+				ballsForComment = commentsList.get(i).getBallsPerCom();
+				us.setBallsAfterCommentDelete(creator_id, ballsForComment, user_id);
+				cs.editCommentBalls(commentsList.get(i).getComId());
+			}
+		}
+		else
+		{
+			locked = 0;
+		}
+
 		
+		
+		bs.editLocked(balls_id, locked);
+		bs.editCach(balls_id, money);
 		bs.editBallsToGive(balls_id, balls);
 		rus.editRole(user_id, roleID);
 		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);

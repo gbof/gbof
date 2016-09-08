@@ -46,4 +46,14 @@ public class BallServiceImpl implements BallService {
 			return ballDAO.getReceivedMoney(balls_id, money);
 		}
 		
+		@Override
+		public void editCach(Integer balls_id, Double cash){
+			ballDAO.editCach(balls_id, cash);
+		}
+		
+		@Override
+		public void editLocked(Integer balls_id, Integer locked){
+			ballDAO.editLocked(balls_id, locked);
+		}
+		
 }

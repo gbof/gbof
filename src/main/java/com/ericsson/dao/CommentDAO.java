@@ -20,4 +20,6 @@ public interface CommentDAO {
 	public void setConfirm(Integer id);
 	public Comment getCommentId(Integer id);
 	public void setConfirmAll();
+	public List<Double> getCash();
+	public void editCommentBalls(Integer com_id);
 }
