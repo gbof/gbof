@@ -61,7 +61,7 @@
 							<c:if test="${rola != admin}" >
 							<c:if test="${user.getRole().getId() != admin}">
 							
-							<input type="number" value="${commentId.getBallsPerCom()} min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
+							<input type="number" value="${commentId.getBallsPerCom()}" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
 								placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
 							
 							

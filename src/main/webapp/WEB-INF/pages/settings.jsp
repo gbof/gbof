@@ -342,6 +342,20 @@
 				        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
 				        <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
 				    </div>
+				    <script>
+				     $('input:submit').click(function(){
+				 		var v = $('input#teamName').map(function(){return $(this).val();}).get();
+				 		var empty=0;
+				 		$(v).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 			}
+				 		});	
+				 		if (empty == 0)
+				 			$('input:submit').attr("disabled", true);
+				 	});
+
+				 	</script>
 	      	</form>
 		</div>
 	</div>

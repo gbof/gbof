@@ -104,15 +104,16 @@ public class SecurityNavigation {
 		   
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("redirect:/adminview");
-		else if(sett.getSettingsFreeze().get(0)==1)
+			else if (role.getRole().equals("superuser"))
+				return new ModelAndView("redirect:/superUser");
+			else if(sett.getSettingsFreeze().get(0)==1)
 				return new ModelAndView("redirect:/freeze");
 			else if (role.getRole().equals("moderator"))
 				return new ModelAndView("redirect:/inside");
-			else if (role.getRole().equals("user"))
+			else 
 				return new ModelAndView("redirect:/inside");
-			else
-				return new ModelAndView("redirect:/superUser");
 	}
+	
 	
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
 	public ModelAndView insidePage() {
@@ -198,13 +199,13 @@ public class SecurityNavigation {
 		for(int i=0;i<listt.size();i++){
 			Integer userMoney = bs.getReceivedMoney(listt.get(i).getBall().getBallsId(), wynik).get(0);
 			Double wynik1 = userMoney*wynik;
+			Double wynik2 = wynik1;
 			wynik1 = sett.round(wynik1, 2);
 			moneyList.add(wynik1);
-			suma=suma+wynik1;
-			suma = sett.round(suma, 2);
+			suma=suma+wynik2;
 			
 		}
-		
+		suma = sett.round(suma, 2);
 		lista.addObject("suma",suma);
 		lista.addObject("moneyList", moneyList);
 

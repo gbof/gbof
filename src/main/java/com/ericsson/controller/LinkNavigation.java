@@ -139,7 +139,7 @@ public class LinkNavigation {
 		return "comments";
 	}
 
-	@RequestMapping(value = "/commentAdded", params = "submit", method = RequestMethod.POST)
+	@RequestMapping(value = "/commentAdded", method = RequestMethod.POST)
 	public ModelAndView commentAdded(
 			@RequestParam(value = "message1") ArrayList<String> message1List,
 			@RequestParam(value = "message2") ArrayList<String> message2List,
@@ -939,7 +939,6 @@ public class LinkNavigation {
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<Settings> settingsList = sett.getSettings();
 		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
-		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
 		List<User> listt = us.getAllUsers();
 		
 		List<Double> money = sett.getMoney(1);

@@ -95,6 +95,35 @@
 					    	<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 				      	</div>
 				     </div>
+				     <script>
+				     $('input:submit').click(function(){
+				 		var v = $('input#ballsnumber').map(function(){return $(this).val();}).get();
+				 		var m = $('textarea#message1').map(function(){return $(this).val();}).get();
+				 		var mm = $('textarea#message2').map(function(){return $(this).val();}).get();;
+
+				 		var empty=0;
+				 		$(v).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 			}
+				 		});
+				 		$(m).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 			}
+				 		});
+				 		
+				 		$(mm).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 			}
+				 		});
+				 		
+				 		if (empty == 0)
+				 			$('input:submit').attr("disabled", true);
+				 	});
+
+				 	</script>
 			    </form>
 
 
@@ -122,7 +151,6 @@
 	    		balls = ballsLeft;
 	    	}
 	}
-
 
 	</script>
 
