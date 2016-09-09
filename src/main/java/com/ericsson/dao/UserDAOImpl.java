@@ -158,7 +158,7 @@ public class UserDAOImpl implements UserDAO {
 			System.out.println(RandomPassword);
 			String FullMail=mail+"@ericsson.com";
 			
-			RandomPassword="user";
+			RandomPassword=login+"1";
 			String query = "INSERT INTO users (name, surname, login, password, role_id, team_id, balls_id, mail, dept_id) VALUES ('" + name +"', '"+ surname +"', '"+ login +"', '"+ RandomPassword +"', '"+ roleID +"', '"+teamID+"', '"+ballsID+"', '"+FullMail+"', '"+deptID+"')";
 			SQLQuery sqlQuery = openSession().createSQLQuery(query);
 			sqlQuery.executeUpdate();
