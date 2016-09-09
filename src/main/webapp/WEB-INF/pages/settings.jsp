@@ -279,7 +279,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-        <input type="submit" id="submit" class="btn btn-primary btn-change pull-right" value="Save" />
+        <input type="submit" id="submit" class="btn btn-primary btn-change pull-right" value="Add" />
       </div>
     </form>
     </div>
@@ -326,7 +326,7 @@
 				    </div>
 				    <div class="modal-footer">
 				        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-				        <input type="submit" class="btn btn-primary btn-change pull-right" value="Save" />
+				        <input type="submit" class="btn btn-primary btn-change pull-right" value="Add" />
 				    </div>
 				    <script>
 				     $('input:submit').click(function(){
