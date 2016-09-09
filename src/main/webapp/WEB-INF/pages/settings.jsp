@@ -118,7 +118,7 @@
 								      <label class="col-md-3" for="deadline">Help message </label>
 								      <div class="col-md-6">
 
-								      	<textarea class="col-md-12 col-sm-12 col-xs-12" style="height: 300px;" class="form-control" type=text name="helpMsg" required>${settingsList.get(0).getHelpMsg()}</textarea>
+								      	<textarea class="col-md-12 col-sm-12 col-xs-12" style="resize: none; height: 300px;" class="form-control" type=text name="helpMsg" required>${settingsList.get(0).getHelpMsg()}</textarea>
 
 								      </div>
 								    </div>

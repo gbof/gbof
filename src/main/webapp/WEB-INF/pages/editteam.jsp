@@ -71,25 +71,27 @@
 						        </div>
 					    	</div>												
 		           			<input type="hidden" name="team_id" value="${team.getId()}"/>
+		           			<br>
+		           			<h5 style="padding-top: 60px;">Team members</h5>
 		           			<table class="table table-filter table-hover col-md-12 table-responsive">
-											    <thead>
-											      <tr data-status="tableeee">
-											      	<th>Name</th>
-											        <th>Surname</th>
-											        <th>Login</th>
-											      </tr>
-											    </thead>
-											    <tbody>
+							    <thead>
+							      <tr data-status="tableeee">
+							      	<th>Name</th>
+							        <th>Surname</th>
+							        <th>Login</th>
+							      </tr>
+							    </thead>
+							    <tbody>
 
-											      <c:forEach var="user" items="${listt}"  varStatus="loop">
-											    <tr data-status="${user.getTeam().getName()}">
-											          <td><c:out value="${user.name}" /></td>
-											          <td><c:out value="${user.surname}" /></td>
-											          <td><c:out value="${user.login}" /></td>
-											      </tr>
-						            			</c:forEach>
-											    </tbody>
-											  </table>
+							      <c:forEach var="user" items="${listt}"  varStatus="loop">
+							    <tr data-status="${user.getTeam().getName()}">
+							          <td><c:out value="${user.name}" /></td>
+							          <td><c:out value="${user.surname}" /></td>
+							          <td><c:out value="${user.login}" /></td>
+							      </tr>
+		            			</c:forEach>
+							    </tbody>
+							  </table>
 		           			
 		           	</div>	
 		           	<div class="panel-footer">	
