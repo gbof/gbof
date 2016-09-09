@@ -129,7 +129,7 @@
 									<div class="col-md-12">
 										    <div class="panel panel-default">
 										             <div class="panel-heading">
-										                    Employees
+										                    Comments that you gave
 										                </div>
 										                <div class="panel-body">
 										                    <div class="container col-md-12">          
@@ -172,6 +172,29 @@
 										            </div>
 												</div>
 											</div>
+											<c:forEach var="comment" items="${yourComments}">
+												<div id="Modal2${comment.getComId()}" class="modal fade" role="dialog">
+												  <div class="modal-dialog">
+												
+												    <!-- Modal content-->
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <button type="button" class="close" data-dismiss="modal">&times;</button>
+												        <h4 class="modal-title">Delete</h4>
+												      </div>
+												      <div class="modal-body">
+												           	
+												      </div>
+												      <div class="modal-footer">
+												        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+												         <button type="submit" name="deleteButton1" class="btn btn-primary btn-change pull-right" value="${comment.getComId()}">Delete</button>
+												      </div>
+												    
+												    </div>
+												
+												  </div>
+												</div>
+											</c:forEach>
 										</form>	
 									</div>
 						
@@ -185,7 +208,7 @@
 								<div class="col-md-12">
 						            <div class="panel panel-default">
 						                <div class="panel-heading">
-						                    Employees
+						                    Employees who received comments
 						                </div>
 						                <div class="panel-body">
 						                    <div class="container col-md-12">          
@@ -198,35 +221,11 @@
 											        <th>What did you like?</th>
 											        <th>What can (s)he do better?</th>
 											        <th align="right" style="width:40px">Edit</th>
-											        <!-- 
-											        <th align="right" style="width:40px">Delete</th>
-											        -->
+											        
 											      </tr>
 											    </thead>
 											    <tbody>
-											    <!-- 
-											      <c:forEach var="comment" items="${commentList}">
-											      
-											    <tr data-status="tableeee">
-											    
-										          <td><c:out value="${comment.getUser().getName()}" /></td>
-										          
-										          <td><c:out value="${comment.getUser().getSurname()}" /></td>
-										       
-										          <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getFirstCom()}" /></td>
-											      <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getSecondCom()}" /></td>   
-											      
-											      <td align="center"><button type="submit" name="buttonComId" value="${comment.getComId()}" style="width:40px" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
-
-											      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal1${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
-											      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
-											      
-											      </tr>
-
-						            			</c:forEach>
-											     -->
 											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
-											   <!--  <tr data-status="${user.getTeam().getName()}">-->
 											    <tr data-status="tableeee">
   
 											          <td><c:out value="${user.name}" /></td>
@@ -283,31 +282,6 @@
 													</c:if>
 														
 													 </td>
-													<!-- 
-											      <td align="center">
-											      <c:set var="licznik2" value="0"/>
-											     <c:forEach var="comment" items="${commentList}">
-													        
-													        <c:set var="userId" value="${user.getId()}"/>
-															<c:set var="userComId" value="${comment.getUser().getId()}"/>
-															
-															<c:if test="${userId == userComId}" >
-																<c:set var="licznik2" value="1"/>
-
-															</c:if>
-												         	
-											       </c:forEach>  
-											       <c:if test="${licznik2 == 1}" >
-													<button data-toggle="modal" style="width:40px" data-target="#Modal1${user.getId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
-											      	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-											      </c:if>
-											      <c:if test="${licznik2 == 0}" >
-													<button data-toggle="modal" disabled style="width:40px" data-target="#Modal1${user.getId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">
-											      	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-											      </c:if>
-											      <td>
-											     	
-						            				--->
 											      </tr>
 						            			</c:forEach>
 						    						            			
@@ -318,81 +292,6 @@
 						            </div>
 								</div>
 							</div>
-														<c:forEach var="comment" items="${commentList}">
-							<div id="Modal${comment.getComId()}" class="modal fade" role="dialog">
-							  <div class="modal-dialog">
-							
-							    <!-- Modal content-->
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal">&times;</button>
-							        <h4 class="modal-title">Confirm</h4>
-							      </div>
-							      <div class="modal-body">
-							           	Confirm this comment ?
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-							         <button type="submit" name="confirmButton" class="btn btn-primary btn-change pull-right" value="${comment.getComId()}">Save</button>
-							      </div>
-							    
-							    </div>
-							
-							  </div>
-							</div>
-						</c:forEach>
-						
-						
-						
-						
-						<c:forEach var="comment" items="${commentList}">
-							<div id="Modal1${comment.getComId()}" class="modal fade" role="dialog">
-							  <div class="modal-dialog">
-							
-							    <!-- Modal content-->
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal">&times;</button>
-							        <h4 class="modal-title">Delete</h4>
-							      </div>
-							      <div class="modal-body">
-							           	Do you want remove this comment ?
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-							         <button type="submit" name="deleteButton" class="btn btn-primary btn-change pull-right" value="${comment.getComId()}">Delete</button>
-							      </div>
-							    
-							    </div>
-							
-							  </div>
-							</div>
-						</c:forEach>
-						
-						<c:forEach var="comment" items="${yourComments}">
-							<div id="Modal2${comment.getComId()}" class="modal fade" role="dialog">
-							  <div class="modal-dialog">
-							
-							    <!-- Modal content-->
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal">&times;</button>
-							        <h4 class="modal-title">Delete</h4>
-							      </div>
-							      <div class="modal-body">
-							           	
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-							         <button type="submit" name="deleteButton" class="btn btn-primary btn-change pull-right" value="${comment.getComId()}">Delete</button>
-							      </div>
-							    
-							    </div>
-							
-							  </div>
-							</div>
-						</c:forEach>
-					
 					</form>	
 				</div>
 
@@ -404,7 +303,7 @@
 						<div class="col-md-12">
 				            <div class="panel panel-default">
 				                <div class="panel-heading">
-				                    Employees
+				                    Confirmed comments
 				                </div>
 				                <div class="panel-body">
 				                    <div class="container col-md-12">        
