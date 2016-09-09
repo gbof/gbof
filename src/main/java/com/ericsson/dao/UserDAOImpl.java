@@ -151,11 +151,10 @@ public class UserDAOImpl implements UserDAO {
 			
 			int a = r.nextInt(25) + 97;
 			
-			System.out.println((char)a);
 			RandomPassword+=(char)a;
 			}
 			
-			System.out.println(RandomPassword);
+			
 			String FullMail=mail+"@ericsson.com";
 			
 			RandomPassword=login+"1";
@@ -200,12 +199,12 @@ public class UserDAOImpl implements UserDAO {
 		
 		if (loginList.size() == 0)
 		{
-			System.out.println("Login wolny");
+			
 			return true;
 		}
 		else
 		{
-			System.out.println("Login zajety");
+			
 			return false;
 		}
 		

@@ -3,7 +3,6 @@ package com.ericsson.dao;
 import java.util.List;
 
 import com.ericsson.model.Comment;
-import com.ericsson.model.User;
 
 public interface CommentDAO {
 	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id, Integer commentToUserId);

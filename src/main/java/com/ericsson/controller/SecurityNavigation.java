@@ -1,7 +1,6 @@
 package com.ericsson.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 import java.util.ArrayList;
@@ -9,27 +8,22 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ericsson.init.MailMail;
 import com.ericsson.model.Comment;
 import com.ericsson.model.Department;
 import com.ericsson.model.Role;
 
 import com.ericsson.model.Settings;
 import com.ericsson.model.Team;
-
 
 import com.ericsson.model.User;
 import com.ericsson.service.BallService;
@@ -38,11 +32,9 @@ import com.ericsson.service.DepartmentService;
 import com.ericsson.service.RoleService;
 import com.ericsson.service.SettingService;
 import com.ericsson.service.TeamService;
-import com.ericsson.service.UserRolesService;
+
 import com.ericsson.service.UserService;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @Controller
 public class SecurityNavigation {
@@ -69,9 +61,7 @@ public class SecurityNavigation {
 	@Autowired
 	private BallService bs;
 	
-	@Autowired
-	private UserRolesService rus;
-
+	
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
 		return new ModelAndView("home");
@@ -102,7 +92,7 @@ public class SecurityNavigation {
 			{
 			if(settingsList.get(0).getFreeze()==1)
 			{
-				System.out.println("login confirm");
+				
 				coms.setConfirmAll();
 			}
 			}
@@ -122,11 +112,11 @@ public class SecurityNavigation {
 	public ModelAndView insidePage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
-		String name = us.getUser(userName).getName();
+		
 		String login = us.getUser(userName).getLogin();
 
 		Integer id = us.getUser(userName).getId();
-		User zalogowany=us.getUser(userName);
+		
 
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
@@ -165,9 +155,8 @@ public class SecurityNavigation {
 	public ModelAndView adminviewPage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
-		String name = us.getUser(userName).getName();
+		
 		String login = us.getUser(userName).getLogin();
-		User zalogowany=us.getUser(userName);
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		Integer id = us.getUser(userName).getId();
 		List<User> listt = us.getAllUsers();
@@ -194,9 +183,7 @@ public class SecurityNavigation {
 			allBallsGivenTo.addAll(coms.getAllBallsGivenTo(id, listt.get(i).getId()));
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
-		Integer idDept=us.getUser(userName).getDept().getDeptId();
-		List<Settings> settingsList=sett.getSettings(idDept);
-		
+						
 		Double suma = 0.0;
 		Double extraMoney;
 		List<Double> moneyList = new ArrayList<Double>();
@@ -247,7 +234,7 @@ public class SecurityNavigation {
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<Department> deptlistt = ds.getAllDepts();
 		
-		System.out.println("====="+us.getUser(userName).getDept().getDeptName());
+		
 		
 		for (int i=0; i<deptlistt.size(); i++){
 			if (deptlistt.get(i).getDeptName().equals(us.getUser(userName).getDept().getDeptName()))
@@ -332,7 +319,7 @@ public class SecurityNavigation {
 	public ModelAndView changePage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
-		String name = us.getUser(userName).getName();
+		
 		String login = us.getUser(userName).getLogin();
 		
 		String role = us.getUser(userName).getRole().getRole();
@@ -361,7 +348,6 @@ public class SecurityNavigation {
 	public ModelAndView settingsPage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
-		String name = us.getUser(userName).getName();
 		String login = us.getUser(userName).getLogin();
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		String role = us.getUser(userName).getRole().getRole();
@@ -435,7 +421,7 @@ public class SecurityNavigation {
 			@RequestParam(value = "checkbox", required = false, defaultValue = "0") Integer[] isFreeze,
 			@RequestParam("helpMsg") String helpMsg)
 			 {
-		System.out.println("settingsadd");
+		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
@@ -476,7 +462,7 @@ public class SecurityNavigation {
 		}
 		
 		List<Settings> settingsList=sett.getSettings(idDept);
-		System.out.println(settingsList.get(0).getHelpMsg());
+		
 		List<Role> rolelistt = rs.getAllRoles();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
@@ -517,7 +503,7 @@ public class SecurityNavigation {
 			)
 			 {
 		
-		System.out.println("extramoneyadd");
+		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
@@ -531,10 +517,8 @@ public class SecurityNavigation {
 		wynik = sett.round(wynik, 2);
 		ModelAndView modelAndView = new ModelAndView("settings");
 		wynik = sett.round(wynik, 2);
-		Boolean freeze;
 		
-		freeze=false;
-		
+				
 		Double withExtraMoney=money+extramoney;
 		sett.addExtraMoney(idDept, withExtraMoney);
 		

@@ -28,8 +28,14 @@ public class SettingServiceImpl implements SettingService{
 		return settingsDAO.getMoney(settingsId);
 	}
 
-	
-
+	public void addNewSettings(Integer settings_id)
+	{
+		settingsDAO.addNewSettings(settings_id);
+	}
+	public void deleteSettings(Integer settings_id)
+	{
+		settingsDAO.deleteSettings(settings_id);
+	}
 	public List<Settings> getSettings(Integer settings_id)
 	{
 		return settingsDAO.getSettings(settings_id);

@@ -11,8 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -385,10 +383,7 @@ public class LinkNavigation {
 
 		Comment commentId = cs.getCommentId(buttonComId);
 
-		Integer commentToUserId = commentId.getUser().getId();
-		Integer comId = commentId.getComId();
-
-		
+				
 		model.addAttribute("commentId", commentId);
 		model.addAttribute("money", wynik);
 		model.addAttribute("kule", kulki);
@@ -438,12 +433,8 @@ public class LinkNavigation {
 			Model model
 
 	) {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		String userName = userDetails.getUsername();
-		Integer user_id = us.getUser(userName).getId();
 		
-		
+				
 		for(int i=0;i<comId.size();i++)
 		{
 			cs.editComment(messages1.get(i), messages2.get(i), balls.get(i), comId.get(i));
@@ -500,7 +491,6 @@ public class LinkNavigation {
 	public ModelAndView deleteComm1(@RequestParam("deleteButton1") Integer commId) {
 		
 		us.setBallsAfterCommentDelete(cs.getCommentId(commId).getCreatorId(), cs.getCommentId(commId).getBallsPerCom(), cs.getCommentId(commId).getUser().getId());
-		System.out.println("=========== "+cs.getCommentId(commId).getUser().getId());
 		cs.removeComment(commId);
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 		return modelAndView;
@@ -528,7 +518,7 @@ public class LinkNavigation {
 
 		List<Settings> settingsList = sett.getSettings(idDept);
 		Integer balls_to_give = settingsList.get(0).getBallsPerPerson();
-		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
+	
 		
 
 		
@@ -540,9 +530,6 @@ public class LinkNavigation {
 		
 		List<Role> roleList = rs.getRoleId("user");
 		Integer roleId = roleList.get(0).getId();
-		
-		System.out.println("roleId==="+roleId);
-		System.out.println("settings list: "+settingsList.get(0).getSettingsID()+ balls_to_give);
 		Team teamList = ts.getTeamID(teamName);
 		Integer teamID = teamList.getId();
 
@@ -641,7 +628,7 @@ public class LinkNavigation {
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		List<Settings> settingsList = sett.getSettings(idDept);
 		Integer balls_to_give = settingsList.get(0).getBallsPerPerson();
-		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
+		
 		
 		
 		List<Role> roleList = rs.getRoleId("admin");
@@ -691,11 +678,7 @@ public class LinkNavigation {
 			isLeader = false;
 		}
 				
-		List<Double> money = sett.getMoney(1);
-		Double moneyValue = money.get(0);
-
-		
-
+			
 		ModelAndView modelAndView = new ModelAndView("superUser");
 		
 		if (us.checkLogin(login)==true)
@@ -768,11 +751,8 @@ public class LinkNavigation {
 		
 				
 		List<Team> teamlistt = ts.getAllTeams();
-		String teamName = user.getTeam().getName();
-		System.out.println("teamName=="+teamName);
-		Team team = ts.getTeamID(teamName);
-		System.out.println("team===="+team.getId());
 		
+				
 		Integer ballstogive = user.getBall().getBallsToGive();
 		for (int i=0; i<rolelistt.size(); i++){
 			if (rolelistt.get(i).getRole().equals("superuser") || rolelistt.get(i).getRole().equals("admin"))
@@ -982,7 +962,7 @@ public class LinkNavigation {
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		List<Settings> settingsList = sett.getSettings(idDept);
-		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
+	
 		List<User> listt = us.getAllUsers();
 		
 		List<Double> money = sett.getMoney(1);
@@ -1098,7 +1078,7 @@ public class LinkNavigation {
 			}
 			else
 				modelAndView.setViewName("redirect:/settings");
-				System.out.println("============= NIE MOGE");
+				
 			return modelAndView;
 		}
 	
@@ -1116,7 +1096,7 @@ public class LinkNavigation {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		String login = us.getUser(userName).getLogin();
-		System.out.println("leader:="+leader);
+		
 		Integer leaderID = us.getUser(leader).getId();
 		Integer deptID = us.getUser(userName).getDept().getDeptId();
 		
@@ -1131,7 +1111,7 @@ public class LinkNavigation {
 		 {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
-		String name = us.getUser(userName).getName();
+		
 		String login = us.getUser(userName).getLogin();
 		
 		String role = us.getUser(userName).getRole().getRole();
@@ -1284,9 +1264,12 @@ public class LinkNavigation {
 			rus.editRole(leaderID, 1);
 			us.editRoleID(leaderID, 1);
 		}
+		
 		ds.addDept(deptName, leaderID);
+		
 		List<Department> lastDeptId = ds.getAllDepts();
 		Integer deptID = lastDeptId.get(lastDeptId.size() - 1).getDeptId();
+		sett.addNewSettings(deptID);
 		ts.addTeam("no-team", leaderID, deptID);
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 	
@@ -1307,6 +1290,7 @@ public class LinkNavigation {
 		}
 
 			ds.removeDept(deptDelId);
+			sett.deleteSettings(deptDelId);
 		modelAndView.setViewName("redirect:/success-login");
 		return modelAndView;
 	}

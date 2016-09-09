@@ -33,7 +33,21 @@ public class SettingsDAOImpl implements SettingsDAO{
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
+	public void addNewSettings(Integer settings_id)
+	{
+		String query = "INSERT INTO settings (settings_id,balls_left,freeze,deadline,money,balls_per_person,helpMsg) VALUES ('" + settings_id + "','"+ 0 +"','"+ 0 +"','" + "2017-01-01" +"','"+ 0 + "','"+ 20 + "','"+ "insert message"+"')";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+		
+	}
+	public void deleteSettings(Integer settings_id)
+	{
+		String query = "DELETE FROM settings WHERE settings_id= '" + settings_id + "'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
 	public void addSetting(Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer settings_id,String helpMsg){
 		
 			

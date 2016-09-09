@@ -30,10 +30,7 @@ public class CommentDAOImpl implements CommentDAO{
 	public List<Comment> getAllComments() {
 		List<Comment> commentsList = new ArrayList<Comment>();
 		
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = userDetails.getUsername();
-		Integer dept_id = us.getUser(userName).getDept().getDeptId();
-		
+			
 		List<User> listt = us.getAllUsers();
 		String sql = "FROM Comment c where (";
 		for(int i=0;i<listt.size();i++){
@@ -47,7 +44,7 @@ public class CommentDAOImpl implements CommentDAO{
 		sql = sql+" order by user_id";
 		Query query = openSession().createQuery(sql);
 		commentsList = query.list();
-		System.out.println("==== "+commentsList);
+		
 		if (commentsList.size() > 0)
 			return commentsList;
 		else
@@ -204,7 +201,7 @@ public class CommentDAOImpl implements CommentDAO{
 		String query = "UPDATE comments SET confirmed = 1";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
-		System.out.println("==========Robie freeze=====");
+		
 	}
 
 	public Comment getCommentId(Integer id) {
