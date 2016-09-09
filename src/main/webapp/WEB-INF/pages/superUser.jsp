@@ -221,15 +221,6 @@
 		      		<input name="login" class="form-control" maxlength=5 id="login" type="text" placeholder="login" required/>
 		      		</div>
 		    	</div>
-			      <div class="form-group col-md-12">
-			        <label class="col-md-6 control-label">Role</label>
-			        <div class="col-md-6 selectContainer">
-			            <select class="form-control" name="roleName" required>
-				         	<option name = "roleName" value="admin" required>
-				         	<c:out value="admin" />
-			            </select>
-			        </div>
-		    	</div>
 			     <div class="form-group col-md-12">
 			        <label class="col-md-6 control-label">Team</label>
 			        <div class="col-md-6 selectContainer">

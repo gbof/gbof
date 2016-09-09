@@ -265,7 +265,6 @@ public class SecurityNavigation {
 		for (User u : listt){
 			if (u.getRole().getId().equals(superuserroleID))
 				superuserID = u.getId();
-			System.out.println(superuserID);
 		}
 		
 		for (int i=0; i<listt.size(); i++){

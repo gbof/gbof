@@ -511,7 +511,6 @@ public class LinkNavigation {
 			@RequestParam("name") String name, 
 			@RequestParam("surname") String surname,
 			@RequestParam("login") String login, 
-			@RequestParam("roleName") String roleName, 
 			@RequestParam("teamName") String teamName,
 			@RequestParam("mail") String mail) {
 
@@ -539,7 +538,7 @@ public class LinkNavigation {
 		
 		
 		
-		List<Role> roleList = rs.getRoleId(roleName);
+		List<Role> roleList = rs.getRoleId("user");
 		Integer roleId = roleList.get(0).getId();
 		
 		System.out.println("roleId==="+roleId);
@@ -624,8 +623,7 @@ public class LinkNavigation {
 	public ModelAndView userAddedforsuperuser(
 			@RequestParam("name") String name, 
 			@RequestParam("surname") String surname,
-			@RequestParam("login") String login, 
-			@RequestParam("roleName") String roleName, 
+			@RequestParam("login") String login,  
 			@RequestParam("teamName") String teamName,
 			@RequestParam("mail") String mail,
 			@RequestParam("deptName") String deptName) {
@@ -646,7 +644,7 @@ public class LinkNavigation {
 		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
 		
 		
-		List<Role> roleList = rs.getRoleId(roleName);
+		List<Role> roleList = rs.getRoleId("admin");
 		Integer roleId = roleList.get(0).getId();
 	
 
@@ -667,7 +665,12 @@ public class LinkNavigation {
 		List<Department> deptlistt = ds.getAllDepts();
 		List<String> userBasiclistt = new ArrayList<String>();
 		List<Department> deptlistt1 = ds.getAllDepts();
-		
+		Integer superuserroleID = rs.getRoleId("superuser").get(0).getId();
+		Integer superuserID = 0;
+		for (User u : listt){
+			if (u.getRole().getId().equals(superuserroleID))
+				superuserID = u.getId();
+		}
 		String _name;
 		String _surname;
 		String _login;
@@ -675,7 +678,7 @@ public class LinkNavigation {
 		for (int i=0; i<listt.size(); i++){
 			for (int j=0; j<deptlistt1.size(); j++){
 				Integer l = deptlistt1.get(j).getDeptLeaderId();
-				if (l.equals(listt.get(i).getId()) && !l.equals(us.getUserWithRole(rs.getRoleId("superuser").get(0)))){
+				if (l.equals(listt.get(i).getId()) && !l.equals(superuserID)){
 					isLeader = true;
 				}
 			}
@@ -1342,7 +1345,7 @@ public class LinkNavigation {
 
        	MailMail mm = (MailMail) context.getBean("mailMail");
            mm.sendMail("internshiptestproject@gmail.com",
-       		   "internshiptestproject@gmail.com",
+       		   "plotkara94@gmail.com",
        		   "Testing123",
        		   "Testing only \n\n Hello Spring Email Sender");
 		
