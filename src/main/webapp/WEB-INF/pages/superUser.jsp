@@ -72,7 +72,7 @@
 									<td><c:out value="${dept.getDeptName()}" /></td>
 									<td><c:out value="${deptLeaders[status.index] }" /></td>
 									 <td><button name="edit" value="${dept.getDeptId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
-									<td><button name="delete" value="${dept.getDeptId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a></td>		      
+									<td><a><button name="delete"  data-toggle="modal" data-target="#ModalRemoveDept${dept.getDeptId()}" value="${dept.getDeptId()}" type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a></td>		      
 								   
 								</tr>
 								</c:forEach>
@@ -81,6 +81,31 @@
 					</div>
 					<div class="panel-footer">
 					</div>
+					
+						<c:forEach var="dept" items="${deptlistt}">
+					  		<div id="ModalRemoveDept${dept.getDeptId()}" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
+							
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        <h4 class="modal-title">Confirm</h4>
+							      </div>
+							      <div class="modal-body">
+							           	Deleting the department will also remove all employees included. Are you sure you want to delete?
+							      </div>
+								      <div class="modal-footer">
+								        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+								         <button type="submit" value="${dept.getDeptId()}" name="delete" class="btn btn-primary btn-change pull-right" >Delete</button>
+								      </div>
+							    
+							    </div>
+							
+							  </div>
+							</div>		
+						</c:forEach>
+			
 					</form>
 				</div>
 			</div>

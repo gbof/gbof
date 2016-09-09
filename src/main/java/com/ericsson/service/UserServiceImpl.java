@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ericsson.dao.UserDAO;
-
+import com.ericsson.model.Role;
 import com.ericsson.model.User;
 
 @Service
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
 		userDAO.editTeamId(team_id, user_id);
 	}
 	@Override
-	public List<User> getUserWithRole(Integer role_id) {
+	public List<User> getUserWithRole(Role role_id) {
 		return userDAO.getUserWithRole(role_id);
 	}
 }

@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
 
+import com.ericsson.model.Role;
 import com.ericsson.model.Team;
 import com.ericsson.model.User;
 import com.ericsson.service.TeamService;
@@ -247,12 +248,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public List<User> getUserWithRole(Integer role_id) {
+	public List<User> getUserWithRole(Role role) {
 		List<User> usersList = new ArrayList<User>();
 		
-		String sql = "from User where role_id = '" + role_id + "'";
+		String sql = "from User where role = '" + role + "'";
 		Query query = openSession().createQuery(sql);
-		
 		usersList = query.list();
 		if (usersList.size() > 0)
 			return usersList;

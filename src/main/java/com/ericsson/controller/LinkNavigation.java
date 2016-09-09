@@ -644,7 +644,7 @@ public class LinkNavigation {
 		List<Settings> settingsList = sett.getSettings(idDept);
 		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
 		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
-			
+		
 		
 		List<Role> roleList = rs.getRoleId(roleName);
 		Integer roleId = roleList.get(0).getId();
@@ -674,7 +674,8 @@ public class LinkNavigation {
 		boolean isLeader = false;
 		for (int i=0; i<listt.size(); i++){
 			for (int j=0; j<deptlistt1.size(); j++){
-				if (deptlistt1.get(j).getDeptLeaderId().equals(listt.get(i).getId())){
+				Integer l = deptlistt1.get(j).getDeptLeaderId();
+				if (l.equals(listt.get(i).getId()) && !l.equals(us.getUserWithRole(rs.getRoleId("superuser").get(0)))){
 					isLeader = true;
 				}
 			}
@@ -826,7 +827,7 @@ public class LinkNavigation {
 		
 		for (Department d:deptlistt){
 			if (us.getUserId(buttonComId).getId().equals(d.getDeptLeaderId())){
-				ds.editDepartment(d.getDeptId(), us.getUserWithRole(rs.getRoleId("superuser").get(0).getId()).get(0).getId());				
+				ds.editDepartment(d.getDeptId(), us.getUserWithRole(rs.getRoleId("superuser").get(0)).get(0).getId());				
 			}	
 		}
 		
@@ -1006,6 +1007,11 @@ public class LinkNavigation {
 			_surname = listt.get(i).getSurname();
 			_login = listt.get(i).getLogin();
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+		
+		for (int i=0; i<rolelistt.size(); i++){
+			if (rolelistt.get(i).getRole().equals("superuser") || rolelistt.get(i).getRole().equals("admin"))
+				rolelistt.remove(i);
 		}
 		
 		modelAndView.addObject("tadded", true);

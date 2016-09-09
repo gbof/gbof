@@ -1,5 +1,6 @@
 package com.ericsson.dao;
 
+import com.ericsson.model.Role;
 import com.ericsson.model.User;
 import java.util.List;
 public interface UserDAO {
@@ -23,5 +24,5 @@ public interface UserDAO {
 	public void editDept(Integer user_id, Integer dept_id);
 	public List<User> getAllUsersTeam(Integer team_id);
 	public void editTeamId(Integer team_id, Integer user_id);
-	public List<User> getUserWithRole(Integer role_id);
+	public List<User> getUserWithRole(Role role_id);
 }

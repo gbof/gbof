@@ -2,7 +2,7 @@ package com.ericsson.service;
 
 import java.util.List;
 
-
+import com.ericsson.model.Role;
 import com.ericsson.model.User;
 
 public interface UserService {
@@ -28,6 +28,6 @@ public interface UserService {
 	public void editDept(Integer user_id, Integer dept_id);
 	public List<User> getAllUsersTeam(Integer team_id);
 	public void editTeamId(Integer team_id, Integer user_id);
-	public List<User> getUserWithRole(Integer id);
+	public List<User> getUserWithRole(Role id);
 	
 }

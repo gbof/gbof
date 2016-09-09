@@ -38,6 +38,7 @@ import com.ericsson.service.DepartmentService;
 import com.ericsson.service.RoleService;
 import com.ericsson.service.SettingService;
 import com.ericsson.service.TeamService;
+import com.ericsson.service.UserRolesService;
 import com.ericsson.service.UserService;
 
 import org.springframework.context.ApplicationContext;
@@ -68,6 +69,8 @@ public class SecurityNavigation {
 	@Autowired
 	private BallService bs;
 	
+	@Autowired
+	private UserRolesService rus;
 
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
@@ -247,19 +250,28 @@ public class SecurityNavigation {
 		String leader;
 		
 		for(Department d : deptlistt){
-			leader = us.getUserId(d.getDeptLeaderId()).getName() + " " + us.getUserId(d.getDeptLeaderId()).getSurname();
+			leader = us.getUserId(d.getDeptLeaderId()).getName() + " " + us.getUserId(d.getDeptLeaderId()).getSurname() + " (" + us.getUserId(d.getDeptLeaderId()).getLogin() + ")";
 			deptLeaders.add(leader);
 		}
 		
 		List<Department> deptlistt1 = ds.getAllDepts();
-		
 		String _name;
 		String _surname;
 		String _login;
 		boolean isLeader = false;
+		
+		Integer superuserroleID = rs.getRoleId("superuser").get(0).getId();
+		Integer superuserID = 0;
+		for (User u : listt){
+			if (u.getRole().getId().equals(superuserroleID))
+				superuserID = u.getId();
+			System.out.println(superuserID);
+		}
+		
 		for (int i=0; i<listt.size(); i++){
 			for (int j=0; j<deptlistt1.size(); j++){
-				if (deptlistt1.get(j).getDeptLeaderId().equals(listt.get(i).getId())){
+				Integer l = deptlistt1.get(j).getDeptLeaderId();
+				if (l.equals(listt.get(i).getId()) && !l.equals(superuserID)){
 					isLeader = true;
 				}
 			}
