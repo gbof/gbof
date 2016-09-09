@@ -154,7 +154,7 @@
 		      </div>
 		      	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/deptAdded">
 		      	      <div class="">
-		      	     	 	<div class="form-group col-md-12">
+		      	     	 	<div class="form-group col-md-12 col-sm-12">
 		      	      	   		<div class="col-md-6 col-sm-6">
 					      			<label for="deptName">Name</label>
 					      		</div>
@@ -162,9 +162,9 @@
 					      			<input name="deptName" class="form-control" id="teamName" type="text" placeholder="name" required/>
 					      		</div>
 					    	</div>
-						      <div class="form-group col-md-12">
-						        <label class="col-md-6 control-label">Leader</label>
-						        <div class="col-md-6 selectContainer">
+						      <div class="form-group col-md-12 col-sm-12">
+						        <label class="col-md-6 col-sm-6 control-label">Leader</label>
+						        <div class="col-md-6 col-sm-6 selectContainer">
 						            <select class="form-control" name="leaderLogin">
 						           
 							            <c:forEach var="user" items="${userBasiclistt}">
@@ -197,7 +197,7 @@
 	      </div>
 	  	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/userAddedforsuperuser"> 
 	      <div class="">
-	           	<div class="form-group col-md-12">
+	           	<div class="form-group col-md-12 col-sm-12">
 	           		<div class="col-md-6 col-sm-6">
 		      		<label for="name">Name</label>
 		      		</div>
@@ -205,7 +205,7 @@
 		      		<input name="name" class="form-control" maxlength=40 id="name" type="text" placeholder="name" required/>
 		      		</div>
 		    	</div>
-		    	<div class="form-group col-md-12">
+		    	<div class="form-group col-md-12 col-sm-12">
 		    	<div class="col-md-6 col-sm-6">
 		      		<label for="surname">Last name</label>
 		      		</div>
@@ -213,7 +213,7 @@
 		      		<input name="surname" class="form-control" maxlength=40 id="surname" type="text" placeholder="last name" required/>
 		      		</div>
 		    	</div>
-		    	<div class="form-group col-md-12">
+		    	<div class="form-group col-md-12 col-sm-12">
 		    	<div class="col-md-6 col-sm-6">
 		      		<label for="login">Login</label>
 		      		</div>
@@ -221,9 +221,9 @@
 		      		<input name="login" class="form-control" maxlength=5 id="login" type="text" placeholder="login" required/>
 		      		</div>
 		    	</div>
-			     <div class="form-group col-md-12">
-			        <label class="col-md-6 control-label">Team</label>
-			        <div class="col-md-6 selectContainer">
+			     <div class="form-group col-md-12 col-sm-12">
+			        <label class="col-md-6 col-sm-6 control-label">Team</label>
+			        <div class="col-md-6 col-sm-6 selectContainer">
 			            <select class="form-control" name="teamName" required>
 			                <option name = "teamName" value="no-team"  >
 			                	<c:out value="no-team" />
@@ -233,9 +233,9 @@
 		    	<c:set var="rola" scope="session" value="${rola}"/>
 				<c:set var="superuser" scope="session" value="superuser"/>
 		    	<c:if test="${rola == superuser}" >
-			    	<div class="form-group col-md-12">
-				        <label class="col-md-6 control-label">Department</label>
-	        			<div class="col-md-6 selectContainer">
+			    	<div class="form-group col-md-12 col-sm-12">
+				        <label class="col-md-6 col-sm-6 control-label">Department</label>
+	        			<div class="col-md-6 col-sm-6 selectContainer">
 		            		<select class="form-control" name="deptName" required>
 					            <c:forEach var="dept" items="${deptlistt}">
 				                <option name = "deptName" value="${dept.getDeptName()}"  >
@@ -245,7 +245,7 @@
 				        </div>
 			    	</div>
 				</c:if>
-		    	<div class="form-group col-md-12">
+		    	<div class="form-group col-md-12 col-sm-12">
 		    	<div class="col-md-6 col-sm-6">
 		      		<label for="mail">Mail (only nickname)</label>
 		      		</div>

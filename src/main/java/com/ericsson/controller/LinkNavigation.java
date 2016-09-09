@@ -640,8 +640,8 @@ public class LinkNavigation {
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		List<Settings> settingsList = sett.getSettings(idDept);
+		Integer balls_to_give = settingsList.get(0).getBallsPerPerson();
 		Integer lastSettingsId = settingsList.get(settingsList.size() - 1).getSettingsID();
-		Integer balls_to_give = settingsList.get(lastSettingsId - 1).getBallsPerPerson();
 		
 		
 		List<Role> roleList = rs.getRoleId("admin");

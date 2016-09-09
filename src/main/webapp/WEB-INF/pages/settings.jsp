@@ -118,7 +118,7 @@
 								      <label class="col-md-3" for="deadline">Help message </label>
 								      <div class="col-md-6">
 
-								      	<textarea style="height: 300px; width: 600px;" class="form-control" type=text name="helpMsg" required>${settingsList.get(0).getHelpMsg()}</textarea>
+								      	<textarea class="col-md-12 col-sm-12 col-xs-12" style="height: 300px;" class="form-control" type=text name="helpMsg" required>${settingsList.get(0).getHelpMsg()}</textarea>
 
 								      </div>
 								    </div>
@@ -231,15 +231,15 @@
       </div>
   	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/userAdded"> 
       <div class="">
-           	<div class="form-group col-md-12">
-           		<div class="col-md-6 col-sm-6">
+           	<div class="form-group col-md-12 col-sm-12">
+           		<div class="col-md-6 col-sm-6 ">
 	      		<label for="name">Name</label>
 	      		</div>
 	      		<div class="col-md-6 col-sm-6">
 	      		<input name="name" class="form-control" maxlength=40 id="name" type="text" placeholder="name" required/>
 	      		</div>
 	    	</div>
-	    	<div class="form-group col-md-12">
+	    	<div class="form-group col-md-12 col-sm-12">
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="surname">Last name</label>
 	      		</div>
@@ -247,7 +247,7 @@
 	      		<input name="surname" class="form-control" maxlength=40 id="surname" type="text" placeholder="last name" required/>
 	      		</div>
 	    	</div>
-	    	<div class="form-group col-md-12">
+	    	<div class="form-group col-md-12 col-sm-12">
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="login">Login</label>
 	      		</div>
@@ -255,9 +255,9 @@
 	      		<input name="login" class="form-control" maxlength=5 id="login" type="text" placeholder="login" required/>
 	      		</div>
 	    	</div>
-		     <div class="form-group col-md-12">
-		        <label class="col-md-6 control-label">Team</label>
-		        <div class="col-md-6 selectContainer">
+		     <div class="form-group col-md-12 col-sm-12">
+		        <label class="col-md-6 col-sm-6 control-label">Team</label>
+		        <div class="col-md-6 col-sm-6 selectContainer">
 		            <select class="form-control" name="teamName" required>
 		               
 			            <c:forEach var="team" items="${teamlistt}">
@@ -268,7 +268,7 @@
 		            </select>
 		        </div>
 	    	</div>
-	    	<div class="form-group col-md-12">
+	    	<div class="form-group col-md-12 col-sm-12">
 	    	<div class="col-md-6 col-sm-6">
 	      		<label for="mail">Mail (only nickname)</label>
 	      		</div>
@@ -302,7 +302,7 @@
 	      </div>
 	      	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/teamAdded">
 	      	      <div class="">
-	      	     	 	<div class="form-group col-md-12">
+	      	     	 	<div class="form-group col-md-12 col-sm-12">
 	      	      	   		<div class="col-md-6 col-sm-6">
 				      			<label for="teamName">Name</label>
 				      		</div>
@@ -310,9 +310,9 @@
 				      			<input name="teamName" class="form-control" id="teamName" type="text" placeholder="name" required/>
 				      		</div>
 				    	</div>
-					      <div class="form-group col-md-12">
-					        <label class="col-md-6 control-label">Leader</label>
-					        <div class="col-md-6 selectContainer">
+					      <div class="form-group col-md-12 col-sm-12">
+					        <label class="col-md-6 col-sm-6 control-label">Leader</label>
+					        <div class="col-md-6 col-sm-6 selectContainer">
 					            <select class="form-control" name="leaderLogin">
 					        		<option name = "leaderLogin" value="no leader" >
 					        				<c:out value="no leader" />
