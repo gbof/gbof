@@ -200,19 +200,27 @@ public class SecurityNavigation {
 		Double suma = 0.0;
 		Double extraMoney;
 		List<Double> moneyList = new ArrayList<Double>();
+		List<Double> extraMoneyList = new ArrayList<Double>();
+		List<Double> summedMoneyList = new ArrayList<Double>();
 		for(int i=0;i<listt.size();i++){
 			Integer userMoney = bs.getReceivedMoney(listt.get(i).getBall().getBallsId(), wynik).get(0);
 			Double wynik1 = userMoney*wynik;
-			extraMoney = listt.get(i).getBall().getCash();
+			extraMoney = listt.get(i).getBall().getCash();getClass();
+			Double wynik3 = sett.round(wynik1, 2);
+			moneyList.add(wynik3);
 			wynik1 = wynik1 + extraMoney;
 			Double wynik2 = wynik1;
 			wynik1 = sett.round(wynik1, 2);
-			moneyList.add(wynik1);
+			summedMoneyList.add(wynik1);
 			suma=suma+wynik2;	
+			extraMoney = sett.round(extraMoney, 2);
+			extraMoneyList.add(listt.get(i).getBall().getCash());
 		}
 		suma = sett.round(suma, 2);
 		lista.addObject("suma",suma);
 		lista.addObject("moneyList", moneyList);
+		lista.addObject("summedMoneyList", summedMoneyList);
+		lista.addObject("extraMoneyList", extraMoneyList);
 
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
