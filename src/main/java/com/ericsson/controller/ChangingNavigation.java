@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +46,8 @@ public class ChangingNavigation {
 		wynik = sett.round(wynik, 2);
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		
-		if(oldpassword.equals(passwordVerify)){                    
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();  
+		if(encoder.matches(oldpassword, passwordVerify)){                    
 			if(!newpassword.equals(newpassword2)){                    
 				ModelAndView modelAndView = new ModelAndView("changePassword");
 				modelAndView.addObject("error2", true);

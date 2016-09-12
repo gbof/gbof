@@ -99,4 +99,9 @@ public class UserServiceImpl implements UserService {
 	public List<User> getUserWithRole(Role role_id) {
 		return userDAO.getUserWithRole(role_id);
 	}
+	
+	@Override
+	public void dupcia(){
+		userDAO.dupcia();
+	}
 }

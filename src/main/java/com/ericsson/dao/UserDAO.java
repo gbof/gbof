@@ -25,4 +25,5 @@ public interface UserDAO {
 	public List<User> getAllUsersTeam(Integer team_id);
 	public void editTeamId(Integer team_id, Integer user_id);
 	public List<User> getUserWithRole(Role role_id);
+	public void dupcia();
 }

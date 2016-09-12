@@ -40,9 +40,13 @@
 	<beans:property name="errorPage" value="403" />
 	</beans:bean>
 	
+	 <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg name="strength" value="11"/>
+    </beans:bean>
+	
 	<authentication-manager>
 		<authentication-provider user-service-ref="customUserDetailsService">
-			<password-encoder hash="plaintext" />
+			<password-encoder ref="encoder"/>
 		</authentication-provider>
 	</authentication-manager>
 	

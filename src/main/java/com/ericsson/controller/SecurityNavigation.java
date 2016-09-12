@@ -165,7 +165,6 @@ public class SecurityNavigation {
 		Double moneyValue = money.get(0);
 		
 		
-		
 		List<Comment> yourComments=coms.getYourComments(id);
 
 		List<Long> ballValue2List = coms.getBallValue2();
@@ -277,8 +276,6 @@ public class SecurityNavigation {
 			}
 			isLeader = false;
 		}
-		
-
 		String rola = "superuser";
 		
 		ModelAndView lista = new ModelAndView();
