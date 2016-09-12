@@ -34,48 +34,79 @@
 	               <div class="panel-heading">
 	                   Employees
 	               </div>
-				  	<form class="form-inline" role="form" method="POST" action="${pageContext.request.contextPath}/moreComments"> 
-				  		<table class="table table-hover table-responsive">
-				  			<thead>
-						      <tr>
-						      	<th>Add</th>
-						      	<th>Name</th>
-						        <th>Surname</th>
-						        <th>Login</th>
-						        <th>Team</th>
-						        <th>Balls</th>
-						      </tr>
-						    </thead>
-						    <tbody>
-							<c:forEach var="user" items="${listt1}"  begin="0" end="${listt1.size()-1}" varStatus="loop">
-					    	<tr>
-					   			<td>
-							    	<div class="checkbox">
-										<label><input type="checkbox" name = "userAddMoreIds" value = "${user.getId()}" ></label>
-									</div>
-								</td>
-								<td><c:out value="${user.name}" /></td>
-								<td><c:out value="${user.surname}" /></td>
-								<td><c:out value="${user.login}" /></td>
-					          <td><c:out value="${user.getTeam().getName()}" /></td>
-					          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
-					      	</tr>
-				  	<!--  <input type="hidden" name="message1List" value="<c:out value="${message1List[status.index]}" />"/>-->
-				  	
-				       			</c:forEach>
-					    </tbody>
-				  	</table>
-				  	
-	       			<input type="hidden" name="allMess1s" value="<c:out value="${allMess1s}" />"/>
-	       			<input type="hidden" name="allMess2s" value="<c:out value="${allMess2s}" />"/>
-	       			<input type="hidden" name="allBallss" value="<c:out value="${allBallss}" />"/>
-			    	<input style="width: 100px;" type="submit" name="back" class="btn btn-primary btn-change pull-left" value="Back"/>
-			    	<input type="submit" name="submit" class="btn btn-primary btn-change pull-right" value="Add" />
-				</form>
+	               <div class="panel-body">
+		               <button type="button" class="btn btn-success btn-filter" data-target="all">ALL</button>
+				        <c:forEach var="team" items="${teamlistt}">
+	                            <button type="button" class="btn btn-success btn-filter" data-target="${team.getName() }">${team.getName() }</button>
+	                      </c:forEach>   
+					  	<form class="form-inline" role="form" method="POST" action="${pageContext.request.contextPath}/moreComments"> 
+					  		<table class="table table-hover table-responsive table-filter">
+					  			<thead>
+							      <tr data-status="tableeee">
+							      	<th>Add</th>
+							      	<th>Name</th>
+							        <th>Surname</th>
+							        <th>Login</th>
+							        <th>Team</th>
+							        <th>Balls</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+								<c:forEach var="user" items="${listt1}" varStatus="loop">
+						    	<tr data-status="${user.getTeam().getName()}">
+						   			<td>
+								    	<div class="checkbox">
+											<label><input type="checkbox" name = "userAddMoreIds" value = "${user.getId()}" ></label>
+										</div>
+									</td>
+									<td><c:out value="${user.name}" /></td>
+									<td><c:out value="${user.surname}" /></td>
+									<td><c:out value="${user.login}" /></td>
+						          <td><c:out value="${user.getTeam().getName()}" /></td>
+						          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
+						      	</tr>
+					  	<!--  <input type="hidden" name="message1List" value="<c:out value="${message1List[status.index]}" />"/>-->
+					  	
+					       			</c:forEach>
+						    </tbody>
+					  	</table>
+					  	
+		       			<input type="hidden" name="allMess1s" value="<c:out value="${allMess1s}" />"/>
+		       			<input type="hidden" name="allMess2s" value="<c:out value="${allMess2s}" />"/>
+		       			<input type="hidden" name="allBallss" value="<c:out value="${allBallss}" />"/>
+				    	<input style="width: 100px;" type="submit" name="back" class="btn btn-primary btn-change pull-left" value="Back"/>
+				    	<input type="submit" name="submit" class="btn btn-primary btn-change pull-right" value="Add" />
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 	
+	
+		<script>
+		$(document).ready(function () {
+		
+			$('.star').on('click', function () {
+		      $(this).toggleClass('star-checked');
+		    });
+		
+		    $('.ckbox label').on('click', function () {
+		      $(this).parents('tr').toggleClass('selected');
+		    });
+		
+		    $('.btn-filter').on('click', function () {
+		      var $target = $(this).data('target');
+		      if ($target != 'all') {
+		        $('.table tr').css('display', 'none');
+		        $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+		        $('.table tr[data-status="tableeee"]').fadeIn('slow');
+		        $('.table tr[data-status="tableeee123"]').fadeOut('slow');
+		      } else {
+		        $('.table tr').css('display', 'none').fadeIn('slow');
+		      }
+		    });
+		 });
+	</script>
 		
 	
 

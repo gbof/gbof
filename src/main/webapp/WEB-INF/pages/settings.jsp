@@ -53,103 +53,102 @@
 	</tiles:insertDefinition> 
 	
 	<div class="container-fluid main-container">
-	<p>
-		<c:if test="${correct == true}">
-			<b class="correct">Settings changed.</b>
-		</c:if>
-		</p>
 		<p>
-		<c:if test="${error == true}">
-			<b class="error">Settings not saved, missing data</b>
-		</c:if>
+			<c:if test="${correct == true}">
+				<b class="correct">Settings changed.</b>
+			</c:if>
+			</p>
+			<p>
+			<c:if test="${error == true}">
+				<b class="error">Settings not saved, missing data</b>
+			</c:if>
 		</p>
 		
 		<div class="col-md-6">
-        		 <div class="panel panel-default">
-        		
-             		<div class="panel-heading">
-             			Settings
-             		</div>
-             		<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
-             		<div class="panel-body">
-						<div class="panel-group col-md-6">
-							<div class="funkyradio">
-						        <div class="funkyradio-primary">
-						        	<c:if test="${checked == false}">
-						            		<input type="checkbox" name="checkbox" id="checkbox" value="1"/>
-						          		
-						            <label for="checkbox">Block the function of giving balls for all users</label>
-						            </c:if>
-						            
-						            <c:if test="${checked == true}">
-						            		<input type="checkbox" name="checkbox" id="checkbox" value="1" checked/>
-						          		
-						            <label for="checkbox">Block the function of giving balls for all users</label>
-						            </c:if>
-						        </div>
-						    </div>
-					    </div>		            
-					        	
-						            <div class="form-group col-md-12">
-								      <label class="col-md-3">Balls Per Person </label>
-								      <div class="col-md-6">
-								     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers" required/>
-								      </div>
-								    </div>
-							  
-					       
-						            <div class="form-group col-md-12">
-								      <label class="col-md-3">Money </label>
-								      <div class="col-md-6">
-								      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN" required/>
-								      </div>
-								    </div>
-							
-					        
-						            <div class="form-group col-md-12">
-								      <label class="col-md-3" >Deadline</label>
-								      <div class="col-md-6">
-								      	<input class="form-control" value="${settingsList.get(0).getDeadline()}" type=text name="deadline" required/>
-								      </div>
-								    </div>
-								    
-						           
-								     <div class="form-area">
-								      <label class="col-md-3" for="deadline">Help message </label>
-								      <div class="col-md-6">
-
-								      	<textarea class="col-md-12 col-sm-12 col-xs-12" style="resize: none; height: 300px;" class="form-control" type=text name="helpMsg" required>${settingsList.get(0).getHelpMsg()}</textarea>
-
-								      </div>
-								    </div>
-								    <div class="form-group col-md-12">
-						<label class="col-md-3">Extra money </label>
-						 <div class="col-md-6">
-
-						<input class="form-control" type =text value="0" name="extramoney" placeholder="PLN" required/>
+       		 <div class="panel panel-default">
+           		<div class="panel-heading">
+           			Settings
+           		</div>
+            		<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
+            		<div class="panel-body">
+					<div class="panel-group col-md-6">
+						<div class="funkyradio">
+					        <div class="funkyradio-primary">
+					        	<c:if test="${checked == false}">
+					            		<input type="checkbox" name="checkbox" id="checkbox" value="1"/>
+					          		
+					            <label for="checkbox">Block the function of giving balls for all users</label>
+					            </c:if>
+					            
+					            <c:if test="${checked == true}">
+					            		<input type="checkbox" name="checkbox" id="checkbox" value="1" checked/>
+					          		
+					            <label for="checkbox">Block the function of giving balls for all users</label>
+					            </c:if>
+					        </div>
+					    </div>
+				    </div>		            
+				        	
+					            <div class="form-group col-md-12">
+							      <label class="col-md-3">Balls Per Person </label>
+							      <div class="col-md-6">
+							     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers" required/>
+							      </div>
+							    </div>
+						  
+				       
+					            <div class="form-group col-md-12">
+							      <label class="col-md-3">Money </label>
+							      <div class="col-md-6">
+							      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN" required/>
+							      </div>
+							    </div>
 						
-						
-						</div>
+				        
+					            <div class="form-group col-md-12">
+							      <label class="col-md-3" >Deadline</label>
+							      <div class="col-md-6">
+							      	<input class="form-control" value="${settingsList.get(0).getDeadline()}" type=text name="deadline" required/>
+							      </div>
+							    </div>
+							    
+					           
+							     <div class="form-area">
+							      <label class="col-md-3" for="deadline">Help message </label>
+							      <div class="col-md-6">
 
-						<input type="submit" style="min-width: 100px;" name="extramoney1" class="btn btn-primary pull-right " value="Add extra money"/>
+							      	<textarea class="col-md-12 col-sm-12 col-xs-12" style="resize: none; height: 300px;" class="form-control" type=text name="helpMsg" required>${settingsList.get(0).getHelpMsg()}</textarea>
 
+							      </div>
+							    </div>
+							    <div class="form-group col-md-12">
+					<label class="col-md-3">Extra money </label>
+					 <div class="col-md-6">
+
+					<input class="form-control" type =text value="0" name="extramoney" placeholder="PLN" required/>
 					
-						</div>
-						</div>
-						
-	              	
-	              	<div class="panel-footer">
-						<input type="submit" style="min-width: 100px;" name="save" class="btn btn-primary pull-right " value="Save"/>
-						</form>
+					
+					</div>
+
+					<input type="submit" style="min-width: 100px;" name="extramoney1" class="btn btn-primary pull-right " value="Add extra money"/>
+
 				
 					</div>
-	           </div>
-	       </div>
-	       <p>
-		<c:if test="${error == true}">
-			<b class="error">Settings not saved, missing data</b>
-		</c:if>
-		</p>
+					</div>
+					
+              	
+              	<div class="panel-footer">
+					<input type="submit" style="min-width: 100px;" name="save" class="btn btn-primary pull-right " value="Save"/>
+					</form>
+			
+				</div>
+           </div>
+       </div>
+       <p>
+	<c:if test="${error == true}">
+		<b class="error">Settings not saved, missing data</b>
+	</c:if>
+	</p>
 		
       		<div class="col-md-6">
         		 <div class="panel panel-default">

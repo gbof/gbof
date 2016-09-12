@@ -58,7 +58,7 @@
 						                </div>
 						                <div class="panel-body">
 						                    <div class="container col-md-12 col-sm-12">  											        
-        									<button type="button" class="btn btn-success btn-filter" data-target="all">All</button>
+        									<button type="button" class="btn btn-success btn-filter" data-target="all">ALL</button>
 									        <c:forEach var="team" items="${teamlistt}">
 						                            <button type="button" class="btn btn-success btn-filter" data-target="${team.getName() }">${team.getName() }</button>
 						                      </c:forEach>    

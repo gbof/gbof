@@ -208,6 +208,8 @@ public class LinkNavigation {
 		String login = us.getUser(userName).getLogin();
 		Integer id1 = us.getUser(userName).getId();
 
+		List<Team> teamlistt = ts.getAllTeams();
+
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
 		
 		model.addAttribute("money", wynik);
@@ -281,7 +283,7 @@ public class LinkNavigation {
 		String allBallss = String.join(";;;;;;", allBalls);
 
 		model.addAttribute("allBallss", allBallss);
-		
+		model.addAttribute("teamlistt", teamlistt);
 		return "moreComments";
 	}
 
@@ -302,6 +304,7 @@ public class LinkNavigation {
 		wynik = sett.round(wynik, 2);
 		String login = us.getUser(userName).getLogin();
 
+		List<Team> teamlistt = ts.getAllTeams();
 
 
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
@@ -333,7 +336,7 @@ public class LinkNavigation {
 			}
 		}
 		model.addAttribute("ballsNumberList", ballsNumberList);
-		
+		model.addAttribute("teamlistt", teamlistt);
 		return "redirect:/moreComments2";
 	}
 
@@ -353,6 +356,8 @@ public class LinkNavigation {
 		wynik = sett.round(wynik, 2);
 		String login = us.getUser(userName).getLogin();
 
+		List<Team> teamlistt = ts.getAllTeams();
+
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
 		
 		model.addAttribute("money", wynik);
@@ -361,6 +366,7 @@ public class LinkNavigation {
 		model.addAttribute("message1List", message1List);
 		model.addAttribute("message2List", message2List);
 		model.addAttribute("ballsNumberList", ballsNumberList);
+		model.addAttribute("teamlistt", teamlistt);
 		return "/comments";
 	}
 
