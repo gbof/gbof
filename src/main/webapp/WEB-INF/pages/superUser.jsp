@@ -195,7 +195,7 @@
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title">Add user</h4>
 	      </div>
-	  	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/userAddedforsuperuser"> 
+	  	<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/SUuserAdded"> 
 	      <div class="">
 	           	<div class="form-group col-md-12 col-sm-12">
 	           		<div class="col-md-6 col-sm-6">
@@ -220,15 +220,6 @@
 		      		<div class="col-md-6 col-sm-6">
 		      		<input name="login" class="form-control" maxlength=5 id="login" type="text" placeholder="login" required/>
 		      		</div>
-		    	</div>
-			     <div class="form-group col-md-12 col-sm-12">
-			        <label class="col-md-6 col-sm-6 control-label">Team</label>
-			        <div class="col-md-6 col-sm-6 selectContainer">
-			            <select class="form-control" name="teamName" required>
-			                <option name = "teamName" value="no-team"  >
-			                	<c:out value="no-team" />
-			            </select>
-			        </div>
 		    	</div>
 		    	<c:set var="rola" scope="session" value="${rola}"/>
 				<c:set var="superuser" scope="session" value="superuser"/>
@@ -263,9 +254,6 @@
 	
 	  </div>
 	</div>
-	
-	
-
 	
 	
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

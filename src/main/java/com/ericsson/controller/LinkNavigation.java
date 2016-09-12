@@ -604,14 +604,12 @@ public class LinkNavigation {
 		modelAndView.addObject("userBasiclistt", userBasiclistt);
 		return modelAndView;
 	}
-
 	
-	@RequestMapping(value = "/userAddedforsuperuser", method = RequestMethod.POST)
+	@RequestMapping(value = "/SUuserAdded", method = RequestMethod.POST)
 	public ModelAndView userAddedforsuperuser(
 			@RequestParam("name") String name, 
 			@RequestParam("surname") String surname,
 			@RequestParam("login") String login,  
-			@RequestParam("teamName") String teamName,
 			@RequestParam("mail") String mail,
 			@RequestParam("deptName") String deptName) {
 
@@ -639,7 +637,7 @@ public class LinkNavigation {
 		Integer current_leader_id = ds.getDeptID(deptName).getDeptLeaderId();
 		Integer teamID = 0;
 		
-		List<Team> teamList = ts.getTeamsID(teamName);
+		List<Team> teamList = ts.getTeamsID("no-team");
 		for ( int i=0; i<teamList.size(); i++){
 			if (teamList.get(i).getDeptId() == deptID){
 				teamID = teamList.get(i).getId();
@@ -678,8 +676,12 @@ public class LinkNavigation {
 			isLeader = false;
 		}
 				
-			
-		ModelAndView modelAndView = new ModelAndView("superUser");
+
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+
 		
 		if (us.checkLogin(login)==true)
 		{
