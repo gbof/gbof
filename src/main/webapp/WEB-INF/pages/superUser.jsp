@@ -52,13 +52,13 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="panel panel-default">
-				<form method="POST" action="${pageContext.request.contextPath}/editdept">	
+				<div class="panel panel-default">	
 					<div class="panel-heading">
 						Current departments
-					</div>		
+					</div>	
+					<form method="POST" action="${pageContext.request.contextPath}/editdept">	
 					<input type="hidden" name="dept_id" value="${dept.getDeptId()}"/>		
-					<div class="panel-body">
+					<div style="min-height: 300px;" class="panel-body">
 						<table  class="table table-filter table-hover col-md-12 table-responsive">
 						    <thead>
 						      <tr>
@@ -114,7 +114,7 @@
 					<div class="panel-heading">
 						New departments
 					</div>
-					<div class="panel-body">
+					<div style="min-height: 300px;" class="panel-body">
 					<p>
 					<c:if test="${Uadded == true}">
 					<b class="correct">User added</b>
@@ -128,12 +128,69 @@
 						<a class="col-md-12 col-xs-8" ><button style="width: 30%; border-radius: 0;" class="btn btn-default btn-user btn-md " 
 							data-toggle="modal" data-target="#deptModal" >New department</button></a>
 						<a class="col-md-12 col-xs-8" ><button style="width: 30%; border-radius: 0;" class="btn btn-default btn-user btn-md " 
-							data-toggle="modal" data-target="#myModal" >New admin</button></a>
-							
+							data-toggle="modal" data-target="#myModal" >New admin</button></a>	
 						
 					</div>
 					<div class="panel-footer">
 					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Admins
+					</div>
+					<form class="form-inline modal-form " role="form" method="GET" action="${pageContext.request.contextPath}/SUuserRemoved">
+						<div style="min-height: 300px;" class="panel-body">
+							<table class="table table-hover table-responsive">
+		      					<thead>
+							      <tr>
+							      	<th>Name</th>
+							        <th>Surname</th>
+							        <th>Login</th>
+							      	<th>Remove</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+		    						<c:forEach var="user" items="${adminlistt}">
+								    	<tr>
+											<td><c:out value="${user.name}" /></td>
+											<td><c:out value="${user.surname}" /></td>
+											<td><c:out value="${user.login}" /></td>
+								   			<td>
+								   			<a><button name="delete"  data-toggle="modal" data-target="#ModalRemoveUser${user.getId()}" value="${user.getId()}" type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a>
+											</td>
+								      	</tr>
+			            			</c:forEach>
+							    </tbody>
+		      				</table>
+						</div>
+						<div class="panel-footer">
+						</div>
+						<c:forEach var="user" items="${adminlistt}">
+							<div id="ModalRemoveUser${user.getId()}" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
+							
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        <h4 class="modal-title">Confirm</h4>
+							      </div>
+							      <div class="">
+							           	Delete user(s) ?
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+							         <button type="submit" value="${user.getId() }" name="delete" class="btn btn-primary btn-change pull-right" >Remove</button>
+							      </div>
+							    
+							    </div>
+							
+							  </div>
+							</div>
+						</c:forEach>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -254,6 +311,12 @@
 	
 	  </div>
 	</div>
+	
+	
+
+  			 
+
+
 	
 	
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

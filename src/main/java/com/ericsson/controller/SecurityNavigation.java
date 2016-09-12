@@ -278,6 +278,13 @@ public class SecurityNavigation {
 		}
 		String rola = "superuser";
 		
+		List<User> adminlistt = new ArrayList<User>();
+		for (User u:listt){
+			if (u.getRole().getRole().equals("admin")){
+				adminlistt.add(u);
+			}
+		}
+		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("login", login);
 		lista.addObject("rola", rola);
@@ -285,6 +292,7 @@ public class SecurityNavigation {
 		lista.addObject("deptlistt", deptlistt);
 		lista.addObject("deptLeaders", deptLeaders);
 		lista.addObject("teamlistt", teamlistt);
+		lista.addObject("adminlistt", adminlistt);
 		lista.setViewName("superUser");
 		return lista;
 	}
@@ -563,6 +571,7 @@ public class SecurityNavigation {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<User> listt = us.getAllUsers();
 		String userName = userDetails.getUsername();
+		Integer id = us.getUser(userName).getId();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
@@ -578,6 +587,7 @@ public class SecurityNavigation {
 		lista.addObject("login", login);
 
 		lista.addObject("listt", listt);
+		lista.addObject("id", id);
 		lista.setViewName("users");
 		return lista;
 	}

@@ -738,6 +738,7 @@ public class LinkNavigation {
 	public String editUserPage(@RequestParam(value = "buttonComId") Integer buttonComId, Model model) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
+		Integer id = us.getUser(userName).getId();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
 		List<Long> ballValue2List = cs.getBallValue2();
@@ -777,7 +778,7 @@ public class LinkNavigation {
 		
 		model.addAttribute("user", user);
 		model.addAttribute("rolelistt", rolelistt);
-		
+		model.addAttribute("id", id);
 		model.addAttribute("teamlistt", teamlistt);
 		model.addAttribute("ballstogive", ballstogive);
 
@@ -836,6 +837,100 @@ public class LinkNavigation {
 			userBasiclistt.add(_name+" "+_surname+" "+_login);
 		}
 		ModelAndView modelAndView = new ModelAndView("settings");
+		if(sett.getSettingsFreeze(idDept).get(0)==1)
+			modelAndView.addObject("checked", true);
+		else
+			modelAndView.addObject("checked", false);
+		modelAndView.addObject("listt", listt);
+		modelAndView.addObject("settingsList",settingsList);
+		modelAndView.addObject("money", wynik);
+		modelAndView.addObject("kule", kulki);
+		modelAndView.addObject("rola", role);
+		modelAndView.addObject("login", login);
+		modelAndView.addObject("rolelistt", rolelistt);
+		modelAndView.addObject("teamlistt", teamlistt);
+		modelAndView.addObject("deptlistt", deptlistt);
+		modelAndView.addObject("userBasiclistt", userBasiclistt);
+		
+		Integer[] userDelIds = {buttonComId};
+		if(userDelIds.length == 0)
+		{
+			modelAndView.addObject("uRemoved", false);
+			return modelAndView;
+		}
+		else{
+		for (int i = 0; i < userDelIds.length; i++) {
+			// check if there are any comments for this user
+			commentList = cs.getCommentsYouGave(userDelIds[i]);
+			if (commentList != null) {
+				for (int j = 0; j < commentList.size(); j++) {
+					comId = commentList.get(j).getComId();
+					cs.removeComment(comId);
+				}
+			}
+			Integer balls_id = us.getUserId(userDelIds[i]).getBall().getBallsId();
+			us.removeUser(userDelIds[i]);
+			bs.removeBalls(balls_id);
+			rus.removeUserRole(userDelIds[i]);
+			modelAndView.addObject("uRemoved", true);
+		}
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/SUuserRemoved", method = RequestMethod.GET)
+	public ModelAndView SUuserRemoved(
+			@ModelAttribute("delete") Integer buttonComId, Model model){
+		
+		List<User> listt = us.getAllUsers();
+		Integer comId;
+		List<Comment> commentList;
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		
+		String login = us.getUser(userName).getLogin();
+		
+		String role = us.getUser(userName).getRole().getRole();
+		
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
+		List<Role> rolelistt = rs.getAllRoles();
+		List<Team> teamlistt = ts.getAllTeams();
+		List<Department> deptlistt = ds.getAllDepts();
+		
+		Integer superuserroleID = rs.getRoleId("superuser").get(0).getId();
+		Integer superuserID = 0;
+		for (User u : listt){
+			if (u.getRole().getId().equals(superuserroleID))
+				superuserID = u.getId();
+		}
+		
+		for (Department d:deptlistt){
+			if (us.getUserId(buttonComId).getId().equals(d.getDeptLeaderId())){
+				ds.editDepartment(d.getDeptId(), superuserID);				
+			}	
+		}
+		
+		
+		List<String> userBasiclistt = new ArrayList<String>();
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingsList=sett.getSettings(idDept);
+		String _name;
+		String _surname;
+		String _login;
+		for (int i=0; i<listt.size(); i++){
+			_name = listt.get(i).getName();
+			_surname = listt.get(i).getSurname();
+			_login = listt.get(i).getLogin();
+			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		}
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 		if(sett.getSettingsFreeze(idDept).get(0)==1)
 			modelAndView.addObject("checked", true);
 		else

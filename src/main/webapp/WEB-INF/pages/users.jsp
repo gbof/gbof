@@ -84,9 +84,18 @@
 							        <td><c:out value="${user.getBall().getBallsToGive() }" /></td>
 							        <td><a href="${pageContext.request.contextPath}/edituser"><button name="buttonComId" value="${user.getId()}" type="submit" 
 							        	class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
-									<td><a ><button name="delete" data-toggle="modal" data-target="#ModalRemoveUser${user.getId()}" 
-										value="${user.getId()}" type="button"  class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" 
-										aria-hidden="true"></span></button></a></td>			      
+									<td>
+										<c:if test="${user.getId() == id}">
+											<a ><button disabled name="delete" data-toggle="modal" data-target="#ModalRemoveUser${user.getId()}" 
+												value="${user.getId()}" type="button"  class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" 
+												aria-hidden="true"></span></button></a>
+										</c:if>
+										<c:if test="${user.getId() != id}">
+											<a ><button name="delete" data-toggle="modal" data-target="#ModalRemoveUser${user.getId()}" 
+												value="${user.getId()}" type="button"  class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" 
+												aria-hidden="true"></span></button></a>
+										</c:if>
+										</td>			      
 								    </tr>
 								</c:forEach>
 	

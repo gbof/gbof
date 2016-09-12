@@ -24,6 +24,7 @@
 		<intercept-url pattern="/superUser*" access="ROLE_SUPERUSER" />
 		<intercept-url pattern="/deptAdded*" access="ROLE_SUPERUSER" />
 		<intercept-url pattern="/SUuserAdded*" access="ROLE_SUPERUSER" />
+		<intercept-url pattern="/SUuserRemoved*" access="ROLE_SUPERUSER" />
 		
 		
 		
