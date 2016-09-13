@@ -59,31 +59,11 @@
 					    	</div>												
 		           			<input type="hidden" name="dept_id" value="${dept.getDeptId()}"/>
 		           			<br>
-		           			<h5 style="padding-top: 60px;">Department members</h5>
-		           			<table class="table table-filter table-hover col-md-12 table-responsive">
-							    <thead>
-							      <tr data-status="tableeee">
-							      	<th>Name</th>
-							        <th>Surname</th>
-							        <th>Login</th>
-							      </tr>
-							    </thead>
-							    <tbody>
-
-							      <c:forEach var="user" items="${users}"  varStatus="loop">
-							    <tr data-status="${user.getDept().getDeptName()}">
-							          <td><c:out value="${user.name}" /></td>
-							          <td><c:out value="${user.surname}" /></td>
-							          <td><c:out value="${user.login}" /></td>
-							      </tr>
-		            			</c:forEach>
-							    </tbody>
-							  </table>
 		           			
 		           	</div>	
 		           	<div class="panel-footer">	
   						<input type="submit" name="save" style="min-width: 100px;" class="btn btn-primary pull-right " value="Save"/>
-  						<button type="button" data-toggle="modal" data-target="#ModalRemoveDept" class="btn btn-default btn-change pull-right" value="Remove">Delete</button>
+  						<!--<button type="button" data-toggle="modal" data-target="#ModalRemoveDept" class="btn btn-default btn-change pull-right" value="Remove">Delete</button>-->
 		        		<a href="${pageContext.request.contextPath}/success-login"><input type="button" style="min-width: 100px;" class="btn btn-primary pull-left " id="back" name="back"value="Back" /></a>
         			</div>
 		    	</div>

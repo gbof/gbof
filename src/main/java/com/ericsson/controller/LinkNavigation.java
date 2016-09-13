@@ -1428,13 +1428,6 @@ public class LinkNavigation {
 		
 		
 		List<User> listt = us.getAllUsersForSuperUser();
-		List<User> users = new ArrayList<User>();
-
-		for (User u:listt){
-			if (u.getDept().getDeptId().equals(dept_id)){
-				users.add(u);
-			}
-		}
 		
 		Integer su_id = rs.getRoleId("superuser").get(0).getId();
 		for (int i=0; i<listt.size(); i++){
@@ -1451,7 +1444,6 @@ public class LinkNavigation {
 		model.addAttribute("money", wynik);
 		model.addAttribute("kule", kulki);
 		model.addAttribute("login", login);
-		model.addAttribute("users", users);
 		model.addAttribute("listt", listt);
 		return "editdept";
 	}
