@@ -157,7 +157,7 @@
 															      <td style="max-width:300px; word-wrap: normal;"><c:out value="${comment.getSecondCom()}" /></td>   
 															     
 															      <td align="center"><button name="buttonComId" style="width:40px" value="${comment.getComId()}"   type="submit" class="btn btn-default btn-edit">
-															      	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
+															      	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
 															      
 															      
 															      <td align="center"><button data-toggle="modal" style="width:40px" data-target="#Modal2${comment.getComId()}" type="button" value="${comment.getComId()}" class="btn btn-default btn-edit">

@@ -64,6 +64,8 @@
 						      <tr>
 						      	<th>Name</th>
 						        <th>Leader</th>
+						        <th>Edit</th>
+						        <th>Remove</th>
 						      </tr>
 						    </thead>
 						    <tbody>
@@ -71,7 +73,7 @@
 								<tr>
 									<td><c:out value="${dept.getDeptName()}" /></td>
 									<td><c:out value="${deptLeaders[status.index] }" /></td>
-									 <td><button name="edit" value="${dept.getDeptId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
+									 <td><button name="buttonComId" value="${dept.getDeptId()}" type="submit" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a></td>
 									<td><a><button name="delete"  data-toggle="modal" data-target="#ModalRemoveDept${dept.getDeptId()}" value="${dept.getDeptId()}" type="button" class="btn btn-default btn-edit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a></td>		      
 								   
 								</tr>
@@ -177,12 +179,12 @@
 							        <button type="button" class="close" data-dismiss="modal">&times;</button>
 							        <h4 class="modal-title">Confirm</h4>
 							      </div>
-							      <div class="">
-							           	Delete user(s) ?
+							      <div class="modal-body">
+							           	Delete user ?
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-							         <button type="submit" value="${user.getId() }" name="delete" class="btn btn-primary btn-change pull-right" >Remove</button>
+							         <button type="submit" value="${user.getId() }" name="delete" class="btn btn-primary btn-change pull-right" >Delete</button>
 							      </div>
 							    
 							    </div>

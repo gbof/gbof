@@ -43,8 +43,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public void editDepartment(Integer deptID, Integer leaderID) {
-		deptDAO.editDepartment(deptID, leaderID);
+	public void editDepartment(Integer deptID, String name, Integer leaderID) {
+		deptDAO.editDepartment(deptID, name, leaderID);
 		
 	}
 

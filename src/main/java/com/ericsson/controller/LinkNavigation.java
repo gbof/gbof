@@ -703,7 +703,8 @@ public class LinkNavigation {
 				rus.editRole(current_leader_id, rs.getRoleId("user").get(0).getId());
 				us.editRoleID(current_leader_id, rs.getRoleId("user").get(0).getId());
 			}
-			ds.editDepartment(deptID, leaderID);
+			String dname = ds.getDeptName(deptID);
+			ds.editDepartment(deptID, dname, leaderID);
 			modelAndView.addObject("Uadded", true);
 			modelAndView.addObject("Ubadlogin", false);
 		}
@@ -819,7 +820,8 @@ public class LinkNavigation {
 		
 		for (Department d:deptlistt){
 			if (us.getUserId(buttonComId).getId().equals(d.getDeptLeaderId())){
-				ds.editDepartment(d.getDeptId(), us.getUserWithRole(rs.getRoleId("superuser").get(0)).get(0).getId());				
+				String name = ds.getDeptName(d.getDeptId());
+				ds.editDepartment(d.getDeptId(), name, us.getUserWithRole(rs.getRoleId("superuser").get(0)).get(0).getId());				
 			}	
 		}
 		
@@ -913,7 +915,8 @@ public class LinkNavigation {
 		
 		for (Department d:deptlistt){
 			if (us.getUserId(buttonComId).getId().equals(d.getDeptLeaderId())){
-				ds.editDepartment(d.getDeptId(), superuserID);				
+				String name = ds.getDeptName(d.getDeptId());
+				ds.editDepartment(d.getDeptId(), name, superuserID);				
 			}	
 		}
 		
@@ -1386,7 +1389,8 @@ public class LinkNavigation {
 		List<User> listt = us.getAllUsersForSuperUser();
 
 		ModelAndView modelAndView = new ModelAndView();
-		ds.editDepartment(deptDelId, 4);
+		String name = ds.getDeptName(deptDelId);
+		ds.editDepartment(deptDelId, name, 4);
 		for(int i=0;i<listt.size();i++){
 			if (listt.get(i).getDept().getDeptId().equals(deptDelId))
 				us.removeUser(listt.get(i).getId());
@@ -1395,6 +1399,89 @@ public class LinkNavigation {
 			ds.removeDept(deptDelId);
 			sett.deleteSettings(deptDelId);
 		modelAndView.setViewName("redirect:/success-login");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/editdept", method = RequestMethod.POST)
+	public String deptEdited(
+			@RequestParam(value = "buttonComId") Integer dept_id, 
+			Model model) {
+		
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		String login = us.getUser(userName).getLogin();
+		Department dept = ds.getDept(dept_id);
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+		Integer user_id = ds.getDept(dept_id).getDeptLeaderId();
+
+		String leaderName = us.getUserId(user_id).getName();
+		String leaderSurname = us.getUserId(user_id).getSurname();
+		String leaderLogin = us.getUserId(user_id).getLogin();
+		
+		
+		List<User> listt = us.getAllUsersForSuperUser();
+		List<User> users = new ArrayList<User>();
+
+		for (User u:listt){
+			if (u.getDept().getDeptId().equals(dept_id)){
+				users.add(u);
+			}
+		}
+		
+		Integer su_id = rs.getRoleId("superuser").get(0).getId();
+		for (int i=0; i<listt.size(); i++){
+			if (listt.get(i).getRole().getId().equals(su_id)){
+				listt.remove(i);
+			}
+		}
+		
+		model.addAttribute("dept", dept);
+		model.addAttribute("leaderName", leaderName);
+		model.addAttribute("leaderSurname", leaderSurname);
+		model.addAttribute("leaderLogin", leaderLogin);
+		model.addAttribute("dept_id", dept_id);
+		model.addAttribute("money", wynik);
+		model.addAttribute("kule", kulki);
+		model.addAttribute("login", login);
+		model.addAttribute("users", users);
+		model.addAttribute("listt", listt);
+		return "editdept";
+	}
+	
+	@RequestMapping(value = "/deptEdited", params="save", method = RequestMethod.POST)
+	public ModelAndView deptEdited(
+
+			@RequestParam(value = "name") String name, 
+			@RequestParam(value = "user") String user,
+			@RequestParam(value = "dept_id") Integer dept_id,
+			Model model
+
+	) {
+		String[] words = user.split(" ");
+		String leader = words[2];
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String login = us.getUser(userName).getLogin();
+		
+		Integer leaderID = us.getUser(leader).getId();
+		Integer previous_leader_id = ds.getDept(dept_id).getDeptLeaderId();
+		ds.editDepartment(dept_id, name, leaderID);
+		
+		us.editRoleID(previous_leader_id, rs.getRoleId("user").get(0).getId());
+		us.editRoleID(leaderID, rs.getRoleId("admin").get(0).getId());
+		rus.editRole(previous_leader_id, rs.getRoleId("user").get(0).getId());
+		rus.editRole(leaderID, rs.getRoleId("admin").get(0).getId());
+		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+
+		model.addAttribute("login", login);
 		return modelAndView;
 	}
 	
