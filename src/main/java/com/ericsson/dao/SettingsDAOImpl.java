@@ -109,7 +109,7 @@ public class SettingsDAOImpl implements SettingsDAO{
 			return null;	
 	}
 	
-	public double round(double value, int places) {
+	public double roundMoney(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 
 	    long factor = (long) Math.pow(10, places);
@@ -132,7 +132,7 @@ public class SettingsDAOImpl implements SettingsDAO{
 			return null;
 	}
 	
-	public List<Date> getSettingsDate(Integer settings_id) {
+	public List<Date> getSettingsDeadline(Integer settings_id) {
 		List<Date> integerList = new ArrayList<Date>();
 		
 		String sql = "select deadline from Settings  where settings_id ='" + settings_id + "'";

@@ -131,7 +131,8 @@ public class LinkNavigation {
 		String login = us.getUser(userName).getLogin();
 
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
-
+		String rola = us.getUser(userName).getRole().getRole();
+		model.addAttribute("rola", rola);
 		model.addAttribute("idList", idList);
 		model.addAttribute("money", wynik);
 		model.addAttribute("kule", kulki);

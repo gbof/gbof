@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 		userDAO.setBallsAfterCommentDelete(id, balls, commentToUserId);
 	}
 	public Boolean checkLogin(String login){
-		return userDAO.checkLogin(login);
+		return userDAO.checkLoginAvailable(login);
 	}
 	@Override
 	public void editRoleID(Integer leader_id, int role_id) {
@@ -102,6 +102,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void dupcia(){
-		userDAO.dupcia();
+		userDAO.encryptAllPasswords();
 	}
 }

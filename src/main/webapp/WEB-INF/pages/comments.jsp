@@ -17,7 +17,9 @@
 		<style>
        		<%@include file="/web-resources/css/comments.css" %>
 		</style>
-		
+		<style>
+			<%@include file="/web-resources/css/all.css" %>
+		</style>
 		<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 
 </head>
@@ -26,8 +28,53 @@
 
 
 	 
-	<tiles:insertDefinition name="headerTemplate">
-	</tiles:insertDefinition> 
+	<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/success-login">
+					GBOF
+				</a>
+		</div>
+	
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">			
+			<ul class="nav navbar-nav navbar-right">
+			<c:set var="rola" value="${rola}"/>
+			<c:set var="admin" value="admin"/>
+			<c:set var="superuser" value="superuser" />
+			<li>
+			<a style="text-align: center; color:red;" id="balls"></a>
+			</li>
+			<c:if test="${rola != superuser }" >
+				<li><a href="${pageContext.request.contextPath}/helpPage">Help</a></li>
+			</c:if>
+			<c:set var="rola" value="${rola}"/>
+			<c:set var="admin" value="admin"/>
+			<c:if test="${rola == admin}">
+				<li><a href="${pageContext.request.contextPath}/settings">Settings</a></li>
+				</c:if>
+				<li><a>Username: ${login}</a></li>
+				<li class="dropdown ">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						<li><a href="${pageContext.request.contextPath}/change">Change password</a></li>
+						<li class="divider"></li>
+						<li>
+							<a href="<c:url value="/j_spring_security_logout" />">Logout</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
 	
 	<br/>
 	<div style="text-align: center; color:red; font-size:160%;" >
@@ -151,12 +198,12 @@
 	            tot += parseInt(arr[i].value);
 	    }
 	    if(totalCount-tot<0)
-	    	$('#balls').text("Rozdales za duzo kulek");
+	    	$('#balls').text("Dont be so generous, you are out of balls");
 	    else
 	    	{
 	    		total = totalCount;
 	    		var ballsLeft = total-tot;
-	    		$('#balls').text(ballsLeft).val();
+	    		$('#balls').text("Balls left: "+ballsLeft).val();
 	    		balls = ballsLeft;
 	    	}
 	}

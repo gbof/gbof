@@ -18,12 +18,12 @@ public interface UserDAO {
 	public void addUser2(User user);
 	public void setBallsAfterCommentEdit(Integer id, Integer oldBalls, Integer balls, Integer commentToUserId);
 	public void setBallsAfterCommentDelete(Integer id, Integer balls, Integer commentToUserId);
-	public Boolean checkLogin(String login);
+	public Boolean checkLoginAvailable(String login);
 	public void editRoleID(Integer leader_id, int role_id);
 	public List<User> getAllUsersForSuperUser();
 	public void editDept(Integer user_id, Integer dept_id);
 	public List<User> getAllUsersTeam(Integer team_id);
 	public void editTeamId(Integer team_id, Integer user_id);
 	public List<User> getUserWithRole(Role role_id);
-	public void dupcia();
+	public void encryptAllPasswords();
 }

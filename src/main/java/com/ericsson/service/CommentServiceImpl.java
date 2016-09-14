@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService{
 		}
 	@Override
 	public  List<Comment> getCommentsYouGave(Integer id) {
-		return commentDAO.getCommentsYouGave(id);
+		return commentDAO.getCommentsGivenByUser(id);
 		
 	}
 	@Override

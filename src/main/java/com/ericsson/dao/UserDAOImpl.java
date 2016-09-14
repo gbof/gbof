@@ -93,13 +93,10 @@ public class UserDAOImpl implements UserDAO {
 	
 	public void setPassword(Integer id, String password){
 		String hashedPassword = "";
-		int i = 0;
-		while (i < 10) {
 			String password1 = password;
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			hashedPassword = passwordEncoder.encode(password1);
-			i++;
-		}
+
 		String query = "UPDATE users SET password = '"+ hashedPassword +"' WHERE user_id = '"+ id + "'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
@@ -160,14 +157,11 @@ public class UserDAOImpl implements UserDAO {
 			
 			RandomPassword+=(char)a;
 			}*/
-		String hashedPassword = "";
-		int i = 0;
-		while (i < 10) {
+			String hashedPassword = "";
 			String password = login+"1";
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			hashedPassword = passwordEncoder.encode(password);
-			i++;
-		}
+
 			
 			String FullMail=mail+"@ericsson.com";
 			
@@ -203,7 +197,7 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 	
-	public Boolean checkLogin(String login)
+	public Boolean checkLoginAvailable(String login)
 	{
 		List<User> loginList = new ArrayList<User>();
 		
@@ -273,7 +267,7 @@ public class UserDAOImpl implements UserDAO {
 			return null;
 	}
 
-	public void dupcia(){
+	public void encryptAllPasswords(){
 		List<User> usersList = new ArrayList<User>();
 		
 		String sql = "from User";
@@ -283,13 +277,9 @@ public class UserDAOImpl implements UserDAO {
 		
 		for(int i=0;i<usersList.size();i++){
 			String hashedPassword = "";
-			int j = 0;
-			while (j < 10) {
 				String password1 = usersList.get(i).getPassword();
 				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 				hashedPassword = passwordEncoder.encode(password1);
-				j++;
-			}
 			String query1 = "UPDATE users SET password = '"+ hashedPassword +"' WHERE user_id = '"+ usersList.get(i).getId() + "'";
 			SQLQuery sqlQuery = openSession().createSQLQuery(query1);
 			sqlQuery.executeUpdate();

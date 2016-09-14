@@ -18,11 +18,11 @@ public interface SettingsDAO {
 	
 	public List<Settings> getSettings(Integer settings_id);
 	
-	public double round(double value, int places);
+	public double roundMoney(double value, int places);
 	
 	public List<Integer> getSettingsFreeze(Integer settings_id);
 	
-	public List<Date> getSettingsDate(Integer settings_id);
+	public List<Date> getSettingsDeadline(Integer settings_id);
 	
 	public void setToFrozen(Integer settings_id);
 	

@@ -48,7 +48,7 @@ public class BallServiceImpl implements BallService {
 		
 		@Override
 		public void editCach(Integer balls_id, Double cash){
-			ballDAO.editCach(balls_id, cash);
+			ballDAO.editCash(balls_id, cash);
 		}
 		
 		@Override

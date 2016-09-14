@@ -66,7 +66,7 @@ public class CommentDAOImpl implements CommentDAO{
 		
 	}
 	
-	public List<Comment> getCommentsYouGave(Integer id)
+	public List<Comment> getCommentsGivenByUser(Integer id)
 	{
 		List<Comment> commentList = new ArrayList<Comment>();
 		

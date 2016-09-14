@@ -42,7 +42,7 @@ public class SettingServiceImpl implements SettingService{
 	}
 	
 	public double round(double value, int places){
-		return settingsDAO.round(value, places);
+		return settingsDAO.roundMoney(value, places);
 	}
 	
 	public List<Integer> getSettingsFreeze(Integer settings_id){
@@ -50,7 +50,7 @@ public class SettingServiceImpl implements SettingService{
 	}
 	
 	public List<Date> getSettingsDate(Integer settings_id){
-		return settingsDAO.getSettingsDate(settings_id);
+		return settingsDAO.getSettingsDeadline(settings_id);
 	}
 	
 	public void setToFrozen(Integer settings_id){

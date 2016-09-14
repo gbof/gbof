@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
@@ -8,11 +9,22 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
+    
+    
 <html>
 <head>
 	<title>Admin</title>
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-	
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
 	<style>
       	<%@include file="/web-resources/css/settings.css" %>
       	
@@ -69,7 +81,7 @@
            		<div class="panel-heading">
            			Settings
            		</div>
-            		<form class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
+            		<form name="form1" class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
             		<div class="panel-body">
 					<div class="panel-group col-md-6">
 						<div class="funkyradio">
@@ -92,7 +104,7 @@
 					            <div class="form-group col-md-12">
 							      <label class="col-md-3">Balls Per Person </label>
 							      <div class="col-md-6">
-							     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers" required/>
+							     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" min="0" type="number"  name="ballsPerPers" required/>
 							      </div>
 							    </div>
 						  
@@ -100,14 +112,15 @@
 					            <div class="form-group col-md-12">
 							      <label class="col-md-3">Money </label>
 							      <div class="col-md-6">
-							      	<input class="form-control" value="${settingsList.get(0).getMoney()}" min="0" type =text name="money" placeholder="PLN" required/>
+							      	<input class="form-control" value="${settingsList.get(0).getMoney()}" min="0" type="number" name="money" placeholder="PLN" required/>
 							      </div>
 							    </div>
-						
+							
 				        
 					            <div class="form-group col-md-12">
 							      <label class="col-md-3" >Deadline</label>
 							      <div class="col-md-6">
+
 							      	<input type="date" class="form-control" value="${settingsList.get(0).getDeadline()}" name="deadline" required/>
 							      </div>
 							    </div>
@@ -125,7 +138,7 @@
 					<label class="col-md-3">Extra money </label>
 					 <div class="col-md-6">
 
-					<input class="form-control" type =text value="0" name="extramoney" placeholder="PLN" required/>
+					<input class="form-control" min="0" type="number"  value="0" name="extramoney" placeholder="PLN" required/>
 					
 					
 					</div>
@@ -138,9 +151,71 @@
 					
               	
               	<div class="panel-footer">
-					<input type="submit" style="min-width: 100px;" name="save" class="btn btn-primary pull-right " value="Save"/>
+					<input type="submit" style="min-width: 100px;" name="save" class="btn btn-primary pull-right " value="Save" onclick="validatedate($('input#deadline'))"/>
 					</form>
-			
+			<script>
+		    function validatedate()  
+		      {  
+		      var inputText = document.getElementsByName('deadline').value;
+		      var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;  
+		      // Match the date format through regular expression  
+		      if(inputText.value.match(dateformat))  
+		      {  
+		      document.form1.text1.focus();  
+		      //Test which seperator is used '/' or '-'  
+		      var opera1 = inputText.value.split('/');  
+		      var opera2 = inputText.value.split('-');  
+		      lopera1 = opera1.length;  
+		      lopera2 = opera2.length;  
+		      // Extract the string into month, date and year  
+		      if (lopera1>1)  
+		      {  
+		      var pdate = inputText.value.split('/');  
+		      }  
+		      else if (lopera2>1)  
+		      {  
+		      var pdate = inputText.value.split('-');  
+		      }  
+		      var dd = parseInt(pdate[0]);  
+		      var mm  = parseInt(pdate[1]);  
+		      var yy = parseInt(pdate[2]);  
+		      // Create list of days of a month [assume there is no leap year by default]  
+		      var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];  
+		      if (mm==1 || mm>2)  
+		      {  
+		      if (dd>ListofDays[mm-1])  
+		      {  
+		      alert('Invalid date format!');  
+		      return false;  
+		      }  
+		      }  
+		      if (mm==2)  
+		      {  
+		      var lyear = false;  
+		      if ( (!(yy % 4) && yy % 100) || !(yy % 400))   
+		      {  
+		      lyear = true;  
+		      }  
+		      if ((lyear==false) && (dd>=29))  
+		      {  
+		      alert('Invalid date format!');  
+		      return false;  
+		      }  
+		      if ((lyear==true) && (dd>29))  
+		      {  
+		      alert('Invalid date format!');  
+		      return false;  
+		      }  
+		      }  
+		      }  
+		      else  
+		      {  
+		      alert("Invalid date format!");  
+		      document.form1.text1.focus();  
+		      return false;  
+		      }  
+		      }  
+			</script>
 				</div>
            </div>
        </div>
@@ -339,7 +414,7 @@
 				 		if (empty == 0)
 				 			$('input:submit').attr("disabled", true);
 				 	});
-
+				     
 				 	</script>
 	      	</form>
 		</div>
@@ -479,7 +554,15 @@
 	
 	  </div>
 	</div>
-
+	
+<script>
+function checkDates(form) {
+  if (form.collectdatetime.value >= form.deliverdatetime.value) {
+    alert('Collection time must be after deliver time');
+    return false;
+  }
+}
+</script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>
