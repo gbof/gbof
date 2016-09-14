@@ -1,6 +1,6 @@
 package com.ericsson.dao;
 
-import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ericsson.model.Settings;
-import com.ericsson.model.User;
 import com.ericsson.service.BallService;
 import com.ericsson.service.CommentService;
-import com.ericsson.model.Settings;
+
 
 @Repository
 public class SettingsDAOImpl implements SettingsDAO{

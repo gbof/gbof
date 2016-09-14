@@ -2,17 +2,13 @@ package com.ericsson.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.ericsson.model.Department;
-import com.ericsson.model.Role;
-import com.ericsson.model.Team;
 
 @Repository
 public class DepartmentDAOImpl implements DepartmentDAO {

@@ -100,7 +100,7 @@
 					            <div class="form-group col-md-12">
 							      <label class="col-md-3">Money </label>
 							      <div class="col-md-6">
-							      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN" required/>
+							      	<input class="form-control" value="${settingsList.get(0).getMoney()}" min="0" type =text name="money" placeholder="PLN" required/>
 							      </div>
 							    </div>
 						
@@ -108,7 +108,7 @@
 					            <div class="form-group col-md-12">
 							      <label class="col-md-3" >Deadline</label>
 							      <div class="col-md-6">
-							      	<input class="form-control" value="${settingsList.get(0).getDeadline()}" type=text name="deadline" required/>
+							      	<input type="date" class="form-control" value="${settingsList.get(0).getDeadline()}" name="deadline" required/>
 							      </div>
 							    </div>
 							    

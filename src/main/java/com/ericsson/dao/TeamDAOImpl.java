@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
-
-import com.ericsson.model.Role;
 import com.ericsson.model.Team;
 import com.ericsson.service.UserService;
 
