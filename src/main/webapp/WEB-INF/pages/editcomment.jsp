@@ -131,7 +131,7 @@
 	            tot += parseInt(arr[i].value);
 	    }
 	    if(totalCount-tot<0)
-	    	$('#balls').text("Rozdales za duzo kulek");
+	    	$('#balls').text("Dont be so generous, you are out of balls");
 	    else
 	    	{
 	    		total = totalCount;
