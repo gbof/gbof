@@ -492,24 +492,6 @@
 	
 	
 	
-	
-<form id="dateRangeForm" method="post" class="form-horizontal">
-    <div class="form-group">
-        <label class="col-xs-3 control-label">Date</label>
-        <div class="col-xs-5 date">
-            <div class="input-group input-append date" id="dateRangePicker">
-                <input type="text" class="form-control" name="date" />
-                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-xs-5 col-xs-offset-3">
-            <button type="submit" class="btn btn-default">Validate</button>
-        </div>
-    </div>
-</form>
 
 
 
