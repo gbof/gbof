@@ -77,7 +77,7 @@
 		                    </div>
 		                    
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" name="message2" id="message" placeholder="What should I work on?" maxlength="140" rows="7" required>${commentId.getSecondCom()}</textarea>
+		                    	<textarea class="form-control" type="textarea" name="message2" id="message" placeholder="What can she/he do better?" maxlength="140" rows="7" required>${commentId.getSecondCom()}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 		                    </div>
 		                    

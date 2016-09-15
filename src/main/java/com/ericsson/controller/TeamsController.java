@@ -154,22 +154,6 @@ public class TeamsController {
 		String leaderSurname = us.getUserId(user_id).getSurname();
 		String leaderLogin = us.getUserId(user_id).getLogin();
 		
-
-		List<User> users = new ArrayList<User>();
-		if (listt != null){
-			for (User t: listt){
-				users.add(t);
-			}
-			for (int i=0; i<users.size(); i++){
-				if ( users.get(i).getId() == user_id)
-					users.remove(i);
-			}
-			
-			listt.clear();
-			for (User t: users){
-				listt.add(t);
-			}
-		}
 		deptlistt.remove(dept_id-1);
 		
 		model.addAttribute("team", team);
