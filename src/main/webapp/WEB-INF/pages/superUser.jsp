@@ -127,9 +127,9 @@
 					<b class="error">User can not be added, login is not available</b>
 					</c:if>
 					</p>
-						<a class="col-md-12 col-xs-8" ><button style="width: 30%; border-radius: 0;" class="btn btn-default btn-user btn-md " 
+						<a class="col-md-12 col-xs-8" ><button style="min-width: 300px; border-radius: 0;" class="btn btn-default btn-user btn-md " 
 							data-toggle="modal" data-target="#deptModal" >New department</button></a>
-						<a class="col-md-12 col-xs-8" ><button style="width: 30%; border-radius: 0;" class="btn btn-default btn-user btn-md " 
+						<a class="col-md-12 col-xs-8" ><button style="min-width: 300px; border-radius: 0;" class="btn btn-default btn-user btn-md " 
 							data-toggle="modal" data-target="#myModal" >New admin</button></a>	
 						
 					</div>

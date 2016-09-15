@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
@@ -9,25 +8,16 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-    
-    
 <html>
 <head>
 	<title>Admin</title>
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
+	<link rel="stylesheet" href="webjars/bootstrap-datepicker/1.0.1/css/datepicker.css" />
+	
+	
+	
 	<style>
       	<%@include file="/web-resources/css/settings.css" %>
-      	
       	.correct {
 		color: green;
 		}
@@ -54,6 +44,11 @@
 		}
 	}
 	
+	#dateRangeForm .form-control-feedback {
+    top: 0;
+    right: -15px;
+}
+
 	</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
@@ -81,7 +76,7 @@
            		<div class="panel-heading">
            			Settings
            		</div>
-            		<form name="form1" class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
+            		<form id="dateRangeForm" class="form-inline modal-form " role="form" method="POST" action="${pageContext.request.contextPath}/settingsAdd">
             		<div class="panel-body">
 					<div class="panel-group col-md-6">
 						<div class="funkyradio">
@@ -104,7 +99,7 @@
 					            <div class="form-group col-md-12">
 							      <label class="col-md-3">Balls Per Person </label>
 							      <div class="col-md-6">
-							     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" min="0" type="number"  name="ballsPerPers" required/>
+							     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers" required/>
 							      </div>
 							    </div>
 						  
@@ -112,19 +107,21 @@
 					            <div class="form-group col-md-12">
 							      <label class="col-md-3">Money </label>
 							      <div class="col-md-6">
-							      	<input class="form-control" value="${settingsList.get(0).getMoney()}" min="0" type="number" name="money" placeholder="PLN" required/>
+							      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN" required/>
 							      </div>
 							    </div>
-							
-				        
-					            <div class="form-group col-md-12">
-							      <label class="col-md-3" >Deadline</label>
-							      <div class="col-md-6">
-
-							      	<input type="date" class="form-control" value="${settingsList.get(0).getDeadline()}" name="deadline" required/>
-							      </div>
-							    </div>
+						
 							    
+    <div class="form-group col-md-12">
+        <label class="col-md-3">Deadline</label>
+        <div class="col-md-6 date">
+            <div class="input-group input-append date" id="dateRangePicker">
+                <input readonly value="${settingsList.get(0).getDeadline()}" type="text" class="form-control" name="deadline" />
+                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+    </div>
+    
 					           
 							     <div class="form-area">
 							      <label class="col-md-3" for="deadline">Help message </label>
@@ -138,7 +135,7 @@
 					<label class="col-md-3">Extra money </label>
 					 <div class="col-md-6">
 
-					<input class="form-control" min="0" type="number"  value="0" name="extramoney" placeholder="PLN" required/>
+					<input class="form-control" type =text value="0" name="extramoney" placeholder="PLN" required/>
 					
 					
 					</div>
@@ -151,71 +148,9 @@
 					
               	
               	<div class="panel-footer">
-					<input type="submit" style="min-width: 100px;" name="save" class="btn btn-primary pull-right " value="Save" onclick="validatedate($('input#deadline'))"/>
+					<input type="submit" style="min-width: 100px;" name="save" class="btn btn-primary pull-right " value="Save"/>
 					</form>
-			<script>
-		    function validatedate()  
-		      {  
-		      var inputText = document.getElementsByName('deadline').value;
-		      var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;  
-		      // Match the date format through regular expression  
-		      if(inputText.value.match(dateformat))  
-		      {  
-		      document.form1.text1.focus();  
-		      //Test which seperator is used '/' or '-'  
-		      var opera1 = inputText.value.split('/');  
-		      var opera2 = inputText.value.split('-');  
-		      lopera1 = opera1.length;  
-		      lopera2 = opera2.length;  
-		      // Extract the string into month, date and year  
-		      if (lopera1>1)  
-		      {  
-		      var pdate = inputText.value.split('/');  
-		      }  
-		      else if (lopera2>1)  
-		      {  
-		      var pdate = inputText.value.split('-');  
-		      }  
-		      var dd = parseInt(pdate[0]);  
-		      var mm  = parseInt(pdate[1]);  
-		      var yy = parseInt(pdate[2]);  
-		      // Create list of days of a month [assume there is no leap year by default]  
-		      var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];  
-		      if (mm==1 || mm>2)  
-		      {  
-		      if (dd>ListofDays[mm-1])  
-		      {  
-		      alert('Invalid date format!');  
-		      return false;  
-		      }  
-		      }  
-		      if (mm==2)  
-		      {  
-		      var lyear = false;  
-		      if ( (!(yy % 4) && yy % 100) || !(yy % 400))   
-		      {  
-		      lyear = true;  
-		      }  
-		      if ((lyear==false) && (dd>=29))  
-		      {  
-		      alert('Invalid date format!');  
-		      return false;  
-		      }  
-		      if ((lyear==true) && (dd>29))  
-		      {  
-		      alert('Invalid date format!');  
-		      return false;  
-		      }  
-		      }  
-		      }  
-		      else  
-		      {  
-		      alert("Invalid date format!");  
-		      document.form1.text1.focus();  
-		      return false;  
-		      }  
-		      }  
-			</script>
+			
 				</div>
            </div>
        </div>
@@ -264,7 +199,7 @@
 					</c:if>
 					</p>
 			        <div class="panel-group col-md-5 col-xs-8 btn-group-vertical">
-			        	<a class="col-md-12 col-xs-8" ><button style="width: 100%; border-radius: 0;" class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#myModal">New user</button></a>
+			        	<a class="col-md-12 col-xs-8" ><button style="min-width: 100%; border-radius: 0;" class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#myModal">New user</button></a>
 			        	 <!-- <button class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#delUserModal">Remove user</button>-->
 	        			<a class="col-md-12 col-xs-8" ><button style="width: 100%; border-radius: 0;" class="btn btn-default btn-user btn-lg " data-toggle="modal" data-target="#teamModal" >New team</button></a>
 			        	<!--<button class="btn btn-default btn-user btn-md " data-toggle="modal" data-target="#delTeamModal">Remove team</button>-->
@@ -414,7 +349,7 @@
 				 		if (empty == 0)
 				 			$('input:submit').attr("disabled", true);
 				 	});
-				     
+
 				 	</script>
 	      	</form>
 		</div>
@@ -555,14 +490,73 @@
 	  </div>
 	</div>
 	
+	
+	
+	
+<form id="dateRangeForm" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Date</label>
+        <div class="col-xs-5 date">
+            <div class="input-group input-append date" id="dateRangePicker">
+                <input type="text" class="form-control" name="date" />
+                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-5 col-xs-offset-3">
+            <button type="submit" class="btn btn-default">Validate</button>
+        </div>
+    </div>
+</form>
+
+
+
+	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
+	<script src="webjars/bootstrap-datepicker/1.0.1/js/bootstrap-datepicker.js"></script>
 <script>
-function checkDates(form) {
-  if (form.collectdatetime.value >= form.deliverdatetime.value) {
-    alert('Collection time must be after deliver time');
-    return false;
-  }
-}
+$(document).ready(function() {
+    $('#dateRangePicker')
+        .datepicker({
+            format: 'mm/dd/yyyy',
+            startDate: '01/01/2010',
+            endDate: '12/30/2020'
+        })
+        .on('changeDate', function(e) {
+            // Revalidate the date field
+            $('#dateRangeForm').formValidation('revalidateField', 'deadline');
+        });
+
+    $('#dateRangeForm').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            date: {
+                validators: {
+                    notEmpty: {
+                        message: 'The date is required'
+                    },
+                    date: {
+                        format: 'MM/DD/YYYY',
+                        min: '01/01/2010',
+                        max: '12/30/2020',
+                        message: 'The date is not a valid'
+                    }
+                }
+            }
+        }
+    });
+});
 </script>
+
+	
+
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 </body>
 </html>
