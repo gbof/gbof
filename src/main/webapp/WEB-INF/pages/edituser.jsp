@@ -104,13 +104,13 @@
 					    	<div class="form-group col-md-6 col-sm-6">
 								<label class="col-md-4">Balls</label>
 								<div class="col-md-6">
-									<input value="${user.getBall().getBallsToGive()}" class="form-control" name="balls" required />
+									<input value="${user.getBall().getBallsToGive()}" type="number" min="0" class="form-control" name="balls" required />
 								</div>
 							</div>		
 							<div class="form-group col-md-6 col-sm-6">
 								<label class="col-md-4">Money</label>
 								<div class="col-md-6">
-									<input value="${user.getBall().getCash()}" class="form-control" name="extraMoney" required />
+									<input value="${user.getBall().getCash()}" type="number" min="0" class="form-control" name="extraMoney" required />
 								</div>
 							</div>		
 							<div class="form-group col-md-6 col-sm-6">

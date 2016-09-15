@@ -50,7 +50,7 @@
 			<c:set var="admin" value="admin"/>
 			<c:set var="superuser" value="superuser" />
 			<li>
-			<a style="text-align: center; color:red;" id="balls"></a>
+			<a style="text-align: center; color:red;" id="balls">Balls left: ${kule}</a>
 			</li>
 			<c:if test="${rola != superuser }" >
 				<li><a href="${pageContext.request.contextPath}/helpPage">Help</a></li>
@@ -121,7 +121,7 @@
 											
 										<div class="col-md-3 col-sm-3 col-xs-2">	
 											<input type="number" min="0" max="${kule}" class="form-control" id="ballsnumber" name="ballsNumber" 
-												placeholder="" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
+												placeholder="" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
 										</div>	
 										
 										</c:if>
@@ -148,9 +148,7 @@
 			    		</c:forEach>
 			    		<div class="panel-footer">	
 					    	<input style="width: 100px;" type="submit" id="submit" name="submit" value="Save" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
-					    	<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
-				      	</div>
-				     </div>
+					
 				     <script>
 				     $('input:submit').click(function(){
 				 		var v = $('input#ballsnumber').map(function(){return $(this).val();}).get();
@@ -180,6 +178,9 @@
 				 	});
 
 				 	</script>
+				 	    	<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
+				      	</div>
+				     </div>
 			    </form>
 
 

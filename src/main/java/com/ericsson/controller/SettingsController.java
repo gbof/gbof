@@ -122,17 +122,32 @@ public class SettingsController {
 	public ModelAndView settingsAdd(
 			@RequestParam("ballsPerPers") Integer ballsPerPers,
 			@RequestParam("money") Double money,
-			@RequestParam("deadline") String deadline,
+			@RequestParam(value="deadline", required=false, defaultValue="") String deadline1,
 			
 			@RequestParam(value = "checkbox", required = false, defaultValue = "0") Integer[] isFreeze,
 			@RequestParam("helpMsg") String helpMsg)
 			 {
-		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 		String userName = userDetails.getUsername();
+
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingslist = sett.getSettings(idDept);
+		
+		String deadline = "";
+		if (deadline1 == ""){
+			deadline = settingslist.get(0).getDeadline().toString();
+		}
+		String[] words = deadline1.toString().split("/");
+		System.out.println(words[0]+words[1]+words[2]);
+		String temp = "";
+		
+		deadline = words[2]+"-"+words[0]+"-"+words[1];
+		System.out.println("======"+deadline);
+		
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		String login = us.getUser(userName).getLogin();
-		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		
 		ModelAndView modelAndView = new ModelAndView("settings");
 		
 		Boolean freeze;

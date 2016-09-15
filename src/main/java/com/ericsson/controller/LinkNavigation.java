@@ -102,7 +102,6 @@ public class LinkNavigation {
 		return modelandview;
 	}
 
-
 	
 	@RequestMapping(value = "/SUuserAdded", method = RequestMethod.POST)
 	public ModelAndView userAddedforsuperuser(
@@ -125,7 +124,6 @@ public class LinkNavigation {
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		List<Settings> settingsList = sett.getSettings(idDept);
 		Integer balls_to_give = settingsList.get(0).getBallsPerPerson();
-		
 		
 		
 		List<Role> roleList = rs.getRoleId("admin");
@@ -323,10 +321,7 @@ public class LinkNavigation {
 		}
 		return modelAndView;
 	}
-	
-	
-	
-	
+
 	
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
 	public ModelAndView sendMail(){
