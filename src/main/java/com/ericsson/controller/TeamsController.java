@@ -145,7 +145,7 @@ public class TeamsController {
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Department> deptlistt = ds.getAllDepts();
 		List<User> listt = us.getAllUsersTeam(buttonComId);
-		
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		Team team = ts.getTeam(buttonComId);
 		Integer user_id = ts.getTeam(buttonComId).getLeaderId();
 		Integer dept_id = ts.getTeam(buttonComId).getDeptId();
@@ -181,6 +181,7 @@ public class TeamsController {
 		model.addAttribute("listt", listt);
 		model.addAttribute("deptlistt", deptlistt);
 		model.addAttribute("login", login);
+		model.addAttribute("kule", kulki);
 		return "editteam";
 	}
 	
@@ -350,9 +351,13 @@ public class TeamsController {
 	
 	@RequestMapping(value = "/teamEdited", params = "addMore", method = RequestMethod.POST)
 	public ModelAndView teamsPageMore(@RequestParam(value = "team_id") Integer team_id) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		String login = us.getUser(userName).getLogin();
 		List<User> listt = us.getAllUsers();
 		Team team = ts.getTeam(team_id);
 		Integer teamId = ts.getTeam(team_id).getId();
+		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		for(int i=0;i<listt.size();i++){
 			for(int j=0;j<listt.size();j++)
 			if(listt.get(j).getTeam().getId().equals(teamId))
@@ -361,6 +366,8 @@ public class TeamsController {
 		ModelAndView lista = new ModelAndView("newUsers");
 		lista.addObject("team", team);
 		lista.addObject("listt", listt);
+		lista.addObject("login", login);
+		lista.addObject("kule", kulki);
 		return lista;
 	}
 	

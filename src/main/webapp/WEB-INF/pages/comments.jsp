@@ -121,7 +121,7 @@
 											
 										<div class="col-md-3 col-sm-3 col-xs-2">	
 											<input type="number" min="0" max="${kule}" class="form-control" id="ballsnumber" name="ballsNumber" 
-												placeholder="" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
+												placeholder="" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
 										</div>	
 										
 										</c:if>

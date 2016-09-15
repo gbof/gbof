@@ -99,7 +99,7 @@
 					            <div class="form-group col-md-12">
 							      <label class="col-md-3">Balls Per Person </label>
 							      <div class="col-md-6">
-							     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="text" name="ballsPerPers" required/>
+							     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="number" min="0" name="ballsPerPers" required/>
 							      </div>
 							    </div>
 						  
@@ -107,7 +107,7 @@
 					            <div class="form-group col-md-12">
 							      <label class="col-md-3">Money </label>
 							      <div class="col-md-6">
-							      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type =text name="money" placeholder="PLN" required/>
+							      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type="number" min="0" name="money" placeholder="PLN" required/>
 							      </div>
 							    </div>
 						
@@ -135,7 +135,7 @@
 					<label class="col-md-3">Extra money </label>
 					 <div class="col-md-6">
 
-					<input class="form-control" type =text value="0" name="extramoney" placeholder="PLN" required/>
+					<input class="form-control" type="number" min="0" value="0" name="extramoney" placeholder="PLN" required/>
 					
 					
 					</div>
