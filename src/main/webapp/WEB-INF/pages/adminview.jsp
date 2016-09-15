@@ -312,25 +312,51 @@
 									      <tr data-status="tableeee">
 									      	<th>Name</th>
 									        <th>Surname</th>
-									        <th>Balls</th>
 									        <th>What did you like?</th>
 									        <th>What can (s)he do better?</th>
 									      </tr>
 									    </thead>
 									    <tbody>
-									    
-									      <c:forEach var="commentsC" items="${commentConfirmedList}">
-									    <tr data-status="tableeee">
-								          <td><c:out value="${commentsC.getUser().getName() }" /></td>
-								          <td><c:out value="${commentsC.getUser().getSurname() }" /></td>
-								          <td><c:out value="${commentsC.getBallsPerCom()}" /></td>
-								          <td style="max-width:300px; word-wrap: normal;"><c:out value="${commentsC.getFirstCom()}" /></td>
-									      <td style="max-width:300px; word-wrap: normal;"><c:out value="${commentsC.getSecondCom()}" /></td>   
-									      </tr>
-				            			</c:forEach>
-									    
-								
-									    </tbody>
+											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
+											    <tr data-status="tableeee">
+  
+											          <td><c:out value="${user.name}" /></td>
+											          <td><c:out value="${user.surname}" /></td>
+											        
+											        <td style="max-width:300px; word-wrap: normal;">
+												        <c:forEach var="commentsC" items="${commentConfirmedList}">
+													        
+													        <c:set var="userId" value="${user.getId()}"/>
+															<c:set var="userComId" value="${commentsC.getUser().getId()}"/>
+															<c:if test="${userId == userComId}" >
+																<c:out value="${commentsC.getFirstCom()}"/>
+																<br>
+															</c:if>
+												        
+											         	</c:forEach>
+											         	
+						            				</td>
+						            				
+						            				<td style="max-width:300px; word-wrap: normal;">
+												        <c:forEach var="commentsC" items="${commentConfirmedList}">
+													        
+													        <c:set var="userId" value="${user.getId()}"/>
+															<c:set var="userComId" value="${commentsC.getUser().getId()}"/>
+															<c:if test="${userId == userComId}" >
+																<c:out value="${commentsC.getSecondCom()}"/>
+																<br>
+															</c:if>
+												         	
+											         	
+											         	</c:forEach>
+											         	
+						            				</td>
+													
+											      </tr>
+						            			</c:forEach>
+						    						            			
+											    </tbody>
+									  
 									  </table>
 									</div>
 				                </div>
