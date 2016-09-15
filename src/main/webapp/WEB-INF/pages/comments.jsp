@@ -148,9 +148,7 @@
 			    		</c:forEach>
 			    		<div class="panel-footer">	
 					    	<input style="width: 100px;" type="submit" id="submit" name="submit" value="Save" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
-					    	<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
-				      	</div>
-				     </div>
+					
 				     <script>
 				     $('input:submit').click(function(){
 				 		var v = $('input#ballsnumber').map(function(){return $(this).val();}).get();
@@ -180,6 +178,9 @@
 				 	});
 
 				 	</script>
+				 	    	<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
+				      	</div>
+				     </div>
 			    </form>
 
 
