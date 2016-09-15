@@ -36,5 +36,22 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public String getDeptName(Integer deptId) {
 		return deptDAO.getDeptName(deptId);
 	}
+	@Override
+	public Department getDept(Integer deptId)
+	{
+		return deptDAO.getDept(deptId);
+	}
 
+	@Override
+	public void editDepartment(Integer deptID, String name, Integer leaderID) {
+		deptDAO.editDepartment(deptID, name, leaderID);
+		
+	}
+
+	@Override
+	public void removeDept(Integer dept_id) {
+		deptDAO.removeDept(dept_id);
+		
+	}
+	
 }

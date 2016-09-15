@@ -1,7 +1,6 @@
 package com.ericsson.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 import java.util.ArrayList;
@@ -9,20 +8,16 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ericsson.init.MailMail;
 import com.ericsson.model.Comment;
 import com.ericsson.model.Department;
 import com.ericsson.model.Role;
@@ -30,17 +25,16 @@ import com.ericsson.model.Role;
 import com.ericsson.model.Settings;
 import com.ericsson.model.Team;
 
-
 import com.ericsson.model.User;
+import com.ericsson.service.BallService;
 import com.ericsson.service.CommentService;
 import com.ericsson.service.DepartmentService;
 import com.ericsson.service.RoleService;
 import com.ericsson.service.SettingService;
 import com.ericsson.service.TeamService;
+
 import com.ericsson.service.UserService;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @Controller
 public class SecurityNavigation {
@@ -64,7 +58,10 @@ public class SecurityNavigation {
 	@Autowired
 	private DepartmentService ds;
 	
-
+	@Autowired
+	private BallService bs;
+	
+	
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
 		return new ModelAndView("home");
@@ -82,32 +79,44 @@ public class SecurityNavigation {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Role role = us.getUser(userName).getRole();
-
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		   Date date = new Date();
-		   Date date1 = sett.getSettingsDate().get(0);
+		   Date date1 = sett.getSettingsDate(idDept).get(0);
 		   if(date1.before(date)){
-			   sett.setToFrozen();
+			   sett.setToFrozen(idDept);
+			   
 		   }
 		   
+		   List<Settings> settingsList=sett.getSettings(idDept);
+			if(settingsList != null)
+			{
+			if(settingsList.get(0).getFreeze()==1)
+			{
+				
+				coms.setConfirmAll();
+			}
+			}
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("redirect:/adminview");
-		else if(sett.getSettingsFreeze().get(0)==1)
+			else if (role.getRole().equals("superuser"))
+				return new ModelAndView("redirect:/superUser");
+			else if(sett.getSettingsFreeze(idDept).get(0)==1)
 				return new ModelAndView("redirect:/freeze");
 			else if (role.getRole().equals("moderator"))
 				return new ModelAndView("redirect:/inside");
-			else
+			else 
 				return new ModelAndView("redirect:/inside");
-	}
 	
+	}
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
 	public ModelAndView insidePage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
-		String name = us.getUser(userName).getName();
+		
 		String login = us.getUser(userName).getLogin();
 
 		Integer id = us.getUser(userName).getId();
-		User zalogowany=us.getUser(userName);
+		
 
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		List<User> listt = us.getAllUsers();
@@ -126,6 +135,10 @@ public class SecurityNavigation {
 			allBallsGivenTo.addAll(coms.getAllBallsGivenTo(id, listt.get(i).getId()));
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
+		
+
+		
+		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
 		lista.addObject("money", wynik);
@@ -142,25 +155,23 @@ public class SecurityNavigation {
 	public ModelAndView adminviewPage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
-		String name = us.getUser(userName).getName();
+		
 		String login = us.getUser(userName).getLogin();
-		User zalogowany=us.getUser(userName);
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		Integer id = us.getUser(userName).getId();
 		List<User> listt = us.getAllUsers();
 		List<Team> teamlistt = ts.getAllTeams();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
-
+		
+		
 		List<Comment> yourComments=coms.getYourComments(id);
 
 		List<Long> ballValue2List = coms.getBallValue2();
 		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
 		Double wynik = (double) (moneyValue/ballValue2);
-		wynik = sett.round(wynik, 2);
 		
 		List<Comment> commentList = coms.getAllComments();
-		
 	
 		List<Comment> commentConfirmedList = coms.getConfirmedComments();
 		String role = us.getUser(userName).getRole().getRole();
@@ -171,8 +182,32 @@ public class SecurityNavigation {
 			allBallsGivenTo.addAll(coms.getAllBallsGivenTo(id, listt.get(i).getId()));
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
-	        
-	        
+						
+		Double suma = 0.0;
+		Double extraMoney;
+		List<Double> moneyList = new ArrayList<Double>();
+		List<Double> extraMoneyList = new ArrayList<Double>();
+		List<Double> summedMoneyList = new ArrayList<Double>();
+		for(int i=0;i<listt.size();i++){
+			Integer userMoney = bs.getReceivedMoney(listt.get(i).getBall().getBallsId(), wynik).get(0);
+			Double wynik1 = userMoney*wynik;
+			extraMoney = listt.get(i).getBall().getCash();getClass();
+			Double wynik3 = sett.round(wynik1, 2);
+			moneyList.add(wynik3);
+			wynik1 = wynik1 + extraMoney;
+			Double wynik2 = wynik1;
+			wynik1 = sett.round(wynik1, 2);
+			summedMoneyList.add(wynik1);
+			suma=suma+wynik2;	
+			extraMoney = sett.round(extraMoney, 2);
+			extraMoneyList.add(listt.get(i).getBall().getCash());
+		}
+		suma = sett.round(suma, 2);
+		lista.addObject("suma",suma);
+		lista.addObject("moneyList", moneyList);
+		lista.addObject("summedMoneyList", summedMoneyList);
+		lista.addObject("extraMoneyList", extraMoneyList);
+
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
 		lista.addObject("yourComments", yourComments);
@@ -186,273 +221,93 @@ public class SecurityNavigation {
 		lista.setViewName("adminview");
 		return lista;
 	}
+
 	
-	@RequestMapping(value = "/freeze", method = RequestMethod.GET)
-	public ModelAndView freezeLogin() {
-		List<Double> money = sett.getMoney(1);
-		Double moneyValue = money.get(0);
-		List<Long> ballValue2List = coms.getBallValue2();
-		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue/ballValue2);
-		wynik = sett.round(wynik, 2);
-		
+	@RequestMapping(value="/superUser", method=RequestMethod.GET)
+	public ModelAndView superuserPage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		String login = us.getUser(userName).getLogin();
 		
-		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		ModelAndView modelAndView = new ModelAndView("freeze");
-		
-		modelAndView.addObject("kule", kulki);
-		modelAndView.addObject("money", wynik);
-		modelAndView.addObject("login", login);
-		return modelAndView;
-	}
-	
-	@RequestMapping(value="/change", method=RequestMethod.GET)
-	public ModelAndView changePage() {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = userDetails.getUsername();
-		String name = us.getUser(userName).getName();
-		String login = us.getUser(userName).getLogin();
-		
-		String role = us.getUser(userName).getRole().getRole();
-		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		List<User> listt = us.getAllUsers();
-	
-		
-		List<Double> money = sett.getMoney(1);
-		Double moneyValue = money.get(0);
-		List<Long> ballValue2List = coms.getBallValue2();
-		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue/ballValue2);
-		wynik = sett.round(wynik, 2);
-		
-		ModelAndView lista = new ModelAndView();
-		lista.addObject("listt", listt);
-		lista.addObject("kule", kulki);
-		lista.addObject("rola", role);
-		lista.addObject("money", wynik);
-		lista.addObject("login", login);
-		lista.setViewName("changePassword");
-		return lista;
-	}
-	
-	@RequestMapping(value="/settings", method=RequestMethod.GET)
-	public ModelAndView settingsPage() {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = userDetails.getUsername();
-		String name = us.getUser(userName).getName();
-		String login = us.getUser(userName).getLogin();
-		
-		String role = us.getUser(userName).getRole().getRole();
-		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		List<User> listt = us.getAllUsers();
+		List<User> listt = us.getAllUsersForSuperUser();
 		List<String> userBasiclistt = new ArrayList<String>();
+		List<Department> deptlistt = ds.getAllDepts();
 		
+		
+		
+		for (int i=0; i<deptlistt.size(); i++){
+			if (deptlistt.get(i).getDeptName().equals(us.getUser(userName).getDept().getDeptName()))
+				deptlistt.remove(i);
+		}
+		List<String> deptLeaders = new ArrayList<String>();
+		List<Team> teamlistt = ts.getAllTeams();
+		String leader;
+		
+		for(Department d : deptlistt){
+			leader = us.getUserId(d.getDeptLeaderId()).getName() + " " + us.getUserId(d.getDeptLeaderId()).getSurname() + " (" + us.getUserId(d.getDeptLeaderId()).getLogin() + ")";
+			deptLeaders.add(leader);
+		}
+		
+		List<Department> deptlistt1 = ds.getAllDepts();
 		String _name;
 		String _surname;
 		String _login;
-		for (int i=0; i<listt.size(); i++){
-			_name = listt.get(i).getName();
-			_surname = listt.get(i).getSurname();
-			_login = listt.get(i).getLogin();
-			userBasiclistt.add(_name+" "+_surname+" "+_login);
+		boolean isLeader = false;
+		
+		Integer superuserroleID = rs.getRoleId("superuser").get(0).getId();
+		Integer superuserID = 0;
+		for (User u : listt){
+			if (u.getRole().getId().equals(superuserroleID))
+				superuserID = u.getId();
 		}
 		
-		List<Role> rolelistt = rs.getAllRoles();
-		List<Team> teamlistt = ts.getAllTeams();
-		List<Department> deptlistt = ds.getAllDepts();
-
-		List<Settings> settingsList=sett.getSettings();
+		for (int i=0; i<listt.size(); i++){
+			for (int j=0; j<deptlistt1.size(); j++){
+				Integer l = deptlistt1.get(j).getDeptLeaderId();
+				if (l.equals(listt.get(i).getId()) && !l.equals(superuserID)){
+					isLeader = true;
+				}
+			}
+			if (isLeader == false){
+				_name = listt.get(i).getName();
+				_surname = listt.get(i).getSurname();
+				_login = listt.get(i).getLogin();
+				userBasiclistt.add(_name+" "+_surname+" "+_login);
+			}
+			isLeader = false;
+		}
+		String rola = "superuser";
 		
+		List<User> adminlistt = new ArrayList<User>();
+		for (User u:listt){
+			if (u.getRole().getRole().equals("admin")){
+				adminlistt.add(u);
+			}
+		}
 		
-		List<Double> money = sett.getMoney(1);
-		Double moneyValue = money.get(0);
-		List<Long> ballValue2List = coms.getBallValue2();
-		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-
-		Double wynik = (double) (moneyValue / ballValue2);
-		wynik = sett.round(wynik, 2);
-		
-
-		 Date date = new Date();
-		   Date date1 = sett.getSettingsDate().get(0);
-		   if(date1.before(date)){
-			   sett.setToFrozen();
-		   }
-
-
 		ModelAndView lista = new ModelAndView();
-		
-		if(sett.getSettingsFreeze().get(0)==1)
-			lista.addObject("checked", true);
-		else
-			lista.addObject("checked", false);
-		lista.addObject("settingsList",settingsList);
-		lista.addObject("listt", listt);
-		lista.addObject("money", wynik);
-		lista.addObject("kule", kulki);
-		lista.addObject("rola", role);
 		lista.addObject("login", login);
-		lista.addObject("rolelistt", rolelistt);
-		lista.addObject("teamlistt", teamlistt);
-		lista.addObject("deptlistt", deptlistt);
+		lista.addObject("rola", rola);
 		lista.addObject("userBasiclistt", userBasiclistt);
-		lista.setViewName("settings");
+		lista.addObject("deptlistt", deptlistt);
+		lista.addObject("deptLeaders", deptLeaders);
+		lista.addObject("teamlistt", teamlistt);
+		lista.addObject("adminlistt", adminlistt);
+		lista.setViewName("superUser");
 		return lista;
 	}
-	@RequestMapping(value="/settingsAdd", params="save", method=RequestMethod.POST)
-	public ModelAndView settingsAdd(
-			@RequestParam("ballsPerPers") Integer ballsPerPers,
-			@RequestParam("money") Double money,
-			@RequestParam("deadline") String deadline,
-			@RequestParam("extraBalls") Integer extraBalls,
-			@RequestParam(value = "checkbox", required = false, defaultValue = "0") Integer[] isFreeze,
-			@RequestParam("helpMsg") String helpMsg)
-			 {
-		System.out.println("settingsadd");
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = userDetails.getUsername();
-		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		String login = us.getUser(userName).getLogin();
-		List<Double> Lmoney = sett.getMoney(1);
-		Double moneyValue = Lmoney.get(0);
-		List<Long> ballValue2List = coms.getBallValue2();
-		
-		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue/ballValue2);
-		wynik = sett.round(wynik, 2);
-		ModelAndView modelAndView = new ModelAndView("settings");
-		wynik = sett.round(wynik, 2);
-		Boolean freeze;
-		if(isFreeze[0].intValue()==0)
-		freeze=false;
-		else
-			freeze=true;
-		
-		if (money==null || ballsPerPers==null || deadline=="" || extraBalls==null)
-		{
-			;
-			modelAndView.addObject("error", true);
-		}
-		else
-		{
-		modelAndView.addObject("correct", true);
-		sett.addSetting(extraBalls,ballsPerPers,money,deadline,freeze,1,helpMsg);
-		
-		
-		}
-		
-		List<String> userBasiclistt = new ArrayList<String>();
-		List<User> listt = us.getAllUsers();
-
-		String _name;
-		String _surname;
-		String _login;
-		for (int i=0; i<listt.size(); i++){
-			_name = listt.get(i).getName();
-			_surname = listt.get(i).getSurname();
-			_login = listt.get(i).getLogin();
-			userBasiclistt.add(_name+" "+_surname+" "+_login);
-		}
-		List<Settings> settingsList=sett.getSettings();
-		System.out.println(settingsList.get(0).getHelpMsg());
-		List<Role> rolelistt = rs.getAllRoles();
-		List<Team> teamlistt = ts.getAllTeams();
-		List<Department> deptlistt = ds.getAllDepts();
-		 Date date = new Date();
-		   Date date1 = sett.getSettingsDate().get(0);
-		   if(date1.before(date)){
-			   sett.setToFrozen();
-		   }
-		if(sett.getSettingsFreeze().get(0)==1)
-			modelAndView.addObject("checked", true);
-		else
-			modelAndView.addObject("checked", false);
-		modelAndView.addObject("settingsList",settingsList);
-		modelAndView.addObject("money", wynik);
-		modelAndView.addObject("kule", kulki);
-		modelAndView.addObject("login", login);
-		modelAndView.addObject("rolelistt", rolelistt);
-		modelAndView.addObject("teamlistt", teamlistt);
-		modelAndView.addObject("deptlistt", deptlistt);
-		modelAndView.addObject("userBasiclistt", userBasiclistt);
-		return modelAndView;
-	}
-
 	
-	@RequestMapping(value="/settingsAdd", params="extramoney1", method=RequestMethod.POST)
-	public ModelAndView settingsAddExtraMonney(
-			
-			@RequestParam("money") Double money,
-			@RequestParam("extramoney") Double extramoney
-			)
-			 {
-		
-		System.out.println("extramoneyadd");
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userName = userDetails.getUsername();
-		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
-		String login = us.getUser(userName).getLogin();
-		List<Double> Lmoney = sett.getMoney(1);
-		Double moneyValue = Lmoney.get(0);
-		List<Long> ballValue2List = coms.getBallValue2();
-		
-		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
-		Double wynik = (double) (moneyValue/ballValue2);
-		wynik = sett.round(wynik, 2);
-		ModelAndView modelAndView = new ModelAndView("settings");
-		wynik = sett.round(wynik, 2);
-		Boolean freeze;
-		
-		freeze=false;
-		
-		Double withExtraMoney=money+extramoney;
-		sett.addExtraMoney(1, withExtraMoney);
-		
-		List<String> userBasiclistt = new ArrayList<String>();
-		List<User> listt = us.getAllUsers();
-
-		String _name;
-		String _surname;
-		String _login;
-		for (int i=0; i<listt.size(); i++){
-			_name = listt.get(i).getName();
-			_surname = listt.get(i).getSurname();
-			_login = listt.get(i).getLogin();
-			userBasiclistt.add(_name+" "+_surname+" "+_login);
-		}
-		List<Settings> settingsList=sett.getSettings();
-		
-		List<Role> rolelistt = rs.getAllRoles();
-		List<Team> teamlistt = ts.getAllTeams();
-		List<Department> deptlistt = ds.getAllDepts();
-		 Date date = new Date();
-		   Date date1 = sett.getSettingsDate().get(0);
-		   if(date1.before(date)){
-			   sett.setToFrozen();
-		   }
-		if(sett.getSettingsFreeze().get(0)==1)
-			modelAndView.addObject("checked", true);
-		else
-			modelAndView.addObject("checked", false);
-		modelAndView.addObject("settingsList",settingsList);
-		modelAndView.addObject("money", wynik);
-		modelAndView.addObject("kule", kulki);
-		modelAndView.addObject("login", login);
-		modelAndView.addObject("rolelistt", rolelistt);
-		modelAndView.addObject("teamlistt", teamlistt);
-		modelAndView.addObject("deptlistt", deptlistt);
-		modelAndView.addObject("userBasiclistt", userBasiclistt);
-		return modelAndView;
-	}
+	
+	
+	
+	
 	
 	@RequestMapping(value="/users", method=RequestMethod.GET)
 	public ModelAndView usersPage() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<User> listt = us.getAllUsers();
 		String userName = userDetails.getUsername();
+		Integer id = us.getUser(userName).getId();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
 		List<Long> ballValue2List = coms.getBallValue2();
@@ -467,9 +322,8 @@ public class SecurityNavigation {
 		lista.addObject("kule", kulki);
 		lista.addObject("login", login);
 
-	
-		
 		lista.addObject("listt", listt);
+		lista.addObject("id", id);
 		lista.setViewName("users");
 		return lista;
 	}

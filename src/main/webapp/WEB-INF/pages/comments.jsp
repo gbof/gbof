@@ -17,7 +17,9 @@
 		<style>
        		<%@include file="/web-resources/css/comments.css" %>
 		</style>
-		
+		<style>
+			<%@include file="/web-resources/css/all.css" %>
+		</style>
 		<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 
 </head>
@@ -26,8 +28,53 @@
 
 
 	 
-	<tiles:insertDefinition name="headerTemplate">
-	</tiles:insertDefinition> 
+	<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/success-login">
+					GBOF
+				</a>
+		</div>
+	
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">			
+			<ul class="nav navbar-nav navbar-right">
+			<c:set var="rola" value="${rola}"/>
+			<c:set var="admin" value="admin"/>
+			<c:set var="superuser" value="superuser" />
+			<li>
+			<a style="text-align: center; color:red;" id="balls"></a>
+			</li>
+			<c:if test="${rola != superuser }" >
+				<li><a href="${pageContext.request.contextPath}/helpPage">Help</a></li>
+			</c:if>
+			<c:set var="rola" value="${rola}"/>
+			<c:set var="admin" value="admin"/>
+			<c:if test="${rola == admin}">
+				<li><a href="${pageContext.request.contextPath}/settings">Settings</a></li>
+				</c:if>
+				<li><a>Username: ${login}</a></li>
+				<li class="dropdown ">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						<li><a href="${pageContext.request.contextPath}/change">Change password</a></li>
+						<li class="divider"></li>
+						<li>
+							<a href="<c:url value="/j_spring_security_logout" />">Logout</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
 	
 	<br/>
 	<div style="text-align: center; color:red; font-size:160%;" >
@@ -37,43 +84,105 @@
 	<div class="container">
 		<div class="col-md-4-offset-4">
 		
-		    <div class="form-area">  
-		        <form role="form" method="POST" action="${pageContext.request.contextPath}/commentAdded">
-			        <br style="clear:both">
-	                    <h3 style="margin-bottom: 25px; text-align: center;">Send balls</h3>
-	       				<c:forEach var="user" items="${userList}" varStatus="status">
-							<div class="form-group">
+		
+			<h3 style="margin-bottom: 25px; text-align: center;">Comments</h3>
+				<form name="commentsform" id="commentsform" role="form" method="POST" action="${pageContext.request.contextPath}/commentAdded">
+					<div class="panel panel-default">
+						<c:forEach var="user" items="${userList}" varStatus="status">
+							<div class="panel-heading">
 								<label>${user.name} ${user.surname}</label>
 							</div>
-							
-							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
-									placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
-							</div>
-		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" value="message1" name="message1" id="message1"
 
-		                    		placeholder="What did you like?" maxlength="140" rows="7" required>${message1List[status.index]}</textarea>
-		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
+									
+							<div class="panel-body formm">
+								<div class="row">
+									<div style="padding-bottom: 10px;"  class="col-md-5">
+										<c:set var="rola" value="${user.role.id}"/>
+										<c:set var="admin" value="1"/>
+										<c:if test="${rola == admin}" >
+										<div>This person is an admin, You cannot give him balls</div>
+										<div class="col-md-3 col-sm-3 col-xs-5">	
+											<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
+												placeholder="" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
+										</div>	
+										</c:if>
+										<c:set var="locked" value="${user.getBall().getLocked()}"/>
+										<c:set var="isLocked" value="1"/>
+										<c:if test="${locked == isLocked}" >
+										<div>This person is locked, You cannot give him balls</div>
+										<div class="col-md-3 col-sm-3 col-xs-5">	
+											<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
+												placeholder="" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
+										</div>	
+										</c:if>
+										<c:set var="rola" value="${user.role.id}"/>
+										<c:set var="admin" value="1"/>
+										<c:if test="${rola != admin && locked != isLocked}" >
+											
+										<div class="col-md-3 col-sm-3 col-xs-2">	
+											<input type="number" min="0" max="${kule}" class="form-control" id="ballsnumber" name="ballsNumber" 
+												placeholder="" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
+										</div>	
+										
+										</c:if>
+									
+									</div>
+								</div>
+								<div class="row">
+				                    <div class="col-md-6 col-sm-12">
+				                    	<textarea style="resize: none;" class="form-control" type="textarea" value="message1" name="message1" id="message1"
+			
+				                    		placeholder="What did you like?" maxlength="140" rows="7" required>${message1List[status.index]}</textarea>
+				                        <span class="help-block"><p id="characterLeft" class="help-block " ></p></span>                    
+			
+				                    </div>
+					                    
+				                    <div class="col-md-6 col-sm-12">
+				                    	<textarea style="resize: none;" class="form-control" type="textarea" value="message2" name="message2" id="message2"
+				                    		placeholder="What can (s)he do better?" maxlength="140" rows="7" required>${message2List[status.index]}</textarea>
+				                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
+				                    </div>
+			           			</div>
+			           		</div>
+			           		
+			    		</c:forEach>
+			    		<div class="panel-footer">	
+					    	<input style="width: 100px;" type="submit" id="submit" name="submit" value="Save" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
+					    	<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
+				      	</div>
+				     </div>
+				     <script>
+				     $('input:submit').click(function(){
+				 		var v = $('input#ballsnumber').map(function(){return $(this).val();}).get();
+				 		var m = $('textarea#message1').map(function(){return $(this).val();}).get();
+				 		var mm = $('textarea#message2').map(function(){return $(this).val();}).get();;
 
-		                    		                
+				 		var empty=0;
+				 		$(v).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 			}
+				 		});
+				 		$(m).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 			}
+				 		});
+				 		
+				 		$(mm).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 			}
+				 		});
+				 		
+				 		if (empty == 0)
+				 			$('input:submit').attr("disabled", true);
+				 	});
 
-		                    </div>
-		                    
-		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" value="message2" name="message2" id="message2"
-		                    		placeholder="What can I do better?" maxlength="140" rows="7" required>${message2List[status.index]}</textarea>
-		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
-                    
+				 	</script>
+			    </form>
 
-		                    </div>
-	           			</c:forEach>
-	           			
-			        <input style="width: 100px;" type="submit" id="submit" name="submit" value="Send" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
-			        <input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
-		      
-		        
-		    </div>
+
 		</div>
 	</div>
 		
@@ -89,17 +198,20 @@
 	            tot += parseInt(arr[i].value);
 	    }
 	    if(totalCount-tot<0)
-	    	$('#balls').text("Rozdales za duzo kulek");
+	    	$('#balls').text("Dont be so generous, you are out of balls");
 	    else
 	    	{
 	    		total = totalCount;
 	    		var ballsLeft = total-tot;
-	    		$('#balls').text(ballsLeft).val();
+	    		$('#balls').text("Balls left: "+ballsLeft).val();
 	    		balls = ballsLeft;
 	    	}
 	}
 
 	</script>
+
+	
+			                    
 
 	
 	

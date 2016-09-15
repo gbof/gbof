@@ -1,6 +1,6 @@
 package com.ericsson.dao;
 
-import java.math.BigInteger;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ericsson.model.Ball;
-import com.ericsson.model.User;
+
 
 @Repository
 public class BallDAOImpl implements BallDAO {
@@ -65,6 +65,23 @@ public class BallDAOImpl implements BallDAO {
 	}
 	
 	@Override
+	public void editCash(Integer balls_id, Double cash) {
+		String query = "UPDATE balls SET cash='"+cash+"'  WHERE balls_id ='"+balls_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+	
+	@Override
+	public void editLocked(Integer balls_id, Integer locked) {
+		String query = "UPDATE balls SET locked='"+locked+"'  WHERE balls_id ='"+balls_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+	
+	
+	@Override
 	public List<Integer> getBallsToGive(){
 		List<Integer> ballsList = new ArrayList<Integer>();
 		
@@ -85,4 +102,20 @@ public class BallDAOImpl implements BallDAO {
 		sqlQuery.executeUpdate();
 		
 	}
+	
+	@Override
+	public List<Integer> getReceivedMoney(Integer balls_id, Double money) {
+		List<Integer> ballsList = new ArrayList<Integer>();
+		String sql = "select received_balls from Ball where balls_id='"+balls_id+"'";
+		Query query = openSession().createQuery(sql);
+		ballsList = query.list();
+		if (ballsList.size() > 0)
+			return ballsList;
+		else
+			return null;
+		
+	}
+	
+	
+	
 }

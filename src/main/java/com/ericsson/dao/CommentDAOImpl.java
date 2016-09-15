@@ -12,11 +12,15 @@ import org.springframework.stereotype.Repository;
 
 import com.ericsson.model.Comment;
 import com.ericsson.model.User;
+import com.ericsson.service.UserService;
 
 @Repository
 public class CommentDAOImpl implements CommentDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private UserService us;
 	
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
@@ -24,10 +28,21 @@ public class CommentDAOImpl implements CommentDAO{
 	public List<Comment> getAllComments() {
 		List<Comment> commentsList = new ArrayList<Comment>();
 		
-		String sql = "FROM Comment WHERE confirmed = false";
+			
+		List<User> listt = us.getAllUsers();
+		String sql = "FROM Comment c where (";
+		for(int i=0;i<listt.size();i++){
+				Integer user_id = listt.get(i).getId();
+				sql = sql+"c.creator_id = '"+user_id+"'";
+				if(i!=listt.size()-1)
+					sql = sql + " or ";
+				else
+					sql = sql + ") and c.confirmed=false";
+			}
+		sql = sql+" order by user_id";
 		Query query = openSession().createQuery(sql);
-		
 		commentsList = query.list();
+		
 		if (commentsList.size() > 0)
 			return commentsList;
 		else
@@ -38,7 +53,10 @@ public class CommentDAOImpl implements CommentDAO{
 	{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
-		Query query = openSession().createQuery("from Comment where creator_id = :id");
+
+		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false");
+
+
 		query.setParameter("id", id);
 		commentList = query.list();
 		if (commentList.size() > 0)
@@ -48,7 +66,7 @@ public class CommentDAOImpl implements CommentDAO{
 		
 	}
 	
-	public List<Comment> getCommentsYouGave(Integer id)
+	public List<Comment> getCommentsGivenByUser(Integer id)
 	{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
@@ -64,16 +82,24 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	public List<Comment> getConfirmedComments() {
 		List<Comment> commentsConfirmedList = new ArrayList<Comment>();
-		Boolean conf = true;
-		String sql = "from Comment where confirmed = true";
-		Query query = openSession().createQuery(sql);
+	
+	List<User> listt = us.getAllUsers();
+	String sql = "FROM Comment c where (";
+	for(int i=0;i<listt.size();i++){
+			Integer user_id = listt.get(i).getId();
+			sql = sql+"c.creator_id = '"+user_id+"'";
+			if(i!=listt.size()-1)
+				sql = sql + " or ";
+			else
+				sql = sql + ") and c.confirmed=true";
+		}
 		
-		commentsConfirmedList = query.list();
-		System.out.println(commentsConfirmedList);
-		if (commentsConfirmedList.size() > 0)
-			return commentsConfirmedList;
-		else
-			return null;	
+	Query query = openSession().createQuery(sql);
+	commentsConfirmedList = query.list();
+	if (commentsConfirmedList.size() > 0)
+		return commentsConfirmedList;
+	else
+		return null;		
 	}
     
 	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id, Integer commentToUserId){
@@ -84,6 +110,12 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	public void editComment(String message1, String message2, Integer ballsNumber, Integer com_id){
 		String query = "UPDATE comments SET first_com='"+message1+"', second_com='"+message2+"', balls_per_com='"+ballsNumber+"'  WHERE com_id ='"+com_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+	
+	public void editCommentBalls(Integer com_id){
+		String query = "UPDATE comments SET balls_per_com=0  WHERE com_id ='"+com_id+"'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}
@@ -99,9 +131,30 @@ public class CommentDAOImpl implements CommentDAO{
 			return null;	
 	}
 	
+	public List<Double> getCash(){
+		List<Double> allBalls = new ArrayList<Double>();
+		String sql = "select sum(cash) from Ball";
+		Query query = openSession().createQuery(sql);
+		allBalls = query.list();
+		if (allBalls.size() > 0)
+			return allBalls;
+		else
+			return null;	
+	}
+	
+	
 	public List<Long> getBallValue2(){
 		List<Long> allBalls = new ArrayList<Long>();
-		String sql = "select (sum(balls_to_give)+sum(received_balls)) from Ball";
+		List<User> listt = us.getAllUsers();
+		String sql = "select (sum(b.balls_to_give)+sum(b.received_balls)) from Ball b where(";
+		for(int i=0;i<listt.size();i++){
+				Integer ball_id = listt.get(i).getBall().getBallsId();
+				sql = sql+"b.balls_id = '"+ball_id+"'";
+				if(i!=listt.size()-1)
+					sql = sql + " or ";
+				else
+					sql = sql + ")";
+			}
 		Query query = openSession().createQuery(sql);
 		allBalls = query.list();
 		if (allBalls.size() > 0)
@@ -139,6 +192,14 @@ public class CommentDAOImpl implements CommentDAO{
 		String query = "UPDATE comments SET confirmed = '1' WHERE com_id = '"+ id + "'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
+	}
+	
+	public void setConfirmAll()
+	{
+		String query = "UPDATE comments SET confirmed = 1";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
 	}
 
 	public Comment getCommentId(Integer id) {

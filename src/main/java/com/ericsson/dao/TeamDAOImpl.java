@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
-
-import com.ericsson.model.Role;
 import com.ericsson.model.Team;
 import com.ericsson.service.UserService;
 
@@ -31,9 +29,12 @@ public class TeamDAOImpl implements TeamDAO {
 	
 	@Override
 	public List<Team> getAllTeams() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		Integer dept_id = us.getUser(userName).getDept().getDeptId();
 		List<Team> teamsList = new ArrayList<Team>();
 		
-		String sql = "from Team";
+		String sql = "from Team where dept_id='"+dept_id+"'";
 		Query query = openSession().createQuery(sql);
 		
 		teamsList = query.list();
@@ -101,5 +102,18 @@ public class TeamDAOImpl implements TeamDAO {
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 		
+	}
+
+	@Override
+	public List<Team> getTeamsID(String team_name) {
+		List<Team> teamList = new ArrayList<Team>();
+		String sql = "from Team where team_name=:team_name";
+		Query query = openSession().createQuery(sql);
+		query.setParameter("team_name", team_name);
+		teamList = query.list();
+		if (teamList.size() > 0)
+			return teamList;
+		else
+			return null;
 	}
 }

@@ -3,7 +3,6 @@ package com.ericsson.dao;
 import java.util.List;
 
 import com.ericsson.model.Comment;
-import com.ericsson.model.User;
 
 public interface CommentDAO {
 	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id, Integer commentToUserId);
@@ -14,10 +13,12 @@ public interface CommentDAO {
 	public List<Long> getBallValue2();
 	public List<Integer> getAllBallsGivenTo(Integer id, Integer id2);
 	public List<Comment> getYourComments(Integer id);
-	public List<Comment> getCommentsYouGave(Integer id);
+	public List<Comment> getCommentsGivenByUser(Integer id);
 	public void removeComment(Integer comId);
 	public boolean checkNull(String string);
 	public void setConfirm(Integer id);
 	public Comment getCommentId(Integer id);
-
+	public void setConfirmAll();
+	public List<Double> getCash();
+	public void editCommentBalls(Integer com_id);
 }

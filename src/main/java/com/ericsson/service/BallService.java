@@ -16,4 +16,9 @@ public interface BallService {
 	
 	public List<Integer> getBallsToGive();
 	
+	public List<Integer> getReceivedMoney(Integer balls_id, Double money);
+	
+	public void editCach(Integer balls_id, Double cash);
+	
+	public void editLocked(Integer balls_id, Integer locked);
 }

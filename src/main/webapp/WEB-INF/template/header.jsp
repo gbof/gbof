@@ -24,15 +24,17 @@
 			<ul class="nav navbar-nav navbar-right">
 			<c:set var="rola" scope="session" value="${rola}"/>
 			<c:set var="admin" scope="session" value="admin"/>
-			<li><a href="${pageContext.request.contextPath}/helpPage">Help</a></li>
+			<c:set var="superuser" scope="session" value="superuser" />
+			<c:if test="${rola != superuser }" >
+				<li><a href="${pageContext.request.contextPath}/helpPage">Help</a></li>
+			</c:if>
 			<c:if test="${rola == admin}" >
-				
-				
 				<li><a href="${pageContext.request.contextPath}/settings">Settings</a></li>
 				</c:if>
 				<li><a>Username: ${login}</a></li>
-				<li><a>Your balls: ${kule}</a></li>
-				<li><a>One ball value: ${money} zl</a></li>
+				<c:if test="${rola != superuser }" >
+					<li><a>Your balls: ${kule}</a></li>
+				</c:if>
 				<li class="dropdown ">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">

@@ -1,9 +1,6 @@
 package com.ericsson.model;
 
 import javax.persistence.*;
-import org.hibernate.type.BooleanType;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="balls")

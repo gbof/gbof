@@ -61,6 +61,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 		} else if (role.intValue() == 3) {
 			roles.add("ROLE_USER");
+		} else if (role.intValue() == 4) {
+			roles.add("ROLE_SUPERUSER");
 		}
 		return roles;
 		}

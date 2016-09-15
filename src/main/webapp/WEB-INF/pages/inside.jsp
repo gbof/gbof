@@ -27,16 +27,17 @@
 </head>
 
 <body>
- <p>
+	 <p>
 		<c:if test="${outOfBalls == true}">
 			<b class="outOfBalls">To many balls given. Dont be so generous.</b>
 		</c:if>
-		</p>
-	 <form method="POST" action="${pageContext.request.contextPath}/comments">
+	</p>
+	
+	
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition>   
 	
-	<div class="col-md-12">
+		<div class="container-fluid">
 			<div class="tabbable-panel">
 				<div class="tabbable-line">
 					<ul class="nav nav-tabs ">
@@ -50,81 +51,79 @@
 						</li>
 						
 					</ul>
-					</div>
-					</div>
-		<div class="tab-content">
-		<div class="tab-pane active" id="tab_default_1">
-		<div class="container-fluid main-container">
-		<div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Employees
-                </div>
-               
-                <div class="panel-body">
-                    <div class="container col-md-12"> 								        
-   						<button type="button" class="btn btn-success btn-filter" data-target="all">All</button>
-				        <c:forEach var="team" items="${teamlistt}">
-	                            <button type="button" class="btn btn-success btn-filter" data-target="${team.getName() }">${team.getName() }</button>
-	                      </c:forEach>            
-					  <table class="table table-hover col-md-12">
-			
-					    <thead>
-					      <tr data-status="tableeee" >
-					      	<th>Add balls</th>
-					      	<th>Name</th>
-					        <th>Surname</th>
-					        <th>Login</th>
-					        <th>Team</th>
-					        <th>Balls distributed</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					    
-					      
-					      <c:forEach var="user" items="${listt}" begin="0" end="${listt.size()-1}" varStatus="loop">
-					    	<tr data-status="${user.getTeam().getName()}">
-					   	 	<td>
-						    	<div class="checkbox">
-									<label><input type="checkbox" name = "userIds" value = "${user.getId()} "></label>
+				</div>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_default_1">
+						<form method="POST" action="${pageContext.request.contextPath}/comments">
+							<div class="container-fluid main-container">
+								<div class="col-md-12">
+						            <div class="panel panel-default">
+						                <div class="panel-heading">
+						                    Employees
+						                </div>
+						               
+						                <div class="panel-body">
+						                    <div class="container col-md-12"> 								        
+						   						<button type="button" class="btn btn-success btn-filter" data-target="all">All</button>
+										        <c:forEach var="team" items="${teamlistt}">
+							                            <button type="button" class="btn btn-success btn-filter" data-target="${team.getName() }">${team.getName() }</button>
+							                      </c:forEach>            
+											  <table class="table table-hover col-md-12">
+									
+											    <thead>
+											      <tr data-status="tableeee" >
+											      	<th>Add balls</th>
+											      	<th>Name</th>
+											        <th>Surname</th>
+											        <th>Login</th>
+											        <th>Team</th>
+											        <th>Balls distributed</th>
+											      </tr>
+											    </thead>
+											    <tbody>
+											    
+											      
+											      <c:forEach var="user" items="${listt}" begin="0" end="${listt.size()-1}" varStatus="loop">
+											    	<tr data-status="${user.getTeam().getName()}">
+											   	 	<td>
+												    	<div class="checkbox">
+															<label><input type="checkbox" name = "userIds" value = "${user.getId()} "></label>
+														</div>
+													</td>
+											          <td><c:out value="${user.name}" /></td>
+											          <td><c:out value="${user.surname}" /></td>
+											          <td><c:out value="${user.login}" /></td>
+											          <td><c:out value="${user.getTeam().getName()}" /></td>
+						
+											          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
+											          
+											          
+											      </tr>
+						            			</c:forEach>
+						            			
+											    </tbody>
+											  </table>
+											</div>
+						                </div>
+						            </div>
 								</div>
-							</td>
-					          <td><c:out value="${user.name}" /></td>
-					          <td><c:out value="${user.surname}" /></td>
-					          <td><c:out value="${user.login}" /></td>
-					          <td><c:out value="${user.getTeam().getName()}" /></td>
-
-					          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
-					          
-					          
-					      </tr>
-            			</c:forEach>
-            			
-					    </tbody>
-					  </table>
+							</div>
+							<div class=text-right>   
+							    <button type="submit"  class="btn-info btn btn-lg">Next</button>
+							</div>
+						</form>
 					</div>
-                </div>
-            </div>
-		</div>
-		</div>
-		
-		
 	
 	
-	<div class=text-right>   
-	    <button type="submit"  class="btn-info btn btn-lg">Next</button>
-	
-	</div>
-	</form>	
-	</div>
-	
-	
-	<div class="tab-pane" id="tab_default_2">
-	  <form method="POST" action="${pageContext.request.contextPath}/editcomment">
-			<div class="container-fluid main-container">
-					<div class="col-md-12">
-						    <div class="panel panel-default">
-						             
+					<div class="tab-pane" id="tab_default_2">
+	  					<form method="POST" action="${pageContext.request.contextPath}/editcomment">
+							<div class="container-fluid main-container">
+								<div class="col-md-12">
+						            <div class="panel panel-default">
+						                <div class="panel-heading">
+						                    Comments that you gave
+						                </div>
+						               
 						                <div class="panel-body">
 						                    <div class="container col-md-12">          
 											  <table class="table table-hover col-md-12 table-responsive">
@@ -133,8 +132,8 @@
 											      	<th>Name</th>
 											        <th>Surname</th>
 											        <th>Balls</th>
-											        <th>First Comment</th>
-											        <th>Second Comment</th>
+											        <th>What did you like?</th>
+											        <th>What can (s)he do better?</th>
 											        <th align="right" style="width:40px">Edit</th>
 											      
 											        <th align="right" style="width:30px">Delete</th>
@@ -163,33 +162,37 @@
 						            </div>
 								</div>
 							</div>	
+						
+						<c:forEach var="comment" items="${yourComments}">
+							<div id="Modal2${comment.getComId()}" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
 							
-						</div>
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        <h4 class="modal-title">Delete</h4>
+							      </div>
+							      <div class="modal-body">
+							           	
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+							         <button type="submit" name="deleteButton1" class="btn btn-primary btn-change pull-right" value="${comment.getComId()}">Delete</button>
+							      </div>
+							    
+							    </div>
+							
+							  </div>
+							</div>
+						</c:forEach>
+						
+						</form>
 					</div>
+				</div>
+			</div>
+		</div>			
 					
-					<c:forEach var="comment" items="${yourComments}">
-	<div id="Modal2${comment.getComId()}" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
-	
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Delete</h4>
-	      </div>
-	      <div class="modal-body">
-	           	
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-	         <button type="submit" name="deleteButton1" class="btn btn-primary btn-change pull-right" value="${comment.getComId()}">Delete</button>
-	      </div>
-	    
-	    </div>
-	
-	  </div>
-	</div>
-</c:forEach>
 
 	<script>
 		$(document).ready(function () {

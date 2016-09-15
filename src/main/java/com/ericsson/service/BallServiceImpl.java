@@ -40,4 +40,20 @@ public class BallServiceImpl implements BallService {
 		public List<Integer> getBallsToGive(){
 			return ballDAO.getBallsToGive();
 		}
+		
+		@Override
+		public List<Integer> getReceivedMoney(Integer balls_id, Double money){
+			return ballDAO.getReceivedMoney(balls_id, money);
+		}
+		
+		@Override
+		public void editCach(Integer balls_id, Double cash){
+			ballDAO.editCash(balls_id, cash);
+		}
+		
+		@Override
+		public void editLocked(Integer balls_id, Integer locked){
+			ballDAO.editLocked(balls_id, locked);
+		}
+		
 }

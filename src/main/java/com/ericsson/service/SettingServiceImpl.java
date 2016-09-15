@@ -17,9 +17,9 @@ public class SettingServiceImpl implements SettingService{
 	@Autowired
 	private SettingsDAO settingsDAO;
 	
-	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer SettingId,String helpMsg)
+	public void addSetting(Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer SettingId,String helpMsg)
 	{
-		settingsDAO.addSetting(extraBalls, balls_per_pers, money, deadline, freeze, SettingId, helpMsg);
+		settingsDAO.addSetting(balls_per_pers, money, deadline, freeze, SettingId, helpMsg);
 	}
 	
 	public List<Double> getMoney(Integer settingsId)
@@ -27,28 +27,34 @@ public class SettingServiceImpl implements SettingService{
 		return settingsDAO.getMoney(settingsId);
 	}
 
-	
-
-	public List<Settings> getSettings()
+	public void addNewSettings(Integer settings_id)
 	{
-		return settingsDAO.getSettings();
+		settingsDAO.addNewSettings(settings_id);
+	}
+	public void deleteSettings(Integer settings_id)
+	{
+		settingsDAO.deleteSettings(settings_id);
+	}
+	public List<Settings> getSettings(Integer settings_id)
+	{
+		return settingsDAO.getSettings(settings_id);
  
 	}
 	
 	public double round(double value, int places){
-		return settingsDAO.round(value, places);
+		return settingsDAO.roundMoney(value, places);
 	}
 	
-	public List<Integer> getSettingsFreeze(){
-		return settingsDAO.getSettingsFreeze();
+	public List<Integer> getSettingsFreeze(Integer settings_id){
+		return settingsDAO.getSettingsFreeze(settings_id);
 	}
 	
-	public List<Date> getSettingsDate(){
-		return settingsDAO.getSettingsDate();
+	public List<Date> getSettingsDate(Integer settings_id){
+		return settingsDAO.getSettingsDeadline(settings_id);
 	}
 	
-	public void setToFrozen(){
-		settingsDAO.setToFrozen();
+	public void setToFrozen(Integer settings_id){
+		settingsDAO.setToFrozen(settings_id);
 	}
 	public void addExtraMoney(Integer settings_id, Double withExtraMoney){
 		

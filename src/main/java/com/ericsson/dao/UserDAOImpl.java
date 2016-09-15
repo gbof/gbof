@@ -2,9 +2,10 @@ package com.ericsson.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
 
+import com.ericsson.model.Role;
 import com.ericsson.model.Team;
 import com.ericsson.model.User;
 import com.ericsson.service.TeamService;
@@ -59,9 +61,26 @@ public class UserDAOImpl implements UserDAO {
 	
 
 	public List<User> getAllUsers() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		Integer dept_id = getUser(userName).getDept().getDeptId();
+		
 		List<User> usersList = new ArrayList<User>();
 		
-		String sql = "from User order by surname";
+		String sql = "from User where dept_id = '" + dept_id + "' order by surname";
+		Query query = openSession().createQuery(sql);
+		
+		usersList = query.list();
+		if (usersList.size() > 0)
+			return usersList;
+		else
+			return null;	
+	}
+	
+	public List<User> getAllUsersTeam(Integer team_id) {
+		List<User> usersList = new ArrayList<User>();
+		
+		String sql = "from User where team_id = '" + team_id + "' order by surname";
 		Query query = openSession().createQuery(sql);
 		
 		usersList = query.list();
@@ -73,7 +92,12 @@ public class UserDAOImpl implements UserDAO {
 	
 	
 	public void setPassword(Integer id, String password){
-		String query = "UPDATE users SET password = '"+ password +"' WHERE user_id = '"+ id + "'";
+		String hashedPassword = "";
+			String password1 = password;
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			hashedPassword = passwordEncoder.encode(password1);
+
+		String query = "UPDATE users SET password = '"+ hashedPassword +"' WHERE user_id = '"+ id + "'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}
@@ -124,22 +148,25 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void addUser(String name, String surname, String login, Integer roleID, Integer teamID, Integer ballsID, String mail, Integer deptID){
 			
-			Random r = new Random();
+			/*Random r = new Random();
 			String RandomPassword="";
 			for(int i=0;i<10;i++)
 			{
 			
 			int a = r.nextInt(25) + 97;
 			
-			System.out.println((char)a);
 			RandomPassword+=(char)a;
-			}
+			}*/
+			String hashedPassword = "";
+			String password = login+"1";
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			hashedPassword = passwordEncoder.encode(password);
+
 			
-			System.out.println(RandomPassword);
 			String FullMail=mail+"@ericsson.com";
 			
-			RandomPassword="user";
-			String query = "INSERT INTO users (name, surname, login, password, role_id, team_id, balls_id, mail, dept_id) VALUES ('" + name +"', '"+ surname +"', '"+ login +"', '"+ RandomPassword +"', '"+ roleID +"', '"+teamID+"', '"+ballsID+"', '"+FullMail+"', '"+deptID+"')";
+			
+			String query = "INSERT INTO users (name, surname, login, password, role_id, team_id, balls_id, mail, dept_id) VALUES ('" + name +"', '"+ surname +"', '"+ login +"', '"+ hashedPassword +"', '"+ roleID +"', '"+teamID+"', '"+ballsID+"', '"+FullMail+"', '"+deptID+"')";
 			SQLQuery sqlQuery = openSession().createSQLQuery(query);
 			sqlQuery.executeUpdate();
 		}
@@ -170,7 +197,7 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 	
-	public Boolean checkLogin(String login)
+	public Boolean checkLoginAvailable(String login)
 	{
 		List<User> loginList = new ArrayList<User>();
 		
@@ -180,17 +207,85 @@ public class UserDAOImpl implements UserDAO {
 		
 		if (loginList.size() == 0)
 		{
-			System.out.println("Login wolny");
+			
 			return true;
 		}
 		else
 		{
-			System.out.println("Login zajety");
+			
 			return false;
 		}
 		
 	}
 
+	@Override
+	public void editRoleID(Integer leader_id, int role_id) {
+		String query = "UPDATE users SET role_id='"+role_id+"' where user_id='"+leader_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+	
+	@Override
+	public void editTeamId(Integer team_id, Integer user_id) {
+		String query = "UPDATE users SET team_id='"+team_id+"' where user_id='"+user_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+	}
+
+	@Override
+	public List<User> getAllUsersForSuperUser() {
+		List<User> usersList = new ArrayList<User>();
+		
+		String sql = "from User";
+		Query query = openSession().createQuery(sql);
+		
+		usersList = query.list();
+		if (usersList.size() > 0)
+			return usersList;
+		else
+			return null;
+	}
+
+	@Override
+	public void editDept(Integer user_id, Integer dept_id) {
+		String query = "UPDATE users SET dept_id='"+dept_id+"' where user_id='"+user_id+"'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+
+	@Override
+	public List<User> getUserWithRole(Role role) {
+		List<User> usersList = new ArrayList<User>();
+		
+		String sql = "from User where role = '" + role + "'";
+		Query query = openSession().createQuery(sql);
+		usersList = query.list();
+		if (usersList.size() > 0)
+			return usersList;
+		else
+			return null;
+	}
+
+	public void encryptAllPasswords(){
+		List<User> usersList = new ArrayList<User>();
+		
+		String sql = "from User";
+		Query query = openSession().createQuery(sql);
+		
+		usersList = query.list();
+		
+		for(int i=0;i<usersList.size();i++){
+			String hashedPassword = "";
+				String password1 = usersList.get(i).getPassword();
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				hashedPassword = passwordEncoder.encode(password1);
+			String query1 = "UPDATE users SET password = '"+ hashedPassword +"' WHERE user_id = '"+ usersList.get(i).getId() + "'";
+			SQLQuery sqlQuery = openSession().createSQLQuery(query1);
+			sqlQuery.executeUpdate();
+		}
+
+	}
 	
 	
 }

@@ -13,5 +13,9 @@ public interface DepartmentDAO {
 	public void addDept(String deptName, Integer leaderID);
 
 	public String getDeptName(Integer deptId);
+	public Department getDept(Integer deptId);
 
+	public void editDepartment(Integer deptID, String name, Integer leaderID);
+
+	public void removeDept(Integer dept_id);
 }

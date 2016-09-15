@@ -29,8 +29,22 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-  
-
+	
+	<filter>
+	  <filter-name>Character Encoding Filter</filter-name>
+	  <filter-class>com.ericsson.filter.CharacterEncodingFilter</filter-class>
+	  <init-param>
+	    <param-name>encoding</param-name>
+	    <param-value>UTF-8</param-value>
+	  </init-param>
+	</filter>
+	
+	<!--  definicje servletów -->
+	
+	<filter-mapping>
+	  <filter-name>Character Encoding Filter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+ 
 
 </web-app>

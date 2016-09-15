@@ -12,8 +12,7 @@ public class Settings {
 	@GeneratedValue
 	@Column(name="settings_id")
 	private Integer settings_id;
-	@Column(name="extra_balls")
-	private Integer extra_balls;
+	
 	@Column(name="balls_per_person")
 	private Integer balls_per_person;
 	@Column(name="money")
@@ -35,14 +34,7 @@ public class Settings {
 		this.settings_id = settings_id;
 	}
 	
-	public Integer getExtraBalls(){
-		return extra_balls;
-	}
-	
-	public void setExtraBalls(Integer extra_balls){
-		this.extra_balls = extra_balls;
-	}
-	
+		
 	
 	public Integer getBallsPerPerson(){
 		return balls_per_person;

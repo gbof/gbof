@@ -2,17 +2,13 @@ package com.ericsson.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.ericsson.model.Department;
-import com.ericsson.model.Role;
-import com.ericsson.model.Team;
 
 @Repository
 public class DepartmentDAOImpl implements DepartmentDAO {
@@ -51,7 +47,18 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		else
 			return null;
 	}
-
+	@Override
+	public Department getDept(Integer dept_id) {
+		List<Department> deptList = new ArrayList<Department>();
+		String sql = "from Department where dept_id=:dept_id";
+		Query query = getCurrentSession().createQuery(sql);
+		query.setParameter("dept_id", dept_id);
+		deptList = query.list();
+		if (deptList.size() > 0)
+			return deptList.get(0);
+		else
+			return null;
+	}
 
 	@Override
 	public void addDept(String deptName, Integer leaderID) {
@@ -74,6 +81,23 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		else
 			return null;
 		
+	}
+
+
+	@Override
+	public void editDepartment(Integer dept_id, String name, Integer leader_id) {
+		String query = "UPDATE departments SET dept_leader_id='"+leader_id+"', dept_name='"+name+"' where dept_id='"+dept_id+"'";
+		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+
+
+	@Override
+	public void removeDept(Integer dept_id) {
+		String query = "delete from departments where dept_id="+dept_id;
+		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
 	}
 
 }

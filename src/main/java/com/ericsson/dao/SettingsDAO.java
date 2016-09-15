@@ -5,25 +5,26 @@ import java.util.List;
 
 import com.ericsson.model.Settings;
 
-import com.ericsson.model.Settings;
-
 public interface SettingsDAO {
 
 
 	public List<Double> getMoney(Integer settingsId);
 
-	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer settings_id, String heplMsg);
+	public void addSetting(Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer settings_id, String heplMsg);
 	
-
-	public List<Settings> getSettings();
+	public void addNewSettings(Integer settings_id);
 	
-	public double round(double value, int places);
+	public void deleteSettings(Integer settings_id);
 	
-	public List<Integer> getSettingsFreeze();
+	public List<Settings> getSettings(Integer settings_id);
 	
-	public List<Date> getSettingsDate();
+	public double roundMoney(double value, int places);
 	
-	public void setToFrozen();
+	public List<Integer> getSettingsFreeze(Integer settings_id);
+	
+	public List<Date> getSettingsDeadline(Integer settings_id);
+	
+	public void setToFrozen(Integer settings_id);
 	
 	public void addExtraMoney(Integer settings_id, Double withExtraMoney);
 

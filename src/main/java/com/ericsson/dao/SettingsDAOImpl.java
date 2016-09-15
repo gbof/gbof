@@ -1,5 +1,6 @@
 package com.ericsson.dao;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ericsson.model.Settings;
-import com.ericsson.model.User;
 import com.ericsson.service.BallService;
-import com.ericsson.model.Settings;
+import com.ericsson.service.CommentService;
+
 
 @Repository
 public class SettingsDAOImpl implements SettingsDAO{
@@ -25,11 +26,28 @@ public class SettingsDAOImpl implements SettingsDAO{
 	@Autowired
 	private BallService ballservice;
 	
+	@Autowired
+	private CommentService commentservice;
+	
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
-	public void addSetting(Integer extraBalls, Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer settings_id,String helpMsg){
+	public void addNewSettings(Integer settings_id)
+	{
+		String query = "INSERT INTO settings (settings_id,balls_left,freeze,deadline,money,balls_per_person,helpMsg) VALUES ('" + settings_id + "','"+ 0 +"','"+ 0 +"','" + "2017-01-01" +"','"+ 0 + "','"+ 20 + "','"+ "insert message"+"')";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+		
+	}
+	public void deleteSettings(Integer settings_id)
+	{
+		String query = "DELETE FROM settings WHERE settings_id= '" + settings_id + "'";
+		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+	}
+	public void addSetting(Integer balls_per_pers, Double money, String deadline,Boolean freeze, Integer settings_id,String helpMsg){
 		
 			
 		Integer freezeId;
@@ -43,7 +61,7 @@ public class SettingsDAOImpl implements SettingsDAO{
 		}
 
 		
-		String queryInsert = "UPDATE settings SET extra_balls='"+extraBalls+"', balls_per_person='"+balls_per_pers+"', money='"+money+"', deadline='"+deadline+"', freeze='"+freezeId+"',balls_left='"+ballservice.getBallsToGive().get(0)+"',helpMsg='"+helpMsg+"' WHERE settings_id='"+settings_id+"'";
+		String queryInsert = "UPDATE settings SET balls_per_person='"+balls_per_pers+"', money='"+money+"', deadline='"+deadline+"', freeze='"+freezeId+"',balls_left='"+ballservice.getBallsToGive().get(0)+"',helpMsg='"+helpMsg+"' WHERE settings_id='"+settings_id+"'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(queryInsert);
 
 		sqlQuery.executeUpdate();
@@ -52,9 +70,10 @@ public class SettingsDAOImpl implements SettingsDAO{
 		
 	public List<Double> getMoney(Integer settingsId){
 		List<Double> getMoney = new ArrayList<Double>();
-		
-		String sql = "select money from Settings WHERE settings_id = '"+ settingsId + "'";
+		Double cash = commentservice.getCash().get(0);
+		String sql = "select money-'"+cash+"' from Settings WHERE settings_id = '"+ settingsId + "'";
 		Query query = openSession().createQuery(sql);
+		
 		getMoney = query.list();
 		if (getMoney.size() > 0)
 			return getMoney;
@@ -76,11 +95,11 @@ public class SettingsDAOImpl implements SettingsDAO{
 	@Override
 	
 
-	public List<Settings> getSettings() {
+	public List<Settings> getSettings(Integer settings_id) {
 
 		List<Settings> settingsList = new ArrayList<Settings>();
 		
-		String sql = "from Settings";
+		String sql = "from Settings where settings_id ='" + settings_id + "'";
 		Query query = openSession().createQuery(sql);
 		
 		settingsList = query.list();
@@ -90,7 +109,7 @@ public class SettingsDAOImpl implements SettingsDAO{
 			return null;	
 	}
 	
-	public double round(double value, int places) {
+	public double roundMoney(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 
 	    long factor = (long) Math.pow(10, places);
@@ -100,10 +119,10 @@ public class SettingsDAOImpl implements SettingsDAO{
 	    return money;
 	}
 	
-	public List<Integer> getSettingsFreeze() {
+	public List<Integer> getSettingsFreeze(Integer settings_id) {
 		List<Integer> integerList = new ArrayList<Integer>();
 		
-		String sql = "select freeze from Settings";
+		String sql = "select freeze from Settings where settings_id ='" + settings_id + "'";
 		Query query = openSession().createQuery(sql);
 		
 		integerList = query.list();
@@ -113,10 +132,10 @@ public class SettingsDAOImpl implements SettingsDAO{
 			return null;
 	}
 	
-	public List<Date> getSettingsDate() {
+	public List<Date> getSettingsDeadline(Integer settings_id) {
 		List<Date> integerList = new ArrayList<Date>();
 		
-		String sql = "select deadline from Settings";
+		String sql = "select deadline from Settings  where settings_id ='" + settings_id + "'";
 		Query query = openSession().createQuery(sql);
 		
 		integerList = query.list();
@@ -126,8 +145,8 @@ public class SettingsDAOImpl implements SettingsDAO{
 			return null;
 	}
 	
-	public void setToFrozen(){	
-		String query = "UPDATE settings SET freeze='1'";
+	public void setToFrozen(Integer settings_id){	
+		String query = "UPDATE settings SET freeze='1' where settings_id ='" + settings_id + "'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}

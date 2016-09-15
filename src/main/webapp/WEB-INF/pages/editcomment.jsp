@@ -46,7 +46,30 @@
 								<label>${commentId.getUser().getName()} ${commentId.getUser().getSurname()}</label>
 							</div>
 							<div class="form-group col-md-4 col-sm-6">
-								<input type="number" value="${commentId.getBallsPerCom()}" class="form-control" min="0" max="${commentId.getBallsPerCom() + kule}" id="mobile" name="ballsNumber" placeholder="Number of balls" onkeyup="findTotal();" onmouseup="findTotal();" required />
+							<c:set var="rola" value="${commentId.getUser().getId()}"/>
+							<c:set var="admin" value="1"/>
+							<c:if test="${rola == admin}">
+							<c:if test="${user.getRole().getId() != admin}">
+							This person is admin, You cannot give him balls
+							<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
+								placeholder="Number of balls" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
+							
+							</c:if>
+							</c:if>
+							<c:set var="rola" value="${commentId.getUser().getId()}"/>
+							<c:set var="admin" value="1"/>
+							<c:if test="${rola != admin}" >
+							<c:if test="${user.getRole().getId() != admin}">
+							
+							<input type="number" value="${commentId.getBallsPerCom()}" min="0" max="${kule}" class="form-control" id="mobile" name="ballsNumber" 
+								placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
+							
+							
+							</c:if>
+							</c:if>
+							<c:if test="${user.getRole().getId() == admin}">
+							<input type="hidden" id="mobile" name="ballsNumber" value="${commentId.getBallsPerCom()}"  />
+							</c:if>
 							</div>
 		                    <div class="form-group">
 		                    	<textarea class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7" required>${commentId.getFirstCom()}</textarea>
@@ -58,7 +81,7 @@
 		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 		                    </div>
 		                    
-		                    <input type="submit" id="submit" name="submit" value="Edit" id="btnSave" class="btn btn-primary pull-right" > 
+		                    <input type="submit" id="submit" name="submit" value="Save" id="btnSave" class="btn btn-primary pull-right" > 
 			        		<input type="hidden" name="commentToUserId" value="${commentId.getUser().getId()}" />
 		           			<input type="hidden" name="comId" value="${commentId.getComId()}"/>
 		           				
@@ -108,7 +131,7 @@
 	            tot += parseInt(arr[i].value);
 	    }
 	    if(totalCount-tot<0)
-	    	$('#balls').text("Rozdales za duzo kulek");
+	    	$('#balls').text("Dont be so generous, you are out of balls");
 	    else
 	    	{
 	    		total = totalCount;

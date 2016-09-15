@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService{
 		}
 	@Override
 	public  List<Comment> getCommentsYouGave(Integer id) {
-		return commentDAO.getCommentsYouGave(id);
+		return commentDAO.getCommentsGivenByUser(id);
 		
 	}
 	@Override
@@ -65,12 +65,21 @@ public class CommentServiceImpl implements CommentService{
 		commentDAO.setConfirm(id);
 	}
 	
+	public void setConfirmAll(){
+		commentDAO.setConfirmAll();
+	}
 
 	public Comment getCommentId(Integer id)
 	{
 		return commentDAO.getCommentId(id);
 	}
 	
+	public List<Double> getCash(){
+		return commentDAO.getCash();
+	}
 
+	public void editCommentBalls(Integer com_id){
+		commentDAO.editCommentBalls(com_id);
+	}
 
 }

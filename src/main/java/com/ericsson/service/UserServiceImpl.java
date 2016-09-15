@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ericsson.dao.UserDAO;
-
+import com.ericsson.model.Role;
 import com.ericsson.model.User;
 
 @Service
@@ -69,8 +69,39 @@ public class UserServiceImpl implements UserService {
 		userDAO.setBallsAfterCommentDelete(id, balls, commentToUserId);
 	}
 	public Boolean checkLogin(String login){
-		return userDAO.checkLogin(login);
+		return userDAO.checkLoginAvailable(login);
+	}
+	@Override
+	public void editRoleID(Integer leader_id, int role_id) {
+		userDAO.editRoleID(leader_id, role_id);
+		
+	}
+	@Override
+	public List<User> getAllUsersForSuperUser() {
+		return userDAO.getAllUsersForSuperUser();
+	}
+	@Override
+	public void editDept(Integer user_id, Integer dept_id) {
+		userDAO.editDept(user_id, dept_id);
+		
 	}
 
+	@Override
+	public List<User> getAllUsersTeam(Integer team_id){
+		return userDAO.getAllUsersTeam(team_id);
+	}
 
+	@Override
+	public void editTeamId(Integer team_id, Integer user_id){
+		userDAO.editTeamId(team_id, user_id);
+	}
+	@Override
+	public List<User> getUserWithRole(Role role_id) {
+		return userDAO.getUserWithRole(role_id);
+	}
+	
+	@Override
+	public void dupcia(){
+		userDAO.encryptAllPasswords();
+	}
 }
