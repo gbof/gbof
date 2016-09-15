@@ -58,4 +58,9 @@ public class TeamServiceImpl implements TeamService {
 	public List<Team> getTeamsID(String teamName) {
 		return teamDAO.getTeamsID(teamName);
 	}
+
+	@Override
+	public List<Team> getTeamsFromDept(Integer dept_id) {
+		return teamDAO.getTeamsFromDept(dept_id);
+	}
 }

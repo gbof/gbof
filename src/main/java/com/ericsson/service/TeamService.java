@@ -22,4 +22,6 @@ public interface TeamService {
 
 	public List<Team> getTeamsID(String teamName);
 
+	public List<Team> getTeamsFromDept(Integer dept_id);
+
 }

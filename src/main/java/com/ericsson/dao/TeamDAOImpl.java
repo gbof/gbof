@@ -116,4 +116,17 @@ public class TeamDAOImpl implements TeamDAO {
 		else
 			return null;
 	}
+
+	@Override
+	public List<Team> getTeamsFromDept(Integer dept_id) {
+		List<Team> teamList = new ArrayList<Team>();
+		String sql = "from Team where dept_id=:dept_id";
+		Query query = openSession().createQuery(sql);
+		query.setParameter("dept_id", dept_id);
+		teamList = query.list();
+		if (teamList.size() > 0)
+			return teamList;
+		else
+			return null;
+	}
 }
