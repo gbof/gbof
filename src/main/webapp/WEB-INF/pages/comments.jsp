@@ -50,7 +50,7 @@
 			<c:set var="admin" value="admin"/>
 			<c:set var="superuser" value="superuser" />
 			<li>
-			<a style="text-align: center; color:red;" id="balls"></a>
+			<a style="text-align: center; color:red;" id="balls">Balls left: ${kule}</a>
 			</li>
 			<c:if test="${rola != superuser }" >
 				<li><a href="${pageContext.request.contextPath}/helpPage">Help</a></li>
