@@ -134,8 +134,9 @@ public class SettingsController {
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		List<Settings> settingslist = sett.getSettings(idDept);
 		
+
 		String deadline = "";
-		if (deadline1 != settingslist.get(0).getDeadline().toString()){
+		if (deadline1.equals(settingslist.get(0).getDeadline().toString())){
 			deadline = deadline1;
 		}
 		else

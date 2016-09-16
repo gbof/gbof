@@ -329,7 +329,7 @@ public class LinkNavigation {
 			@RequestParam("money") Double money,
 			@RequestParam(value="deadline", required=false, defaultValue="") String deadline1
 			){
-		
+
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -338,13 +338,14 @@ public class LinkNavigation {
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		List<Settings> settingslist = sett.getSettings(idDept);
 		String deadline = "";
-		if (deadline1 != settingslist.get(0).getDeadline().toString()){
+		if (deadline1.equals(settingslist.get(0).getDeadline().toString())){
 			deadline = deadline1;
 		}
 		else
 		{
 			String[] words = deadline1.toString().split("/");
 			deadline = words[2]+"-"+words[0]+"-"+words[1];
+			System.out.println("deadline=========="+deadline);
 		}
 		Boolean freeze = false;
 		String helpMsg = sett.getSettings(idDept).get(0).getHelpMsg();
