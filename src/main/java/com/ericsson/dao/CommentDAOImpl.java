@@ -37,7 +37,7 @@ public class CommentDAOImpl implements CommentDAO{
 				if(i!=listt.size()-1)
 					sql = sql + " or ";
 				else
-					sql = sql + ") and c.confirmed=false";
+					sql = sql + ") and c.confirmed=false and c.archive=false";
 			}
 		sql = sql+" order by user_id";
 		Query query = openSession().createQuery(sql);
@@ -54,7 +54,7 @@ public class CommentDAOImpl implements CommentDAO{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
 
-		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false");
+		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false and archive = false");
 
 
 		query.setParameter("id", id);
@@ -70,7 +70,7 @@ public class CommentDAOImpl implements CommentDAO{
 	{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
-		Query query = openSession().createQuery("from Comment where user_id = :id");
+		Query query = openSession().createQuery("from Comment where user_id = :id and c.archive = false");
 		query.setParameter("id", id);
 		commentList = query.list();
 		if (commentList.size() > 0)
@@ -91,7 +91,7 @@ public class CommentDAOImpl implements CommentDAO{
 			if(i!=listt.size()-1)
 				sql = sql + " or ";
 			else
-				sql = sql + ") and c.confirmed=true";
+				sql = sql + ") and c.confirmed=true and c.archive = false";
 		}
 		
 	Query query = openSession().createQuery(sql);
@@ -103,7 +103,8 @@ public class CommentDAOImpl implements CommentDAO{
 	}
     
 	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id, Integer commentToUserId){
-		String query = "INSERT INTO comments (user_id, first_com, second_com, confirmed, creator_id, balls_per_com) VALUES ('"+ commentToUserId +"', '"+ message1 +"', '"+ message2 +"', '"+ 0 +"', '"+ user_id +"', '"+ ballsNumber +"')";
+		Integer arch=0;
+		String query = "INSERT INTO comments (user_id, first_com, second_com, confirmed, creator_id, balls_per_com, archive) VALUES ('"+ commentToUserId +"', '"+ message1 +"', '"+ message2 +"', '"+ 0 +"', '"+ user_id +"', '"+ ballsNumber +"','"+ arch +"')";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}
