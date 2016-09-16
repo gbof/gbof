@@ -345,7 +345,6 @@ public class LinkNavigation {
 		{
 			String[] words = deadline1.toString().split("/");
 			deadline = words[2]+"-"+words[0]+"-"+words[1];
-			System.out.println("deadline=========="+deadline);
 		}
 		Boolean freeze = false;
 		String helpMsg = sett.getSettings(idDept).get(0).getHelpMsg();
