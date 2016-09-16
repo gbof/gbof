@@ -14,4 +14,5 @@ public interface BallDAO {
 	public List<Integer> getReceivedMoney(Integer balls_id, Double money);
 	public void editCash(Integer balls_id, Double cash);
 	public void editLocked(Integer balls_id, Integer locked);
+	public void editBallsToGiveAndRecivedBallsAfterCommentArchive(Integer balls_id, Integer balls);
 }

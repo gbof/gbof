@@ -133,7 +133,16 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	public List<Double> getCash(){
 		List<Double> allBalls = new ArrayList<Double>();
-		String sql = "select sum(cash) from Ball";
+		List<User> listt = us.getAllUsers();
+		String sql = "select sum(cash) from Ball b where(";
+		for(int i=0;i<listt.size();i++){
+				Integer ball_id = listt.get(i).getBall().getBallsId();
+				sql = sql+"b.balls_id = '"+ball_id+"'";
+				if(i!=listt.size()-1)
+					sql = sql + " or ";
+				else
+					sql = sql + ")";
+			}
 		Query query = openSession().createQuery(sql);
 		allBalls = query.list();
 		if (allBalls.size() > 0)
@@ -196,8 +205,17 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	public void setConfirmAll()
 	{
-		String query = "UPDATE comments SET confirmed = 1";
-		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		List<User> listt = us.getAllUsers();
+		String sql = "UPDATE comments SET confirmed = '1' WHERE(";
+		for(int i=0;i<listt.size();i++){
+			Integer user_id = listt.get(i).getId();
+			sql = sql+"creator_id = '"+user_id+"'";
+			if(i!=listt.size()-1)
+				sql = sql + " or ";
+			else
+				sql = sql + ")";
+		}
+		SQLQuery sqlQuery = openSession().createSQLQuery(sql);
 		sqlQuery.executeUpdate();
 		
 	}
@@ -212,6 +230,21 @@ public class CommentDAOImpl implements CommentDAO{
 		else
 			return null;	
 
+	}
+	
+	public void archiveComments(){
+		List<User> listt = us.getAllUsers();
+		String sql = "UPDATE comments SET archive = '1' WHERE(";
+		for(int i=0;i<listt.size();i++){
+			Integer user_id = listt.get(i).getId();
+			sql = sql+"creator_id = '"+user_id+"'";
+			if(i!=listt.size()-1)
+				sql = sql + " or ";
+			else
+				sql = sql + ")";
+		}
+		SQLQuery sqlQuery = openSession().createSQLQuery(sql);
+		sqlQuery.executeUpdate();
 	}
 	
 	

@@ -321,11 +321,18 @@ public class LinkNavigation {
 		}
 		return modelAndView;
 	}
-
+	
 	
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
 	public ModelAndView sendMail(){
-		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		cs.archiveComments();
+		List<User> listt = us.getAllUsers();
+		Integer ballsPerPerson = sett.getSettings(us.getUser(userName).getDept().getDeptId()).get(0).getBallsPerPerson();
+		for(int i=0;i<listt.size();i++){
+			bs.editBallsToGiveAndRecivedBallsAfterCommentArchive(listt.get(i).getBall().getBallsId(), ballsPerPerson);
+		}
 		return new ModelAndView("redirect:/success-login");
 		/*
     	ApplicationContext context =

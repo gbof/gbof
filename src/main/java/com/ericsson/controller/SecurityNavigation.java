@@ -161,7 +161,8 @@ public class SecurityNavigation {
 		Integer id = us.getUser(userName).getId();
 		List<User> listt = us.getAllUsers();
 		List<Team> teamlistt = ts.getAllTeams();
-		List<Double> money = sett.getMoney(1);
+		Integer settingsId = us.getUser(userName).getDept().getDeptId();
+		List<Double> money = sett.getMoney(settingsId);
 		Double moneyValue = money.get(0);
 		
 		

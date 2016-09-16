@@ -82,4 +82,7 @@ public class CommentServiceImpl implements CommentService{
 		commentDAO.editCommentBalls(com_id);
 	}
 
+	public void archiveComments(){
+		commentDAO.archiveComments();
+	}
 }

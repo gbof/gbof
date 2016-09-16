@@ -56,4 +56,9 @@ public class BallServiceImpl implements BallService {
 			ballDAO.editLocked(balls_id, locked);
 		}
 		
+		@Override
+		public void editBallsToGiveAndRecivedBallsAfterCommentArchive(Integer balls_id, Integer balls){
+			ballDAO.editBallsToGiveAndRecivedBallsAfterCommentArchive(balls_id, balls);
+		}
+		
 }
