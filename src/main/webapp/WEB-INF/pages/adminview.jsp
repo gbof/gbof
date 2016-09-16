@@ -366,7 +366,20 @@
 				                </div>
 				            </div>
 						</div>
+						<c:set var="checkAreAllCommentsConfirmed" value="${checkAreAllCommentsConfirmed}"/>
+						<c:set var="locked" value="1"/>
+						<c:set var="unlocked" value="0"/>
 						<form method="POST" action="${pageContext.request.contextPath}/sendMail">
+						<c:if test="${checkAreAllCommentsConfirmed == locked}" >
+				<div class=text-right>
+							     <button type="submit"class="btn-info btn btn-lg" disabled>Send Mails</button>
+							</div>
+							</c:if>
+							<c:if test="${checkAreAllCommentsConfirmed == unlocked}" >
+							<div class=text-right>
+							     <button type="submit"class="btn-info btn btn-lg" disabled>Send Mails</button>
+							</div>
+							</c:if>
 							<div class=text-right>
 							     <button data-toggle="modal" data-target="#setSettingssModal" type="button" class="btn-info btn btn-lg">Send mails</button>
 							</div>
@@ -433,6 +446,7 @@
 								</div>
 							</div>
 						</form>	
+
 					</div>	
 				</div>
 			</div>

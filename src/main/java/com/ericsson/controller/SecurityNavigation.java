@@ -165,6 +165,11 @@ public class SecurityNavigation {
 		List<Double> money = sett.getMoney(settingsId);
 		Double moneyValue = money.get(0);
 		
+		Integer checkAreAllCommentsConfirmed = 0;
+		if(coms.getConfirmedComments()==null){
+			checkAreAllCommentsConfirmed=1;
+		}
+		
 		
 		List<Comment> yourComments=coms.getYourComments(id);
 
@@ -211,6 +216,7 @@ public class SecurityNavigation {
 		lista.addObject("summedMoneyList", summedMoneyList);
 		lista.addObject("extraMoneyList", extraMoneyList);
 		lista.addObject("settingsList", settingsList);
+		lista.addObject("checkAreAllCommentsConfirmed",checkAreAllCommentsConfirmed);
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
 		lista.addObject("yourComments", yourComments);
