@@ -326,6 +326,8 @@ public class LinkNavigation {
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
 	public ModelAndView sendMail(){
 		
+		return new ModelAndView("redirect:/success-login");
+		/*
     	ApplicationContext context =
                 new ClassPathXmlApplicationContext("Spring-Mail.xml");
 
@@ -338,6 +340,7 @@ public class LinkNavigation {
 		
 		
 		return new ModelAndView("redirect:/success-login");
+		*/
 	}
 	
 	@RequestMapping(value="/noTeams", method=RequestMethod.GET)

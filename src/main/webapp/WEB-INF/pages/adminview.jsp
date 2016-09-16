@@ -362,6 +362,11 @@
 				                </div>
 				            </div>
 						</div>
+						<form method="POST" action="${pageContext.request.contextPath}/sendMail">
+				<div class=text-right>
+							     <button type="submit"class="btn-info btn btn-lg">Send Mails</button>
+							</div>
+			</form>	
 					</div>	
 				</div>
 			</div>
