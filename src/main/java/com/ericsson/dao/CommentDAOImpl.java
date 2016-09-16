@@ -37,7 +37,7 @@ public class CommentDAOImpl implements CommentDAO{
 				if(i!=listt.size()-1)
 					sql = sql + " or ";
 				else
-					sql = sql + ") and c.confirmed=false and c.archive=false";
+					sql = sql + ") and c.confirmed=false and c.archive=0";
 			}
 		sql = sql+" order by user_id";
 		Query query = openSession().createQuery(sql);
@@ -54,7 +54,7 @@ public class CommentDAOImpl implements CommentDAO{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
 
-		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false and archive = false");
+		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false and archive = 0");
 
 
 		query.setParameter("id", id);
@@ -70,7 +70,7 @@ public class CommentDAOImpl implements CommentDAO{
 	{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
-		Query query = openSession().createQuery("from Comment where user_id = :id and c.archive = false");
+		Query query = openSession().createQuery("from Comment where user_id = :id and c.archive = 0");
 		query.setParameter("id", id);
 		commentList = query.list();
 		if (commentList.size() > 0)
@@ -91,7 +91,7 @@ public class CommentDAOImpl implements CommentDAO{
 			if(i!=listt.size()-1)
 				sql = sql + " or ";
 			else
-				sql = sql + ") and c.confirmed=true and c.archive = false";
+				sql = sql + ") and c.confirmed=true and c.archive = 0";
 		}
 		
 	Query query = openSession().createQuery(sql);
