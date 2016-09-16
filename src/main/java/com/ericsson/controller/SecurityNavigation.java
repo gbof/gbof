@@ -204,11 +204,13 @@ public class SecurityNavigation {
 			extraMoneyList.add(listt.get(i).getBall().getCash());
 		}
 		suma = sett.round(suma, 2);
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingsList=sett.getSettings(idDept);
 		lista.addObject("suma",suma);
 		lista.addObject("moneyList", moneyList);
 		lista.addObject("summedMoneyList", summedMoneyList);
 		lista.addObject("extraMoneyList", extraMoneyList);
-
+		lista.addObject("settingsList", settingsList);
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
 		lista.addObject("yourComments", yourComments);

@@ -112,15 +112,15 @@
 							    </div>
 						
 							    
-    <div class="form-group col-md-12">
-        <label class="col-md-3">Deadline</label>
-        <div class="col-md-6 date">
-            <div class="input-group input-append date" id="dateRangePicker">
-                <input readonly value="${settingsList.get(0).getDeadline()}" type="text" class="form-control" name="deadline" />
-                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
-        </div>
-    </div>
+							    <div class="form-group col-md-12">
+							        <label class="col-md-3">Deadline</label>
+							        <div class="col-md-6 date">
+							            <div class="input-group input-append date" id="dateRangePicker">
+							                <input readonly value="${settingsList.get(0).getDeadline()}" type="text" class="form-control" name="deadline" />
+							                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+							            </div>
+							        </div>
+							    </div>
     
 					           
 							     <div class="form-area">

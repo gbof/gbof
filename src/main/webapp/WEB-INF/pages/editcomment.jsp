@@ -16,6 +16,9 @@
 		
 		<style>
        		<%@include file="/web-resources/css/comments.css" %>
+       		.modal {
+				padding: 05%;
+			}
 		</style>
 			<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 
