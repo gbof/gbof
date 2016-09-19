@@ -1,5 +1,6 @@
 package com.ericsson.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ericsson.model.Comment;
 import com.ericsson.model.Department;
+import com.ericsson.model.Team;
 import com.ericsson.model.User;
 import com.ericsson.service.BallService;
 import com.ericsson.service.CommentService;
@@ -81,22 +84,50 @@ public class DeptController {
 		return modelAndView;
 	}
 
+	public void removeUser(Integer userDelId){
+		List<Comment> commentList;
+		Integer comId = 0;
+		// check if there are any comments for this user
+		commentList = cs.getCommentsYouGave(userDelId);
+		if (commentList != null) {
+			for (int j = 0; j < commentList.size(); j++) {
+				comId = commentList.get(j).getComId();
+				cs.removeComment(comId);
+			}
+		}
+		Integer balls_id = us.getUserId(userDelId).getBall().getBallsId();
+		us.removeUser(userDelId);
+		bs.removeBalls(balls_id);
+		rus.removeUserRole(userDelId);
+	}
+	
 	//Delete team
 	@RequestMapping(value = "/editdept", params="delete", method = RequestMethod.POST)
 	public ModelAndView deptRemoved(
 		@RequestParam(value = "delete") Integer deptDelId){
 		List<User> listt = us.getAllUsersForSuperUser();
-
+		List<Team> teamlistt = ts.getTeamsFromDept(deptDelId);
 		ModelAndView modelAndView = new ModelAndView();
 		String name = ds.getDeptName(deptDelId);
-		ds.editDepartment(deptDelId, name, 4);
+		Integer suroleid = rs.getRoleId("superuser").get(0).getId();
+		Integer suid = 0;
+		for (User u:listt){
+			if (u.getRole().getId().equals(suroleid)){
+				suid = u.getId();
+			}
+		}
+		ds.editDepartment(deptDelId, name, suid);
 		for(int i=0;i<listt.size();i++){
 			if (listt.get(i).getDept().getDeptId().equals(deptDelId))
-				us.removeUser(listt.get(i).getId());
+				removeUser(listt.get(i).getId());
 		}
-
-			ds.removeDept(deptDelId);
-			sett.deleteSettings(deptDelId);
+		for(int i=0; i<teamlistt.size();i++){
+			System.out.println(i);
+			if (teamlistt.get(i).getDeptId().equals(deptDelId))
+				ts.removeTeam(teamlistt.get(i).getId());
+		}
+		ds.removeDept(deptDelId);
+		sett.deleteSettings(deptDelId);
 		modelAndView.setViewName("redirect:/success-login");
 		return modelAndView;
 	}

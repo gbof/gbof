@@ -37,7 +37,7 @@ public class CommentDAOImpl implements CommentDAO{
 				if(i!=listt.size()-1)
 					sql = sql + " or ";
 				else
-					sql = sql + ") and c.confirmed=false";
+					sql = sql + ") and c.confirmed=false and c.archive=0";
 			}
 		sql = sql+" order by user_id";
 		Query query = openSession().createQuery(sql);
@@ -54,7 +54,7 @@ public class CommentDAOImpl implements CommentDAO{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
 
-		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false");
+		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false and archive = 0");
 
 
 		query.setParameter("id", id);
@@ -70,7 +70,7 @@ public class CommentDAOImpl implements CommentDAO{
 	{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
-		Query query = openSession().createQuery("from Comment where user_id = :id");
+		Query query = openSession().createQuery("from Comment where user_id = :id and c.archive = 0");
 		query.setParameter("id", id);
 		commentList = query.list();
 		if (commentList.size() > 0)
@@ -91,7 +91,7 @@ public class CommentDAOImpl implements CommentDAO{
 			if(i!=listt.size()-1)
 				sql = sql + " or ";
 			else
-				sql = sql + ") and c.confirmed=true";
+				sql = sql + ") and c.confirmed=true and c.archive = 0";
 		}
 		
 	Query query = openSession().createQuery(sql);
@@ -103,7 +103,8 @@ public class CommentDAOImpl implements CommentDAO{
 	}
     
 	public void addComment(String message1, String message2, Integer ballsNumber, Integer user_id, Integer commentToUserId){
-		String query = "INSERT INTO comments (user_id, first_com, second_com, confirmed, creator_id, balls_per_com) VALUES ('"+ commentToUserId +"', '"+ message1 +"', '"+ message2 +"', '"+ 0 +"', '"+ user_id +"', '"+ ballsNumber +"')";
+		Integer arch=0;
+		String query = "INSERT INTO comments (user_id, first_com, second_com, confirmed, creator_id, balls_per_com, archive) VALUES ('"+ commentToUserId +"', '"+ message1 +"', '"+ message2 +"', '"+ 0 +"', '"+ user_id +"', '"+ ballsNumber +"','"+ arch +"')";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}
@@ -133,7 +134,16 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	public List<Double> getCash(){
 		List<Double> allBalls = new ArrayList<Double>();
-		String sql = "select sum(cash) from Ball";
+		List<User> listt = us.getAllUsers();
+		String sql = "select sum(cash) from Ball b where(";
+		for(int i=0;i<listt.size();i++){
+				Integer ball_id = listt.get(i).getBall().getBallsId();
+				sql = sql+"b.balls_id = '"+ball_id+"'";
+				if(i!=listt.size()-1)
+					sql = sql + " or ";
+				else
+					sql = sql + ")";
+			}
 		Query query = openSession().createQuery(sql);
 		allBalls = query.list();
 		if (allBalls.size() > 0)
@@ -165,7 +175,7 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	public List<Integer> getAllBallsGivenTo(Integer id, Integer id2){
 		List<Integer> ballsList = new ArrayList<Integer>();
-		String sql = "select sum(c.balls_per_com) from Comment c where c.creator_id = '"+ id +"' and c.user = '"+ id2 +"'";
+		String sql = "select sum(c.balls_per_com) from Comment c where c.creator_id = '"+ id +"' and c.user = '"+ id2 +"' and c.archive = '0'";
 		Query query = openSession().createQuery(sql);
 		ballsList = query.list();
 		if (ballsList.size() > 0)
@@ -196,8 +206,17 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	public void setConfirmAll()
 	{
-		String query = "UPDATE comments SET confirmed = 1";
-		SQLQuery sqlQuery = openSession().createSQLQuery(query);
+		List<User> listt = us.getAllUsers();
+		String sql = "UPDATE comments SET confirmed = '1' WHERE(";
+		for(int i=0;i<listt.size();i++){
+			Integer user_id = listt.get(i).getId();
+			sql = sql+"creator_id = '"+user_id+"'";
+			if(i!=listt.size()-1)
+				sql = sql + " or ";
+			else
+				sql = sql + ")";
+		}
+		SQLQuery sqlQuery = openSession().createSQLQuery(sql);
 		sqlQuery.executeUpdate();
 		
 	}
@@ -212,6 +231,21 @@ public class CommentDAOImpl implements CommentDAO{
 		else
 			return null;	
 
+	}
+	
+	public void archiveComments(){
+		List<User> listt = us.getAllUsers();
+		String sql = "UPDATE comments SET archive = '1' WHERE(";
+		for(int i=0;i<listt.size();i++){
+			Integer user_id = listt.get(i).getId();
+			sql = sql+"creator_id = '"+user_id+"'";
+			if(i!=listt.size()-1)
+				sql = sql + " or ";
+			else
+				sql = sql + ")";
+		}
+		SQLQuery sqlQuery = openSession().createSQLQuery(sql);
+		sqlQuery.executeUpdate();
 	}
 	
 	

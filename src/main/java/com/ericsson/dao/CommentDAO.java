@@ -21,4 +21,5 @@ public interface CommentDAO {
 	public void setConfirmAll();
 	public List<Double> getCash();
 	public void editCommentBalls(Integer com_id);
+	public void archiveComments();
 }

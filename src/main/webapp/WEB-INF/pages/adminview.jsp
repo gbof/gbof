@@ -12,9 +12,13 @@
 <head>
 	<title>Admin</title>
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-	
+	<link rel="stylesheet" href="webjars/bootstrap-datepicker/1.0.1/css/datepicker.css" />
+		
 	<style>
       		<%@include file="/web-resources/css/adminview.css" %>
+      		.modal {
+				padding: 05%;
+			}
 	</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
@@ -140,7 +144,7 @@
 															        <th>Surname</th>
 															        <th>Balls</th>
 															        <th>What did you like?</th>
-															        <th>What can (s)he do better?</th>
+															        <th>What can she/he do better?</th>
 															        <th align="right" style="width:30px">Edit</th>
 															      
 															        <th align="right" style="width:40px">Delete</th>
@@ -219,7 +223,7 @@
 											        <th>Surname</th>
 											        
 											        <th>What did you like?</th>
-											        <th>What can (s)he do better?</th>
+											        <th>What can she/he do better?</th>
 											        <th align="right" style="width:40px">Edit</th>
 											        
 											      </tr>
@@ -312,39 +316,140 @@
 									      <tr data-status="tableeee">
 									      	<th>Name</th>
 									        <th>Surname</th>
-									        <th>Balls</th>
 									        <th>What did you like?</th>
-									        <th>What can (s)he do better?</th>
+									        <th>What can she/he do better?</th>
 									      </tr>
 									    </thead>
 									    <tbody>
-									    
-									      <c:forEach var="commentsC" items="${commentConfirmedList}">
-									    <tr data-status="tableeee">
-								          <td><c:out value="${commentsC.getUser().getName() }" /></td>
-								          <td><c:out value="${commentsC.getUser().getSurname() }" /></td>
-								          <td><c:out value="${commentsC.getBallsPerCom()}" /></td>
-								          <td style="max-width:300px; word-wrap: normal;"><c:out value="${commentsC.getFirstCom()}" /></td>
-									      <td style="max-width:300px; word-wrap: normal;"><c:out value="${commentsC.getSecondCom()}" /></td>   
-									      </tr>
-				            			</c:forEach>
-									    
-								
-									    </tbody>
+											      <c:forEach var="user" items="${listt}"  begin="0" end="${listt.size()-1}" varStatus="loop">
+											    <tr data-status="tableeee">
+  
+											          <td><c:out value="${user.name}" /></td>
+											          <td><c:out value="${user.surname}" /></td>
+											        
+											        <td style="max-width:300px; word-wrap: normal;">
+												        <c:forEach var="commentsC" items="${commentConfirmedList}">
+													        
+													        <c:set var="userId" value="${user.getId()}"/>
+															<c:set var="userComId" value="${commentsC.getUser().getId()}"/>
+															<c:if test="${userId == userComId}" >
+																<c:out value="${commentsC.getFirstCom()}"/>
+																<br>
+															</c:if>
+												        
+											         	</c:forEach>
+											         	
+						            				</td>
+						            				
+						            				<td style="max-width:300px; word-wrap: normal;">
+												        <c:forEach var="commentsC" items="${commentConfirmedList}">
+													        
+													        <c:set var="userId" value="${user.getId()}"/>
+															<c:set var="userComId" value="${commentsC.getUser().getId()}"/>
+															<c:if test="${userId == userComId}" >
+																<c:out value="${commentsC.getSecondCom()}"/>
+																<br>
+															</c:if>
+												         	
+											         	
+											         	</c:forEach>
+											         	
+						            				</td>
+													
+											      </tr>
+						            			</c:forEach>
+						    						            			
+											    </tbody>
+									  
 									  </table>
 									</div>
 				                </div>
 				            </div>
 						</div>
+						<c:set var="checkAreAllCommentsConfirmed" value="${checkAreAllCommentsConfirmed}"/>
+						<c:set var="locked" value="1"/>
+						<c:set var="unlocked" value="0"/>
+						<form method="POST" action="${pageContext.request.contextPath}/sendMail">
+						<c:if test="${checkAreAllCommentsConfirmed == locked}" >
+					<div class=text-right>
+							     <button data-toggle="modal" data-target="#setSettingssModal" type="button" class="btn-info btn btn-lg" disabled>Send mails</button>
+							</div>
+							</c:if>
+							<c:if test="${checkAreAllCommentsConfirmed == unlocked}" >
+								<div class=text-right>
+							     <button data-toggle="modal" data-target="#setSettingssModal" type="button" class="btn-info btn btn-lg">Send mails</button>
+							</div>
+							</c:if>
+						
+							
+						<div id="setSettingssModal" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
+							    <!-- Modal content-->
+							    	<div class="modal-content">
+							      		<div class="modal-header">
+							      			<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        								<h4 class="modal-title">New settings</h4>
+										</div>
+										<div class="modal-body">
+											<p style="padding-bottom: 10px;"> Before sending mails you need to set balls number, amount of money and deadline for the next session.</p>
+											
+											<div class="form-group col-md-12">
+										      <label class="col-md-4">Balls Per Person </label>
+										      <div class="col-md-4">
+										     	 <input class="form-control" value="${settingsList.get(0).getBallsPerPerson()}" type="number" min="0" name="ballsPerPers" required/>
+										      </div>
+										    </div>
+							    			<div class="form-group col-md-12">
+										      <label class="col-md-4">Money </label>
+										      <div class="col-md-4">
+										      	<input class="form-control" value="${settingsList.get(0).getMoney()}" type="number" min="0" name="money" placeholder="PLN" required/>
+										      </div>
+										    </div>
+							    			<div class="form-group col-md-12">
+										        <label class="col-md-4">Deadline</label>
+										        <div class="col-md-6 date">
+										            <div class="input-group input-append date" id="dateRangePicker">
+										                <input readonly value="${settingsList.get(0).getDeadline()}" type="text" class="form-control" name="deadline" />
+										                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+										            </div>
+										        </div>
+										    </div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+	         								<button type="button" data-toggle="modal" data-target="#sendMailsModal" data-dismiss="modal" class="btn btn-primary btn-change pull-right" >Save</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div id="sendMailsModal" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
+							    <!-- Modal content-->
+							    	<div class="modal-content">
+							      		<div class="modal-header">
+							      			<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        								<h4 class="modal-title">Confirm</h4>
+										</div>
+										<div class="modal-body">
+											Selecting "OK" will cause mails to be sent and the settings will be reset.
+											<br />
+											Are you sure you want to do that?
+										</div>
+										<div class="modal-footer">
+											<button data-toggle="modal" data-target="#setSettingssModal" type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+	         								<button type="submit" name="confirmButton" class="btn btn-primary btn-change pull-right" >OK</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>	
+
 					</div>	
 				</div>
 			</div>
 		</div>	
-	</div>		
-		<!-- 	<form method="POST" action="${pageContext.request.contextPath}/sendMail">
-				<input type="submit" value="Send mail" />
-			</form>		
-		 -->	
+	</div>			
 
 
 
@@ -371,6 +476,46 @@
 		      }
 		    });
 		 });
+	</script>
+	
+	<script src="webjars/bootstrap-datepicker/1.0.1/js/bootstrap-datepicker.js"></script>
+	<script>
+	$(document).ready(function() {
+	    $('#dateRangePicker')
+	        .datepicker({
+	            format: 'mm/dd/yyyy',
+	            startDate: '01/01/2010',
+	            endDate: '12/30/2020'
+	        })
+	        .on('changeDate', function(e) {
+	            // Revalidate the date field
+	            $('#dateRangeForm').formValidation('revalidateField', 'deadline');
+	        });
+	
+	    $('#dateRangeForm').formValidation({
+	        framework: 'bootstrap',
+	        icon: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	            date: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'The date is required'
+	                    },
+	                    date: {
+	                        format: 'MM/DD/YYYY',
+	                        min: '01/01/2010',
+	                        max: '12/30/2020',
+	                        message: 'The date is not a valid'
+	                    }
+	                }
+	            }
+	        }
+	    });
+	});
 	</script>
 	
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

@@ -139,7 +139,7 @@
 					                    
 				                    <div class="col-md-6 col-sm-12">
 				                    	<textarea style="resize: none;" class="form-control" type="textarea" value="message2" name="message2" id="message2"
-				                    		placeholder="What can (s)he do better?" maxlength="140" rows="7" required>${message2List[status.index]}</textarea>
+				                    		placeholder="What can she/he do better?" maxlength="140" rows="7" required>${message2List[status.index]}</textarea>
 				                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 				                    </div>
 			           			</div>

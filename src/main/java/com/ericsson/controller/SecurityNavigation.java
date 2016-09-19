@@ -161,8 +161,14 @@ public class SecurityNavigation {
 		Integer id = us.getUser(userName).getId();
 		List<User> listt = us.getAllUsers();
 		List<Team> teamlistt = ts.getAllTeams();
-		List<Double> money = sett.getMoney(1);
+		Integer settingsId = us.getUser(userName).getDept().getDeptId();
+		List<Double> money = sett.getMoney(settingsId);
 		Double moneyValue = money.get(0);
+		
+		Integer checkAreAllCommentsConfirmed = 0;
+		if(coms.getConfirmedComments()==null){
+			checkAreAllCommentsConfirmed=1;
+		}
 		
 		
 		List<Comment> yourComments=coms.getYourComments(id);
@@ -203,11 +209,14 @@ public class SecurityNavigation {
 			extraMoneyList.add(listt.get(i).getBall().getCash());
 		}
 		suma = sett.round(suma, 2);
+		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		List<Settings> settingsList=sett.getSettings(idDept);
 		lista.addObject("suma",suma);
 		lista.addObject("moneyList", moneyList);
 		lista.addObject("summedMoneyList", summedMoneyList);
 		lista.addObject("extraMoneyList", extraMoneyList);
-
+		lista.addObject("settingsList", settingsList);
+		lista.addObject("checkAreAllCommentsConfirmed",checkAreAllCommentsConfirmed);
 		lista.addObject("listt", listt);
 		lista.addObject("money", wynik);
 		lista.addObject("yourComments", yourComments);

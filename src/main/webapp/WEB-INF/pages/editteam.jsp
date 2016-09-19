@@ -16,6 +16,9 @@
 		
 		<style>
 			<%@include file="/web-resources/css/settings.css" %>
+      		.modal {
+				padding: 05%;
+			}
 		</style>
 			<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
@@ -97,7 +100,7 @@
 		           	<div class="panel-footer">	
   						<input type="submit" name="save" style="min-width: 100px;" class="btn btn-primary pull-right " value="Save"/>
   						<!-- <button type="button" data-toggle="modal" data-target="#ModalRemoveTeam" class="btn btn-primary btn-change pull-right" value="Remove">Delete user</button>-->
-		        		<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
+		        		<input style="margin-left: 10px; min-width: 100px;" type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 		        		<a href="${pageContext.request.contextPath}/teams"><input type="button" style="min-width: 100px;" class="btn btn-primary pull-left " id="back" name="back"value="Back" /></a>
         			</div>
 		    	</div>

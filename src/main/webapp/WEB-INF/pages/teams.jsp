@@ -15,7 +15,9 @@
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 	
 	<style>
-	
+      		.modal {
+				padding: 05%;
+			}	
 	</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>

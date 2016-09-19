@@ -23,7 +23,8 @@ public class Comment {
 	private Integer creator_id;
 	@Column(name="balls_per_com")
 	private Integer balls_per_com;
-	
+	@Column(name="archive")
+	private Integer archive;
 	
 	public Integer getComId(){
 		return com_id;
@@ -42,7 +43,6 @@ public class Comment {
 		this.user = user;
 	}
 	
-	
 	public String getFirstCom(){
 		return first_com;
 	}
@@ -51,7 +51,6 @@ public class Comment {
 		this.first_com = first_com;
 	}
 	
-
 	public String getSecondCom(){
 		return second_com;
 	}
@@ -68,7 +67,13 @@ public class Comment {
 	public void setConfirmed(boolean confirmed){
 		this.confirmed = confirmed;
 	}
+	public Integer getArchive(){
+		return archive;
+	}
 	
+	public void setArchive(Integer archive){
+		this.archive = archive;
+	}
 	
 	public Integer getCreatorId(){
 		return creator_id;
@@ -77,7 +82,6 @@ public class Comment {
 	public void set(Integer creator_id){
 		this.creator_id = creator_id;
 	}
-	
 	
 	public Integer getBallsPerCom(){
 		return balls_per_com;

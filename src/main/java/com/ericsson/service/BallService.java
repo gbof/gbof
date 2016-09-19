@@ -21,4 +21,6 @@ public interface BallService {
 	public void editCach(Integer balls_id, Double cash);
 	
 	public void editLocked(Integer balls_id, Integer locked);
+	
+	public void editBallsToGiveAndRecivedBallsAfterCommentArchive(Integer balls_id, Integer balls);
 }

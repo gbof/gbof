@@ -134,16 +134,16 @@ public class SettingsController {
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
 		List<Settings> settingslist = sett.getSettings(idDept);
 		
+
 		String deadline = "";
-		if (deadline1 == ""){
-			deadline = settingslist.get(0).getDeadline().toString();
+		if (deadline1.equals(settingslist.get(0).getDeadline().toString())){
+			deadline = deadline1;
 		}
+		else
+		{
 		String[] words = deadline1.toString().split("/");
-		System.out.println(words[0]+words[1]+words[2]);
-		String temp = "";
-		
 		deadline = words[2]+"-"+words[0]+"-"+words[1];
-		System.out.println("======"+deadline);
+		}
 		
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		String login = us.getUser(userName).getLogin();
