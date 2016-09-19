@@ -70,7 +70,7 @@ public class CommentDAOImpl implements CommentDAO{
 	{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
-		Query query = openSession().createQuery("from Comment where user_id = :id and c.archive = 0");
+		Query query = openSession().createQuery("from Comment where user_id = :id and archive = 0");
 		query.setParameter("id", id);
 		commentList = query.list();
 		if (commentList.size() > 0)

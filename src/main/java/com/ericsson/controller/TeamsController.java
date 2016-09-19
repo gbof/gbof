@@ -49,10 +49,6 @@ public class TeamsController {
 	private DepartmentService ds;
 	
 
-	private Integer received_balls;
-	private boolean locked;
-	private double cash;
-
 	@RequestMapping(value = "/teamAdded", method = RequestMethod.POST)
 	public ModelAndView teamAdded(@RequestParam("teamName") String teamName,
 			@RequestParam("leaderLogin") String leaderLogin) {
