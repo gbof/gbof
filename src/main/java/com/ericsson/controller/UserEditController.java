@@ -205,8 +205,9 @@ public class UserEditController {
 			if (rolelistt.get(i).getRole().equals("superuser") || rolelistt.get(i).getRole().equals("admin"))
 				rolelistt.remove(i);
 		}
+		
 		for (int i=0; i<teamlistt.size(); i++){
-			if (teamlistt.get(i).getId() == teamlistt.get(i).getId())
+			if (teamlistt.get(i).getId() == user.getTeam().getId())
 				teamlistt.remove(i);
 		}
 		if(user.getBall().getLocked()==1)
