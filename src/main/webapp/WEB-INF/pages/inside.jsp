@@ -19,6 +19,9 @@
 		.outOfBalls {
 		color: red;
 		}	
+		.ifNull{
+		color: red;
+		}
 		</style>
 
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
@@ -56,9 +59,16 @@
 						<form method="POST" action="${pageContext.request.contextPath}/comments">
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
+											<c:set var="list" value="${ifNull}"/>
+											<c:set var="var" value="1"/>
+											<c:if test="${list==var}">
+											<b class="ifNull">No users selected !</b>
+											</c:if>
 						            <div class="panel panel-default">
+						            
 						                <div class="panel-heading">
 						                    Employees
+						                    
 						                </div>
 						               
 						                <div class="panel-body">
@@ -95,7 +105,7 @@
 											          <td><c:out value="${user.getTeam().getName()}" /></td>
 						
 											          <td><c:out value="${allBallsGivenTo.get(loop.count-1)}" /></td>
-											          
+											        
 											          
 											      </tr>
 						            			</c:forEach>

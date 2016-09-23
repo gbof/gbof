@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,6 +81,7 @@ public class SecurityNavigation {
 		String userName = userDetails.getUsername();
 		Role role = us.getUser(userName).getRole();
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		Integer ifNull=0;
 		   Date date = new Date();
 		   Date date1 = sett.getSettingsDate(idDept).get(0);
 		   if(date1.before(date)){
@@ -96,6 +98,8 @@ public class SecurityNavigation {
 				coms.setConfirmAll();
 			}
 			}
+			
+			
 		if (role.getRole().equals("admin"))
 			return new ModelAndView("redirect:/adminview");
 			else if (role.getRole().equals("superuser"))
@@ -106,10 +110,12 @@ public class SecurityNavigation {
 				return new ModelAndView("redirect:/inside");
 			else 
 				return new ModelAndView("redirect:/inside");
+				
 	
 	}
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
-	public ModelAndView insidePage() {
+	public ModelAndView insidePage(
+			@RequestParam(value = "ifNull", defaultValue = "0") Integer ifNull) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		
@@ -136,8 +142,6 @@ public class SecurityNavigation {
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
 		
-
-		
 		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
@@ -147,12 +151,13 @@ public class SecurityNavigation {
 		lista.addObject("login", login);
 		lista.addObject("listt", listt);
 		lista.addObject("teamlistt", teamlistt);
+		lista.addObject("ifNull",ifNull);
 		lista.setViewName("inside");
 		return lista;
 	}
 	
 	@RequestMapping(value="/adminview", method=RequestMethod.GET)
-	public ModelAndView adminviewPage() {
+	public ModelAndView adminviewPage(@RequestParam(value = "ifNull", defaultValue = "0") Integer ifNull) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		
@@ -169,7 +174,6 @@ public class SecurityNavigation {
 		if(coms.getConfirmedComments()==null){
 			checkAreAllCommentsConfirmed=1;
 		}
-		
 		
 		List<Comment> yourComments=coms.getYourComments(id);
 
@@ -227,7 +231,9 @@ public class SecurityNavigation {
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
 		lista.addObject("login", login);
 		lista.addObject("teamlistt", teamlistt);
+		lista.addObject("ifNull",ifNull);
 		lista.setViewName("adminview");
+		
 		return lista;
 	}
 

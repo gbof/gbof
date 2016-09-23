@@ -66,8 +66,21 @@ public class CommentsController {
 		String userName = userDetails.getUsername();
 		List<Integer> idList = new ArrayList<Integer>();
 		List<User> userList = new ArrayList<User>();
+		Integer ifNull=0;
+		Integer roleId=us.getUser(userName).getRole().getId();
 		if (userIds.length == 0) {
-			return "redirect:/success-login";
+			ifNull=1;
+			model.addAttribute("ifNull",ifNull);
+			if(roleId==3)
+			{
+				return "redirect:/inside";
+			}
+			if(roleId==1)
+			{
+				return "redirect:/adminview";
+			}
+			
+			
 		} else {
 			for (int i = 0; i < userIds.length; i++) {
 				userList.add(us.getUserId(userIds[i]));
@@ -85,7 +98,7 @@ public class CommentsController {
 		String login = us.getUser(userName).getLogin();
 
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
-
+		System.out.println(idList);
 		model.addAttribute("idList", idList);
 		model.addAttribute("money", wynik);
 		model.addAttribute("kule", kulki);
