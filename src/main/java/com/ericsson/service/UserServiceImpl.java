@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void dupcia(){
+	public void encryptAllPasswords(){
 		userDAO.encryptAllPasswords();
 	}
 }

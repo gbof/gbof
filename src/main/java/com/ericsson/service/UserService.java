@@ -29,6 +29,6 @@ public interface UserService {
 	public List<User> getAllUsersTeam(Integer team_id);
 	public void editTeamId(Integer team_id, Integer user_id);
 	public List<User> getUserWithRole(Role id);
-	public void dupcia();
+	public void encryptAllPasswords();
 	
 }

@@ -161,7 +161,7 @@ public class UserDAOImpl implements UserDAO {
 			String password = login+"1";
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			hashedPassword = passwordEncoder.encode(password);
-
+			
 			
 			String FullMail=mail+"@ericsson.com";
 			
@@ -278,6 +278,7 @@ public class UserDAOImpl implements UserDAO {
 		for(int i=0;i<usersList.size();i++){
 			String hashedPassword = "";
 				String password1 = usersList.get(i).getPassword();
+				System.out.println("================="+password1);
 				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 				hashedPassword = passwordEncoder.encode(password1);
 			String query1 = "UPDATE users SET password = '"+ hashedPassword +"' WHERE user_id = '"+ usersList.get(i).getId() + "'";
@@ -286,6 +287,8 @@ public class UserDAOImpl implements UserDAO {
 		}
 
 	}
+	
+
+	}
 
 	
-}

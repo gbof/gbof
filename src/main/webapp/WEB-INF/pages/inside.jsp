@@ -173,7 +173,7 @@
 							        <h4 class="modal-title">Delete</h4>
 							      </div>
 							      <div class="modal-body">
-							           	
+							           	Delete this comment ?
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
