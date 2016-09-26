@@ -108,14 +108,21 @@ public class CommentsController {
 
 	@RequestMapping(value = "/commentAdded", method = RequestMethod.POST)
 	public ModelAndView commentAdded(
-			@RequestParam(value = "message1") ArrayList<String> message1List,
-			@RequestParam(value = "message2") ArrayList<String> message2List,
+			@RequestParam(value = "message1") ArrayList<String> message1List1,
+			@RequestParam(value = "message2") ArrayList<String> message2List2,
 			@RequestParam(value = "ballsNumber") ArrayList<Integer> ballsNumberList,
 			@ModelAttribute("userList") ArrayList<User> userList) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
-		
+		ArrayList<String> message1List = new ArrayList<String>();
+		ArrayList<String> message2List = new ArrayList<String>();
+		for(int k = 0;k<message1List1.size();k++){
+			message1List.add(message1List1.get(k).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
+		for(int l =0;l<message2List2.size();l++){
+			message2List.add(message2List2.get(l).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
 		Integer allBallsGiven = 0;
 		for (int i = 0; i < userList.size(); i++)
 			allBallsGiven = allBallsGiven+ballsNumberList.get(i);
@@ -161,10 +168,18 @@ public class CommentsController {
 	@RequestMapping(value = "/commentAdded", params = "addMore", method = RequestMethod.POST)
 	public String addMoreUsers(@ModelAttribute("userList") ArrayList<User> userList, Model model,
 
-			@RequestParam(value = "message1", defaultValue="") ArrayList<String> message1List,
-			@RequestParam(value = "message2", defaultValue="") ArrayList<String> message2List,
+			@RequestParam(value = "message1", defaultValue="") ArrayList<String> message1List1,
+			@RequestParam(value = "message2", defaultValue="") ArrayList<String> message2List2,
 			@RequestParam(value = "ballsNumber", defaultValue="0") ArrayList<Integer> ballsNumberList) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ArrayList<String> message1List = new ArrayList<String>();
+		ArrayList<String> message2List = new ArrayList<String>();
+		for(int k = 0;k<message1List1.size();k++){
+			message1List.add(message1List1.get(k).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
+		for(int l =0;l<message2List2.size();l++){
+			message2List.add(message2List2.get(l).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
 		String userName = userDetails.getUsername();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
@@ -262,6 +277,8 @@ public class CommentsController {
 			@RequestParam("allMess2s") String allMess2s,
 			@RequestParam("allBallss") String allBallss) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			allMess1s = allMess1s.trim().replaceAll(" +", " ").replace("\n", "").replace("\r", "");
+			allMess2s = allMess2s.trim().replaceAll(" +", " ").replace("\n", "").replace("\r", "");
 		String userName = userDetails.getUsername();
 		List<Double> money = sett.getMoney(1);
 		Double moneyValue = money.get(0);
@@ -309,10 +326,18 @@ public class CommentsController {
 
 	@RequestMapping(value = "/moreComments2", method = RequestMethod.GET)
 	public String moreCommentsPageGet2(@ModelAttribute("userList") ArrayList<User> userList,
-			@RequestParam(value="message1List", defaultValue="") ArrayList<String> message1List,
-			@RequestParam(value="message2List", defaultValue="") ArrayList<String> message2List,
+			@RequestParam(value="message1List", defaultValue="") ArrayList<String> message1List1,
+			@RequestParam(value="message2List", defaultValue="") ArrayList<String> message2List2,
 			@RequestParam(value="ballsNumberList", defaultValue="0") ArrayList<Integer> ballsNumberList,
 			Model model) {
+		ArrayList<String> message1List = new ArrayList<String>();
+		ArrayList<String> message2List = new ArrayList<String>();
+		for(int k = 0;k<message1List1.size();k++){
+			message1List.add(message1List1.get(k).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
+		for(int l =0;l<message2List2.size();l++){
+			message2List.add(message2List2.get(l).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		List<Double> money = sett.getMoney(1);
@@ -376,7 +401,8 @@ public class CommentsController {
 
 	) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+		message1 = message1.trim().replaceAll(" +", " ").replace("\n", "").replace("\r", "");
+		message2 = message2.trim().replaceAll(" +", " ").replace("\n", "").replace("\r", "");
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
 		if(cs.getCommentId(comId).getBallsPerCom()!=ballsNumber){
@@ -406,11 +432,18 @@ public class CommentsController {
 			Model model
 
 	) {
-		
+		ArrayList<String> message1List = new ArrayList<String>();
+		ArrayList<String> message2List = new ArrayList<String>();
+		for(int k = 0;k<messages1.size();k++){
+			message1List.add(messages1.get(k).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
+		for(int l =0;l<messages2.size();l++){
+			message2List.add(messages2.get(l).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
 				
 		for(int i=0;i<comId.size();i++)
 		{
-			cs.editComment(messages1.get(i), messages2.get(i), balls.get(i), comId.get(i));
+			cs.editComment(message1List.get(i), message2List.get(i), balls.get(i), comId.get(i));
 		}
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
 

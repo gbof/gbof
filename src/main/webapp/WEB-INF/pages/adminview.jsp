@@ -129,8 +129,8 @@
 						            </div>
 								</div>
 							</div>	
-							<div class=text-right>
-							     <button type="submit"class="btn-info btn btn-lg">Next</button>
+							<div class=text-right style="text-align: center;">
+							     <button type="submit" style="width: 500px" class="btn-info btn btn-change pull-center btn-lg">Next</button>
 							</div>
 						</form>	
 					</div>

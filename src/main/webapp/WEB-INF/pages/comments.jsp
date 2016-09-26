@@ -154,13 +154,19 @@
 				 		var v = $('input#ballsnumber').map(function(){return $(this).val();}).get();
 				 		var m = $('textarea#message1').map(function(){return $(this).val();}).get();
 				 		var mm = $('textarea#message2').map(function(){return $(this).val();}).get();;
-
+						var max = ${kule};
 				 		var empty=0;
 				 		$(v).each( function( i, el ){
 				 			if (el == ""){
 				 				empty=empty+1;
 				 			}
-				 		});
+				 			if (el < 0){
+			 					empty=empty+1;
+			 				}
+				    	 if (el > max){
+		 						empty=empty+1;
+		 					}
+		 				});	
 				 		$(m).each( function( i, el ){
 				 			if (el == ""){
 				 				empty=empty+1;
@@ -198,14 +204,21 @@
 	        if(parseInt(arr[i].value))
 	            tot += parseInt(arr[i].value);
 	    }
-	    if(totalCount-tot<0)
+	    if(totalCount-tot<0){
 	    	$('#balls').text("Dont be so generous, you are out of balls");
+	    	$('input:submit').attr("disabled", true);
+	    }
+	    else if(totalCount-tot>totalCount){
+	    	$('#balls').text("Balls left: "+totalCount);
+	    	$('input:submit').attr("disabled", true);
+	    }
 	    else
 	    	{
 	    		total = totalCount;
 	    		var ballsLeft = total-tot;
 	    		$('#balls').text("Balls left: "+ballsLeft).val();
 	    		balls = ballsLeft;
+	    		$('input:submit').attr("disabled", false);
 	    	}
 	}
 
