@@ -24,7 +24,7 @@
 
 </head>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
-<body>
+<body onkeyup="findSpaces();" onmouseup="findSpaces();">
 
 
 	 
@@ -42,7 +42,7 @@
 					GBOF
 				</a>
 		</div>
-	
+		<c:set var="tmp" value="0"/>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">			
 			<ul class="nav navbar-nav navbar-right">
@@ -131,7 +131,6 @@
 								<div class="row">
 				                    <div class="col-md-6 col-sm-12">
 				                    	<textarea style="resize: none;" class="form-control" type="textarea" value="message1" name="message1" id="message1"
-			
 				                    		placeholder="What did you like?" maxlength="140" rows="7" required>${message1List[status.index]}</textarea>
 				                        <span class="help-block"><p id="characterLeft" class="help-block " ></p></span>                    
 			
@@ -159,9 +158,11 @@
 				 		$(v).each( function( i, el ){
 				 			if (el == ""){
 				 				empty=empty+1;
+				 				$('input:submit').attr("disabled", true);
 				 			}
 				 			if (el < 0){
 			 					empty=empty+1;
+			 					$('input:submit').attr("disabled", true);
 			 				}
 				    	 if (el > max){
 		 						empty=empty+1;
@@ -170,12 +171,14 @@
 				 		$(m).each( function( i, el ){
 				 			if (el == ""){
 				 				empty=empty+1;
+				 				$('input:submit').attr("disabled", true);
 				 			}
 				 		});
 				 		
 				 		$(mm).each( function( i, el ){
 				 			if (el == ""){
 				 				empty=empty+1;
+				 				$('input:submit').attr("disabled", true);
 				 			}
 				 		});
 				 		
@@ -184,7 +187,7 @@
 				 	});
 
 				 	</script>
-				 	    	<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
+				 	    	<input type="submit" name="addMore" id="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 				      	</div>
 				     </div>
 			    </form>
@@ -193,7 +196,37 @@
 		</div>
 	</div>
 		
-	
+					
+					 <script>
+				 	function findSpaces(){
+				 		var message1List = document.getElementsByName('message1');
+				 		var message2List = document.getElementsByName('message2');
+				 		var ballsNumberList = document.getElementsByName('ballsNumber');
+				 		var tmp=0;
+				 	    $('#submit').attr('disabled',true);
+				 	   $(document).click(function(){
+				 	    	 for(var i=0;i<message1List.length;i++){
+				 	        	if((message1List[i].value.trim().length != 0) && (message2List[i].value.trim().length != 0) && (ballsNumberList[i].value.trim().length != 0))
+				 	        		if(tmp<message1List.length)
+				 	            	tmp++;
+				 	        		else{}
+				 	        	else
+				 	        		if(tmp>0)
+				 	        			tmp--;
+				 	    	 		}
+				 	    	 if(tmp==message1List.length){
+				 	    		 $('#submit').attr('disabled',false);
+				 	    		findTotal();
+				 	    	 }
+				 	    	 else
+				 	    		 $('#submit').attr('disabled',true);
+				 	    })
+				 	}
+				 	
+				 	$('document').ready(findSpaces());
+				 	</script>
+				 	
+				 	
 	<script>
 	function findTotal(){
 	    var arr = document.getElementsByName('ballsNumber');
