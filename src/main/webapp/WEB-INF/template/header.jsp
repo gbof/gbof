@@ -31,9 +31,9 @@
 			<c:if test="${rola == admin}" >
 				<li><a href="${pageContext.request.contextPath}/settings">Settings</a></li>
 				</c:if>
-				<li><a>Username: ${login}</a></li>
+				<li><a id="nohover">Username: ${login}</a></li>
 				<c:if test="${rola != superuser }" >
-					<li><a>Your balls: ${kule}</a></li>
+					<li><a id="nohover">Your balls: ${kule}</a></li>
 				</c:if>
 				<li class="dropdown ">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
