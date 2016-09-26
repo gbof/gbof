@@ -23,7 +23,10 @@
 		
 	.Uedited {
 	color: green
-	}	
+	}
+	.resett {
+	color: green
+	}		
 	
 	</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
@@ -38,11 +41,18 @@
 <b class="correct">User edited</b>
 </c:if>
 </p>
+
+<p>
+<c:if test="${PassReset == true}">
+<b class="error"> Password reset</b>
+</c:if>
+</p>
+
 </div>
 <div style="text-align: center; color:red; font-size:100%;" >
 <p>
 <c:if test="${Ubadlogin == true}">
-<b class="error">User cannot be edited, login is not available</b>
+<b class="error"> User cannot be edited, login is not available</b>
 </c:if>
 </p>
 </div>
@@ -52,6 +62,7 @@
 				<div class="panel panel-default">
 	                <div class="panel-heading">
 	                    Employees
+	                    
 	                </div>
 	                <div class="panel-body">
 	                    <div class="container col-md-12">          

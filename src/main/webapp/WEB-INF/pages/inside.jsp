@@ -22,6 +22,9 @@
 		.ifNull{
 		color: red;
 		}
+		.success{
+		color: green
+		}
 		</style>
 
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
@@ -38,7 +41,8 @@
 	
 	<tiles:insertDefinition name="headerTemplate">
 	</tiles:insertDefinition>   
-	
+
+
 		<div class="container-fluid">
 			<div class="tabbable-panel">
 				<div class="tabbable-line">
@@ -59,11 +63,32 @@
 						<form method="POST" action="${pageContext.request.contextPath}/comments">
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
+											<center>
 											<c:set var="list" value="${ifNull}"/>
 											<c:set var="var" value="1"/>
 											<c:if test="${list==var}">
 											<b class="ifNull">No users selected !</b>
 											</c:if>
+											
+											<div style="text-align: center; color:green; font-size:120%;" >
+											<p>
+											<c:if test="${success==true}">
+											<b class="success"> Comments saved</b>
+											</c:if>
+											</p>
+											<p>
+											<c:if test="${removed==true}">
+											<b class="success"> Comment removed</b>
+											</c:if>
+											</p>
+											<p>
+											<c:if test="${edited==true}">
+											<b class="success"> Comment edited</b>
+											</c:if>
+											</p>
+											</div>
+
+											</center>
 						            <div class="panel panel-default">
 						            
 						                <div class="panel-heading">

@@ -98,7 +98,7 @@ public class CommentsController {
 		String login = us.getUser(userName).getLogin();
 
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
-		System.out.println(idList);
+
 		model.addAttribute("idList", idList);
 		model.addAttribute("money", wynik);
 		model.addAttribute("kule", kulki);
@@ -157,9 +157,10 @@ public class CommentsController {
 				;
 			}
 			;
-			ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+			ModelAndView modelAndView = new ModelAndView();
 		
-			modelAndView.addObject("success-comment", true);
+			modelAndView.addObject("success", true);
+			modelAndView.setViewName("redirect:/success-login");
 			return modelAndView;
 
 		}
@@ -418,7 +419,7 @@ public class CommentsController {
 		cs.editComment(message1, message2, ballsNumber, comId);
 		
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-
+		modelAndView.addObject("edited", true);
 		return modelAndView;
 	}
 	@RequestMapping(value = "/commentsEdited", method = RequestMethod.POST)
@@ -499,6 +500,7 @@ public class CommentsController {
 		us.setBallsAfterCommentDelete(cs.getCommentId(commId).getCreatorId(), cs.getCommentId(commId).getBallsPerCom(), cs.getCommentId(commId).getUser().getId());
 		cs.removeComment(commId);
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
+		modelAndView.addObject("removed", true);
 		return modelAndView;
 	}
 }

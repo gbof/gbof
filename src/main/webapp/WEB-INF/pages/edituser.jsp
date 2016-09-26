@@ -115,7 +115,8 @@
 								<div class="col-md-6">
 									<input value="${user.getBall().getCash()}" type="number" min="0" class="form-control" name="extraMoney" required />
 								</div>
-							</div>		
+							</div>	
+							
 							<div class="form-group col-md-6 col-sm-6">
 								<label class="col-md-4">Block?</label>
 								<div class="checkbox">
@@ -129,9 +130,11 @@
 							</div>	
 															
 		           			<input type="hidden" name="user_id" value="${user.getId()}"/>
-		           			
+		           		<input type="submit" name="reset" style="min-width: 100px;" class="btn btn-primary pull-right " value="Reset password"/>
+  							
 		           			
 		           	</div>	
+		           	
 		           	<div class="panel-footer">	
   						<input type="submit" name="save" style="min-width: 100px;" class="btn btn-primary pull-right " value="Save"/>
   							
@@ -159,7 +162,7 @@
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" style="width:80px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-					         <button type="submit" name="delete" class="btn btn-primary btn-change pull-right" >Delete</button>
+					        <button type="submit" name="delete" class="btn btn-primary btn-change pull-right" >Delete</button>
 					      </div>
 					    
 					    </div>

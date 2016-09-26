@@ -76,7 +76,11 @@ public class SecurityNavigation {
 	}
 
 	@RequestMapping(value = "/success-login", method = RequestMethod.GET)
-	public ModelAndView successLogin() {
+	public ModelAndView successLogin(
+			@RequestParam(value = "success", defaultValue="false") Boolean success,
+			@RequestParam(value = "removed", defaultValue="false") Boolean removed,
+			@RequestParam(value = "edited", defaultValue = "false") Boolean edited)
+		{
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Role role = us.getUser(userName).getRole();
@@ -99,23 +103,54 @@ public class SecurityNavigation {
 			}
 			}
 			
+		ModelAndView modelandview=new ModelAndView();
 			
 		if (role.getRole().equals("admin"))
-			return new ModelAndView("redirect:/adminview");
+			{
+			modelandview.addObject("success",success);
+			modelandview.addObject("removed",removed);
+			modelandview.addObject("edited",edited);
+			modelandview.setViewName("redirect:/adminview");
+			return modelandview;
+			}
 			else if (role.getRole().equals("superuser"))
-				return new ModelAndView("redirect:/superUser");
+				{
+				modelandview.setViewName("redirect:/superUser");
+				return modelandview;
+				}
+				
 			else if(sett.getSettingsFreeze(idDept).get(0)==1)
-				return new ModelAndView("redirect:/freeze");
+				{
+				modelandview.addObject("success",success);
+				modelandview.addObject("edited",edited);
+				modelandview.addObject("removed",removed);
+				modelandview.setViewName("redirect:/freeze");
+				return modelandview;
+				}
+				
 			else if (role.getRole().equals("moderator"))
-				return new ModelAndView("redirect:/inside");
+			{
+				modelandview.setViewName("redirect:/inside");
+				return modelandview;
+				}
+				
 			else 
-				return new ModelAndView("redirect:/inside");
+			{
+				modelandview.addObject("success",success);
+				modelandview.addObject("removed",removed);
+				modelandview.addObject("edited",edited);
+				modelandview.setViewName("redirect:/inside");
+				return modelandview;
+				}
 				
 	
 	}
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
 	public ModelAndView insidePage(
-			@RequestParam(value = "ifNull", defaultValue = "0") Integer ifNull) {
+			@RequestParam(value = "ifNull", defaultValue = "0") Integer ifNull,
+			@RequestParam(value = "success", defaultValue = "false") Boolean success,
+			@RequestParam(value = "removed", defaultValue = "false") Boolean removed,
+			@RequestParam(value = "edited", defaultValue = "false") Boolean edited){
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		
@@ -152,12 +187,18 @@ public class SecurityNavigation {
 		lista.addObject("listt", listt);
 		lista.addObject("teamlistt", teamlistt);
 		lista.addObject("ifNull",ifNull);
+		lista.addObject("success",success);
+		lista.addObject("edited", edited);
+		lista.addObject("removed",removed);
 		lista.setViewName("inside");
 		return lista;
 	}
 	
 	@RequestMapping(value="/adminview", method=RequestMethod.GET)
-	public ModelAndView adminviewPage(@RequestParam(value = "ifNull", defaultValue = "0") Integer ifNull) {
+	public ModelAndView adminviewPage(@RequestParam(value = "ifNull", defaultValue = "0") Integer ifNull,
+			@RequestParam(value = "success", defaultValue = "false") Boolean success,
+			@RequestParam(value = "removed", defaultValue = "false") Boolean removed,
+			@RequestParam(value = "edited", defaultValue = "false") Boolean edited) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		
@@ -226,6 +267,9 @@ public class SecurityNavigation {
 		lista.addObject("yourComments", yourComments);
 		lista.addObject("rola", role);
 		lista.addObject("kule", kulki);
+		lista.addObject("success",success);
+		lista.addObject("removed",removed);
+		lista.addObject("edited", edited);
 		lista.addObject("commentList",commentList);
 		lista.addObject("commentConfirmedList",commentConfirmedList);
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
@@ -318,7 +362,10 @@ public class SecurityNavigation {
 	
 	
 	@RequestMapping(value="/users", method=RequestMethod.GET)
-	public ModelAndView usersPage() {
+	public ModelAndView usersPage(
+			@RequestParam(value = "Uedited", defaultValue = "false") Boolean Uedited,
+			@RequestParam(value = "Ubadlogin", defaultValue = "false") Boolean Ubadlogin,
+			@RequestParam(value = "PassReset", defaultValue = "false") Boolean PassReset){
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<User> listt = us.getAllUsers();
 		String userName = userDetails.getUsername();
@@ -339,6 +386,9 @@ public class SecurityNavigation {
 
 		lista.addObject("listt", listt);
 		lista.addObject("id", id);
+		lista.addObject("Uedited", Uedited);
+		lista.addObject("Ubadlogin", Ubadlogin);
+		lista.addObject("PassReset", PassReset);
 		lista.setViewName("users");
 		return lista;
 	}

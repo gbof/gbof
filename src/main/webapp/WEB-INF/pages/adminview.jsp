@@ -64,6 +64,24 @@
 											<c:if test="${list==var}">
 											<b class="ifNull">No users selected !</b>
 											</c:if>
+											<div style="text-align: center; color:green; font-size:120%;" >
+											<p>
+											<c:if test="${success==true}">
+											<b class="success"> Comments saved</b>
+											</c:if>
+											</p>
+											<p>
+											<c:if test="${removed==true}">
+											<b class="success"> Comment removed</b>
+											</c:if>
+											</p>
+											<p>
+											<c:if test="${edited==true}">
+											<b class="success"> Comment edited</b>
+											</c:if>
+											</p>
+											</div>
+											
 						            <div class="panel panel-default">
 						                <div class="panel-heading">
 						                    Employees
