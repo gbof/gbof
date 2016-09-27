@@ -15,9 +15,12 @@
 		
 		<style>
        		<%@include file="/web-resources/css/comments.css" %>
-		</style>
-		<style>
 			<%@include file="/web-resources/css/all.css" %>
+			
+			body {
+			padding-bottom: 100px;
+			}
+			
 		</style>
 		<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 
@@ -102,7 +105,10 @@
 										<div>This person is an admin, You cannot give him balls</div>
 										<div class="col-md-3 col-sm-3 col-xs-5">	
 											<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
-												placeholder="" value="0"  required onkeyup="findTotal(); findSpaces();" onmouseup="findTotal(); findSpaces();" /> 
+
+												placeholder="" value="0"  required onkeyup="findTotal(); findSpaces();" onmouseup="findTotal(); findSpaces();" readonly/> 
+
+
 										</div>	
 										</c:if>
 										<c:set var="locked" value="${user.getBall().getLocked()}"/>
@@ -151,9 +157,8 @@
 				     $('input:submit').click(function(){
 				 		var v = $('input#ballsnumber').map(function(){return $(this).val();}).get();
 				 		var m = $('textarea#message1').map(function(){return $(this).val();}).get();
-				 		var mm = $('textarea#message2').map(function(){return $(this).val();}).get();;
-						var max = ${kule};
-				 		var empty=0;
+				 		var mm = $('textarea#message2').map(function(){return $(this).val();}).get();
+				 		
 				 		$(v).each( function( i, el ){
 				 			if (el == ""){
 				 				empty=empty+1;
@@ -189,11 +194,13 @@
 				 	    	<input type="submit" name="addMore" id="addMore" value="Add more users" class="btn btn-default" formnovalidate >
 				      	</div>
 				     </div>
+
 			    </form>
 
 		</div>
 	</div>
 		
+
 					
 					 <script>
 				 	function findSpaces(){
@@ -224,6 +231,9 @@
 				 	
 				 	
 	<script>
+
+	
+
 	function findTotal(){
 	    var arr = document.getElementsByName('ballsNumber');
 	    var totalCount = ${kule};
@@ -250,8 +260,15 @@
 	    		$('input:submit').attr("disabled", false);
 	    	}
 	}
-
 	</script>
+
+	
+
+	                    
+
+	
+	
+
 
 
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

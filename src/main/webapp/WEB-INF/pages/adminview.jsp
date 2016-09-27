@@ -22,6 +22,10 @@
 			.ifNull{
 			color: red;
 			}
+			
+			body {
+			padding-bottom: 100px;
+			}
 	</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
@@ -148,7 +152,7 @@
 								</div>
 							</div>	
 							<div class=text-right style="text-align: center;">
-							     <button type="submit" style="width: 500px" class="btn-info btn btn-change pull-center btn-lg">Next</button>
+							     <button type="submit" style="width: 500px;" class="btn-info btn btn-change pull-center btn-lg">Next</button>
 							</div>
 						</form>	
 					</div>

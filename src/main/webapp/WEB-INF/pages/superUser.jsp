@@ -40,6 +40,10 @@
 		.tRemoved{
 		color: green
 		}
+		
+			body {
+			padding-bottom: 100px;
+			}
 	}
 	
 	</style>
