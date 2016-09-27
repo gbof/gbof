@@ -4,7 +4,6 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page session="false" %>
@@ -24,8 +23,7 @@
 
 </head>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
-<body onkeyup="findSpaces();" onmouseup="findSpaces();">
-
+<body onclick="findSpaces();" onkeyup="findSpaces();">
 
 	 
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -192,7 +190,6 @@
 				     </div>
 			    </form>
 
-
 		</div>
 	</div>
 		
@@ -204,7 +201,6 @@
 				 		var ballsNumberList = document.getElementsByName('ballsNumber');
 				 		var tmp=0;
 				 	    $('#submit').attr('disabled',true);
-				 	   $(document).click(function(){
 				 	    	 for(var i=0;i<message1List.length;i++){
 				 	        	if((message1List[i].value.trim().length != 0) && (message2List[i].value.trim().length != 0) && (ballsNumberList[i].value.trim().length != 0))
 				 	        		if(tmp<message1List.length)
@@ -220,7 +216,6 @@
 				 	    	 }
 				 	    	 else
 				 	    		 $('#submit').attr('disabled',true);
-				 	    })
 				 	}
 				 	
 				 	$('document').ready(findSpaces());
@@ -257,15 +252,8 @@
 
 	</script>
 
-	
-			                    
-
-	
-	
-
 
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
 
 </body>
 </html>

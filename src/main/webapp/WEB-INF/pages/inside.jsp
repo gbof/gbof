@@ -78,12 +78,12 @@
 											</p>
 											<p>
 											<c:if test="${removed==true}">
-											<b class="success"> Comment removed</b>
+											<b class="success"> Comments removed</b>
 											</c:if>
 											</p>
 											<p>
 											<c:if test="${edited==true}">
-											<b class="success"> Comment edited</b>
+											<b class="success"> Comments edited</b>
 											</c:if>
 											</p>
 											</div>

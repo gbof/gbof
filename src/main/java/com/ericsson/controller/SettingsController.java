@@ -118,6 +118,7 @@ public class SettingsController {
 		lista.setViewName("settings");
 		return lista;
 	}
+	
 	@RequestMapping(value="/settingsAdd", params="save", method=RequestMethod.POST)
 	public ModelAndView settingsAdd(
 			@RequestParam("ballsPerPers") Integer ballsPerPers,

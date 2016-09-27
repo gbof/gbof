@@ -154,9 +154,9 @@ public class CommentsController {
 					cs.addComment(message1List.get(i), message2List.get(i), ballsNumberList.get(i), user_id, commentToUserId);
 					us.setBallsAfterComment(user_id, ballsNumberList.get(i), commentToUserId);
 				}
-				;
+				
 			}
-			;
+			
 			ModelAndView modelAndView = new ModelAndView();
 		
 			modelAndView.addObject("success", true);
@@ -167,8 +167,8 @@ public class CommentsController {
 	}
 
 	@RequestMapping(value = "/commentAdded", params = "addMore", method = RequestMethod.POST)
-	public String addMoreUsers(@ModelAttribute("userList") ArrayList<User> userList, Model model,
-
+	public String addMoreUsers(
+			@ModelAttribute("userList") ArrayList<User> userList, Model model,
 			@RequestParam(value = "message1", defaultValue="") ArrayList<String> message1List1,
 			@RequestParam(value = "message2", defaultValue="") ArrayList<String> message2List2,
 			@RequestParam(value = "ballsNumber", defaultValue="0") ArrayList<Integer> ballsNumberList) {
@@ -230,16 +230,12 @@ public class CommentsController {
 			allMess1[i] = message1List.get(i);
 		}
 
-	
-
 		String[] allMess2 = new String[message2List.size()];
 		for (int i = 0; i < message2List.size(); i++) {
 			allMess2[i] = message2List.get(i);
 		}
 
 		if (ballsNumberList.size() == 0) ballsNumberList.add(0);
-
-
 
 		String[] allBalls = new String[ballsNumberList.size()];
 		for (int i = 0; i < ballsNumberList.size(); i++) {
@@ -252,14 +248,10 @@ public class CommentsController {
 		
 		String allMess1s = String.join(";;;;;;", allMess1);
 
-		
 
 		model.addAttribute("allMess1s", allMess1s);
 		
 		String allMess2s = String.join(";;;;;;", allMess2);
-
-
-	
 
 		model.addAttribute("allMess2s", allMess2s);
 		
