@@ -447,7 +447,7 @@ public class CommentsController {
 			cs.editComment(message1List.get(i), message2List.get(i), balls.get(i), comId.get(i));
 		}
 		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-
+		modelAndView.addObject("edited",true);
 		return modelAndView;
 	}
 	@RequestMapping(value = "/confirmedComm", params="confirmButton", method = RequestMethod.POST)
