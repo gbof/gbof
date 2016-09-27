@@ -236,6 +236,7 @@
 
 	function findTotal(){
 	    var arr = document.getElementsByName('ballsNumber');
+	    var inputs = document.querySelectorAll("#commentsform input[name='ballsNumber']");
 	    var totalCount = ${kule};
 	    var tot=0;
 	    var total = ${kule};
@@ -258,6 +259,15 @@
 	    		$('#balls').text("Balls left: "+ballsLeft).val();
 	    		balls = ballsLeft;
 	    		$('input:submit').attr("disabled", false);
+	    	    if(totalCount-tot == 0){
+	    			for (i = 0; i < inputs.length; i++) {
+		    	    	inputs[i].max = ballsLeft;
+	    			}
+	    	    } else {
+	    	    	for (i = 0; i < inputs.length; i++) {
+	    	    		inputs[i].max = inputs[i].max + ballsLeft;
+	    	    	}
+	    	    }
 	    	}
 	}
 	</script>
@@ -265,9 +275,6 @@
 	
 
 	                    
-
-	
-	
 
 
 
