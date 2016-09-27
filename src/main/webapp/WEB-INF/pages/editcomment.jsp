@@ -102,8 +102,8 @@
 							<c:if test="${rola == admin}">
 							<c:if test="${user.getRole().getId() != admin}">
 							This person is admin, You cannot give him balls
-							<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
-								placeholder="Number of balls" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
+							<input type="number" min="0" max="0" class="form-control" id="ballsNumber" name="ballsNumber" 
+								placeholder="Number of balls" value="0"  required onkeyup="findTotal(); findSpaces();" onmouseup="findTotal(); findSpaces();"/> 
 							
 							</c:if>
 							</c:if>
@@ -112,8 +112,8 @@
 							<c:if test="${rola != admin}" >
 							<c:if test="${user.getRole().getId() != admin}">
 							
-							<input type="number" value="${commentId.getBallsPerCom()}" min="0" max="${kule+commentId.getBallsPerCom()}" class="form-control" id="mobile" name="ballsNumber" 
-								placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal();" onmouseup="findTotal();"/> 
+							<input type="number" value="${commentId.getBallsPerCom()}" min="0" max="${kule+commentId.getBallsPerCom()}" class="form-control" id="ballsNumber" name="ballsNumber" 
+								placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal(), findSpaces();" onmouseup="findTotal(), findSpaces();"/> 
 							
 							
 							</c:if>
