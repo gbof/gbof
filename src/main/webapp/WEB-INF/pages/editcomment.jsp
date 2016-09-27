@@ -123,12 +123,12 @@
 							</c:if>
 							</div>
 		                    <div class="form-group">
-		                    	<textarea class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7" required>${commentId.getFirstCom()}</textarea>
+		                    	<textarea style="resize: none;" class="form-control"  type="textarea" name="message1" id="message" placeholder="What did you like?" maxlength="140" rows="7" required onkeyup="findSpaces();" onmouseup="findSpaces();">${commentId.getFirstCom()}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 		                    </div>
 		                    
 		                    <div class="form-group">
-		                    	<textarea class="form-control" type="textarea" name="message2" id="message" placeholder="What can she/he do better?" maxlength="140" rows="7" required>${commentId.getSecondCom()}</textarea>
+		                    	<textarea style="resize: none;" class="form-control" type="textarea" name="message2" id="message" placeholder="What can she/he do better?" maxlength="140" rows="7" required onkeyup="findSpaces();" onmouseup="findSpaces();">${commentId.getSecondCom()}</textarea>
 		                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 		                    </div>
 		                    
@@ -171,6 +171,34 @@
 		    </div>
 		</div>
 		</div>
+		
+		<script>
+				 	function findSpaces(){
+				 		var message1List = document.getElementsByName('message1');
+				 		var message2List = document.getElementsByName('message2');
+				 		var ballsNumberList = document.getElementsByName('ballsNumber');
+				 		var tmp=0;
+				 	    $('#submit').attr('disabled',false);
+				 	    	 for(var i=0;i<message1List.length;i++){
+				 	        	if((message1List[i].value.trim().length != 0) && (message2List[i].value.trim().length != 0) && (ballsNumberList[i].value.trim().length != 0))
+				 	        		if(tmp<message1List.length)
+				 	            	tmp++;
+				 	        		else{}
+				 	        	else
+				 	        		if(tmp>0)
+				 	        			tmp--;
+				 	    	 		}
+				 	    	 if(tmp==message1List.length){
+				 	    		 $('#submit').attr('disabled',false);
+				 	    		findTotal();
+				 	    	 }
+				 	    	 else
+				 	    		 $('#submit').attr('disabled',true);
+				 	}
+				 	
+				 	$('document').ready(findSpaces());
+				 	</script>
+				 	
 	<script>
 	function findTotal(){
 	    var arr = document.getElementsByName('ballsNumber');
@@ -181,19 +209,69 @@
 	        if(parseInt(arr[i].value))
 	            tot += parseInt(arr[i].value);
 	    }
-	    if(totalCount-tot<0)
+	    if(totalCount-tot<0){
 	    	$('#balls').text("Dont be so generous, you are out of balls");
+	    	$('input:submit').attr("disabled", true);
+	    }
+	    else if(totalCount-tot>totalCount){
+	    	$('#balls').text("Balls left: "+totalCount);
+	    	$('input:submit').attr("disabled", true);
+	    }
 	    else
 	    	{
 	    		total = totalCount;
 	    		var ballsLeft = total-tot;
 	    		$('#balls').text("Balls left: "+ballsLeft).val();
 	    		balls = ballsLeft;
+	    		$('input:submit').attr("disabled", false);
 	    	}
 	}
 
 	</script>
+ <script>
+				     $('input:submit').click(function(){
+				 		var v = $('input#ballsnumber').map(function(){return $(this).val();}).get();
+				 		var m = $('textarea#message1').map(function(){return $(this).val();}).get();
+				 		var mm = $('textarea#message2').map(function(){return $(this).val();}).get();;
+						var max = ${kule};
+				 		var empty=0;
+				 		$(v).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 				$('input:submit').attr("disabled", true);
+				 				$('#back').attr('disabled',true);
+				 			}
+				 			if (el < 0){
+			 					empty=empty+1;
+			 					$('input:submit').attr("disabled", true);
+			 					$('#back').attr('disabled',true);
+			 				}
+				    	 if (el > max){
+		 						empty=empty+1;
+		 					}
+		 				});	
+				 		$(m).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 				$('input:submit').attr("disabled", true);
+				 				$('#back').attr('disabled',true);
+				 			}
+				 		});
+				 		
+				 		$(mm).each( function( i, el ){
+				 			if (el == ""){
+				 				empty=empty+1;
+				 				$('input:submit').attr("disabled", true);
+				 				$('#back').attr('disabled',true);
+				 			}
+				 		});
+				 		
+				 		if (empty == 0)
+				 			$('input:submit').attr("disabled", true);
+				 		$('#back').attr('disabled',true);
+				 	});
 
+				 	</script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
