@@ -199,7 +199,7 @@
 	        if(parseInt(arr[i].value))
 	            tot += parseInt(arr[i].value);
 	    }
-	    if(totalCount-tot<0)
+	    if(totalCount-tot<0){
 	    	$('#balls').text("Dont be so generous, you are out of balls");
 	    	$('input:submit').attr("disabled", true);
 
