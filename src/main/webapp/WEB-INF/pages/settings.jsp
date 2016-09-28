@@ -497,7 +497,9 @@
 
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 	<script src="webjars/bootstrap-datepicker/1.0.1/js/bootstrap-datepicker.js"></script>
+
 <script>
+
 $(document).ready(function() {
     $('#dateRangePicker')
         .datepicker({

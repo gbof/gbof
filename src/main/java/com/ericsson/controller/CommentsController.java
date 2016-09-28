@@ -58,6 +58,7 @@ public class CommentsController {
 
 	@RequestMapping(value = "/comments", method = RequestMethod.POST)
 	public String commentsPageString(
+			
 			@RequestParam(value = "userIds", required = false, defaultValue = "") Integer[] userIds, Model model,
 			@ModelAttribute("message1List") ArrayList<String> message1List,
 			@ModelAttribute("message2List") ArrayList<String> message2List,
@@ -167,7 +168,40 @@ public class CommentsController {
 
 		}
 	}
+	@RequestMapping(value = "/commentAdded", params = "delUser", method = RequestMethod.POST)
+	public ModelAndView userDelComents(
+			@RequestParam(value = "message1") ArrayList<String> message1List1,
+			@RequestParam(value = "message2") ArrayList<String> message2List2,
+			@RequestParam(value = "ballsNumber") ArrayList<Integer> ballsNumberList,
+			@RequestParam(value = "name") String name,
+			@RequestParam(value = "delUser") Integer idUser,
+			@ModelAttribute("userList") ArrayList<User> userList) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		Integer user_id = us.getUser(userName).getId();
+		ArrayList<String> message1List = new ArrayList<String>();
+		ArrayList<String> message2List = new ArrayList<String>();
+		
+		String login = us.getUser(userName).getLogin();
 
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+
+	
+			int usun=idUser;
+			userList.remove(usun);
+		
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("userList", userList);
+			modelAndView.addObject("success", true);
+			
+			modelAndView.addObject("kule", kulki);
+			modelAndView.addObject("login", login);
+			modelAndView.setViewName("comments");
+			return modelAndView;
+
+	}
+	
+	
 	@RequestMapping(value = "/commentAdded", params = "addMore", method = RequestMethod.POST)
 	public String addMoreUsers(
 			@ModelAttribute("userList") ArrayList<User> userList, Model model,

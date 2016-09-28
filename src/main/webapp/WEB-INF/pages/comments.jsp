@@ -91,9 +91,15 @@
 			<h3 style="margin-bottom: 25px; text-align: center;">Comments</h3>
 				<form name="commentsform" id="commentsform" role="form" method="POST" action="${pageContext.request.contextPath}/commentAdded">
 					<div class="panel panel-default">
+						<c:set var="li" value="0"/>
 						<c:forEach var="user" items="${userList}" varStatus="status">
 							<div class="panel-heading">
 								<label>${user.name} ${user.surname}</label>
+															
+								<button type="submit" name="delUser" id="delUser" value="${li}" class="btn btn-default pull-right" formnovalidate>X</button>
+				      			
+				      			<input type="hidden" id="name" name="name" value="${user.name}" />
+								<c:set var="li" value="${li+1}"/>
 							</div>
 
 									
@@ -151,13 +157,12 @@
 			    		</c:forEach>
 			    		<div class="panel-footer">	
 					    	<input style="width: 100px;" type="submit" id="submit" name="submit" value="Save" id="btnSave" class="btn btn-primary btn-change pull-right btn-back" > 
-					
+						
 				     <script>
 				     $('input:submit').click(function(){
 				 		var v = $('input#ballsnumber').map(function(){return $(this).val();}).get();
 				 		var m = $('textarea#message1').map(function(){return $(this).val();}).get();
 				 		var mm = $('textarea#message2').map(function(){return $(this).val();}).get();;
-
 				 		var empty=0;
 				 		$(v).each( function( i, el ){
 				 			if (el == ""){
@@ -179,9 +184,10 @@
 				 		if (empty == 0)
 				 			$('input:submit').attr("disabled", true);
 				 	});
-
 				 	</script>
 				 	    	<input type="submit" name="addMore" value="Add more users" class="btn btn-default" formnovalidate >
+				      	<a href="${pageContext.request.contextPath}/success-login"><input style="width: 100px;" class="btn btn-primary btn-change pull-left btn-back" value="Back"/></a>
+				      	
 				      	</div>
 				     </div>
 			    </form>
@@ -205,7 +211,6 @@
 	    if(totalCount-tot<0){
 	    	$('#balls').text("Dont be so generous, you are out of balls");
 	    	$('input:submit').attr("disabled", true);
-
 	    }
 	    else if(totalCount-tot>totalCount){
 	    	$('#balls').text("Balls left: "+totalCount);
@@ -234,7 +239,6 @@
 	    	    }
 	    	}
 	}
-
 	</script>
 
 	
