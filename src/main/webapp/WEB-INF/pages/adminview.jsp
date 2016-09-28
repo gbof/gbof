@@ -21,6 +21,21 @@
 			}
 	</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
+		<script>
+		$(function() { 
+		    // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
+		    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		        // save the latest tab; use cookies if you like 'em better:
+		        localStorage.setItem('lastTab', $(this).attr('href'));
+		    });
+	
+		    // go to the latest tab, if it exists:
+		    var lastTab = localStorage.getItem('lastTab');
+		    if (lastTab) {
+		        $('[href="' + lastTab + '"]').tab('show');
+		    }
+		});
+	</script>
 </head>
 <body>
 	<tiles:insertDefinition name="headerTemplate">
@@ -34,25 +49,25 @@
 				<div class="tabbable-line">
 					<ul class="nav nav-tabs ">
 						<li class="active">
-							<a href="#tab_default_1" data-toggle="tab">
+							<a href="#tab1" data-toggle="tab">
 							Users List </a>
 						</li>
 						<li>
-							<a href="#tab_default_2" data-toggle="tab">
+							<a href="#tab2" data-toggle="tab">
 							Your Comments </a>
 						</li>
 						<li>
-							<a href="#tab_default_3" data-toggle="tab">
+							<a href="#tab3" data-toggle="tab">
 							Given comments </a>
 						</li>
 						<li>
-							<a href="#tab_default_4" data-toggle="tab">
+							<a href="#tab4" data-toggle="tab">
 							Confirmed list </a>
 						</li>
 					</ul>
 				</div>
 				<div class="tab-content">
-					<div class="tab-pane active" id="tab_default_1">
+					<div class="tab-pane active in" id="tab1">
 						<form method="POST" action="${pageContext.request.contextPath}/comments">
 							<div class="container-fluid main-container">
 								<div class="col-md-12 col-sm-12 col-xs-12">
@@ -127,7 +142,7 @@
 						</form>	
 					</div>
 				
-					<div class="tab-pane" id="tab_default_2">
+					<div class="tab-pane" id="tab2">
 						<form method="POST" action="${pageContext.request.contextPath}/editcomment">
 							<div class="container-fluid main-container">
 									<div class="col-md-12">
@@ -204,7 +219,7 @@
 						
 					
 						
-						<div class="tab-pane" id="tab_default_3">
+						<div class="tab-pane" id="tab3">
 							<form method="POST" action="${pageContext.request.contextPath}/confirmedComm">
 							
 							
@@ -301,7 +316,7 @@
 
 
 				
-				<div class="tab-pane" id="tab_default_4">
+				<div class="tab-pane" id="tab4">
 
 					<div class="container-fluid main-container">
 						<div class="col-md-12">
@@ -517,6 +532,8 @@
 	    });
 	});
 	</script>
+	
+
 	
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
