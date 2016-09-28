@@ -5,3 +5,7 @@ body {
 .panel {
 	margin-top: 10px;
 }
+
+#nohover:hover {
+    opacity: 0.6;
+}
