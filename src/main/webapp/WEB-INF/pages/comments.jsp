@@ -191,6 +191,7 @@
 	<script>
 	function findTotal(){
 	    var arr = document.getElementsByName('ballsNumber');
+ 	    var inputs = document.querySelectorAll("#commentsform input[name='ballsNumber']"); 
 	    var totalCount = ${kule};
 	    var tot=0;
 	    var total = ${kule};
@@ -200,12 +201,34 @@
 	    }
 	    if(totalCount-tot<0)
 	    	$('#balls').text("Dont be so generous, you are out of balls");
+	    	$('input:submit').attr("disabled", true);
+
+	    }
+	    else if(totalCount-tot>totalCount){
+	    	$('#balls').text("Balls left: "+totalCount);
+	    	$('input:submit').attr("disabled", true);
+	    }
 	    else
 	    	{
 	    		total = totalCount;
 	    		var ballsLeft = total-tot;
 	    		$('#balls').text("Balls left: "+ballsLeft).val();
 	    		balls = ballsLeft;
+	    		$('input:submit').attr("disabled", false);
+	    		var bl = ballsLeft;
+	    		var val = [];
+    	    	for (var i = 0; i < inputs.length; i++){
+	    	    		val[i] = inputs[i].value;
+	    	    	}
+ 	    	    if(totalCount-tot == 0){
+	    			for (i = 0; i < inputs.length; i++) {
+		    	    	inputs[i].max = (parseInt(val[i]) + parseInt(bl)).toString();
+	    			}
+	    	    } else {
+	    	    	for (i = 0; i < inputs.length; i++) {
+	    	    		inputs[i].max = ${kule};
+	    	    	} 
+	    	    }
 	    	}
 	}
 
