@@ -64,6 +64,7 @@ public class CommentsController {
 			@ModelAttribute("ballsNumberList") ArrayList<Integer> ballsNumberList) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
+		String role = us.getUser(userName).getRole().getRole();
 		List<Integer> idList = new ArrayList<Integer>();
 		List<User> userList = new ArrayList<User>();
 		Integer ifNull=0;
@@ -99,6 +100,7 @@ public class CommentsController {
 
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
 
+		model.addAttribute("rola", role);
 		model.addAttribute("idList", idList);
 		model.addAttribute("money", wynik);
 		model.addAttribute("kule", kulki);
