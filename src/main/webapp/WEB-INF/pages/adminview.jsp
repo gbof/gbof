@@ -13,12 +13,54 @@
 	<title>Admin</title>
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="webjars/bootstrap-datepicker/1.0.1/css/datepicker.css" />
-		
+	<style>
+ 
+.back-to-top {
+ 
+background: none;
+ 
+margin: 0;
+ 
+position: fixed;
+ 
+bottom: 0;
+ 
+right: 0;
+ 
+width: 70px;
+ 
+height: 70px;
+ 
+z-index: 100;
+ 
+display: none;
+ 
+text-decoration: none;
+ 
+color: #ffffff;
+ 
+background-color: #ff9000;
+ 
+}
+ 
+  
+ 
+.back-to-top i {
+ 
+  font-size: 60px;
+ 
+}
+ 
+</style>	
 	<style>
       		<%@include file="/web-resources/css/adminview.css" %>
       		.modal {
 				padding: 05%;
+				}
+			body {
+				padding-bottom: 100px;
 			}
+			
 	</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 		<script>
@@ -114,7 +156,7 @@
 						            			</c:forEach>
 											    </tbody>
 											  </table>
-											<table class="table table-filter table-hover col-md-12 table-responsive">
+											<table class="table table-filter col-md-12 table-responsive">
 												  <thead>
 													  <tr data-status="tableeee123">
 														  <th style="width: 35%">
@@ -465,7 +507,6 @@
 			</div>
 		</div>	
 	</div>			
-
 
 
 	<script>

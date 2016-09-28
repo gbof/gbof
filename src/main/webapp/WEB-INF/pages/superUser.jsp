@@ -16,9 +16,12 @@
 	
 	<style>
       	<%@include file="/web-resources/css/settings.css" %>
-      		.modal {
-				padding: 05%;
-			}
+     		body {
+			padding-bottom: 100px;
+		}
+     		.modal {
+			padding: 05%;
+		}
       	.correct {
 		color: green;
 		}

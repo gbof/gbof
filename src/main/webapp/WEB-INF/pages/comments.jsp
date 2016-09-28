@@ -19,6 +19,9 @@
 		</style>
 		<style>
 			<%@include file="/web-resources/css/all.css" %>
+			body {
+				padding-bottom: 100px;
+			}
 		</style>
 		<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 
