@@ -54,7 +54,7 @@ public class CommentDAOImpl implements CommentDAO{
 		List<Comment> commentList = new ArrayList<Comment>();
 		
 
-		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false and archive = 0");
+		Query query = openSession().createQuery("from Comment where creator_id = :id and confirmed=false and archive = 0 order by user_id");
 
 
 		query.setParameter("id", id);

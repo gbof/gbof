@@ -13,15 +13,17 @@
 		<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
 		<style>
-		<%@include file="/web-resources/css/adminview.css" %>
 		.error {
 		color: red;
 		}
 		.outOfBalls {
 		color: red;
 		}	
-	    .modal {
-			padding: 05%;
+		.ifNull{
+		color: red;
+		}
+		.success{
+		color: green
 		}
 		</style>
 
@@ -75,6 +77,28 @@
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
 						            <div class="panel panel-default">
+						            <center>
+											<c:set var="list" value="${ifNull}"/>
+											<c:set var="var" value="1"/>
+											<c:if test="${list==var}">
+											<b class="ifNull">No users selected !</b>
+											</c:if>
+											
+											<div style="text-align: center; color:green; font-size:120%;" >
+											<p>
+											<c:if test="${success==true}">
+											<b class="success"> Comments saved</b>
+											</c:if>
+											</p>
+										
+											<p>
+											<c:if test="${edited==true}">
+											<b class="success"> Comments edited</b>
+											</c:if>
+											</p>
+											</div>
+
+											</center>
 						                <div class="panel-heading">
 						                    Employees
 						                </div>
@@ -137,6 +161,11 @@
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
 						            <div class="panel panel-default">
+						            	<p>
+											<c:if test="${removed==true}">
+											<b class="success"> Comments removed</b>
+											</c:if>
+											</p>
 						                <div class="panel-heading">
 						                    Comments that you gave
 						                </div>

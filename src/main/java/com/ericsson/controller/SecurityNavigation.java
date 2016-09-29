@@ -75,11 +75,16 @@ public class SecurityNavigation {
 	}
 
 	@RequestMapping(value = "/success-login", method = RequestMethod.GET)
-	public ModelAndView successLogin() {
+	public ModelAndView successLogin(
+			@RequestParam(value = "success", defaultValue="false") Boolean success,
+			@RequestParam(value = "removed", defaultValue="false") Boolean removed,
+			@RequestParam(value = "edited", defaultValue = "false") Boolean edited)
+		{
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		Role role = us.getUser(userName).getRole();
 		Integer idDept=us.getUser(userName).getDept().getDeptId();
+		Integer ifNull=0;
 		   Date date = new Date();
 		   Date date1 = sett.getSettingsDate(idDept).get(0);
 		   if(date1.before(date)){
@@ -96,20 +101,55 @@ public class SecurityNavigation {
 				coms.setConfirmAll();
 			}
 			}
+			
+		ModelAndView modelandview=new ModelAndView();
+			
 		if (role.getRole().equals("admin"))
-			return new ModelAndView("redirect:/adminview");
+			{
+			modelandview.addObject("success",success);
+			modelandview.addObject("removed",removed);
+			modelandview.addObject("edited",edited);
+			modelandview.setViewName("redirect:/adminview");
+			return modelandview;
+			}
 			else if (role.getRole().equals("superuser"))
-				return new ModelAndView("redirect:/superUser");
+				{
+				modelandview.setViewName("redirect:/superUser");
+				return modelandview;
+				}
+				
 			else if(sett.getSettingsFreeze(idDept).get(0)==1)
-				return new ModelAndView("redirect:/freeze");
+				{
+				modelandview.addObject("success",success);
+				modelandview.addObject("edited",edited);
+				modelandview.addObject("removed",removed);
+				modelandview.setViewName("redirect:/freeze");
+				return modelandview;
+				}
+				
 			else if (role.getRole().equals("moderator"))
-				return new ModelAndView("redirect:/inside");
+			{
+				modelandview.setViewName("redirect:/inside");
+				return modelandview;
+				}
+				
 			else 
-				return new ModelAndView("redirect:/inside");
+			{
+				modelandview.addObject("success",success);
+				modelandview.addObject("removed",removed);
+				modelandview.addObject("edited",edited);
+				modelandview.setViewName("redirect:/inside");
+				return modelandview;
+				}
+				
 	
 	}
 	@RequestMapping(value="/inside", method=RequestMethod.GET)
-	public ModelAndView insidePage() {
+	public ModelAndView insidePage(
+			@RequestParam(value = "ifNull", defaultValue = "0") Integer ifNull,
+			@RequestParam(value = "success", defaultValue = "false") Boolean success,
+			@RequestParam(value = "removed", defaultValue = "false") Boolean removed,
+			@RequestParam(value = "edited", defaultValue = "false") Boolean edited){
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		
@@ -136,8 +176,6 @@ public class SecurityNavigation {
 			if(allBallsGivenTo.get(i)==null)allBallsGivenTo.set(i,0);
 		}
 		
-
-		
 		
 		ModelAndView lista = new ModelAndView();
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
@@ -147,12 +185,19 @@ public class SecurityNavigation {
 		lista.addObject("login", login);
 		lista.addObject("listt", listt);
 		lista.addObject("teamlistt", teamlistt);
+		lista.addObject("ifNull",ifNull);
+		lista.addObject("success",success);
+		lista.addObject("edited", edited);
+		lista.addObject("removed",removed);
 		lista.setViewName("inside");
 		return lista;
 	}
 	
 	@RequestMapping(value="/adminview", method=RequestMethod.GET)
-	public ModelAndView adminviewPage() {
+	public ModelAndView adminviewPage(@RequestParam(value = "ifNull", defaultValue = "0") Integer ifNull,
+			@RequestParam(value = "success", defaultValue = "false") Boolean success,
+			@RequestParam(value = "removed", defaultValue = "false") Boolean removed,
+			@RequestParam(value = "edited", defaultValue = "false") Boolean edited) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userDetails.getUsername();
 		
@@ -169,7 +214,6 @@ public class SecurityNavigation {
 		if(coms.getConfirmedComments()==null){
 			checkAreAllCommentsConfirmed=1;
 		}
-		
 		
 		List<Comment> yourComments=coms.getYourComments(id);
 
@@ -222,12 +266,17 @@ public class SecurityNavigation {
 		lista.addObject("yourComments", yourComments);
 		lista.addObject("rola", role);
 		lista.addObject("kule", kulki);
+		lista.addObject("success",success);
+		lista.addObject("removed",removed);
+		lista.addObject("edited", edited);
 		lista.addObject("commentList",commentList);
 		lista.addObject("commentConfirmedList",commentConfirmedList);
 		lista.addObject("allBallsGivenTo", allBallsGivenTo);
 		lista.addObject("login", login);
 		lista.addObject("teamlistt", teamlistt);
+		lista.addObject("ifNull",ifNull);
 		lista.setViewName("adminview");
+		
 		return lista;
 	}
 
@@ -344,7 +393,12 @@ public class SecurityNavigation {
 		lista.setViewName("403");
 		return lista;
 	}
-	
+	@RequestMapping(value="/405", method=RequestMethod.GET)
+	public ModelAndView error2Page() {
+		ModelAndView lista = new ModelAndView();
+		lista.setViewName("405");
+		return lista;
+	}
 
 
 }

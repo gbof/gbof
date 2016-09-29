@@ -51,17 +51,20 @@ background-color: #ff9000;
  
 }
  
-</style>	
-	<style>
-      		<%@include file="/web-resources/css/adminview.css" %>
-      		.modal {
-				padding: 05%;
-				}
-			body {
-				padding-bottom: 100px;
-			}
-			
-	</style>
+<style>
+		.error {
+		color: red;
+		}
+		.outOfBalls {
+		color: red;
+		}	
+		.ifNull{
+		color: red;
+		}
+		.success{
+		color: green
+		}
+		</style>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 		<script>
 		$(function() { 
@@ -114,6 +117,23 @@ background-color: #ff9000;
 							<div class="container-fluid main-container">
 								<div class="col-md-12 col-sm-12 col-xs-12">
 						            <div class="panel panel-default">
+						            <center>
+											<c:set var="list" value="${ifNull}"/>
+											<c:set var="var" value="1"/>
+											<c:if test="${list==var}">
+											<b class="ifNull">No users selected !</b>
+											</c:if>
+											
+											<div style="text-align: center; color:green; font-size:120%;" >
+											<p>
+											<c:if test="${success==true}">
+											<b class="success"> Comments saved</b>
+											</c:if>
+											</p>
+										
+										
+
+											</center>
 						                <div class="panel-heading">
 						                    Employees
 						                </div>
@@ -188,7 +208,21 @@ background-color: #ff9000;
 						<form method="POST" action="${pageContext.request.contextPath}/editcomment">
 							<div class="container-fluid main-container">
 									<div class="col-md-12">
+									
 										    <div class="panel panel-default">
+										    <center>
+										    <p>
+											<c:if test="${removed==true}">
+											<b class="success"> Comments removed</b>
+											</c:if>
+											</p>
+												<p>
+											<c:if test="${edited==true}">
+											<b class="success"> Comments edited</b>
+											</c:if>
+											</p>
+											
+											</center>
 										             <div class="panel-heading">
 										                    Comments that you gave
 										                </div>

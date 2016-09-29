@@ -157,6 +157,9 @@ public class CommentsController {
 				}
 		}
 		Integer allBallsGiven = 0;
+		
+		
+		
 		for (int i = 0; i < userList.size(); i++)
 			allBallsGiven = allBallsGiven+ballsNumberList.get(i);
 		if (allBallsGiven > us.getUser(userName).getBall().getBallsToGive()) {
@@ -164,6 +167,7 @@ public class CommentsController {
 			modelAndView.addObject("outOfBalls", true);
 			return modelAndView;
 		} else {
+			
 			for (int i = 0; i < userList.size(); i++) {
 				if (us.getUser(userName).getBall().getBallsToGive() < ballsNumberList.get(i)) {
 				
@@ -179,11 +183,12 @@ public class CommentsController {
 					}
 					if (cs.checkNull(message2List.get(i))) {
 						ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-					
+						
 						modelAndView.addObject("nullComment", true);
 						return modelAndView;
 					}
 					Integer commentToUserId = userList.get(i).getId();
+					
 					cs.addComment(message1List.get(i), message2List.get(i), ballsNumberList.get(i), user_id, commentToUserId);
 					us.setBallsAfterComment(user_id, ballsNumberList.get(i), commentToUserId);
 				}
@@ -211,24 +216,35 @@ public class CommentsController {
 		Integer user_id = us.getUser(userName).getId();
 		ArrayList<String> message1List = new ArrayList<String>();
 		ArrayList<String> message2List = new ArrayList<String>();
-		
+		for(int k = 0;k<message1List1.size();k++){
+			message1List.add(message1List1.get(k).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
+		for(int l =0;l<message2List2.size();l++){
+			message2List.add(message2List2.get(l).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
 		String login = us.getUser(userName).getLogin();
 
 		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
-
+			ModelAndView modelAndView = new ModelAndView();
 	
 			int usun=idUser;
 			userList.remove(usun);
-		
-			ModelAndView modelAndView = new ModelAndView();
+			if(userList.size()==0)
+			{
+				modelAndView.setViewName("redirect:/success-login");
+			}
+			else{
 			modelAndView.addObject("userList", userList);
 			modelAndView.addObject("success", true);
-			
+			modelAndView.addObject("message1List", message1List);
+			modelAndView.addObject("message2List", message2List);
+			modelAndView.addObject("ballsNumberList", ballsNumberList);
 			modelAndView.addObject("kule", kulki);
 			modelAndView.addObject("login", login);
 			modelAndView.setViewName("comments");
+			
+			}
 			return modelAndView;
-
 	}
 	
 	
@@ -485,20 +501,37 @@ public class CommentsController {
 		message2 = message2.trim().replaceAll(" +", " ").replace("\n", "").replace("\r", "");
 		String userName = userDetails.getUsername();
 		Integer user_id = us.getUser(userName).getId();
-		if(cs.getCommentId(comId).getBallsPerCom()!=ballsNumber){
-			if(cs.getCommentId(comId).getCreatorId()==user_id)
-			us.setBallsAfterCommentEdit(user_id, cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
-			else{
-				if(cs.getCommentId(comId).getBallsPerCom()>ballsNumber)
-				us.setBallsAfterCommentEdit(cs.getCommentId(comId).getCreatorId(), cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
-				else
-					us.setBallsAfterCommentEdit(user_id, cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
-			}
-		}
-		cs.editComment(message1, message2, ballsNumber, comId);
 		
-		ModelAndView modelAndView = new ModelAndView("redirect:/success-login");
-		modelAndView.addObject("edited", true);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		Integer yourBalls=us.getUser(userName).getBall().getBallsToGive();
+		if(us.getUserId(toUserId).getRole().getRole().equals("admin"))
+		{
+			ballsNumber=0;
+		}
+		if(ballsNumber>=0 && ballsNumber<=yourBalls)
+		{
+			if(cs.getCommentId(comId).getBallsPerCom()!=ballsNumber){
+				if(cs.getCommentId(comId).getCreatorId()==user_id)
+				us.setBallsAfterCommentEdit(user_id, cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
+				else{
+					if(cs.getCommentId(comId).getBallsPerCom()>ballsNumber)
+					us.setBallsAfterCommentEdit(cs.getCommentId(comId).getCreatorId(), cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
+					else
+						us.setBallsAfterCommentEdit(user_id, cs.getCommentId(comId).getBallsPerCom(), ballsNumber, toUserId);
+				}
+			}
+			cs.editComment(message1, message2, ballsNumber, comId);
+			modelAndView.addObject("edited", true);
+			modelAndView.setViewName("redirect:/success-login");
+		}
+		else
+		{
+			
+			modelAndView.setViewName("/405");
+		}
+		
+			
 		return modelAndView;
 	}
 	@RequestMapping(value = "/commentsEdited", method = RequestMethod.POST)
