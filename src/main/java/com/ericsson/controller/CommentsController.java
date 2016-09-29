@@ -3,6 +3,8 @@ package com.ericsson.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -125,6 +127,34 @@ public class CommentsController {
 		}
 		for(int l =0;l<message2List2.size();l++){
 			message2List.add(message2List2.get(l).trim().replaceAll(" +", " ").replace("\n", "").replace("\r", ""));
+		}
+		Integer ballsSum = 0;
+		for(int kk=0;kk<ballsNumberList.size();kk++)
+			ballsSum = ballsSum + ballsNumberList.get(kk);
+		if(ballsSum>us.getUser(userName).getBall().getBallsToGive()){
+			SecurityContextHolder.getContext().setAuthentication(null);
+			ModelAndView modelAndView = new ModelAndView("home");
+			return modelAndView;
+		}
+			
+		for(int ii=0;ii<ballsNumberList.size();ii++){
+			if(ballsNumberList.get(ii)<0){
+				SecurityContextHolder.getContext().setAuthentication(null);
+				ModelAndView modelAndView = new ModelAndView("home");
+				return modelAndView;
+			}
+			if(userList.get(ii).getRole().getRole().equals("admin"))
+				if(ballsNumberList.get(ii)!=0){
+					SecurityContextHolder.getContext().setAuthentication(null);
+					ModelAndView modelAndView = new ModelAndView("home");
+					return modelAndView;
+				}
+			if(userList.get(ii).getBall().getLocked().equals(1))
+				if(ballsNumberList.get(ii)!=0){
+					SecurityContextHolder.getContext().setAuthentication(null);
+					ModelAndView modelAndView = new ModelAndView("home");
+					return modelAndView;
+				}
 		}
 		Integer allBallsGiven = 0;
 		for (int i = 0; i < userList.size(); i++)

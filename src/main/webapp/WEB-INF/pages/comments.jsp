@@ -112,7 +112,7 @@
 										<div>This person is an admin, You cannot give him balls</div>
 										<div class="col-md-3 col-sm-3 col-xs-5">	
 											<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
-												placeholder="" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
+												placeholder="" value="${ballsNumberList[status.index]}" required onkeyup="findTotal(); findSpaces();" onmouseup="findTotal(); findSpaces();" /> 
 										</div>	
 										</c:if>
 										<c:set var="locked" value="${user.getBall().getLocked()}"/>
@@ -121,7 +121,7 @@
 										<div>This person is locked, You cannot give him balls</div>
 										<div class="col-md-3 col-sm-3 col-xs-5">	
 											<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
-												placeholder="" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
+												placeholder="" value="${ballsNumberList[status.index]}" required onkeyup="findTotal(); findSpaces();" onmouseup="findTotal(); findSpaces();" /> 
 										</div>	
 										</c:if>
 										<c:set var="rola" value="${user.role.id}"/>
@@ -130,7 +130,7 @@
 											
 										<div class="col-md-3 col-sm-3 col-xs-2">	
 											<input type="number" min="0" max="${kule}" class="form-control" id="ballsnumber" name="ballsNumber" 
-												placeholder="" value="0"  required onkeyup="findTotal();" onmouseup="findTotal();" /> 
+												placeholder="" value="${ballsNumberList[status.index]}" required onkeyup="findTotal(); findSpaces();" onmouseup="findTotal(); findSpaces();" /> 
 										</div>	
 										
 										</c:if>
@@ -141,14 +141,14 @@
 				                    <div class="col-md-6 col-sm-12">
 				                    	<textarea style="resize: none;" class="form-control" type="textarea" value="message1" name="message1" id="message1"
 			
-				                    		placeholder="What did you like?" maxlength="140" rows="7" required>${message1List[status.index]}</textarea>
+				                    		placeholder="What did you like?" maxlength="140" rows="7" required onclick="findSpaces();" onkeyup="findSpaces();">${message1List[status.index]}</textarea>
 				                        <span class="help-block"><p id="characterLeft" class="help-block " ></p></span>                    
 			
 				                    </div>
 					                    
 				                    <div class="col-md-6 col-sm-12">
 				                    	<textarea style="resize: none;" class="form-control" type="textarea" value="message2" name="message2" id="message2"
-				                    		placeholder="What can she/he do better?" maxlength="140" rows="7" required>${message2List[status.index]}</textarea>
+				                    		placeholder="What can she/he do better?" maxlength="140" rows="7" required onclick="findSpaces();" onkeyup="findSpaces();">${message2List[status.index]}</textarea>
 				                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 				                    </div>
 			           			</div>
@@ -242,6 +242,32 @@
 	</script>
 
 	
+					 <script>
+				 	function findSpaces(){
+				 		var message1List = document.getElementsByName('message1');
+				 		var message2List = document.getElementsByName('message2');
+				 		var ballsNumberList = document.getElementsByName('ballsNumber');
+				 		var rola =  document.getElementsByName('rola');
+				 		var tmp=0;
+				 	    $('#submit').attr('disabled',true);
+				 	    	 for(var i=0;i<message1List.length;i++){
+				 	        	if((message1List[i].value.trim().length != 0) && (message2List[i].value.trim().length != 0) && (ballsNumberList[i].value.trim().length != 0))
+				 	        		if(tmp<message1List.length)
+				 	            	tmp++;
+				 	        		else{}
+				 	        	else
+				 	        		if(tmp>0)
+				 	        			tmp--;
+				 	    	 if(tmp==message1List.length){
+				 	    		 $('#submit').attr('disabled',false);
+				 	    		findTotal();
+				 	    	 }
+				 	    	 else
+				 	    		 $('#submit').attr('disabled',true);
+				 	}
+				 	
+				 	$('document').ready(findSpaces());
+				 	</script>
 			                    
 
 	
