@@ -103,14 +103,23 @@
 							<c:if test="${user.getRole().getId() != admin}">
 							This person is admin, You cannot give him balls
 							<input type="number" min="0" max="0" class="form-control" id="ballsNumber" name="ballsNumber" 
-								placeholder="Number of balls" value="0"  required onkeyup="findTotal(); findSpaces();" onmouseup="findTotal(); findSpaces();"/> 
+								placeholder="Number of balls" value="0"  required onkeyup="findTotal(); findSpaces();" onmouseup="findTotal(); findSpaces();" readonly/> 
 							
 							</c:if>
 							</c:if>
+							<c:set var="locked" value="${commentId.getUser().getBall().getLocked()}"/>
+										<c:set var="isLocked" value="1"/>
+										<c:if test="${locked == isLocked}" >
+										<div>This person is locked, You cannot give him balls</div>
+										<div class="col-md-3 col-sm-3 col-xs-5">	
+											<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
+												placeholder="" value="0" readonly/> 
+										</div>	
+										</c:if>
 							<c:set var="rola" value="${commentId.getUser().getId()}"/>
 							<c:set var="admin" value="1"/>
 							<c:if test="${rola != admin}" >
-							<c:if test="${user.getRole().getId() != admin}">
+							<c:if test="${user.getRole().getId() != admin && locked != isLocked}">
 							
 							<input type="number" value="${commentId.getBallsPerCom()}" min="0" max="${kule+commentId.getBallsPerCom()}" class="form-control" id="ballsNumber" name="ballsNumber" 
 								placeholder="Number of balls" value="${ballsNumberList[status.index]}"  required onkeyup="findTotal(), findSpaces();" onmouseup="findTotal(), findSpaces();"/> 

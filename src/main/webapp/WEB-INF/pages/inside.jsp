@@ -153,7 +153,11 @@
 							    <button type="submit" style="width: 500px" class="btn-info btn btn-change pull-center btn-lg">Next</button>
 							</div>
 						</form>
+						
 					</div>
+					<br>
+						<br>
+						<br>
 	
 	
 					<div class="tab-pane" id="tab_default_2">

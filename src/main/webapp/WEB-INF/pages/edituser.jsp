@@ -116,17 +116,24 @@
 									<input value="${user.getBall().getCash()}" type="number" min="0" class="form-control" name="extraMoney" required />
 								</div>
 							</div>		
-							<div class="form-group col-md-6 col-sm-6">
-								<label class="col-md-4">Block?</label>
-								<div class="checkbox">
-								<c:if test="${checked == false}">
-									<input type="checkbox" name = "userIds" value = "1">
-									</c:if>
-									<c:if test="${checked == true}">
-									<input type="checkbox" name = "userIds" value = "1" checked>
-									</c:if>
-								</div>	
-							</div>	
+							<div class="panel-group col-md-6">
+						<div class="funkyradio">
+					        <div class="funkyradio-primary">
+					        	<c:if test="${checked == false}">
+					            		<input type="checkbox" name="userIds" id="checkbox" value="1"/>
+					          		
+					            <label class="col-md-4" for="checkbox">Block user</label>
+					            </c:if>
+					            
+					            <c:if test="${checked == true}">
+					            		<input type="checkbox" name="userIds" id="checkbox" value="1" checked/>
+					          		
+					            <label for="checkbox">Block user</label>
+					            </c:if>
+					        </div>
+					    </div>
+					    
+				    </div>		  	
 															
 		           			<input type="hidden" name="user_id" value="${user.getId()}"/>
 		           			

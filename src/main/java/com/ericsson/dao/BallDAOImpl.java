@@ -117,7 +117,7 @@ public class BallDAOImpl implements BallDAO {
 	
 	@Override
 	public void editBallsToGiveAndRecivedBallsAfterCommentArchive(Integer balls_id, Integer balls) {
-		String query = "UPDATE balls SET received_balls = '"+0+"', balls_to_give='"+balls+"' WHERE balls_id ='"+balls_id+"'";
+		String query = "UPDATE balls SET received_balls = '"+0+"', locked = '"+0+"', balls_to_give='"+balls+"' WHERE balls_id ='"+balls_id+"'";
 		SQLQuery sqlQuery = openSession().createSQLQuery(query);
 		sqlQuery.executeUpdate();
 	}

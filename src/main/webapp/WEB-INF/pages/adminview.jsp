@@ -201,6 +201,9 @@ background-color: #ff9000;
 							<div class=text-right style="text-align: center;">
 							     <button type="submit" style="width: 500px" class="btn-info btn btn-change pull-center btn-lg">Next</button>
 							</div>
+							<br>
+							<br>
+							<br>
 						</form>	
 					</div>
 				
