@@ -112,7 +112,8 @@
 										<div>This person is an admin, You cannot give him balls</div>
 										<div class="col-md-3 col-sm-3 col-xs-5">	
 											<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
-												placeholder="" value="0" readonly/> 
+												placeholder="" value="0" readonly /> 
+												
 										</div>	
 										</c:if>
 										<c:set var="locked" value="${user.getBall().getLocked()}"/>
@@ -121,7 +122,8 @@
 										<div>This person is locked, You cannot give him balls</div>
 										<div class="col-md-3 col-sm-3 col-xs-5">	
 											<input type="number" min="0" max="0" class="form-control" id="mobile" name="ballsNumber" 
-												placeholder="" value="0" readonly/> 
+											placeholder="" value="0" readonly /> 
+
 										</div>	
 										</c:if>
 										<c:set var="rola" value="${user.role.id}"/>

@@ -103,7 +103,10 @@
 							<c:if test="${user.getRole().getId() != admin}">
 							This person is admin, You cannot give him balls
 							<input type="number" min="0" max="0" class="form-control" id="ballsNumber" name="ballsNumber" 
-								placeholder="Number of balls" value="0"  required onkeyup="findTotal(); findSpaces();" onmouseup="findTotal(); findSpaces();" readonly/> 
+
+								placeholder="Number of balls" value="0" readonly/> 
+
+								
 							
 							</c:if>
 							</c:if>

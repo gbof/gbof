@@ -91,12 +91,6 @@
 											</c:if>
 											</p>
 										
-											<p>
-											<c:if test="${edited==true}">
-											<b class="success"> Comments edited</b>
-											</c:if>
-											</p>
-											</div>
 
 											</center>
 						                <div class="panel-heading">
@@ -165,11 +159,20 @@
 							<div class="container-fluid main-container">
 								<div class="col-md-12">
 						            <div class="panel panel-default">
+						            	<center>
 						            	<p>
 											<c:if test="${removed==true}">
 											<b class="success"> Comments removed</b>
 											</c:if>
 											</p>
+											
+											<p>
+											<c:if test="${edited==true}">
+											<b class="success"> Comments edited</b>
+											</c:if>
+											</p>
+											</center>
+											</div>
 						                <div class="panel-heading">
 						                    Comments that you gave
 						                </div>
@@ -211,6 +214,7 @@
 						                </div>
 						            </div>
 								</div>
+								
 							</div>	
 						
 						<c:forEach var="comment" items="${yourComments}">
@@ -241,7 +245,8 @@
 					</div>
 				</div>
 			</div>
-		</div>			
+		</div>	
+			
 					
 
 	<script>

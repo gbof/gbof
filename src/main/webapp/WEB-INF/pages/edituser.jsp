@@ -136,7 +136,7 @@
 				    </div>		  	
 															
 		           			<input type="hidden" name="user_id" value="${user.getId()}"/>
-		           			
+		           		<input type="submit" name="reset" style="min-width: 100px;" class="btn btn-primary pull-right " value="Reset password"/>
 		           			
 		           	</div>	
 		           	<div class="panel-footer">	

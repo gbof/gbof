@@ -38,11 +38,18 @@
 <b class="correct">User edited</b>
 </c:if>
 </p>
+
+<p>
+<c:if test="${PassReset == true}">
+<b class="error"> Password reset</b>
+</c:if>
+</p>
+
 </div>
 <div style="text-align: center; color:red; font-size:100%;" >
 <p>
 <c:if test="${Ubadlogin == true}">
-<b class="error">User cannot be edited, login is not available</b>
+<b class="error"> User cannot be edited, login is not available</b>
 </c:if>
 </p>
 </div>

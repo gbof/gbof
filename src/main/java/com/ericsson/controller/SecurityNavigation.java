@@ -355,13 +355,13 @@ public class SecurityNavigation {
 		return lista;
 	}
 	
-	
-	
-	
-	
-	
+
+
 	@RequestMapping(value="/users", method=RequestMethod.GET)
-	public ModelAndView usersPage() {
+	public ModelAndView usersPage(
+			@RequestParam(value = "Uedited", defaultValue = "false") Boolean Uedited,
+			@RequestParam(value = "Ubadlogin", defaultValue = "false") Boolean Ubadlogin,
+			@RequestParam(value = "PassReset", defaultValue = "false") Boolean PassReset){
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<User> listt = us.getAllUsers();
 		String userName = userDetails.getUsername();
@@ -382,6 +382,9 @@ public class SecurityNavigation {
 
 		lista.addObject("listt", listt);
 		lista.addObject("id", id);
+		lista.addObject("Uedited", Uedited);
+		lista.addObject("Ubadlogin", Ubadlogin);
+		lista.addObject("PassReset", PassReset);
 		lista.setViewName("users");
 		return lista;
 	}

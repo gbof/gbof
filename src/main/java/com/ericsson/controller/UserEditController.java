@@ -361,16 +361,68 @@ public class UserEditController {
 		{
 			locked = 0;
 		}
-
+		ModelAndView modelAndView = new ModelAndView();
+		String oldLogin=us.getUserId(user_id).getLogin();
 		
-		
+		if (us.checkLogin(login)==true || oldLogin.equals(login))
+		{
 		bs.editLocked(balls_id, locked);
 		bs.editCach(balls_id, money);
 		bs.editBallsToGive(balls_id, balls);
 		rus.editRole(user_id, roleID);
 		us.editUser(user_id, name, surname, login, mail, roleID, deptID, teamID);
-		ModelAndView modelAndView = new ModelAndView("redirect:/users");
+		modelAndView.addObject("Uedited",true);
+		modelAndView.setViewName("redirect:/users");
+		
+		}
+		else
+		{
+			modelAndView.addObject("Ubadlogin",true);
+			modelAndView.setViewName("redirect:/users");
+			
+		}
+		 
 
 		return modelAndView;
+	}
+	@RequestMapping(value = "/userEdited", params="reset", method = RequestMethod.POST)
+	public ModelAndView userResetPassword(
+			@RequestParam(value = "login") String login,
+			@RequestParam("user_id") Integer user_id,
+			Model model)
+	
+	{
+		String newPassword=login+"1";
+		us.setPassword(user_id, newPassword);
+		
+		ModelAndView modelAndView = new ModelAndView("redirect:/users");
+		modelAndView.addObject("PassReset",true);
+		return modelAndView;
+		
+	}
+	@RequestMapping(value="/reset", method=RequestMethod.GET)
+	public ModelAndView resetPassword() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<User> listt = us.getAllUsers();
+		String userName = userDetails.getUsername();
+		Integer id = us.getUser(userName).getId();
+		List<Double> money = sett.getMoney(1);
+		Double moneyValue = money.get(0);
+		List<Long> ballValue2List = cs.getBallValue2();
+		int ballValue2 = ((Long) ballValue2List.get(0)).intValue();
+		Double wynik = (double) (moneyValue / ballValue2);
+		wynik = sett.round(wynik, 2);
+		String login = us.getUser(userName).getLogin();
+
+		Integer kulki = us.getUser(userName).getBall().getBallsToGive();
+		ModelAndView lista = new ModelAndView();
+		lista.addObject("money", wynik);
+		lista.addObject("kule", kulki);
+		lista.addObject("login", login);
+		lista.addObject("resett", true);
+		lista.addObject("listt", listt);
+		lista.addObject("id", id);
+		lista.setViewName("users");
+		return lista;
 	}
 }
