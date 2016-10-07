@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ericsson.model.Comment;
 import com.ericsson.model.Department;
 import com.ericsson.model.Role;
 import com.ericsson.model.Settings;
@@ -297,7 +298,10 @@ public class SettingsController {
 		Integer kulki=us.getUser(userName).getBall().getBallsToGive();
 		ModelAndView modelAndView = new ModelAndView("freeze");
 		
+		Integer user_id = us.getUser(login).getId();
+		List<Comment> commentlistt = coms.getCommentsYouGave(user_id);
 		
+		modelAndView.addObject("commentlistt", commentlistt);
 		modelAndView.addObject("kule", kulki);
 		modelAndView.addObject("money", wynik);
 		modelAndView.addObject("login", login);

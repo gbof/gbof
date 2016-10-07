@@ -172,7 +172,6 @@
 											</c:if>
 											</p>
 											</center>
-											</div>
 						                <div class="panel-heading">
 						                    Comments that you gave
 						                </div>
@@ -186,7 +185,7 @@
 											        <th>Surname</th>
 											        <th>Balls</th>
 											        <th>What did you like?</th>
-											        <th>What can (s)he do better?</th>
+											        <th>What can she/he do better?</th>
 											        <th align="right" style="width:40px">Edit</th>
 											      
 											        <th align="right" style="width:30px">Delete</th>
@@ -214,9 +213,6 @@
 						                </div>
 						            </div>
 								</div>
-								
-							</div>	
-						
 						<c:forEach var="comment" items="${yourComments}">
 							<div id="Modal2${comment.getComId()}" class="modal fade" role="dialog">
 							  <div class="modal-dialog">

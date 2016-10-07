@@ -13,7 +13,7 @@
 <head>
 	<title>Home</title>
 		<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-		
+		<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 		<style>
        		<%@include file="/web-resources/css/comments.css" %>
 		</style>
@@ -31,21 +31,58 @@
 	
 	<br/>
 	<div style="text-align: center; color:red; font-size:160%;" >
-<span id="balls"></span>
-</div>
+		<span id="balls"></span>
+	</div>
 	<!-- Comments place -->
-	<div class="container">
-		<div class="col-md-4-offset-4">
 		
 		    <div class="form-area">  
-		        <form role="form" method="POST" action="${pageContext.request.contextPath}/commentAdded">
 			        <br style="clear:both">
-	                    <h3 style="margin-bottom: 25px; text-align: center;">Oops, page is frozen, come back later</h3>
-		      
+	                    <h4 style="margin-bottom: 25px; text-align: center;">The GBOF session is finished, you can see the comments that you received below.</h4>
 		        
 		    </div>
+		    
+ 		    
+		    <div class="container-fluid">
+				<div class="container-fluid main-container">
+					<div class="col-md-12">
+			            <div class="panel panel-default">
+			                <div class="panel-heading">
+			                    Received comments
+			                </div>
+			               
+			                <div class="panel-body">
+			                    <div class="container col-md-12"> 	          
+								  <table class="table table-hover col-md-12">
+						
+								    <thead>
+								      <tr >
+								        <th>What did they like?</th>
+								        <th>What can you do better?</th>
+								        <th>Balls</th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								    
+								      
+								      <c:forEach var="comment" items="${commentlistt}" varStatus="loop">
+								    	<tr>
+								   	 	<td><c:out value="${comment.getFirstCom() }"/></td>
+								        <td><c:out value="${comment.getSecondCom() }"/></td>
+								        <td><c:out value="${comment.getBallsPerCom() }"/></td>  
+								          
+								      </tr>
+			            			</c:forEach>
+			            			
+								    </tbody>
+								  </table>
+								</div>
+			                </div>
+			            </div>
+					</div>
+				</div>
+			
 		</div>
-	</div>
+
 		
 
 							

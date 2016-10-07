@@ -47,17 +47,7 @@
 					</div>
 					<button type="submit" class="login-button"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
 				</div>
-				<div class="etc-login-form">
-					<!--<p>forgot your password? <a href="#">click here</a></p>-->
-					 <c:forEach var="user" items="${customerList}">
-                <tr>
-                    <td><c:out value="${user.id}" /></td>
-                    <td><c:out value="${user.name}" /></td>
-                    <td><c:out value="${user.age}" /></td>
-                    <td><c:out value="${user.salary}" /></td>
-                </tr>
-            </c:forEach>
-				</div>
+
 			</form>
 		</div>
 		<!-- end:Main Form -->
