@@ -32,7 +32,7 @@
 	<div class="container">
 		<div class="col-md-4-offset-4">
 		
-		    <div class="form-area" style="text-align: center;" >  
+		    <div class="form-area" style="text-align: center;" style="margin: 50px; ">  
 			        <br style="clear:both; text-align: center;">
 	                    <h3 style="margin-bottom: 25px; text-align: center;">Something went wrong.</h3>
 	                    <a href="${pageContext.request.contextPath}/"><input style="width: 100px; text-align: center;" class="btn btn-primary btn-change pull-center btn-back" value="Back"/></a>

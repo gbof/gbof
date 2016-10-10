@@ -35,7 +35,7 @@
 	</div>
 	<!-- Comments place -->
 		
-		    <div class="form-area">  
+		    <div class="form-area" style="margin: 50px; ">  
 			        <br style="clear:both">
 	                    <h4 style="margin-bottom: 25px; text-align: center;">The GBOF session is finished, you can see the comments that you received below.</h4>
 		        
@@ -51,27 +51,36 @@
 			                </div>
 			               
 			                <div class="panel-body">
-			                    <div class="container col-md-12"> 	          
+			                    <div class="container col-md-12"> 
+								  <h4>Balls: ${ballsSum }</h4>
+								  
+								  <br>          
 								  <table class="table table-hover col-md-12">
 						
 								    <thead>
 								      <tr >
 								        <th>What did they like?</th>
 								        <th>What can you do better?</th>
-								        <th>Balls</th>
 								      </tr>
 								    </thead>
 								    <tbody>
 								    
 								      
-								      <c:forEach var="comment" items="${commentlistt}" varStatus="loop">
 								    	<tr>
-								   	 	<td><c:out value="${comment.getFirstCom() }"/></td>
-								        <td><c:out value="${comment.getSecondCom() }"/></td>
-								        <td><c:out value="${comment.getBallsPerCom() }"/></td>  
+								   	 	<td>
+								   	 		<c:forEach var="comment" items="${commentlistt}" varStatus="loop">
+								   	 			<c:out value="${comment.getFirstCom() }"/>
+								   	 			<br>
+								   	 		</c:forEach>
+								   	 	</td>
+								        <td>
+								        	<c:forEach var="comment" items="${commentlistt}" varStatus="loop">
+								        		<c:out value="${comment.getSecondCom() }"/>
+								        		<br>
+								        	</c:forEach>
+								        </td>
 								          
 								      </tr>
-			            			</c:forEach>
 			            			
 								    </tbody>
 								  </table>

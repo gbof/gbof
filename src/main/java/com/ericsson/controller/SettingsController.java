@@ -301,6 +301,12 @@ public class SettingsController {
 		Integer user_id = us.getUser(login).getId();
 		List<Comment> commentlistt = coms.getCommentsYouGave(user_id);
 		
+		Integer ballsSum = 0;
+		for (Comment c: commentlistt){
+			ballsSum = ballsSum + c.getBallsPerCom();
+		}
+		
+		modelAndView.addObject("ballsSum", ballsSum);
 		modelAndView.addObject("commentlistt", commentlistt);
 		modelAndView.addObject("kule", kulki);
 		modelAndView.addObject("money", wynik);

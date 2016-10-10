@@ -32,7 +32,7 @@
 	<div class="container">
 		<div class="col-md-4-offset-4">
 		
-		    <div class="form-area">  
+		    <div class="form-area" style="margin: 50px; ">  
 			        <br style="clear:both">
 	                    <h3 style="margin-bottom: 25px; text-align: center;">Oops, Access is denied</h3>
 		      
