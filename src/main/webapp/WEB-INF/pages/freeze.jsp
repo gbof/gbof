@@ -55,7 +55,7 @@
 								  <h4>Balls: ${ballsSum }</h4>
 								  
 								  <br>          
-								  <table class="table table-hover col-md-12">
+								  <table class="table col-md-12">
 						
 								    <thead>
 								      <tr >
