@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Change password page</title>
+	<title>GBOF - Change password</title>
 	<style>
 	.error {
 		color: red;

@@ -10,7 +10,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Admin</title>
+	<title>GBOF - Home</title>
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="webjars/bootstrap-datepicker/1.0.1/css/datepicker.css" />
 	<style>

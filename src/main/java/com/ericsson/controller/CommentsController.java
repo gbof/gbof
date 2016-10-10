@@ -131,12 +131,24 @@ public class CommentsController {
 		Integer ballsSum = 0;
 		for(int kk=0;kk<ballsNumberList.size();kk++)
 			ballsSum = ballsSum + ballsNumberList.get(kk);
-		if(ballsSum>us.getUser(userName).getBall().getBallsToGive()){
-			SecurityContextHolder.getContext().setAuthentication(null);
-			ModelAndView modelAndView = new ModelAndView("home");
-			return modelAndView;
+			if(ballsSum>us.getUser(userName).getBall().getBallsToGive()){
+				SecurityContextHolder.getContext().setAuthentication(null);
+				ModelAndView modelAndView = new ModelAndView("home");
+				return modelAndView;
 		}
-			
+		for(int kk=0;kk<message1List.size();kk++)
+			if(message1List.get(kk).length() > 400){
+				SecurityContextHolder.getContext().setAuthentication(null);
+				ModelAndView modelAndView = new ModelAndView("home");
+				return modelAndView;
+		}
+		for(int kk=0;kk<message2List.size();kk++)
+			if(message2List.get(kk).length() > 400){
+				SecurityContextHolder.getContext().setAuthentication(null);
+				ModelAndView modelAndView = new ModelAndView("home");
+				return modelAndView;
+		}
+		
 		for(int ii=0;ii<ballsNumberList.size();ii++){
 			if(ballsNumberList.get(ii)<0){
 				SecurityContextHolder.getContext().setAuthentication(null);

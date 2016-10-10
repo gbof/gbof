@@ -11,7 +11,7 @@
 
 <html>
 <head>
-	<title>Home</title>
+	<title>GBOF - Home</title>
 		<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 		<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
 		<style>
@@ -67,15 +67,17 @@
 								    
 								      
 								    	<tr>
-								   	 	<td>
+								   	 	<td style="max-width:300px;">
 								   	 		<c:forEach var="comment" items="${commentlistt}" varStatus="loop">
 								   	 			<c:out value="${comment.getFirstCom() }"/>
 								   	 			<br>
+								   	 			<br>
 								   	 		</c:forEach>
 								   	 	</td>
-								        <td>
+								        <td style="max-width:300px;">
 								        	<c:forEach var="comment" items="${commentlistt}" varStatus="loop">
 								        		<c:out value="${comment.getSecondCom() }"/>
+								        		<br>
 								        		<br>
 								        	</c:forEach>
 								        </td>

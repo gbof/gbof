@@ -11,7 +11,7 @@
 
 <html>
 <head>
-	<title>Home</title>
+	<title>GBOF - Comments</title>
 		<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 		
 		<style>
@@ -143,14 +143,14 @@
 				                    <div class="col-md-6 col-sm-12">
 				                    	<textarea style="resize: none;" class="form-control" type="textarea" value="message1" name="message1" id="message1"
 			
-				                    		placeholder="What did you like?" maxlength="140" rows="7" required onclick="findSpaces();" onkeyup="findSpaces();">${message1List[status.index]}</textarea>
+				                    		placeholder="What did you like?" maxlength="400" rows="7" required onclick="findSpaces();" onkeyup="findSpaces();">${message1List[status.index]}</textarea>
 				                        <span class="help-block"><p id="characterLeft" class="help-block " ></p></span>                    
 			
 				                    </div>
 					                    
 				                    <div class="col-md-6 col-sm-12">
 				                    	<textarea style="resize: none;" class="form-control" type="textarea" value="message2" name="message2" id="message2"
-				                    		placeholder="What can she/he do better?" maxlength="140" rows="7" required onclick="findSpaces();" onkeyup="findSpaces();">${message2List[status.index]}</textarea>
+				                    		placeholder="What can she/he do better?" maxlength="400" rows="7" required onclick="findSpaces();" onkeyup="findSpaces();">${message2List[status.index]}</textarea>
 				                        <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
 				                    </div>
 			           			</div>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Password changed</title>
+<title>GBOF - Password changed</title>
 </head>
 <body>
 <h1>Password changed</h1>

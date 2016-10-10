@@ -11,7 +11,7 @@
 
 <html>
 <head>
-	<title>SuperUser</title>
+	<title>GBOF - Home</title>
 	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 	
 	<style>
